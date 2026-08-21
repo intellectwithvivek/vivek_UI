@@ -1,10 +1,10 @@
 /*
- * VivekUI design tokens (ARCHITECTURE §3.2).
+ * VivekUI design tokens.
  *
  * These custom properties ARE the theming API. Renaming one is a MAJOR bump (§10.1).
  * Rebranding is plain CSS the consumer already knows:
  *
- *   :root { --vk-color-primary: #0ea5e9; --vk-radius-md: 2px; }
+ * :root { --vk-color-primary: #0ea5e9; --vk-radius-md: 2px; }
  */
 
 :root {

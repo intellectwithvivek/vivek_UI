@@ -1,5 +1,5 @@
 /*
- * Tooltip styles (ARCHITECTURE §3.2).
+ * Tooltip styles.
  *
  * Every selector is :where()-wrapped => specificity 0. Every value is a --vk-* token.
  *

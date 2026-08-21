@@ -1,6 +1,6 @@
 // Imports the package by NAME, never a relative path into packages/ui/src.
 // That is the point of this app: it exercises the real exports map and the built
-// dist/, exactly as an npm consumer would (ARCHITECTURE §7).
+// dist/, exactly as an npm consumer would.
 import { Button, type ButtonProps } from '@the_viveksingh/vivek-ui'
 import { useState } from 'react'
 
@@ -14,7 +14,7 @@ export function App() {
     const next = theme === 'light' ? 'dark' : 'light'
     setTheme(next)
     // Dark mode is one attribute on <html>. No provider, no context, no JS required
-    // for the CSS itself to work (ARCHITECTURE §3.3).
+    // for the CSS itself to work.
     if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark')
     else document.documentElement.removeAttribute('data-theme')
   }

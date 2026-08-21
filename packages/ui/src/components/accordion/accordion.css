@@ -1,5 +1,5 @@
 /*
- * Accordion styles (ARCHITECTURE §3.2).
+ * Accordion styles.
  *
  * :where()-wrapped selectors (specificity 0) and --vk-* tokens only. The chevron is a
  * ::after pseudo-element, so the component adds no decorative DOM a consumer has to

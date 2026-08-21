@@ -1,7 +1,7 @@
 /*
  * CommandPalette — the ⌘K pattern.
  *
- * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2) and every
+ * Every selector is :where()-wrapped for zero specificity and every
  * value is a --vk-* token. The shell is `Modal`, so the backdrop, panel width and the
  * open animation all come from modal.css; everything here is the palette's own interior.
  *

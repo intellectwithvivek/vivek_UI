@@ -2,7 +2,7 @@
  * VivekUI minimal reset.
  * Deliberately small: it normalizes the handful of defaults that make component
  * styling unpredictable, and nothing else. Every selector is :where()-wrapped
- * (specificity 0) so consumer CSS always wins without !important (ARCHITECTURE §3.2).
+ * (specificity 0) so consumer CSS always wins without !important.
  */
 
 :where(*, *::before, *::after) {

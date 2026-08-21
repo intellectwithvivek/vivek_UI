@@ -2,7 +2,7 @@
  * Chart tokens and the pieces every chart shares.
  *
  * Import this BEFORE the individual chart stylesheets: every selector in the library is
- * wrapped in :where() for zero specificity (ARCHITECTURE §3.2), so source order is what
+ * wrapped in :where() for zero specificity, so source order is what
  * resolves ties between two library rules.
  *
  * The series palette is Okabe-Ito, the reference colour-blind-safe qualitative set:

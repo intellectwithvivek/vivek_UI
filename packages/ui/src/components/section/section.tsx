@@ -114,7 +114,7 @@ export const Section = Object.assign(SectionRoot, { Header: SectionHeader })
  * Internal helpers shared by the section components.
  *
  * Exported from this module but deliberately NOT from `./index`, so they never
- * become public API and stay refactorable (CLAUDE.md, Conventions).
+ * become public API and stay refactorable.
  * ---------------------------------------------------------------------------
  */
 

@@ -1,13 +1,13 @@
 /*
  * Drawer — a modal dialog attached to an edge of the viewport.
  *
- * Every selector is wrapped in :where() for zero specificity (ARCHITECTURE §3.2), and
+ * Every selector is wrapped in :where() for zero specificity, and
  * every value is a --vk-* custom property. The ones not yet in styles/tokens.css are
  * written as var(<token>, <fallback>), so adding them to :root later Just Works:
  *
- *   --vk-z-overlay      stacking level for portalled overlays  (fallback 1000)
- *   --vk-color-overlay  backdrop colour                        (fallback black 55%)
- *   --vk-drawer-size-*  panel thickness per data-size
+ * --vk-z-overlay stacking level for portalled overlays (fallback 1000)
+ * --vk-color-overlay backdrop colour (fallback black 55%)
+ * --vk-drawer-size-* panel thickness per data-size
  *
  * Placement is logical, not physical. `data-side="start"` uses flex alignment on the
  * inline axis, so it lands on the left in LTR and on the right in RTL with no extra

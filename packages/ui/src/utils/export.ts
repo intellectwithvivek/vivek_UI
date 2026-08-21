@@ -1,7 +1,7 @@
 /**
  * Data-export helpers: CSV text, a browser download, and print-to-PDF.
  *
- * Zero dependencies, by the same rule as the rest of the library (ARCHITECTURE §1) —
+ * Zero dependencies, by the same rule as the rest of the library —
  * no `papaparse`, no `file-saver`, no `jspdf`. Everything here is either string work or
  * three DOM calls.
  *
@@ -102,13 +102,13 @@ function stringifyValue(value: unknown, nullish: string): string {
  * Two separate jobs, in this order:
  *
  * 1. **Formula guard.** A leading `=`/`+`/`-`/`@`/tab/CR gets a single-quote prefix, so
- *    `=1+1` arrives as text and a `=HYPERLINK(...)` payload never runs. Quoting alone
- *    would NOT prevent this — a spreadsheet evaluates the *content* of a quoted field.
- *    Values that are genuinely numbers, bigints, booleans or Dates are exempt, because
- *    prefixing `-5` would turn a number into the text `'-5`. A *string* `'-5'` is still
- *    guarded: it came from data we do not control.
+ * `=1+1` arrives as text and a `=HYPERLINK(...)` payload never runs. Quoting alone
+ * would NOT prevent this — a spreadsheet evaluates the *content* of a quoted field.
+ * Values that are genuinely numbers, bigints, booleans or Dates are exempt, because
+ * prefixing `-5` would turn a number into the text `'-5`. A *string* `'-5'` is still
+ * guarded: it came from data we do not control.
  * 2. **RFC 4180 quoting.** Wrap in double quotes if the field contains the delimiter, a
- *    double quote, CR or LF, and double every embedded quote.
+ * double quote, CR or LF, and double every embedded quote.
  */
 export function escapeCsvValue(value: unknown, options: EscapeCsvOptions = {}): string {
   const { delimiter = ',', formulaGuard = true, nullish = '' } = options

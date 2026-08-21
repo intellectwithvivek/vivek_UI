@@ -623,7 +623,7 @@ Requests drive promotion between tiers: a Tier C item with heavy GitHub thumbs-u
 ## 13. What You Need Before Writing Code
 
 1. **Node >= 20 LTS** and **pnpm >= 9** installed.
-2. **Public GitHub repo** (e.g., `intellectwithvivek/vivek-ui`).
+2. **Public GitHub repo** (e.g., `intellectwithvivek/vivek_UI`).
 3. **npm account** with 2FA enabled + a **granular access token** (publish scope, this package only) stored as the `NPM_TOKEN` GitHub secret.
 4. **Package name verified:** `npm view vivek-ui` — if taken, create the free npm org for `@vivekui/react`.
 5. **Vercel account** connected to the repo for the docs app.

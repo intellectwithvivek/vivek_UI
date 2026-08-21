@@ -12,8 +12,8 @@ anything structural.
 Requires **Node >= 20** and **pnpm >= 9**.
 
 ```bash
-git clone https://github.com/intellectwithvivek/vivek-ui.git
-cd vivek-ui
+git clone https://github.com/intellectwithvivek/vivek_UI.git
+cd vivek_UI
 pnpm install
 ```
 

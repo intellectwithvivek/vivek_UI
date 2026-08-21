@@ -1,0 +1,13 @@
+/*
+ * The portal wrapper is layout-neutral. `display: contents` means the div generates no
+ * box at all, so a portalled overlay lays out against the viewport exactly as it would
+ * if the wrapper were not there — no stray block in the body, no accidental stacking
+ * context, nothing to un-style.
+ *
+ * It still exists as a real element so consumers have something to hook: give it a
+ * `z-index` and a `position`, or a different `display`, and it becomes a layer root.
+ * Every selector here is wrapped in :where(), so that override needs no !important.
+ */
+:where(.vk-portal) {
+  display: contents;
+}

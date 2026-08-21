@@ -1,0 +1,193 @@
+/*
+ * Chart tokens and the pieces every chart shares.
+ *
+ * Import this BEFORE the individual chart stylesheets: every selector in the library is
+ * wrapped in :where() for zero specificity (ARCHITECTURE §3.2), so source order is what
+ * resolves ties between two library rules.
+ *
+ * The series palette is Okabe-Ito, the reference colour-blind-safe qualitative set:
+ * every pair stays separable under deuteranopia, protanopia and tritanopia, and the
+ * six hues also differ in lightness so they survive greyscale printing. Series are
+ * additionally distinguished by dash pattern and marker shape in the JS, because
+ * colour alone is never enough.
+ */
+
+:where(:root) {
+  --vk-chart-1: #0072b2;
+  --vk-chart-2: #e69f00;
+  --vk-chart-3: #009e73;
+  --vk-chart-4: #cc79a7;
+  --vk-chart-5: #d55e00;
+  --vk-chart-6: #56b4e9;
+
+  --vk-chart-grid: color-mix(in oklab, var(--vk-color-fg) 12%, transparent);
+  --vk-chart-axis: color-mix(in oklab, var(--vk-color-fg) 32%, transparent);
+  --vk-chart-label: var(--vk-color-muted);
+  --vk-chart-surface: var(--vk-color-bg);
+  --vk-chart-area-opacity: 0.18;
+  --vk-chart-tooltip-bg: var(--vk-color-fg);
+  --vk-chart-tooltip-fg: var(--vk-color-bg);
+}
+
+/*
+ * Lifted and desaturated for dark surfaces: #0072b2 on near-black fails contrast, so
+ * the dark ramp trades a little saturation for luminance while keeping the hue order.
+ */
+:where([data-theme="dark"]) {
+  --vk-chart-1: #4ea3ff;
+  --vk-chart-2: #f0b552;
+  --vk-chart-3: #34d399;
+  --vk-chart-4: #f2a6cc;
+  --vk-chart-5: #ff8f52;
+  --vk-chart-6: #8ed4f5;
+
+  --vk-chart-area-opacity: 0.24;
+}
+
+:where(.vk-chart) {
+  position: relative;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-chart__svg) {
+  inline-size: 100%;
+  block-size: auto;
+  overflow: visible;
+}
+
+/* ---- axes, grid, labels ---- */
+
+:where(.vk-chart__grid-line) {
+  stroke: var(--vk-chart-grid);
+  stroke-width: 1;
+}
+
+:where(.vk-chart__axis) {
+  stroke: var(--vk-chart-axis);
+  stroke-width: 1;
+}
+
+:where(.vk-chart__zero) {
+  stroke: var(--vk-chart-axis);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+
+:where(.vk-chart__tick),
+:where(.vk-chart__empty) {
+  fill: var(--vk-chart-label);
+}
+
+:where(.vk-chart__value) {
+  fill: var(--vk-color-fg);
+  font-weight: 600;
+}
+
+/* ---- marks ---- */
+
+:where(.vk-chart__line) {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+:where(.vk-chart__area) {
+  stroke: none;
+  opacity: var(--vk-chart-area-opacity);
+}
+
+:where(.vk-chart__marker) {
+  stroke: var(--vk-chart-surface);
+  stroke-width: 1;
+}
+
+/* ---- legend ---- */
+
+:where(.vk-chart__legend) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vk-space-1) var(--vk-space-4);
+  margin: var(--vk-space-2) 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-chart__legend-item) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-chart__swatch) {
+  flex: none;
+}
+
+/*
+ * The data table: available to assistive tech, absent from the page.
+ * clip-path, never `display: none` - a hidden table is a table screen readers skip.
+ */
+:where(.vk-chart__table) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- hover tooltip (the only interactive layer) ---- */
+
+:where(.vk-chart__hit) {
+  cursor: crosshair;
+  fill: transparent;
+  pointer-events: all;
+}
+
+:where(.vk-chart__tooltip) {
+  pointer-events: none;
+}
+
+:where(.vk-chart__crosshair) {
+  stroke: var(--vk-chart-axis);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+:where(.vk-chart__tooltip-box) {
+  fill: var(--vk-chart-tooltip-bg);
+  stroke: none;
+}
+
+:where(.vk-chart__tooltip-title) {
+  fill: var(--vk-chart-tooltip-fg);
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+:where(.vk-chart__tooltip-row) {
+  fill: var(--vk-chart-tooltip-fg);
+}
+
+/* ---- motion ---- */
+
+:where(.vk-chart__series) {
+  animation: vk-chart-fade var(--vk-duration) var(--vk-ease) both;
+}
+
+@keyframes vk-chart-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-chart__series) {
+    animation: none;
+  }
+}

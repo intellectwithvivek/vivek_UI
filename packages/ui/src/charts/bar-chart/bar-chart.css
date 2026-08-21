@@ -1,0 +1,43 @@
+:where(.vk-bar-chart) {
+  display: block;
+  inline-size: 100%;
+}
+
+/* A surface-coloured hairline separates touching bars in a stack and carries the
+   per-series dash pattern, so series differ by edge texture as well as by hue. */
+:where(.vk-bar-chart__bar) {
+  stroke: var(--vk-chart-surface);
+  stroke-width: 1;
+}
+
+:where(.vk-bar-chart[data-orientation="vertical"]) :where(.vk-bar-chart__bar) {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: vk-bar-grow-y 420ms var(--vk-ease) both;
+}
+
+:where(.vk-bar-chart[data-orientation="horizontal"]) :where(.vk-bar-chart__bar) {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: vk-bar-grow-x 420ms var(--vk-ease) both;
+}
+
+@keyframes vk-bar-grow-y {
+  from {
+    transform: scaleY(0.02);
+    opacity: 0.4;
+  }
+}
+
+@keyframes vk-bar-grow-x {
+  from {
+    transform: scaleX(0.02);
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-bar-chart__bar) {
+    animation: none;
+  }
+}

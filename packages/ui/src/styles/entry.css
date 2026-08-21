@@ -47,3 +47,26 @@
 @import "../components/checkbox/checkbox.css";
 @import "../components/switch/switch.css";
 @import "../components/radio-group/radio-group.css";
+
+/* overlays */
+@import '../components/portal/portal.css';
+@import '../components/modal/modal.css';
+@import '../components/drawer/drawer.css';
+@import '../components/tabs/tabs.css';
+@import '../components/accordion/accordion.css';
+@import '../components/tooltip/tooltip.css';
+@import '../components/popover/popover.css';
+@import '../components/dropdown-menu/dropdown-menu.css';
+@import '../components/toast/toast.css';
+
+/* sections */
+@import '../components/section/section.css';
+@import '../components/hero/hero.css';
+@import '../components/feature-grid/feature-grid.css';
+@import '../components/pricing/pricing.css';
+@import '../components/testimonials/testimonials.css';
+@import '../components/faq/faq.css';
+@import '../components/cta/cta.css';
+@import '../components/stats/stats.css';
+@import '../components/footer/footer.css';
+@import '../components/logo-cloud/logo-cloud.css';

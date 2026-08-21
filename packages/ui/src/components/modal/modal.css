@@ -1,0 +1,181 @@
+/*
+ * Modal — a centred modal dialog.
+ *
+ * Every selector is wrapped in :where() for zero specificity, so consumer CSS always
+ * wins (ARCHITECTURE §3.2).
+ *
+ * Values come from --vk-* custom properties throughout. Four of them do not exist in
+ * styles/tokens.css yet, so they are written as var(<token>, <fallback>): the fallback
+ * keeps the component correct today, and the moment the token is added to :root the
+ * component picks it up with no change here.
+ *
+ *   --vk-z-overlay          stacking level for portalled overlays   (fallback 1000)
+ *   --vk-color-overlay      backdrop colour                        (fallback black 55%)
+ *   --vk-modal-width-*      panel max-widths per data-size
+ *   --vk-modal-enter-*      entry animation offset and scale
+ */
+
+:where(.vk-modal) {
+  position: fixed;
+  inset: 0;
+  z-index: var(--vk-z-overlay, 1000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* A panel taller than the viewport scrolls the backdrop rather than being clipped. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--vk-color-overlay, rgb(0 0 0 / 0.55));
+  animation: vk-modal-overlay-in var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-modal__panel) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  /* The gutter lives on the panel, not as backdrop padding: `data-size="full"` then only
+     has to zero a margin, and no `:has()` on the backdrop is needed to reach it. */
+  margin: var(--vk-space-4);
+  /* `max-height` over `height`: short dialogs stay short. --vk-space-8 is two gutters. */
+  max-height: calc(100% - var(--vk-space-8));
+  width: 100%;
+  max-width: var(--vk-modal-width-md, 32rem);
+  padding: var(--vk-space-6);
+  gap: var(--vk-space-4);
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-md);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-lg);
+  box-shadow: var(--vk-shadow-md);
+  animation: vk-modal-panel-in var(--vk-duration) var(--vk-ease);
+  /* Sections and grids inside the panel respond to the panel's width. */
+  container-type: inline-size;
+}
+
+/* The panel takes focus when it holds nothing focusable. That is a programmatic focus,
+   not a user landing on a control, so only show a ring when the browser says it earned
+   one. */
+:where(.vk-modal__panel:focus) {
+  outline: none;
+}
+:where(.vk-modal__panel:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+:where(.vk-modal__panel[data-size="sm"]) {
+  max-width: var(--vk-modal-width-sm, 22rem);
+}
+:where(.vk-modal__panel[data-size="md"]) {
+  max-width: var(--vk-modal-width-md, 32rem);
+}
+:where(.vk-modal__panel[data-size="lg"]) {
+  max-width: var(--vk-modal-width-lg, 44rem);
+}
+:where(.vk-modal__panel[data-size="xl"]) {
+  max-width: var(--vk-modal-width-xl, 60rem);
+}
+:where(.vk-modal__panel[data-size="full"]) {
+  max-width: none;
+  margin: 0;
+  height: 100%;
+  max-height: 100%;
+  border-radius: 0;
+  border: 0;
+}
+
+:where(.vk-modal__header) {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--vk-space-4);
+  /* The panel owns the rhythm via `gap`; slots add none of their own. */
+  flex: 0 0 auto;
+}
+
+:where(.vk-modal__title) {
+  margin: 0;
+  font-size: var(--vk-text-xl);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-modal__body) {
+  flex: 1 1 auto;
+  min-width: 0;
+  /* Long content scrolls inside the panel, so header and footer stay put. */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-modal__footer) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--vk-space-2);
+  flex: 0 0 auto;
+}
+
+:where(.vk-modal__close) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  /* Offsets the panel padding so the button's box, not its glyph, sits on the corner. */
+  margin: calc(var(--vk-space-2) * -1);
+  padding: var(--vk-space-2);
+  background: none;
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  color: var(--vk-color-muted);
+  cursor: pointer;
+  transition:
+    background var(--vk-duration) var(--vk-ease),
+    color var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-modal__close:hover) {
+    background: color-mix(in oklab, var(--vk-color-fg) 8%, transparent);
+    color: var(--vk-color-fg);
+  }
+}
+
+:where(.vk-modal__close:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+:where(.vk-modal__close-icon) {
+  width: var(--vk-space-4);
+  height: var(--vk-space-4);
+}
+
+@keyframes vk-modal-overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vk-modal-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--vk-modal-enter-y, 0.5rem)) scale(var(--vk-modal-enter-scale, 0.97));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-modal),
+  :where(.vk-modal__panel) {
+    animation: none;
+  }
+  :where(.vk-modal__close) {
+    transition: none;
+  }
+}

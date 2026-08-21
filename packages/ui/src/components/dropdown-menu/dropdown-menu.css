@@ -1,0 +1,153 @@
+/*
+ * DropdownMenu styles (ARCHITECTURE §3.2).
+ *
+ * :where()-wrapped selectors, --vk-* values only. `position: fixed` matches the
+ * viewport coordinate space that utils/position.ts resolves in - see tooltip.css.
+ *
+ * Layering: one step above `--vk-z-overlay`, alongside Popover - a menu can own a
+ * tooltip, never the other way round. The literal fallback keeps the menu above page
+ * content even if a consumer ships only part of the stylesheet.
+ */
+
+:where(.vk-dropdown-menu) {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: calc(var(--vk-z-overlay, 50) + 1);
+  box-sizing: border-box;
+  min-width: 10rem;
+  max-width: min(20rem, calc(100vw - var(--vk-space-4)));
+  padding: var(--vk-space-1);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  box-shadow: var(--vk-shadow-md);
+
+  /* Invisible until measured, so it is never seen at 0,0. */
+  opacity: 0;
+}
+
+:where(.vk-dropdown-menu[data-positioned]) {
+  opacity: 1;
+  animation: vk-dropdown-menu-in var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-dropdown-menu[data-side="top"]) {
+  transform-origin: bottom center;
+}
+
+:where(.vk-dropdown-menu[data-side="bottom"]) {
+  transform-origin: top center;
+}
+
+:where(.vk-dropdown-menu[data-side="left"]) {
+  transform-origin: center right;
+}
+
+:where(.vk-dropdown-menu[data-side="right"]) {
+  transform-origin: center left;
+}
+
+/* The menu owns focus while open, so its own focus ring would be noise on top of
+   the focused item's. It only shows for an empty menu, which has nothing else. */
+:where(.vk-dropdown-menu:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: -2px;
+}
+
+:where(.vk-dropdown-menu__item) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+  width: 100%;
+  padding: var(--vk-space-2) var(--vk-space-3);
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  :where(.vk-dropdown-menu__item:hover:not([data-disabled])) {
+    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  }
+}
+
+/* Keyboard focus is the primary way through a menu, so it gets a filled row rather
+   than a ring - the same visual language as pointer hover. */
+:where(.vk-dropdown-menu__item:focus) {
+  outline: none;
+  background: color-mix(in oklab, var(--vk-color-primary) 12%, transparent);
+}
+
+:where(.vk-dropdown-menu__item:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: -2px;
+}
+
+:where(.vk-dropdown-menu__item[data-disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+:where(.vk-dropdown-menu__item-label) {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+:where(.vk-dropdown-menu__shortcut) {
+  flex: none;
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+  letter-spacing: 0.02em;
+}
+
+:where(.vk-dropdown-menu__indicator) {
+  flex: none;
+  width: 1em;
+  text-align: center;
+  color: var(--vk-color-primary);
+}
+
+/* An <hr>, so the browser's own border and margins have to be reset first. */
+:where(.vk-dropdown-menu__separator) {
+  height: 1px;
+  margin: var(--vk-space-1) 0;
+  border: 0;
+  background: var(--vk-color-border);
+}
+
+:where(.vk-dropdown-menu__label) {
+  padding: var(--vk-space-2) var(--vk-space-3) var(--vk-space-1);
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+  font-weight: 500;
+}
+
+:where(.vk-dropdown-menu__trigger) {
+  font: inherit;
+  color: inherit;
+}
+
+@keyframes vk-dropdown-menu-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-dropdown-menu[data-positioned]) {
+    animation: none;
+  }
+}

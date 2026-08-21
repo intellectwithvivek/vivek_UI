@@ -1,0 +1,31 @@
+:where(.vk-area-chart) {
+  display: block;
+  inline-size: 100%;
+}
+
+/* Stacked layers read as one surface, so they get a hairline separator from the page
+   background rather than an outline in their own colour. */
+:where(.vk-area-chart[data-stacked="true"]) :where(.vk-chart__area) {
+  opacity: calc(var(--vk-chart-area-opacity) + 0.5);
+}
+
+:where(.vk-area-chart[data-stacked="true"]) :where(.vk-chart__line) {
+  stroke: var(--vk-chart-surface);
+  stroke-width: 1;
+}
+
+:where(.vk-area-chart .vk-chart__area) {
+  animation: vk-area-rise var(--vk-duration) var(--vk-ease) both;
+}
+
+@keyframes vk-area-rise {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-area-chart .vk-chart__area) {
+    animation: none;
+  }
+}

@@ -1,0 +1,36 @@
+:where(.vk-hero__inner) {
+  display: grid;
+  gap: var(--vk-space-8);
+  align-items: center;
+}
+
+/* The hero owns no margin under its copy block — the grid gap already spaces it. */
+:where(.vk-hero__content) {
+  margin-block-end: 0;
+  gap: var(--vk-space-4);
+}
+
+:where(.vk-hero__actions) {
+  margin-block-start: var(--vk-space-2);
+}
+
+:where(.vk-hero__media) {
+  min-width: 0;
+}
+
+/*
+ * Split layout, driven by the hero's own inline size (see section.css). Below
+ * this width the two tracks collapse to one automatically — a stacked hero.
+ */
+@container vk-section (min-width: 48rem) {
+  :where(.vk-hero[data-layout="split"]) :where(.vk-hero__inner:has(.vk-hero__media)) {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--vk-space-12);
+  }
+}
+
+/* Centred layout: cap the measure so the lead paragraph stays readable. */
+:where(.vk-hero[data-layout="centered"][data-align="center"]) :where(.vk-hero__content) {
+  max-width: 48rem;
+  margin-inline: auto;
+}

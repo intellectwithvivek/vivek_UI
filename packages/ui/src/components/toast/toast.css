@@ -1,0 +1,244 @@
+/*
+ * Toast — the fixed viewport, its two live regions, and the notification itself.
+ *
+ * Every local value is a `--vk-toast-*` custom property declared on the viewport, so a
+ * consumer can retheme the whole stack (width, inset, gap, stacking order, slide
+ * distance) without writing a single selector of their own.
+ */
+
+:where(.vk-toast-viewport) {
+  --vk-toast-gap: var(--vk-space-3);
+  --vk-toast-inset: var(--vk-space-4);
+  --vk-toast-width: 22rem;
+  --vk-toast-slide: var(--vk-space-2);
+  --vk-toast-z: 60;
+
+  position: fixed;
+  z-index: var(--vk-toast-z);
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-toast-gap);
+  width: max-content;
+  max-width: calc(100% - var(--vk-toast-inset) * 2);
+  /*
+   * The viewport spans a corner of the screen but must never swallow clicks meant for
+   * the page underneath. Only the toasts themselves take pointer events (below).
+   */
+  pointer-events: none;
+}
+
+/*
+ * Block-axis anchoring. `column-reverse` at the top and `column` at the bottom put the
+ * newest toast nearest the screen edge in both cases, while DOM order stays oldest-first
+ * — which is also the order a screen reader reads the region in.
+ */
+:where(.vk-toast-viewport[data-position^="top"]) {
+  top: var(--vk-toast-inset);
+  flex-direction: column-reverse;
+}
+
+:where(.vk-toast-viewport[data-position^="bottom"]) {
+  bottom: var(--vk-toast-inset);
+  flex-direction: column;
+}
+
+/* Inline-axis anchoring, all logical, so `start`/`end` swap themselves under `dir="rtl"`. */
+:where(.vk-toast-viewport[data-position$="-start"]) {
+  inset-inline-start: var(--vk-toast-inset);
+  align-items: flex-start;
+}
+
+:where(.vk-toast-viewport[data-position$="-end"]) {
+  inset-inline-end: var(--vk-toast-inset);
+  align-items: flex-end;
+}
+
+/*
+ * Centring spans the inline axis and lets `align-items` do the work: a `translateX(-50%)`
+ * would need its sign flipped for RTL, and this needs nothing.
+ */
+:where(.vk-toast-viewport[data-position$="-center"]) {
+  inset-inline: var(--vk-toast-inset);
+  width: auto;
+  align-items: center;
+}
+
+/*
+ * The live regions. `inherit` on all three flex properties means they lay their toasts
+ * out exactly as the viewport lays them out, so the polite/assertive split is invisible
+ * in the layout.
+ */
+:where(.vk-toast-region) {
+  display: flex;
+  flex-direction: inherit;
+  align-items: inherit;
+  gap: inherit;
+  pointer-events: none;
+}
+
+/* Urgent toasts sit nearest the anchored edge, in both block directions. */
+:where(.vk-toast-region[data-live="assertive"]) {
+  order: 1;
+}
+
+/*
+ * Both regions are always mounted so screen readers can observe them before the first
+ * toast arrives — which means the empty one must not contribute a phantom flex gap.
+ */
+:where(.vk-toast-region:empty) {
+  display: none;
+}
+
+:where(.vk-toast) {
+  --vk-toast-color: var(--vk-color-primary);
+
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--vk-space-3);
+  /* Falls back when the toast is rendered standalone, outside a viewport. */
+  width: var(--vk-toast-width, 22rem);
+  max-width: 100%;
+  padding: var(--vk-space-3) var(--vk-space-4);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  line-height: 1.5;
+  text-align: start;
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-inline-start: var(--vk-space-1) solid var(--vk-toast-color);
+  border-radius: var(--vk-radius-md);
+  box-shadow: var(--vk-shadow-md);
+}
+
+/*
+ * Tone colours mirror Alert. Success and warning read through a token first, so the day
+ * `--vk-color-success` lands in tokens.css both components pick it up untouched.
+ */
+:where(.vk-toast[data-tone="info"]) {
+  --vk-toast-color: var(--vk-color-primary);
+}
+:where(.vk-toast[data-tone="success"]) {
+  --vk-toast-color: var(--vk-color-success, #16a34a);
+}
+:where(.vk-toast[data-tone="warning"]) {
+  --vk-toast-color: var(--vk-color-warning, #ca8a04);
+}
+:where(.vk-toast[data-tone="danger"]) {
+  --vk-toast-color: var(--vk-color-danger);
+}
+
+:where(.vk-toast__icon) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.075rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: var(--vk-radius-full);
+  background: var(--vk-toast-color);
+  color: #fff;
+}
+
+:where(.vk-toast) > :where(.vk-toast__icon) > :where(svg) {
+  width: 100%;
+  height: 100%;
+}
+
+:where(.vk-toast__content) {
+  min-width: 0;
+  flex: 1;
+}
+
+:where(.vk-toast__title) {
+  font-weight: 600;
+  color: inherit;
+}
+
+:where(.vk-toast__title:not(:only-child)) {
+  margin-bottom: 0.15rem;
+}
+
+:where(.vk-toast__description) {
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-toast__action) {
+  flex: none;
+  align-self: center;
+}
+
+:where(.vk-toast__dismiss) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--vk-space-6);
+  height: var(--vk-space-6);
+  margin-block-start: calc(var(--vk-space-1) * -1);
+  margin-inline-end: calc(var(--vk-space-2) * -1);
+  padding: 0;
+  font: inherit;
+  font-size: var(--vk-text-lg);
+  line-height: 1;
+  color: var(--vk-color-muted);
+  background: none;
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+  transition:
+    color var(--vk-duration) var(--vk-ease),
+    background var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-toast__dismiss:hover) {
+  color: var(--vk-color-fg);
+  background: color-mix(in oklab, var(--vk-color-fg) 8%, transparent);
+}
+
+:where(.vk-toast__dismiss:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+/* Slide along the block axis only — nothing to flip for RTL. */
+@keyframes vk-toast-enter-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--vk-toast-slide) * -1));
+  }
+}
+
+@keyframes vk-toast-enter-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(var(--vk-toast-slide));
+  }
+}
+
+:where(.vk-toast-viewport[data-position^="top"]) :where(.vk-toast) {
+  animation: vk-toast-enter-from-top var(--vk-duration) var(--vk-ease) both;
+}
+
+:where(.vk-toast-viewport[data-position^="bottom"]) :where(.vk-toast) {
+  animation: vk-toast-enter-from-bottom var(--vk-duration) var(--vk-ease) both;
+}
+
+/*
+ * Reduced motion: the toast simply appears. These rules are last in the file and every
+ * selector above is zero-specificity `:where()`, so source order is what wins.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-toast) {
+    animation: none;
+  }
+
+  :where(.vk-toast__dismiss) {
+    transition: none;
+  }
+}

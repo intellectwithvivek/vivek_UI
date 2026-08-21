@@ -1,0 +1,239 @@
+/*
+ * Tabs styles (ARCHITECTURE §3.2).
+ *
+ * Every selector is :where()-wrapped => specificity 0, so a consumer's own
+ * `.my-tab { color: red }` wins with no !important. Every value comes from a --vk-*
+ * token. Variants and state are data-attributes, never classes computed in JS.
+ */
+
+:where(.vk-tabs) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-4);
+  min-width: 0;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-tabs[data-orientation="vertical"]) {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+/* ---------------------------------------------------------------- tablist */
+
+:where(.vk-tabs__list) {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--vk-space-1);
+  min-width: 0;
+  /* A crowded tablist scrolls; it never wraps into a second row, which would break
+     the left/right mental model the arrow keys promise. */
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+:where(.vk-tabs__list[data-orientation="vertical"]) {
+  flex-direction: column;
+  align-items: stretch;
+  overflow-x: visible;
+  flex: none;
+}
+
+:where(.vk-tabs__list[data-variant="line"][data-orientation="horizontal"]) {
+  border-bottom: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-tabs__list[data-variant="line"][data-orientation="vertical"]) {
+  border-inline-end: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-tabs__list[data-variant="enclosed"][data-orientation="horizontal"]) {
+  gap: var(--vk-space-1);
+  border-bottom: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-tabs__list[data-variant="pill"]) {
+  gap: var(--vk-space-1);
+  padding: var(--vk-space-1);
+  background: color-mix(in oklab, var(--vk-color-fg) 5%, transparent);
+  border-radius: var(--vk-radius-md);
+}
+
+/* ---------------------------------------------------------------- tab */
+
+:where(.vk-tabs__tab) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vk-space-2);
+  flex: none;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--vk-color-muted);
+  background: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    color var(--vk-duration) var(--vk-ease),
+    background-color var(--vk-duration) var(--vk-ease),
+    border-color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-tabs__tab[data-size="sm"]) {
+  padding: var(--vk-space-2) var(--vk-space-3);
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-tabs__tab[data-size="md"]) {
+  padding: var(--vk-space-3) var(--vk-space-4);
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-tabs__tab[data-size="lg"]) {
+  padding: var(--vk-space-3) var(--vk-space-6);
+  font-size: var(--vk-text-lg);
+}
+
+@media (hover: hover) {
+  :where(.vk-tabs__tab:hover:not([data-disabled])) {
+    color: var(--vk-color-fg);
+  }
+}
+
+:where(.vk-tabs__tab:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: -2px;
+}
+
+:where(.vk-tabs__tab[data-disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* line: a 2px rule that doubles as the selected indicator, so nothing shifts when
+   selection moves. The unselected tab already owns the same box. */
+
+:where(.vk-tabs__tab[data-variant="line"][data-orientation="horizontal"]) {
+  border-radius: var(--vk-radius-sm) var(--vk-radius-sm) 0 0;
+  box-shadow: inset 0 -2px 0 0 transparent;
+  margin-bottom: -1px;
+}
+
+:where(.vk-tabs__tab[data-variant="line"][data-orientation="horizontal"][data-state="active"]) {
+  color: var(--vk-color-primary);
+  box-shadow: inset 0 -2px 0 0 var(--vk-color-primary);
+}
+
+:where(.vk-tabs__tab[data-variant="line"][data-orientation="vertical"]) {
+  justify-content: flex-start;
+  text-align: start;
+  border-radius: var(--vk-radius-sm) 0 0 var(--vk-radius-sm);
+  box-shadow: inset -2px 0 0 0 transparent;
+  margin-inline-end: -1px;
+}
+
+:where(.vk-tabs__tab[data-variant="line"][data-orientation="vertical"][data-state="active"]) {
+  color: var(--vk-color-primary);
+  box-shadow: inset -2px 0 0 0 var(--vk-color-primary);
+}
+
+/* enclosed: the selected tab joins the panel by covering the list's border */
+
+:where(.vk-tabs__tab[data-variant="enclosed"]) {
+  border-radius: var(--vk-radius-sm) var(--vk-radius-sm) 0 0;
+  margin-bottom: -1px;
+}
+
+:where(.vk-tabs__tab[data-variant="enclosed"][data-state="active"]) {
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border-color: var(--vk-color-border);
+  border-bottom-color: var(--vk-color-bg);
+}
+
+:where(.vk-tabs__tab[data-variant="enclosed"][data-orientation="vertical"]) {
+  justify-content: flex-start;
+  text-align: start;
+  border-radius: var(--vk-radius-sm) 0 0 var(--vk-radius-sm);
+  margin-bottom: 0;
+  margin-inline-end: -1px;
+}
+
+:where(.vk-tabs__tab[data-variant="enclosed"][data-orientation="vertical"][data-state="active"]) {
+  border-bottom-color: var(--vk-color-border);
+  border-inline-end-color: var(--vk-color-bg);
+}
+
+/* pill */
+
+:where(.vk-tabs__tab[data-variant="pill"]) {
+  border-radius: var(--vk-radius-sm);
+}
+
+:where(.vk-tabs__tab[data-variant="pill"][data-state="active"]) {
+  color: var(--vk-color-primary-fg);
+  background: var(--vk-color-primary);
+}
+
+@media (hover: hover) {
+  :where(.vk-tabs__tab[data-variant="pill"]:hover:not([data-disabled]):not([data-state="active"])) {
+    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  }
+}
+
+/* ---------------------------------------------------------------- panels */
+
+:where(.vk-tabs__panels) {
+  min-width: 0;
+  flex: 1;
+}
+
+:where(.vk-tabs__panel) {
+  min-width: 0;
+}
+
+/*
+ * The UA sheet's `[hidden] { display: none }` loses to any author `display`, so state
+ * it here: an inactive panel must really be gone, not just invisible.
+ */
+:where(.vk-tabs__panel[hidden]) {
+  display: none;
+}
+
+/* A focus ring on the panel itself, since the panel is a tab stop (APG). */
+:where(.vk-tabs__panel:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+  border-radius: var(--vk-radius-sm);
+}
+
+/*
+ * Opening animation only. A closing panel is switched to `display: none` the same frame,
+ * which no transition can outrun — pretending otherwise means either delaying the
+ * `hidden` attribute (and leaving stale content in the a11y tree) or animating a
+ * still-exposed element. Neither is worth 180ms of fade.
+ */
+:where(.vk-tabs__panel[data-state="active"]) {
+  animation: vk-tabs-panel-in var(--vk-duration) var(--vk-ease);
+}
+
+@keyframes vk-tabs-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-tabs__tab) {
+    transition: none;
+  }
+
+  :where(.vk-tabs__panel[data-state="active"]) {
+    animation: none;
+  }
+}

@@ -28,6 +28,15 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean
 }
 
+/**
+ * A button.
+ *
+ * The reference implementation every other primitive follows: variants map to `data-*`
+ * attributes rather than concatenated class names, `className` and `style` are merged
+ * rather than replaced, `...rest` reaches the root element, and the ref forwards to the
+ * DOM node. `loading` also disables it, so a submit cannot fire twice while a request is
+ * in flight.
+ */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     variant = 'solid',

@@ -59,19 +59,42 @@ export const Clock = forwardRef<HTMLTimeElement, ClockProps>(function Clock(
   // `null` means "no clock yet": the first render on the server and in the browser.
   const [nowMs, setNowMs] = useState<number | null>(now === undefined ? null : toEpoch(now))
 
-  // An explicit `second` in `format` overrides the shortcut, including for the tick rate.
-  const withSeconds = format?.second !== undefined ? true : showSeconds
+  /*
+   * `Intl.DateTimeFormat` treats `dateStyle`/`timeStyle` and the individual component
+   * options (`hour`, `minute`, `second`, ...) as mutually exclusive, and throws
+   * `TypeError: Invalid option` if both are present. So when `format` asks for a style,
+   * the shortcut defaults have to be dropped rather than merged under it — otherwise the
+   * documented "anything set here wins" is a crash instead of an override.
+   *
+   * `hour12` and `timeZone` are the exception: both are legal alongside a style, so they
+   * stay in either branch.
+   */
+  const styled = format?.dateStyle !== undefined || format?.timeStyle !== undefined
+
+  /*
+   * Whether the display shows seconds, which is also the tick rate. An explicit
+   * `format.second` decides it; failing that a `timeStyle` of `medium` or longer includes
+   * seconds, while `short` does not. Getting this wrong is not cosmetic: a clock showing
+   * seconds but ticking once a minute looks frozen.
+   */
+  const withSeconds =
+    format?.second !== undefined
+      ? true
+      : format?.timeStyle !== undefined
+        ? format.timeStyle !== 'short'
+        : styled
+          ? false
+          : showSeconds
 
   const options = useMemo<Intl.DateTimeFormatOptions>(
     () => ({
-      hour: 'numeric',
-      minute: '2-digit',
-      ...(showSeconds ? { second: '2-digit' } : null),
+      ...(styled ? null : { hour: 'numeric', minute: '2-digit' }),
+      ...(styled || !showSeconds ? null : { second: '2-digit' }),
       ...(hour12 === undefined ? null : { hour12 }),
       ...(timeZone === undefined ? null : { timeZone }),
       ...format,
     }),
-    [format, hour12, showSeconds, timeZone],
+    [format, hour12, showSeconds, styled, timeZone],
   )
 
   const formatter = useMemo(() => new Intl.DateTimeFormat(locale, options), [locale, options])

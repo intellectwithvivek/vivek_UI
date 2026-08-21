@@ -7,19 +7,21 @@
  * `name` keys into the preview module for the same slug, so the rendered preview and the
  * shown code cannot drift: if a preview is missing, the page says so rather than showing
  * code beside an empty box.
+ *
+ * The sets are split by domain purely for file size. This module is the only entry point;
+ * a slug appearing in two sets is a bug the coverage check below catches.
  */
-export interface Example {
-  /** Section heading. */
-  title: string
-  /** Optional sentence of context. */
-  description?: string
-  /** Key into `previews/<slug>`. */
-  name: string
-  /** TypeScript source. The JS tab is derived from it. */
-  code: string
-}
 
-const EXAMPLES: Record<string, Example[]> = {
+import { FORM_EXAMPLES } from './example-sets/forms'
+import { LAYOUT_EXAMPLES } from './example-sets/layout'
+import { OVERLAY_EXAMPLES } from './example-sets/overlays'
+import { SECTION_EXAMPLES } from './example-sets/sections'
+import { TYPOGRAPHY_EXAMPLES } from './example-sets/typography'
+import type { Example, ExampleSet } from './example-types'
+
+export type { Example }
+
+const CORE_EXAMPLES: ExampleSet = {
   button: [
     {
       title: 'Variants',
@@ -67,6 +69,29 @@ const EXAMPLES: Record<string, Example[]> = {
 .my-cta { background: #db2777; border-radius: 999px; }
 
 <Button className="my-cta">Beats the library</Button>`,
+    },
+  ],
+
+  'icon-button': [
+    {
+      title: 'Sizes and states',
+      description:
+        'aria-label is required at the type level, not by convention. An icon-only control has no text for a screen reader to announce, so the type system refuses it rather than leaving it to code review.',
+      name: 'sizes',
+      code: `<IconButton size="sm" aria-label="Add item"><PlusIcon /></IconButton>
+<IconButton size="md" aria-label="Add item"><PlusIcon /></IconButton>
+<IconButton size="lg" aria-label="Add item"><PlusIcon /></IconButton>
+<IconButton loading aria-label="Adding item"><PlusIcon /></IconButton>
+<IconButton disabled aria-label="Add item"><PlusIcon /></IconButton>`,
+    },
+    {
+      title: 'Variants',
+      description: 'round swaps the rounded rectangle for a circle.',
+      name: 'variants',
+      code: `<IconButton aria-label="Add item"><PlusIcon /></IconButton>
+<IconButton variant="outline" aria-label="Add item"><PlusIcon /></IconButton>
+<IconButton variant="ghost" aria-label="Add item"><PlusIcon /></IconButton>
+<IconButton round variant="outline" aria-label="Add item"><PlusIcon /></IconButton>`,
     },
   ],
 
@@ -244,6 +269,15 @@ import '@the_viveksingh/vivek-ui/charts.css'
 />`,
     },
   ],
+}
+
+const EXAMPLES: ExampleSet = {
+  ...CORE_EXAMPLES,
+  ...LAYOUT_EXAMPLES,
+  ...TYPOGRAPHY_EXAMPLES,
+  ...FORM_EXAMPLES,
+  ...OVERLAY_EXAMPLES,
+  ...SECTION_EXAMPLES,
 }
 
 export function examplesFor(slug: string): Example[] {

@@ -150,6 +150,58 @@ describe('Carousel', () => {
     expect(container.querySelector('.vk-carousel__controls')).toBeNull()
   })
 
+  it('names every dot, and lets dotLabel override the default', () => {
+    const { container } = render(
+      <Carousel showDots>
+        {SLIDES.map((slide) => (
+          <div key={slide}>{slide}</div>
+        ))}
+      </Carousel>,
+    )
+    const dots = Array.from(container.querySelectorAll('.vk-carousel__dot'))
+    expect(dots).toHaveLength(SLIDES.length)
+    for (const dot of dots) {
+      expect(dot.getAttribute('aria-label')).toBeTruthy()
+    }
+  })
+
+  /*
+   * Regression: `dotLabel` used to be forwarded to the controls as a function. The
+   * controls are a Client Component, so that threw "Functions cannot be passed directly
+   * to Client Components" the moment a Server Component rendered a Carousel with dots -
+   * which made the component unusable in an App Router page. The labels are resolved in
+   * this component now, so what crosses the boundary is a string array.
+   *
+   * jsdom has no client boundary to violate, so this asserts the observable half of the
+   * fix: the callback runs during *this* component's render, once per dot. The boundary
+   * itself is guarded by the docs site, whose build prerenders a page per component from
+   * Server Components - that is what caught the bug in the first place.
+   */
+  it('resolves dotLabel to strings rather than forwarding the function', () => {
+    const calls: Array<[number, number]> = []
+    const { container } = render(
+      <Carousel
+        showDots
+        dotLabel={(index, total) => {
+          calls.push([index, total])
+          return `Slide ${index + 1} of ${total}`
+        }}
+      >
+        {SLIDES.map((slide) => (
+          <div key={slide}>{slide}</div>
+        ))}
+      </Carousel>,
+    )
+
+    // Called once per dot during the parent's own render, not deferred into the child.
+    expect(calls).toEqual(SLIDES.map((_, index) => [index, SLIDES.length]))
+    expect(
+      Array.from(container.querySelectorAll('.vk-carousel__dot')).map((dot) =>
+        dot.getAttribute('aria-label'),
+      ),
+    ).toEqual(SLIDES.map((_, index) => `Slide ${index + 1} of ${SLIDES.length}`))
+  })
+
   it('advances on a timer, and pauses on hover and on focus within', () => {
     vi.useFakeTimers()
     const { container } = render(
@@ -562,6 +614,59 @@ describe('Clock', () => {
 
     const html = expectHydrationClean(<Clock now={FIXED_NOW} timeZone="UTC" locale="en-GB" />)
     expect(html).toContain('12:00:00')
+  })
+
+  /*
+   * Regression: `format` was spread on top of the `hour`/`minute`/`second` shortcut
+   * defaults, so asking for a `dateStyle` or `timeStyle` left both families of options
+   * present. `Intl.DateTimeFormat` rejects that combination outright, so the documented
+   * "anything set here wins over the shortcuts" threw `TypeError: Invalid option` instead
+   * of overriding anything.
+   */
+  it.each([
+    { dateStyle: 'full' },
+    { timeStyle: 'short' },
+    { timeStyle: 'medium' },
+    { dateStyle: 'medium', timeStyle: 'short' },
+  ] as const)('accepts %o alongside the shortcut props', (format) => {
+    expect(() =>
+      renderToStaticMarkup(
+        <Clock now={FIXED_NOW} timeZone="UTC" locale="en-GB" showSeconds format={format} />,
+      ),
+    ).not.toThrow()
+  })
+
+  it('renders a styled format instead of the shortcut options', () => {
+    const html = renderToStaticMarkup(
+      <Clock
+        now={FIXED_NOW}
+        timeZone="UTC"
+        locale="en-GB"
+        format={{ dateStyle: 'medium', timeStyle: 'short' }}
+      />,
+    )
+    // The date half proves `dateStyle` survived; no seconds proves `timeStyle: 'short'`
+    // won over the `showSeconds` default rather than colliding with it.
+    const text = html.replace(/^[\s\S]*?>/, '').replace(/<\/time>$/, '')
+    expect(text).toContain('Jun 2026')
+    // Asserted on the text, not the whole tag: the `dateTime` attribute is a full ISO
+    // instant and always contains seconds, so matching the markup would pass either way.
+    expect(text).not.toContain('12:00:00')
+  })
+
+  it('still ticks every second when timeStyle includes seconds', () => {
+    // `timeStyle: 'medium'` shows seconds without setting `format.second`, so the tick
+    // rate has to be inferred from the style. Getting it wrong renders a frozen clock.
+    const html = renderToStaticMarkup(
+      <Clock now={FIXED_NOW} timeZone="UTC" locale="en-GB" format={{ timeStyle: 'medium' }} />,
+    )
+    expect(html).toContain('12:00:00')
+  })
+
+  it('falls back to a minute placeholder for a short timeStyle', () => {
+    const html = renderToStaticMarkup(<Clock format={{ timeStyle: 'short' }} />)
+    expect(html).toContain('--:--')
+    expect(html).not.toContain('--:--:--')
   })
 
   it('renders a placeholder rather than reading the clock during render', () => {

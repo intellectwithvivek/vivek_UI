@@ -15,6 +15,14 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
   'aria-label': string
 }
 
+/**
+ * A square button holding a single icon.
+ *
+ * `aria-label` is required at the type level. An icon-only control has no text for a
+ * screen reader to announce, and shipping one without a name is the most common
+ * accessibility defect in a component library — so the type system refuses it rather than
+ * leaving it to code review.
+ */
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
   { variant = 'ghost', size = 'md', loading, round, className, children, disabled, ...rest },
   ref,

@@ -57,6 +57,9 @@ function defaultSlideLabel(index: number, total: number): string {
   return `${index + 1} of ${total}`
 }
 
+/** Frozen so the shared empty case cannot be mutated by a caller. */
+const EMPTY: readonly string[] = Object.freeze([])
+
 function defaultDotLabel(index: number, total: number): string {
   return `Go to slide ${index + 1} of ${total}`
 }
@@ -135,6 +138,11 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(function Carou
   const total = slides.length
   const needsControls = Boolean(showArrows || showDots || autoPlay)
 
+  // Resolved here rather than passed as a callback: the controls are a Client Component,
+  // and React refuses to serialise a function across that boundary. Doing it on the
+  // server is also strictly less work, since the count cannot change after render.
+  const dotLabels = showDots ? Array.from({ length: total }, (_, i) => dotLabel(i, total)) : EMPTY
+
   return (
     <div
       ref={ref}
@@ -179,7 +187,7 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(function Carou
           loop={loop}
           prevLabel={prevLabel}
           nextLabel={nextLabel}
-          dotLabel={dotLabel}
+          dotLabels={dotLabels}
           playLabel={playLabel}
           pauseLabel={pauseLabel}
           showPauseButton={showPauseButton}

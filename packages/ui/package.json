@@ -39,7 +39,7 @@
     "typescript"
   ],
   "scripts": {
-    "build": "tsup && pnpm build:css && node ../../scripts/check-directives.mjs",
+    "build": "tsup && node ../../scripts/fix-dist-specifiers.mjs && pnpm build:css && node ../../scripts/check-directives.mjs",
     "build:css": "lightningcss --bundle --minify src/styles/entry.css -o dist/styles.css",
     "dev": "tsup --watch",
     "test": "vitest run",
@@ -80,7 +80,7 @@
     "react-dom": "^19.2.8",
     "size-limit": "^13.0.3",
     "tsup": "^8.5.1",
-    "typescript": "^7.0.2",
+    "typescript": "^5.9.3",
     "vitest": "^4.1.11",
     "vitest-axe": "^0.1.0"
   }

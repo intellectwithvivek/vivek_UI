@@ -1,0 +1,36 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+dist/
+build/
+.next/
+out/
+
+# test / coverage
+coverage/
+*.lcov
+
+# caches
+.turbo/
+.cache/
+*.tsbuildinfo
+.eslintcache
+.vite/
+
+# editor / os
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+
+# env
+.env
+.env.local
+.env.*.local
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*

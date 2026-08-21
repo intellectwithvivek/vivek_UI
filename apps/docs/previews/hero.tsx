@@ -1,4 +1,5 @@
 import { Badge, Button, Hero, Stack, Text } from '@the_viveksingh/vivek-ui'
+import { LIBRARY_VERSION_LABEL } from '../lib/version'
 
 export default function HeroPreview({ name }: { name: string }) {
   if (name === 'split') {
@@ -6,7 +7,7 @@ export default function HeroPreview({ name }: { name: string }) {
       <Hero
         layout="split"
         padding="md"
-        eyebrow={<Badge tone="primary">v0.3.1</Badge>}
+        eyebrow={<Badge tone="primary">{LIBRARY_VERSION_LABEL}</Badge>}
         title="One package. No dependencies."
         description="83 components, 6 charts and a token system that your CSS can always override."
         actions={

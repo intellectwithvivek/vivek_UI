@@ -1,4 +1,5 @@
 import type { ExampleSet } from '../example-types'
+import { LIBRARY_VERSION_LABEL } from '../version'
 
 /** Marketing page sections and the chat surface. */
 export const SECTION_EXAMPLES: ExampleSet = {
@@ -27,7 +28,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
       name: 'split',
       code: `<Hero
   layout="split"
-  eyebrow={<Badge tone="primary">v0.3.1</Badge>}
+  eyebrow={<Badge tone="primary">${LIBRARY_VERSION_LABEL}</Badge>}
   title="One package. No dependencies."
   description="83 components, 6 charts and a token system your CSS can always override."
   actions={<Button>Get started</Button>}

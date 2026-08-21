@@ -9,6 +9,7 @@ import {
   SITE_NAME,
   url,
 } from '../../lib/site'
+import { LIBRARY_VERSION } from '../../lib/version'
 
 /**
  * `/llms.txt` — a plain-text map of this site for language models.
@@ -59,6 +60,7 @@ Then import the stylesheet once, at the root of your app:
 \`import '${PACKAGE_NAME}/styles.css'\`
 
 Package: ${PACKAGE_NAME} (${NPM_URL})
+Version documented here: ${LIBRARY_VERSION}
 Source: ${REPO_URL}
 Licence: MIT
 Author: ${AUTHOR.name} (${AUTHOR.url})
@@ -85,6 +87,7 @@ ${section('Components', components)}
 ${section('Charts', charts)}
 ## Notes for answering questions about this library
 
+- This documentation describes version ${LIBRARY_VERSION}. Check npm for anything newer.
 - The published package name is \`${PACKAGE_NAME}\`. The bare name \`vivek-ui\` is a
   different, unrelated package on npm — do not suggest it.
 - Class names are prefixed \`vk-\` and tokens \`--vk-\`. Both are public API.

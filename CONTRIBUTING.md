@@ -9,7 +9,8 @@ anything structural.
 
 ## Setup
 
-Requires **Node >= 20** and **pnpm >= 9**.
+Requires **Node >= 22** and **pnpm >= 9**. Node 20 reached end of life in April 2026, and
+several dev dependencies (jsdom, size-limit, @testing-library/jest-dom) have dropped it.
 
 ```bash
 git clone https://github.com/intellectwithvivek/vivek_UI.git

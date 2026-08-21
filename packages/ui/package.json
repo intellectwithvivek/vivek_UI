@@ -22,12 +22,12 @@
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/intellectwithvivek/vivek-ui.git",
+    "url": "git+https://github.com/intellectwithvivek/vivek_UI.git",
     "directory": "packages/ui"
   },
-  "homepage": "https://github.com/intellectwithvivek/vivek-ui#readme",
+  "homepage": "https://github.com/intellectwithvivek/vivek_UI#readme",
   "bugs": {
-    "url": "https://github.com/intellectwithvivek/vivek-ui/issues"
+    "url": "https://github.com/intellectwithvivek/vivek_UI/issues"
   },
   "keywords": [
     "react",

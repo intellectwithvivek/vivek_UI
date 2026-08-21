@@ -146,13 +146,13 @@ than primitives you assemble yourself.
 | M6–M8 | Icon set to 150+, `DataTable`, `@the_viveksingh/vivek-ui/charts` |
 
 Full detail, including the complete catalog by tier and the decision log:
-[docs/ARCHITECTURE.md](https://github.com/intellectwithvivek/vivek-ui/blob/main/docs/ARCHITECTURE.md) — see §12 for the roadmap.
+[docs/ARCHITECTURE.md](https://github.com/intellectwithvivek/vivek_UI/blob/main/docs/ARCHITECTURE.md) — see §12 for the roadmap.
 
 ## Contributing
 
-See [CONTRIBUTING.md](https://github.com/intellectwithvivek/vivek-ui/blob/main/CONTRIBUTING.md). Issues and component requests are welcome; requests with
+See [CONTRIBUTING.md](https://github.com/intellectwithvivek/vivek_UI/blob/main/CONTRIBUTING.md). Issues and component requests are welcome; requests with
 traction jump the queue between tiers.
 
 ## License
 
-[MIT](https://github.com/intellectwithvivek/vivek-ui/blob/main/LICENSE) © 2026 Vivek Kumar Singh
+[MIT](https://github.com/intellectwithvivek/vivek_UI/blob/main/LICENSE) © 2026 Vivek Kumar Singh

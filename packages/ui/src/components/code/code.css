@@ -1,0 +1,36 @@
+:where(.vk-code) {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-code:not(.vk-code--block)) {
+  padding: 0.15em 0.4em;
+  white-space: nowrap;
+}
+
+:where(.vk-code[data-size="sm"]) {
+  font-size: 0.875em;
+}
+:where(.vk-code[data-size="md"]) {
+  font-size: 1em;
+}
+
+:where(.vk-code--block) {
+  margin: 0;
+  padding: var(--vk-space-4);
+  border-radius: var(--vk-radius-md);
+  overflow-x: auto;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+:where(.vk-code__inner) {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  white-space: pre;
+}

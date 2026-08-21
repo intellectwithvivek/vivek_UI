@@ -1,0 +1,58 @@
+:where(.vk-badge) {
+  --vk-badge-color: var(--vk-color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-1);
+  font-family: var(--vk-font-sans);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: var(--vk-radius-sm);
+}
+
+/* One variable drives all three variants, so a new tone is one line. */
+:where(.vk-badge[data-tone="primary"]) {
+  --vk-badge-color: var(--vk-color-primary);
+}
+:where(.vk-badge[data-tone="neutral"]) {
+  --vk-badge-color: var(--vk-color-muted);
+}
+:where(.vk-badge[data-tone="success"]) {
+  --vk-badge-color: #16a34a;
+}
+:where(.vk-badge[data-tone="warning"]) {
+  --vk-badge-color: #ca8a04;
+}
+:where(.vk-badge[data-tone="danger"]) {
+  --vk-badge-color: var(--vk-color-danger);
+}
+
+:where(.vk-badge[data-variant="solid"]) {
+  background: var(--vk-badge-color);
+  color: #fff;
+}
+
+:where(.vk-badge[data-variant="soft"]) {
+  background: color-mix(in oklab, var(--vk-badge-color) 14%, transparent);
+  color: var(--vk-badge-color);
+}
+
+:where(.vk-badge[data-variant="outline"]) {
+  border-color: color-mix(in oklab, var(--vk-badge-color) 45%, transparent);
+  color: var(--vk-badge-color);
+}
+
+:where(.vk-badge[data-size="sm"]) {
+  padding: 0.2rem var(--vk-space-2);
+  font-size: 0.75rem;
+}
+
+:where(.vk-badge[data-size="md"]) {
+  padding: 0.3rem var(--vk-space-3);
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-badge[data-pill]) {
+  border-radius: var(--vk-radius-full);
+}

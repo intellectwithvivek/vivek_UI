@@ -34,3 +34,7 @@ Thumbs.db
 *.log
 npm-debug.log*
 pnpm-debug.log*
+
+# internal working docs - not published, not on GitHub
+CLAUDE.md
+docs/

@@ -1,0 +1,60 @@
+:where(.vk-skeleton) {
+  background: color-mix(in oklab, var(--vk-color-fg) 9%, transparent);
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--vk-color-fg) 6%, transparent),
+    transparent
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: vk-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+:where(.vk-skeleton[data-variant="text"]) {
+  height: 1em;
+  border-radius: var(--vk-radius-sm);
+}
+
+/* Last line of a multi-line block is short, the way real text wraps. */
+:where(.vk-skeleton-group) > :where(.vk-skeleton:last-child:not(:only-child)) {
+  width: 65%;
+}
+
+:where(.vk-skeleton[data-variant="rect"]) {
+  border-radius: var(--vk-radius-md);
+  min-height: 1rem;
+}
+
+:where(.vk-skeleton[data-variant="circle"]) {
+  border-radius: var(--vk-radius-full);
+  aspect-ratio: 1;
+  min-width: 1rem;
+}
+
+:where(.vk-skeleton[data-static]) {
+  animation: none;
+  background-image: none;
+}
+
+:where(.vk-skeleton-group) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-2);
+}
+
+@keyframes vk-skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-skeleton) {
+    animation: none;
+    background-image: none;
+  }
+}

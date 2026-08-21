@@ -1,0 +1,23 @@
+:where(.vk-kbd) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6em;
+  padding: 0.15em 0.4em;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-bottom-width: 2px;
+  border-radius: var(--vk-radius-sm);
+  white-space: nowrap;
+}
+
+:where(.vk-kbd[data-size="sm"]) {
+  font-size: 0.75em;
+}
+:where(.vk-kbd[data-size="md"]) {
+  font-size: 0.875em;
+}

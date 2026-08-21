@@ -1,0 +1,48 @@
+:where(.vk-heading) {
+  margin: 0;
+  font-family: var(--vk-font-sans);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--vk-color-fg);
+  text-wrap: balance;
+}
+
+:where(.vk-heading[data-size="sm"]) {
+  font-size: var(--vk-text-sm);
+}
+:where(.vk-heading[data-size="md"]) {
+  font-size: var(--vk-text-md);
+}
+:where(.vk-heading[data-size="lg"]) {
+  font-size: var(--vk-text-lg);
+}
+:where(.vk-heading[data-size="xl"]) {
+  font-size: var(--vk-text-xl);
+}
+:where(.vk-heading[data-size="2xl"]) {
+  font-size: var(--vk-text-2xl);
+}
+
+/* Fluid: scales with the viewport, no breakpoints needed. */
+:where(.vk-heading[data-size="hero"]) {
+  font-size: var(--vk-text-hero);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+:where(.vk-heading[data-align="start"]) {
+  text-align: start;
+}
+:where(.vk-heading[data-align="center"]) {
+  text-align: center;
+}
+:where(.vk-heading[data-align="end"]) {
+  text-align: end;
+}
+
+:where(.vk-heading[data-truncate]) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,47 @@
+:where(.vk-divider) {
+  border: 0;
+}
+
+:where(.vk-divider[data-orientation="horizontal"]) {
+  width: 100%;
+  height: 1px;
+  background: var(--vk-color-border);
+}
+
+:where(.vk-divider[data-orientation="vertical"]) {
+  align-self: stretch;
+  width: 1px;
+  min-height: 1em;
+  background: var(--vk-color-border);
+}
+
+/* Labelled: the rule becomes a flex line with the text sitting in a gap. */
+:where(.vk-divider[data-labelled]) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-3);
+  background: none;
+  height: auto;
+  color: var(--vk-color-muted);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-divider[data-labelled])::before,
+:where(.vk-divider[data-labelled])::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--vk-color-border);
+}
+
+:where(.vk-divider[data-labelled][data-orientation="vertical"]) {
+  flex-direction: column;
+  width: auto;
+}
+
+:where(.vk-divider[data-labelled][data-orientation="vertical"])::before,
+:where(.vk-divider[data-labelled][data-orientation="vertical"])::after {
+  width: 1px;
+  height: auto;
+}

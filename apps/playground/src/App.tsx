@@ -1,8 +1,8 @@
-import { useState } from 'react'
 // Imports the package by NAME, never a relative path into packages/ui/src.
 // That is the point of this app: it exercises the real exports map and the built
 // dist/, exactly as an npm consumer would (ARCHITECTURE §7).
 import { Button, type ButtonProps } from '@the_viveksingh/vivek-ui'
+import { useState } from 'react'
 
 const VARIANTS: NonNullable<ButtonProps['variant']>[] = ['solid', 'outline', 'ghost', 'link']
 const SIZES: NonNullable<ButtonProps['size']>[] = ['sm', 'md', 'lg']

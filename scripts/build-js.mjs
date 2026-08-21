@@ -31,7 +31,7 @@ try {
     tsupCli = require.resolve('tsup/dist/cli-node.js')
   } catch {
     console.error(
-      'build-js: cannot resolve tsup from ' + process.cwd() + '. Run `pnpm install` first.',
+      `build-js: cannot resolve tsup from ${process.cwd()}. Run \`pnpm install\` first.`,
     )
     process.exit(1)
   }

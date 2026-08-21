@@ -14,28 +14,46 @@
 /* One variable drives all three variants, so a new tone is one line. */
 :where(.vk-badge[data-tone="primary"]) {
   --vk-badge-color: var(--vk-color-primary);
+  --vk-badge-on-color: var(--vk-color-primary-fg);
+  --vk-badge-subtle: var(--vk-color-primary-subtle);
+  --vk-badge-on-subtle: var(--vk-color-primary-subtle-fg);
 }
 :where(.vk-badge[data-tone="neutral"]) {
   --vk-badge-color: var(--vk-color-muted);
 }
 :where(.vk-badge[data-tone="success"]) {
   --vk-badge-color: var(--vk-color-success);
+  --vk-badge-on-color: var(--vk-color-success-fg);
+  --vk-badge-subtle: var(--vk-color-success-subtle);
+  --vk-badge-on-subtle: var(--vk-color-success-subtle-fg);
 }
 :where(.vk-badge[data-tone="warning"]) {
   --vk-badge-color: var(--vk-color-warning);
+  --vk-badge-on-color: var(--vk-color-warning-fg);
+  --vk-badge-subtle: var(--vk-color-warning-subtle);
+  --vk-badge-on-subtle: var(--vk-color-warning-subtle-fg);
 }
 :where(.vk-badge[data-tone="danger"]) {
   --vk-badge-color: var(--vk-color-danger);
+  --vk-badge-on-color: var(--vk-color-danger-fg);
+  --vk-badge-subtle: var(--vk-color-danger-subtle);
+  --vk-badge-on-subtle: var(--vk-color-danger-subtle-fg);
 }
 
+/* `-fg` rather than white: the dark-theme accents are bright, so white on them fails. */
 :where(.vk-badge[data-variant="solid"]) {
   background: var(--vk-badge-color);
-  color: #fff;
+  color: var(--vk-badge-on-color, var(--vk-color-primary-fg));
 }
 
+/*
+ * An opaque tint with its own measured foreground. The old version put the full-strength
+ * accent on a 14% wash of itself, so the contrast depended on whatever was behind the
+ * badge - unverifiable, and worst exactly where badges live: on top of coloured rows.
+ */
 :where(.vk-badge[data-variant="soft"]) {
-  background: color-mix(in oklab, var(--vk-badge-color) 14%, transparent);
-  color: var(--vk-badge-color);
+  background: var(--vk-badge-subtle, var(--vk-color-primary-subtle));
+  color: var(--vk-badge-on-subtle, var(--vk-color-primary-subtle-fg));
 }
 
 :where(.vk-badge[data-variant="outline"]) {

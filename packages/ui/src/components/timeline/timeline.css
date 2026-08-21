@@ -42,7 +42,7 @@
   height: var(--vk-timeline-marker);
   border: var(--vk-timeline-rail) solid var(--vk-color-border);
   border-radius: var(--vk-radius-full);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   color: var(--vk-color-muted);
   font-size: var(--vk-text-sm);
   line-height: 1;

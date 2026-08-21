@@ -140,7 +140,7 @@
  * no visual identity, so a ring around it looks like a rendering bug.
  */
 :where(.vk-rating__control:has(:focus-visible)) {
-  outline: 2px solid var(--vk-color-primary);
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
   outline-offset: 3px;
   border-radius: var(--vk-radius-sm);
 }

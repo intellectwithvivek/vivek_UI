@@ -12,18 +12,40 @@
  * colour alone is never enough.
  */
 
+/*
+ * Light palette.
+ *
+ * Okabe-Ito hues, but REORDERED, and two of them adjusted. Two things forced this:
+ *
+ * - #e69f00 (amber) measured 2.25:1 on white and #56b4e9 (sky) 2.31:1, both below the 3:1
+ *   that WCAG 2.1 SC 1.4.11 asks of a graphical object. A 1px line at 2.25:1 is genuinely
+ *   hard to see, compliance argument aside.
+ * - Amber cannot be fixed by darkening: it stops being amber, and it collides with
+ *   vermillion under deuteranopia on the way down. So the four Okabe-Ito colours that
+ *   already pass take slots 1-4, and the two compromises move to 5 and 6.
+ *
+ * Why that ordering matters: almost every chart uses one to four series, so the common
+ * case now draws only from unmodified, passing colours. Measured worst-pair separation
+ * across normal vision plus simulated protanopia, deuteranopia and tritanopia:
+ *
+ *   1-4 series:  dE 17.0   (better than unmodified Okabe-Ito's 16.1)
+ *   5-6 series:  dE  6.1   (the amber/vermillion pair, still above the ~2.3 JND)
+ *
+ * At five or more series the dash patterns and marker shapes in `internal/palette.ts` are
+ * doing the real work anyway - which is why they exist.
+ */
 :where(:root) {
   --vk-chart-1: #0072b2;
-  --vk-chart-2: #e69f00;
+  --vk-chart-2: #d55e00;
   --vk-chart-3: #009e73;
   --vk-chart-4: #cc79a7;
-  --vk-chart-5: #d55e00;
-  --vk-chart-6: #56b4e9;
+  --vk-chart-5: #c68800;
+  --vk-chart-6: #159cde;
 
   --vk-chart-grid: color-mix(in oklab, var(--vk-color-fg) 12%, transparent);
   --vk-chart-axis: color-mix(in oklab, var(--vk-color-fg) 32%, transparent);
   --vk-chart-label: var(--vk-color-muted);
-  --vk-chart-surface: var(--vk-color-bg);
+  --vk-chart-surface: var(--vk-color-surface);
   --vk-chart-area-opacity: 0.18;
   --vk-chart-tooltip-bg: var(--vk-color-fg);
   --vk-chart-tooltip-fg: var(--vk-color-bg);
@@ -37,7 +59,10 @@
   --vk-chart-1: #4ea3ff;
   --vk-chart-2: #f0b552;
   --vk-chart-3: #34d399;
-  --vk-chart-4: #f2a6cc;
+  /* Nudged from #f2a6cc (a dE 5.5 move, visually the same pink). Under tritanopia it sat
+     10.6 from the amber of series 2, close enough that a four-series chart could read as
+     three; this puts it at 14.2. */
+  --vk-chart-4: #e9aad3;
   --vk-chart-5: #ff8f52;
   --vk-chart-6: #8ed4f5;
 
@@ -189,5 +214,54 @@
 @media (prefers-reduced-motion: reduce) {
   :where(.vk-chart__series) {
     animation: none;
+  }
+}
+
+/* ---- hover ---------------------------------------------------------------------------
+ *
+ * Line and area charts. Same principle as the bar and pie charts: hovering the plot dims
+ * every series and restores the one under the pointer, so isolating a trend never changes
+ * the colour of the trend you are reading.
+ *
+ * Scoped to `.vk-chart__series:hover` rather than the whole SVG so the axes, grid and
+ * labels are unaffected — dimming the gridlines would make the values harder to read at
+ * exactly the moment the user is trying to read one.
+ */
+@media (hover: hover) {
+  :where(.vk-chart__series:hover) > :where(g) {
+    opacity: 0.4;
+    transition: opacity var(--vk-duration-fast) var(--vk-ease);
+  }
+
+  :where(.vk-chart__series:hover) > :where(g:hover) {
+    opacity: 1;
+  }
+
+  /* Thicken the hovered line a little. Purely additive: the dash pattern and marker
+     shape still carry the series identity, so this is never the only cue. */
+  :where(.vk-chart__series:hover) > :where(g:hover) > :where(.vk-chart__line) {
+    stroke-width: calc(var(--vk-chart-line-width, 2px) + 1px);
+    transition: stroke-width var(--vk-duration-fast) var(--vk-ease);
+  }
+
+  /*
+   * Legend hover. The legend is `aria-hidden` when it is redundant with the accessible
+   * table, so this is a pointer affordance only and never the sole way to read the chart.
+   */
+  :where(.vk-chart__legend:hover) > :where(.vk-chart__legend-item) {
+    opacity: 0.45;
+    transition: opacity var(--vk-duration-fast) var(--vk-ease);
+  }
+
+  :where(.vk-chart__legend:hover) > :where(.vk-chart__legend-item:hover) {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-chart__series:hover) > :where(g),
+  :where(.vk-chart__series:hover) > :where(g:hover) > :where(.vk-chart__line),
+  :where(.vk-chart__legend:hover) > :where(.vk-chart__legend-item) {
+    transition: none;
   }
 }

@@ -44,7 +44,7 @@
 
 :where(.vk-date-picker__trigger:hover:not(:disabled)) {
   color: var(--vk-color-fg);
-  background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  background: var(--vk-color-surface-hover);
 }
 
 :where(.vk-date-picker__trigger:focus-visible) {
@@ -100,9 +100,9 @@
   position: fixed;
   z-index: var(--vk-z-overlay);
   opacity: 0;
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   border-radius: var(--vk-radius-lg);
-  box-shadow: var(--vk-shadow-md);
+  box-shadow: var(--vk-shadow-lg);
 }
 
 :where(.vk-date-picker__popup[data-positioned]) {

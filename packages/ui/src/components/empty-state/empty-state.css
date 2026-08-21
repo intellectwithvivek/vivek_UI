@@ -42,7 +42,7 @@
   height: calc(var(--vk-empty-state-glyph) * 2);
   margin-block-end: var(--vk-space-1);
   border-radius: var(--vk-radius-full);
-  background: color-mix(in oklab, var(--vk-color-fg) 7%, transparent);
+  background: var(--vk-color-surface-hover);
   color: var(--vk-color-muted);
   font-size: var(--vk-empty-state-glyph);
   line-height: 1;

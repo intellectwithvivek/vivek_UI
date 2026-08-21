@@ -17,7 +17,7 @@
   font-family: var(--vk-font-sans);
   font-size: var(--vk-text-md);
   color: var(--vk-color-fg);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface-subtle);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-md);
   cursor: text;

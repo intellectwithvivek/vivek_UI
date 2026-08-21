@@ -134,8 +134,8 @@
 
 :where(.vk-prose a:focus-visible),
 :where(.vk-prose .vk-prose__link:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
   border-radius: var(--vk-radius-sm);
 }
 
@@ -167,7 +167,7 @@
 /* A bare inline <code> gets the chip treatment; one inside a <pre> must not. */
 :where(.vk-prose :not(pre) > code) {
   padding: 0.15em 0.4em;
-  background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  background: var(--vk-color-surface-hover);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-sm);
 }
@@ -176,7 +176,7 @@
   margin-block: 0;
   padding: var(--vk-space-4);
   overflow-x: auto;
-  background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  background: var(--vk-color-surface-hover);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-md);
   line-height: 1.6;
@@ -220,7 +220,7 @@
 
 :where(.vk-prose th) {
   font-weight: 650;
-  background: color-mix(in oklab, var(--vk-color-fg) 4%, transparent);
+  background: var(--vk-color-surface-hover);
 }
 
 /* A narrow container gets tighter type and a shallower list indent. */

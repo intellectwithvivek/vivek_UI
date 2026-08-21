@@ -11,7 +11,7 @@
   border-radius: var(--vk-radius-md);
   overflow: hidden;
   font-family: var(--vk-font-sans);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface-subtle);
   container: vk-chat-code / inline-size;
 }
 
@@ -64,7 +64,7 @@
 
 /* The scrollable region is focusable, so it needs a visible focus ring. */
 :where(.vk-chat-code-block__code:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
   outline-offset: -2px;
 }
 

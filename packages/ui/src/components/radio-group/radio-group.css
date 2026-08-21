@@ -63,7 +63,7 @@
   width: 1.125em;
   height: 1.125em;
   margin-top: 0.15em;
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface-subtle);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-full);
   transition: border-color var(--vk-duration) var(--vk-ease);
@@ -91,8 +91,8 @@
 }
 
 :where(.vk-radio__input:focus-visible) + :where(.vk-radio__circle) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
 }
 
 :where(.vk-radio:has(.vk-radio__input:disabled)) {

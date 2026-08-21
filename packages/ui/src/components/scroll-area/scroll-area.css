@@ -31,8 +31,8 @@
   outline: none;
 }
 :where(.vk-scroll-area:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
 }
 
 /* --- axes --------------------------------------------------------- */

@@ -2,7 +2,9 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  background: var(--vk-color-bg);
+  /* `surface`, not `bg`: in dark mode a raised card is LIGHTER than the page, which is
+     the only depth cue left once black shadows stop reading against a dark background. */
+  background: var(--vk-color-surface);
   color: var(--vk-color-fg);
   font-family: var(--vk-font-sans);
   border: 1px solid transparent;
@@ -14,7 +16,10 @@
 :where(.vk-card[data-variant="outline"]) {
   border-color: var(--vk-color-border);
 }
+/* Hairline plus shadow, not shadow alone: without the border the card's top edge
+   dissolves into the page, which is what makes a "floating" card look unfinished. */
 :where(.vk-card[data-variant="elevated"]) {
+  border-color: var(--vk-color-border-subtle);
   box-shadow: var(--vk-shadow-md);
 }
 :where(.vk-card[data-variant="ghost"]) {
@@ -37,22 +42,28 @@
 :where(.vk-card[data-interactive]) {
   cursor: pointer;
   transition:
-    box-shadow var(--vk-duration) var(--vk-ease),
+    box-shadow var(--vk-duration-slow) var(--vk-ease-out),
     border-color var(--vk-duration) var(--vk-ease),
-    transform var(--vk-duration) var(--vk-ease);
+    transform var(--vk-duration-slow) var(--vk-ease-out);
+}
+
+:where(.vk-card[data-interactive]:active) {
+  transform: translateY(0);
+  box-shadow: var(--vk-shadow-sm);
+  transition-duration: var(--vk-duration-fast);
 }
 
 @media (hover: hover) {
   :where(.vk-card[data-interactive]:hover) {
-    box-shadow: var(--vk-shadow-md);
-    border-color: color-mix(in oklab, var(--vk-color-border) 60%, var(--vk-color-fg));
+    box-shadow: var(--vk-shadow-lg);
+    border-color: var(--vk-color-border-strong);
     transform: translateY(-2px);
   }
 }
 
 :where(.vk-card[data-interactive]:focus-within) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
 }
 
 :where(.vk-card__header) {
@@ -76,7 +87,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :where(.vk-card[data-interactive]:hover) {
+  /* The shadow change stays: it conveys the same "this is interactive" information
+     without moving anything, which is what the preference actually asks for. */
+  :where(.vk-card[data-interactive]:hover),
+  :where(.vk-card[data-interactive]:active) {
     transform: none;
   }
 }

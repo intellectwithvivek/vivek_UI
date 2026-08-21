@@ -1,32 +1,64 @@
+/*
+ * Alert.
+ *
+ * Each tone resolves a FOUR-token set rather than one colour: the accent, the text that
+ * is readable on the accent, a tinted surface, and the text that is readable on that.
+ * The previous version derived the soft variant with `color-mix(... 10%, transparent)`
+ * and hardcoded `color: #fff` for the solid one, which broke in dark mode — the dark
+ * accents are bright, so white on `--vk-color-success` measured 1.7:1. The `-fg` tokens
+ * flip to near-black there, so both themes stay readable without a special case here.
+ */
+
 :where(.vk-alert) {
   --vk-alert-color: var(--vk-color-primary);
+  --vk-alert-on-color: var(--vk-color-primary-fg);
+  --vk-alert-subtle: var(--vk-color-primary-subtle);
+  --vk-alert-on-subtle: var(--vk-color-primary-subtle-fg);
+
   display: flex;
   align-items: flex-start;
   gap: var(--vk-space-3);
   padding: var(--vk-space-3) var(--vk-space-4);
   font-family: var(--vk-font-sans);
   font-size: var(--vk-text-sm);
-  line-height: 1.5;
+  line-height: var(--vk-leading-normal);
   border: 1px solid transparent;
   border-radius: var(--vk-radius-md);
 }
 
 :where(.vk-alert[data-tone="info"]) {
   --vk-alert-color: var(--vk-color-primary);
+  --vk-alert-on-color: var(--vk-color-primary-fg);
+  --vk-alert-subtle: var(--vk-color-primary-subtle);
+  --vk-alert-on-subtle: var(--vk-color-primary-subtle-fg);
 }
 :where(.vk-alert[data-tone="success"]) {
   --vk-alert-color: var(--vk-color-success);
+  --vk-alert-on-color: var(--vk-color-success-fg);
+  --vk-alert-subtle: var(--vk-color-success-subtle);
+  --vk-alert-on-subtle: var(--vk-color-success-subtle-fg);
 }
 :where(.vk-alert[data-tone="warning"]) {
   --vk-alert-color: var(--vk-color-warning);
+  --vk-alert-on-color: var(--vk-color-warning-fg);
+  --vk-alert-subtle: var(--vk-color-warning-subtle);
+  --vk-alert-on-subtle: var(--vk-color-warning-subtle-fg);
 }
 :where(.vk-alert[data-tone="danger"]) {
   --vk-alert-color: var(--vk-color-danger);
+  --vk-alert-on-color: var(--vk-color-danger-fg);
+  --vk-alert-subtle: var(--vk-color-danger-subtle);
+  --vk-alert-on-subtle: var(--vk-color-danger-subtle-fg);
 }
 
+/*
+ * An opaque tinted surface, not a transparent wash. A wash takes on whatever sits behind
+ * it, so the same alert reads differently inside a card than on the page — and its
+ * contrast changes with it, which makes it unverifiable.
+ */
 :where(.vk-alert[data-variant="soft"]) {
-  background: color-mix(in oklab, var(--vk-alert-color) 10%, transparent);
-  border-color: color-mix(in oklab, var(--vk-alert-color) 25%, transparent);
+  background: var(--vk-alert-subtle);
+  border-color: color-mix(in oklab, var(--vk-alert-color) 22%, transparent);
   color: var(--vk-color-fg);
 }
 
@@ -37,7 +69,7 @@
 
 :where(.vk-alert[data-variant="solid"]) {
   background: var(--vk-alert-color);
-  color: #fff;
+  color: var(--vk-alert-on-color);
 }
 
 :where(.vk-alert__icon) {
@@ -48,16 +80,19 @@
   width: 1.25rem;
   height: 1.25rem;
   margin-top: 0.075rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  line-height: 1;
+  font-size: var(--vk-text-xs);
+  font-weight: var(--vk-weight-bold);
+  line-height: var(--vk-leading-none);
   border-radius: var(--vk-radius-full);
   background: var(--vk-alert-color);
-  color: #fff;
+  color: var(--vk-alert-on-color);
 }
 
+/* On a solid alert the badge sits on the accent already, so it needs to read as a
+   recess in that surface rather than as a second accent chip. */
 :where(.vk-alert[data-variant="solid"]) > :where(.vk-alert__icon) {
-  background: rgb(255 255 255 / 0.25);
+  background: color-mix(in oklab, var(--vk-alert-on-color) 22%, transparent);
+  color: var(--vk-alert-on-color);
 }
 
 :where(.vk-alert__content) {
@@ -66,7 +101,8 @@
 }
 
 :where(.vk-alert__title) {
-  font-weight: 600;
+  font-weight: var(--vk-weight-semibold);
+  letter-spacing: var(--vk-tracking-snug);
   color: inherit;
 }
 
@@ -74,9 +110,13 @@
   margin-bottom: 0.15rem;
 }
 
+/*
+ * `color-mix` against the inherited colour rather than `opacity`. Opacity fades the text
+ * toward whatever is behind it, so the contrast ratio becomes a function of the
+ * background — the exact thing that makes secondary text quietly fail an audit.
+ */
 :where(.vk-alert__description) {
-  color: inherit;
-  opacity: 0.9;
+  color: color-mix(in oklab, currentcolor 82%, transparent);
 }
 
 :where(.vk-alert) > :where(.vk-alert__icon) > :where(svg) {

@@ -76,8 +76,8 @@
 }
 
 :where(.vk-carousel__track:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
   border-radius: var(--vk-radius-md);
 }
 
@@ -181,7 +181,7 @@
   grid-area: track;
   z-index: 1;
   align-self: center;
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   box-shadow: var(--vk-shadow-sm);
 }
 
@@ -246,7 +246,7 @@
 }
 
 :where(.vk-carousel__dot:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
   outline-offset: 0;
   border-radius: var(--vk-radius-full);
 }

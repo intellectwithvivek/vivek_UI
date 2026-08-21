@@ -58,20 +58,20 @@
 
 @media (hover: hover) {
   :where(.vk-button[data-variant="solid"]:hover:not(:disabled)) {
-    background: color-mix(in oklab, var(--vk-color-primary) 88%, black);
+    background: var(--vk-color-primary-hover);
   }
 
   :where(.vk-button[data-variant="outline"]:hover:not(:disabled)) {
-    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    background: var(--vk-color-surface-hover);
     border-color: color-mix(in oklab, var(--vk-color-border) 70%, var(--vk-color-fg));
   }
 
   :where(.vk-button[data-variant="ghost"]:hover:not(:disabled)) {
-    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    background: var(--vk-color-surface-hover);
   }
 
   :where(.vk-button[data-variant="link"]:hover:not(:disabled)) {
-    color: color-mix(in oklab, var(--vk-color-primary) 80%, black);
+    color: var(--vk-color-primary-hover);
   }
 }
 
@@ -123,8 +123,8 @@
 }
 
 :where(.vk-button:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
 }
 
 /* spinner - border-based so it needs no SVG and inherits currentColor */

@@ -17,7 +17,7 @@
   padding: var(--vk-space-3);
   overflow-y: auto;
   overscroll-behavior: contain;
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   color: var(--vk-color-fg);
   font-family: var(--vk-font-sans);
   container: vk-chat / inline-size;

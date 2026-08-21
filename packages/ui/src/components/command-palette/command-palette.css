@@ -119,15 +119,15 @@
  * keyboard user and reads correctly to a screen reader, or the other way around.
  */
 :where(.vk-command-palette__option[data-active]) {
-  background: color-mix(in oklab, var(--vk-color-primary) 14%, transparent);
+  background: var(--vk-color-primary-subtle);
 }
 
 @media (hover: hover) {
   :where(.vk-command-palette__option:hover:not([data-disabled])) {
-    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    background: var(--vk-color-surface-hover);
   }
   :where(.vk-command-palette__option[data-active]:hover) {
-    background: color-mix(in oklab, var(--vk-color-primary) 14%, transparent);
+    background: var(--vk-color-primary-subtle);
   }
 }
 

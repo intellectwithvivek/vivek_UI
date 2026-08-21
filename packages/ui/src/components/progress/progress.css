@@ -3,7 +3,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: color-mix(in oklab, var(--vk-color-fg) 10%, transparent);
+  background: var(--vk-color-surface-active);
   border-radius: var(--vk-radius-full);
 }
 

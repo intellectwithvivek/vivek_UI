@@ -1,34 +1,45 @@
 :where(.vk-heading) {
   margin: 0;
   font-family: var(--vk-font-sans);
-  font-weight: 650;
-  line-height: 1.2;
-  letter-spacing: -0.015em;
+  font-weight: var(--vk-weight-semibold);
+  line-height: var(--vk-leading-tight);
   color: var(--vk-color-fg);
   text-wrap: balance;
 }
 
 :where(.vk-heading[data-size="sm"]) {
   font-size: var(--vk-text-sm);
+  letter-spacing: var(--vk-tracking-normal);
+  line-height: var(--vk-leading-snug);
 }
 :where(.vk-heading[data-size="md"]) {
   font-size: var(--vk-text-md);
+  letter-spacing: var(--vk-tracking-normal);
+  line-height: var(--vk-leading-snug);
 }
 :where(.vk-heading[data-size="lg"]) {
   font-size: var(--vk-text-lg);
+  letter-spacing: var(--vk-tracking-snug);
+  line-height: var(--vk-leading-snug);
 }
 :where(.vk-heading[data-size="xl"]) {
   font-size: var(--vk-text-xl);
+  letter-spacing: var(--vk-tracking-tight);
+  line-height: var(--vk-leading-tight);
 }
 :where(.vk-heading[data-size="2xl"]) {
   font-size: var(--vk-text-2xl);
+  letter-spacing: var(--vk-tracking-tighter);
+  line-height: var(--vk-leading-tight);
 }
 
 /* Fluid: scales with the viewport, no breakpoints needed. */
 :where(.vk-heading[data-size="hero"]) {
   font-size: var(--vk-text-hero);
-  letter-spacing: -0.025em;
-  line-height: 1.05;
+  /* Tighter than any token: at 60px even --vk-tracking-tighter reads loose. */
+  letter-spacing: -0.03em;
+  line-height: var(--vk-leading-none);
+  font-weight: var(--vk-weight-bold);
 }
 
 :where(.vk-heading[data-align="start"]) {

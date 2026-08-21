@@ -10,12 +10,45 @@ import {
 } from '@the_viveksingh/vivek-ui'
 import type { Metadata } from 'next'
 import { CodeBlock } from '../../../components/code-block'
+import { JsonLd } from '../../../components/json-ld'
+import { pageMeta } from '../../../lib/page-meta'
 import { PACKAGE_NAME } from '../../../lib/registry'
+import { breadcrumbs, howTo, techArticle } from '../../../lib/structured-data'
 
-export const metadata: Metadata = {
+const DESCRIPTION = `Install ${PACKAGE_NAME} with npm, pnpm or yarn, import the stylesheet once at the root of your app, and start using components. No build plugin, no Tailwind, no configuration.`
+
+export const metadata: Metadata = pageMeta({
   title: 'Installation',
-  description: 'Install, import the stylesheet once, and start using components.',
-}
+  description: DESCRIPTION,
+  path: '/docs/installation',
+  keywords: ['install vivekui', 'react component library npm install', 'vivekui getting started'],
+})
+
+/*
+ * `HowTo` structured data.
+ *
+ * "How do I install X" is close to the most common question an answer engine gets about
+ * any package, and HowTo is the schema built for it - the steps come back as an ordered
+ * list rather than as a paraphrase of the page.
+ */
+const INSTALL_STEPS = [
+  {
+    name: 'Install the package',
+    text: `Run npm install ${PACKAGE_NAME}. pnpm add and yarn add work identically. React 18 or 19 must already be installed, as it is a peer dependency.`,
+  },
+  {
+    name: 'Import the stylesheet once',
+    text: `Add import '${PACKAGE_NAME}/styles.css' at the root of your app - app/layout.tsx in the Next.js App Router, or main.tsx with Vite. Import it once for the whole application, not per component.`,
+  },
+  {
+    name: 'Import charts separately, if you use them',
+    text: `Charts live at ${PACKAGE_NAME}/charts with their own stylesheet at ${PACKAGE_NAME}/charts.css, so an app with no charts downloads neither.`,
+  },
+  {
+    name: 'Use a component',
+    text: `Import any component by name, for example import { Button } from '${PACKAGE_NAME}', and render it. No provider or wrapper is required.`,
+  },
+]
 
 /*
  * Note the named part imports — `TabsList` rather than `Tabs.List`.
@@ -27,6 +60,24 @@ export const metadata: Metadata = {
 export default function InstallationPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          howTo({
+            name: `Install ${PACKAGE_NAME} in a React app`,
+            description: DESCRIPTION,
+            steps: INSTALL_STEPS,
+          }),
+          techArticle({
+            title: 'Installation',
+            description: DESCRIPTION,
+            path: '/docs/installation',
+          }),
+          breadcrumbs([
+            { name: 'Docs', path: '/docs' },
+            { name: 'Installation', path: '/docs/installation' },
+          ]),
+        ]}
+      />
       <header className="doc-header">
         <Heading level={1}>Installation</Heading>
         <Text size="lg">Two steps. There is no third.</Text>

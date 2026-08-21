@@ -241,16 +241,84 @@ body {
   gap: var(--vk-space-3);
   align-items: center;
   justify-content: space-between;
+  padding: var(--vk-space-2) var(--vk-space-3);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  background: var(--vk-color-surface-subtle);
 }
 
-.playground__bar > :where(.vk-select) {
-  max-width: 16rem;
+.playground__bar > * > :where(.vk-select) {
+  max-width: 15rem;
+}
+
+/* Segmented control for the viewport widths. A fieldset so the group has a legend. */
+.playground__group {
+  display: inline-flex;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.playground__toggle {
+  min-width: 2.25rem;
+  height: 2rem;
+  padding-inline: var(--vk-space-2);
+  font: inherit;
+  font-size: var(--vk-text-sm);
+  font-weight: var(--vk-weight-medium);
+  color: var(--vk-color-fg-subtle);
+  background: var(--vk-color-surface);
+  border: 1px solid var(--vk-color-border);
+  cursor: pointer;
+  transition:
+    background-color var(--vk-duration-fast) var(--vk-ease),
+    color var(--vk-duration-fast) var(--vk-ease);
+}
+
+.playground__group > *:first-child .playground__toggle,
+.playground__group > .playground__toggle:first-child {
+  border-start-start-radius: var(--vk-radius-sm);
+  border-end-start-radius: var(--vk-radius-sm);
+}
+
+.playground__group > *:last-child .playground__toggle,
+.playground__group > .playground__toggle:last-child {
+  border-start-end-radius: var(--vk-radius-sm);
+  border-end-end-radius: var(--vk-radius-sm);
+}
+
+/* Standalone toggles (the theme switch) still need their own corners. */
+.playground__bar > * > .playground__toggle,
+.playground__bar .vk-tooltip-anchor > .playground__toggle {
+  border-radius: var(--vk-radius-sm);
+}
+
+@media (hover: hover) {
+  .playground__toggle:hover {
+    background: var(--vk-color-surface-hover);
+    color: var(--vk-color-fg);
+  }
+}
+
+.playground__toggle[aria-pressed="true"] {
+  background: var(--vk-color-primary);
+  border-color: var(--vk-color-primary);
+  color: var(--vk-color-primary-fg);
+}
+
+.playground__toggle:focus-visible {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
+  /* Above the neighbouring buttons, so an attached group does not clip the ring. */
+  position: relative;
+  z-index: 1;
 }
 
 .playground__split {
   display: grid;
   gap: var(--vk-space-4);
-  min-height: 34rem;
+  align-items: stretch;
 }
 
 @media (min-width: 1024px) {
@@ -259,24 +327,166 @@ body {
   }
 }
 
-.playground__editor :where(.vk-textarea) {
-  height: 100%;
-  min-height: 24rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: var(--vk-text-sm);
-  line-height: 1.6;
-  tab-size: 2;
-}
-
-.playground__preview {
+.playground__pane {
   display: flex;
   flex-direction: column;
-  gap: var(--vk-space-4);
-  padding: var(--vk-space-6);
+  gap: var(--vk-space-2);
+  min-width: 0;
+}
+
+.playground__pane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vk-space-3);
+  min-height: 2rem;
+}
+
+.playground__tabs {
+  display: inline-flex;
+  gap: var(--vk-space-1);
+}
+
+.playground__tab {
+  padding: var(--vk-space-1) var(--vk-space-3);
+  font: inherit;
+  font-size: var(--vk-text-sm);
+  font-weight: var(--vk-weight-medium);
+  color: var(--vk-color-muted);
+  background: none;
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+  transition: color var(--vk-duration-fast) var(--vk-ease);
+}
+
+.playground__tab[aria-selected="true"] {
+  color: var(--vk-color-fg);
+  background: var(--vk-color-surface-active);
+}
+
+.playground__tab:focus-visible {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
+}
+
+/* ---- editor ---- */
+
+.playground__editor {
+  display: flex;
+  min-height: 28rem;
+  flex: 1;
+  overflow: hidden;
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-md);
+  background: var(--vk-color-surface-subtle);
+  font-family: var(--vk-font-mono);
+  font-size: var(--vk-text-sm);
+  line-height: 1.6;
+}
+
+.playground__editor:focus-within {
+  border-color: var(--vk-color-ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-ring) 32%, transparent);
+}
+
+/*
+ * The gutter scrolls in lockstep with the textarea rather than being part of it, because a
+ * textarea cannot contain markup. Both must therefore agree exactly on line-height and
+ * font-size - they inherit both from the shared parent above so they cannot drift.
+ */
+.playground__gutter {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  padding: var(--vk-space-3) var(--vk-space-2);
+  overflow: hidden;
+  text-align: end;
+  color: var(--vk-color-muted);
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-surface-subtle));
+  border-inline-end: 1px solid var(--vk-color-border);
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.playground__code {
+  flex: 1;
+  min-width: 0;
+  padding: var(--vk-space-3);
+  font: inherit;
+  color: var(--vk-color-fg);
+  background: none;
+  border: 0;
+  resize: none;
+  tab-size: 2;
+  white-space: pre;
   overflow: auto;
+}
+
+.playground__code:focus {
+  /* The frame above shows focus for the pair, so the inner ring would be a second one. */
+  outline: none;
+}
+
+/* ---- result ---- */
+
+.playground__stage {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: var(--vk-space-6);
+  overflow: auto;
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  /* Painting the theme background is what makes the dark preview an island rather than
+     dark text on the light page. */
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+}
+
+.playground__viewport {
+  /* Container queries inside the preview resolve against this, not the viewport, so a
+     component's own responsive behaviour is what the width toggle exercises. */
   container-type: inline-size;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.playground__output {
+  flex: 1;
+  overflow: auto;
+  padding: var(--vk-space-4);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  background: var(--vk-color-surface-subtle);
+}
+
+.playground__output pre {
+  margin: 0;
+  font-family: var(--vk-font-mono);
+  font-size: var(--vk-text-sm);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.playground__error {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  padding: var(--vk-space-3) var(--vk-space-4);
+  border: 1px solid color-mix(in oklab, var(--vk-color-danger) 30%, transparent);
+  border-radius: var(--vk-radius-md);
+  background: var(--vk-color-danger-subtle);
+  color: var(--vk-color-danger-subtle-fg);
+}
+
+.playground__error pre {
+  margin: 0;
+  font-family: var(--vk-font-mono);
+  font-size: var(--vk-text-sm);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 @media (prefers-reduced-motion: reduce) {

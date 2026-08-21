@@ -15,7 +15,14 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
-const CSS = readFileSync(join(__dirname, 'tokens.css'), 'utf8')
+/**
+ * Comments are stripped first. `tokens.css` documents rebranding with an example
+ * `:root { --vk-color-primary: #0ea5e9 }` in its header comment, and a parser that keeps
+ * comments finds that `:root` before the real one. This test only ever passed because the
+ * genuine declarations came later in the same slice and overwrote the example - luck, not
+ * correctness.
+ */
+const CSS = readFileSync(join(__dirname, 'tokens.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')
 
 /** Every `--vk-*: value` pair inside the given selector block. */
 function block(selector: string): Map<string, string> {

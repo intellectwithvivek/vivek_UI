@@ -4,9 +4,12 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ChartPreview } from '../../../../components/chart-preview'
 import { CodeBlock } from '../../../../components/code-block'
+import { JsonLd } from '../../../../components/json-ld'
 import { PropsTable } from '../../../../components/props-table'
 import { chartExamplesFor } from '../../../../lib/chart-examples'
+import { apiDescription, pageMeta } from '../../../../lib/page-meta'
 import { PACKAGE_NAME, REPO_URL, registry } from '../../../../lib/registry'
+import { breadcrumbs, componentReference, techArticle } from '../../../../lib/structured-data'
 
 export function generateStaticParams() {
   return registry.charts.map((entry) => ({ slug: entry.slug }))
@@ -20,10 +23,22 @@ export async function generateMetadata({
   const { slug } = await params
   const entry = registry.charts.find((item) => item.slug === slug)
   if (!entry) return {}
-  return {
+  return pageMeta({
     title: entry.title,
-    description: entry.description || `${entry.title} — a zero-dependency SVG chart.`,
-  }
+    description: apiDescription({
+      title: entry.title,
+      kind: 'chart',
+      description: entry.description,
+      exports: entry.exports,
+    }),
+    path: `/docs/charts/${slug}`,
+    hasOwnImage: true,
+    keywords: [
+      `react ${entry.title.toLowerCase()}`,
+      `${entry.title.toLowerCase()} without chart library`,
+      'react svg chart no dependencies',
+    ],
+  })
 }
 
 export default async function ChartPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -36,8 +51,32 @@ export default async function ChartPage({ params }: { params: Promise<{ slug: st
   const previous = index > 0 ? registry.charts[index - 1] : undefined
   const next = index < registry.charts.length - 1 ? registry.charts[index + 1] : undefined
 
+  const path = `/docs/charts/${slug}`
+  const description = apiDescription({
+    title: entry.title,
+    kind: 'chart',
+    description: entry.description,
+    exports: entry.exports,
+  })
+
   return (
     <>
+      <JsonLd
+        data={[
+          techArticle({ title: `${entry.title} — React chart`, description, path }),
+          componentReference({
+            name: entry.title,
+            description: entry.description || `The ${entry.title} chart.`,
+            path,
+            exports: entry.exports,
+          }),
+          breadcrumbs([
+            { name: 'Docs', path: '/docs' },
+            { name: 'Charts', path: '/docs/charts' },
+            { name: entry.title, path },
+          ]),
+        ]}
+      />
       <header className="doc-header">
         <Text size="sm" tone="muted">
           Charts
@@ -105,8 +144,15 @@ import '${PACKAGE_NAME}/charts.css'`}
         <Text tone="muted">
           No series is ever encoded by colour alone: each carries a distinct dash pattern and marker
           shape on top of its colour, so the chart survives greyscale printing and every common form
-          of colour blindness. The palette is Okabe-Ito, with a lightness-lifted ramp under{' '}
-          <code>data-theme="dark"</code>.
+          of colour blindness.
+        </Text>
+        <Text tone="muted">
+          The palette is verified rather than asserted. Each theme has its own six colours, because
+          one set cannot clear the 3:1 non-text contrast threshold against both a white and a
+          near-black plot surface. Separation is measured under simulated protanopia, deuteranopia
+          and tritanopia: for one to four series — which is nearly every chart — the closest pair
+          sits at ΔE 17, slightly better than the unmodified Okabe-Ito palette it is derived from.
+          Past four series the dash patterns and marker shapes carry the distinction.
         </Text>
       </section>
 

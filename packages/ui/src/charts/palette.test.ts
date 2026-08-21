@@ -15,7 +15,9 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
-const CSS = readFileSync(join(__dirname, 'charts.css'), 'utf8')
+// Comments stripped for the same reason as in tokens.test.ts: the palette comment quotes
+// the old hex values it replaced, and those must not be mistaken for declarations.
+const CSS = readFileSync(join(__dirname, 'charts.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')
 
 function palette(selector: string): string[] {
   const start = CSS.indexOf(selector)

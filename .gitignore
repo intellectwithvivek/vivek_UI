@@ -35,6 +35,8 @@ Thumbs.db
 npm-debug.log*
 pnpm-debug.log*
 
-# internal working docs - not published, not on GitHub
-CLAUDE.md
-docs/
+# internal working notes - not published, not on GitHub.
+# Anchored with a leading slash so it matches only the repo-root docs/ and NOT
+# apps/docs, which is the documentation website and must be committed.
+/CLAUDE.md
+/docs/

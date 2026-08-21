@@ -1,0 +1,31 @@
+:where(.vk-container) {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--vk-space-4);
+}
+
+:where(.vk-container[data-size="sm"]) {
+  max-width: 40rem;
+}
+:where(.vk-container[data-size="md"]) {
+  max-width: 52rem;
+}
+:where(.vk-container[data-size="lg"]) {
+  max-width: 64rem;
+}
+:where(.vk-container[data-size="xl"]) {
+  max-width: 80rem;
+}
+:where(.vk-container[data-size="full"]) {
+  max-width: none;
+}
+
+:where(.vk-container[data-flush]) {
+  padding-inline: 0;
+}
+
+@media (min-width: 768px) {
+  :where(.vk-container:not([data-flush])) {
+    padding-inline: var(--vk-space-6);
+  }
+}

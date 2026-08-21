@@ -1,12 +1,39 @@
 /*
- * The single stylesheet consumers import:  import 'vivek-ui/styles.css'
+ * The single stylesheet consumers import:  import '@the_viveksingh/vivek-ui/styles.css'
  *
  * LightningCSS bundles this file into dist/styles.css at build time, which is why
- * no component .tsx ever imports CSS (ARCHITECTURE §3.4). Every new component adds
- * one @import line here.
+ * no component .tsx ever imports CSS. Every new component adds one @import line here.
  */
 
 @import "./reset.css";
 @import "./tokens.css";
 
+/* layout */
+@import "../components/box/box.css";
+@import "../components/stack/stack.css";
+@import "../components/grid/grid.css";
+@import "../components/container/container.css";
+@import "../components/divider/divider.css";
+@import "../components/aspect-ratio/aspect-ratio.css";
+
+/* typography */
+@import "../components/heading/heading.css";
+@import "../components/text/text.css";
+@import "../components/code/code.css";
+@import "../components/kbd/kbd.css";
+
+/* actions */
 @import "../components/button/button.css";
+@import "../components/icon-button/icon-button.css";
+@import "../components/button-group/button-group.css";
+
+/* data display */
+@import "../components/badge/badge.css";
+@import "../components/card/card.css";
+@import "../components/avatar/avatar.css";
+
+/* feedback */
+@import "../components/spinner/spinner.css";
+@import "../components/skeleton/skeleton.css";
+@import "../components/alert/alert.css";
+@import "../components/progress/progress.css";

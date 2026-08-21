@@ -1,0 +1,92 @@
+:where(.vk-icon-button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  aspect-ratio: 1;
+  padding: 0;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--vk-radius-md);
+  cursor: pointer;
+  transition:
+    background-color var(--vk-duration) var(--vk-ease),
+    border-color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-icon-button[data-variant="solid"]) {
+  background: var(--vk-color-primary);
+  color: var(--vk-color-primary-fg);
+}
+
+:where(.vk-icon-button[data-variant="outline"]) {
+  border-color: var(--vk-color-border);
+}
+
+:where(.vk-icon-button[data-size="sm"]) {
+  width: 2rem;
+  font-size: var(--vk-text-sm);
+}
+:where(.vk-icon-button[data-size="md"]) {
+  width: 2.5rem;
+  font-size: var(--vk-text-md);
+}
+:where(.vk-icon-button[data-size="lg"]) {
+  width: 3rem;
+  font-size: var(--vk-text-lg);
+}
+
+:where(.vk-icon-button[data-round]) {
+  border-radius: var(--vk-radius-full);
+}
+
+@media (hover: hover) {
+  :where(.vk-icon-button[data-variant="solid"]:hover:not(:disabled)) {
+    background: color-mix(in oklab, var(--vk-color-primary) 88%, black);
+  }
+  :where(.vk-icon-button[data-variant="outline"]:hover:not(:disabled)),
+  :where(.vk-icon-button[data-variant="ghost"]:hover:not(:disabled)) {
+    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  }
+}
+
+:where(.vk-icon-button:disabled) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+:where(.vk-icon-button[data-loading]) {
+  cursor: progress;
+}
+
+:where(.vk-icon-button:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+:where(.vk-icon-button) > :where(svg) {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+:where(.vk-icon-button__spinner) {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--vk-radius-full);
+  animation: vk-icon-button-spin 600ms linear infinite;
+}
+
+@keyframes vk-icon-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-icon-button__spinner) {
+    animation-duration: 1.6s;
+  }
+}

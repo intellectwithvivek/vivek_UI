@@ -1,0 +1,62 @@
+:where(.vk-progress) {
+  --vk-progress-color: var(--vk-color-primary);
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--vk-color-fg) 10%, transparent);
+  border-radius: var(--vk-radius-full);
+}
+
+:where(.vk-progress[data-tone="primary"]) {
+  --vk-progress-color: var(--vk-color-primary);
+}
+:where(.vk-progress[data-tone="success"]) {
+  --vk-progress-color: #16a34a;
+}
+:where(.vk-progress[data-tone="warning"]) {
+  --vk-progress-color: #ca8a04;
+}
+:where(.vk-progress[data-tone="danger"]) {
+  --vk-progress-color: var(--vk-color-danger);
+}
+
+:where(.vk-progress[data-size="sm"]) {
+  height: 0.25rem;
+}
+:where(.vk-progress[data-size="md"]) {
+  height: 0.5rem;
+}
+:where(.vk-progress[data-size="lg"]) {
+  height: 0.75rem;
+}
+
+:where(.vk-progress__bar) {
+  height: 100%;
+  width: var(--vk-progress, 0%);
+  background: var(--vk-progress-color);
+  border-radius: inherit;
+  transition: width var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-progress[data-indeterminate]) > :where(.vk-progress__bar) {
+  width: 40%;
+  animation: vk-progress-slide 1.2s ease-in-out infinite;
+}
+
+@keyframes vk-progress-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-progress__bar) {
+    transition: none;
+  }
+  :where(.vk-progress[data-indeterminate]) > :where(.vk-progress__bar) {
+    animation-duration: 3s;
+  }
+}

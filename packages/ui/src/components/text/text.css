@@ -1,0 +1,69 @@
+:where(.vk-text) {
+  margin: 0;
+  font-family: var(--vk-font-sans);
+  line-height: 1.6;
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-text[data-size="sm"]) {
+  font-size: var(--vk-text-sm);
+}
+:where(.vk-text[data-size="md"]) {
+  font-size: var(--vk-text-md);
+}
+:where(.vk-text[data-size="lg"]) {
+  font-size: var(--vk-text-lg);
+}
+:where(.vk-text[data-size="xl"]) {
+  font-size: var(--vk-text-xl);
+}
+
+:where(.vk-text[data-tone="default"]) {
+  color: var(--vk-color-fg);
+}
+:where(.vk-text[data-tone="muted"]) {
+  color: var(--vk-color-muted);
+}
+:where(.vk-text[data-tone="danger"]) {
+  color: var(--vk-color-danger);
+}
+:where(.vk-text[data-tone="primary"]) {
+  color: var(--vk-color-primary);
+}
+
+:where(.vk-text[data-weight="normal"]) {
+  font-weight: 400;
+}
+:where(.vk-text[data-weight="medium"]) {
+  font-weight: 500;
+}
+:where(.vk-text[data-weight="semibold"]) {
+  font-weight: 600;
+}
+:where(.vk-text[data-weight="bold"]) {
+  font-weight: 700;
+}
+
+:where(.vk-text[data-align="start"]) {
+  text-align: start;
+}
+:where(.vk-text[data-align="center"]) {
+  text-align: center;
+}
+:where(.vk-text[data-align="end"]) {
+  text-align: end;
+}
+
+:where(.vk-text[data-truncate]) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:where(.vk-text[data-line-clamp]) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--vk-line-clamp, 2);
+  line-clamp: var(--vk-line-clamp, 2);
+  overflow: hidden;
+}

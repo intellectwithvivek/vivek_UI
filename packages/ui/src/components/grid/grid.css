@@ -1,0 +1,75 @@
+:where(.vk-grid) {
+  display: grid;
+  min-width: 0;
+}
+
+:where(.vk-grid[data-gap="1"]) {
+  gap: var(--vk-space-1);
+}
+:where(.vk-grid[data-gap="2"]) {
+  gap: var(--vk-space-2);
+}
+:where(.vk-grid[data-gap="3"]) {
+  gap: var(--vk-space-3);
+}
+:where(.vk-grid[data-gap="4"]) {
+  gap: var(--vk-space-4);
+}
+:where(.vk-grid[data-gap="6"]) {
+  gap: var(--vk-space-6);
+}
+:where(.vk-grid[data-gap="8"]) {
+  gap: var(--vk-space-8);
+}
+:where(.vk-grid[data-gap="12"]) {
+  gap: var(--vk-space-12);
+}
+:where(.vk-grid[data-gap="16"]) {
+  gap: var(--vk-space-16);
+}
+
+/* No cols given: intrinsically responsive, reflows at every width with zero config. */
+:where(.vk-grid[data-mode="auto"]) {
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--vk-item-min, 16rem), 100%), 1fr));
+}
+
+/* Explicit cols. Each breakpoint falls back to the next one down. */
+:where(.vk-grid[data-mode="cols"]) {
+  grid-template-columns: repeat(var(--vk-cols, 1), minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  :where(.vk-grid[data-mode="cols"]) {
+    grid-template-columns: repeat(var(--vk-cols-sm, var(--vk-cols, 1)), minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  :where(.vk-grid[data-mode="cols"]) {
+    grid-template-columns: repeat(
+        var(--vk-cols-md, var(--vk-cols-sm, var(--vk-cols, 1))),
+        minmax(0, 1fr)
+      );
+  }
+}
+
+@media (min-width: 1024px) {
+  :where(.vk-grid[data-mode="cols"]) {
+    grid-template-columns: repeat(
+        var(--vk-cols-lg, var(--vk-cols-md, var(--vk-cols-sm, var(--vk-cols, 1)))),
+        minmax(0, 1fr)
+      );
+  }
+}
+
+@media (min-width: 1280px) {
+  :where(.vk-grid[data-mode="cols"]) {
+    grid-template-columns: repeat(
+        var(
+          --vk-cols-xl,
+          var(--vk-cols-lg, var(--vk-cols-md, var(--vk-cols-sm, var(--vk-cols, 1))))
+        ),
+        minmax(0, 1fr)
+      );
+  }
+}

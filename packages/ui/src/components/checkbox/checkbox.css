@@ -1,0 +1,120 @@
+:where(.vk-checkbox) {
+  display: inline-grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--vk-space-2);
+  align-items: start;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+  cursor: pointer;
+}
+
+:where(.vk-checkbox[data-size="sm"]) {
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-checkbox[data-size="md"]) {
+  font-size: var(--vk-text-md);
+}
+
+/*
+ * Visually hidden, not removed: display:none or visibility:hidden would take the
+ * input out of the focus order and out of form submission.
+ */
+:where(.vk-checkbox__input) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:where(.vk-checkbox__box) {
+  position: relative;
+  flex: none;
+  width: 1.125em;
+  height: 1.125em;
+  margin-top: 0.15em;
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+  transition:
+    background-color var(--vk-duration) var(--vk-ease),
+    border-color var(--vk-duration) var(--vk-ease);
+}
+
+/* Checkmark: two borders rotated, so no SVG is needed. */
+:where(.vk-checkbox__box)::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 46%;
+  width: 0.3em;
+  height: 0.55em;
+  border-inline-end: 2px solid var(--vk-color-primary-fg);
+  border-block-end: 2px solid var(--vk-color-primary-fg);
+  transform: translate(-50%, -55%) rotate(45deg) scale(0);
+  transition: transform var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-checkbox__input:checked) + :where(.vk-checkbox__box) {
+  background: var(--vk-color-primary);
+  border-color: var(--vk-color-primary);
+}
+
+:where(.vk-checkbox__input:checked) + :where(.vk-checkbox__box)::after {
+  transform: translate(-50%, -55%) rotate(45deg) scale(1);
+}
+
+/* Indeterminate wins over checked, matching native behaviour. */
+:where(.vk-checkbox__input:indeterminate) + :where(.vk-checkbox__box) {
+  background: var(--vk-color-primary);
+  border-color: var(--vk-color-primary);
+}
+
+:where(.vk-checkbox__input:indeterminate) + :where(.vk-checkbox__box)::after {
+  width: 0.55em;
+  height: 0;
+  border-inline-end: 0;
+  border-block-end: 2px solid var(--vk-color-primary-fg);
+  transform: translate(-50%, -50%) rotate(0deg) scale(1);
+}
+
+:where(.vk-checkbox__input:focus-visible) + :where(.vk-checkbox__box) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+:where(.vk-checkbox__input[data-invalid]) + :where(.vk-checkbox__box) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-checkbox:has(.vk-checkbox__input:disabled)) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+:where(.vk-checkbox__text) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+}
+
+:where(.vk-checkbox__label) {
+  line-height: 1.4;
+}
+
+:where(.vk-checkbox__description) {
+  color: var(--vk-color-muted);
+  font-size: 0.875em;
+  line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-checkbox__box),
+  :where(.vk-checkbox__box)::after {
+    transition: none;
+  }
+}

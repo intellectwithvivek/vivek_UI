@@ -1,6 +1,6 @@
 {
   "name": "@the_viveksingh/vivek-ui",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A zero-runtime-dependency React component library. 100+ accessible, server-safe components: layout, forms, overlays, page sections, AI chat, DataTable and SVG charts. One install, one CSS import, no config. React 18/19 and Next.js.",
   "license": "MIT",
   "author": {
@@ -8,7 +8,16 @@
     "email": "s-vivek@funaiconsulting.in",
     "url": "https://vivekkumarsingh.in"
   },
-  "funding": "https://github.com/intellectwithvivek",
+  "funding": [
+    {
+      "type": "buymeacoffee",
+      "url": "https://www.buymeacoffee.com/theviveksingh"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/intellectwithvivek"
+    }
+  ],
   "type": "module",
   "sideEffects": false,
   "files": [

@@ -236,3 +236,15 @@ body {
     transition: none;
   }
 }
+
+/* Charts and single components read better centred than left-aligned in a wide column. */
+.preview--center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The support card should not compete with the content above it. */
+.docs-shell__content > .support {
+  margin-block-start: var(--vk-space-8);
+}

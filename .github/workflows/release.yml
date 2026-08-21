@@ -23,8 +23,6 @@ jobs:
           fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - uses: actions/setup-node@v4
         with:
@@ -38,9 +36,24 @@ jobs:
       - name: Test
         run: pnpm -r test
 
+      # Without the secret the release step cannot do anything useful, and failing
+      # red on every push is noise. Skip with a notice instead.
+      - name: Check for npm credentials
+        id: npm
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -n "$NPM_TOKEN" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::NPM_TOKEN is not set - skipping release. Add it under Settings > Secrets and variables > Actions."
+          fi
+
       # With pending changesets this opens/updates the "Version Packages" PR.
       # Once that PR is merged there are no changesets left, so `publish` runs instead.
       - name: Create release PR or publish
+        if: steps.npm.outputs.configured == 'true'
         uses: changesets/action@v1
         with:
           version: pnpm changeset version

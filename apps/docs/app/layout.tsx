@@ -6,6 +6,7 @@ import { ThemeProvider, themeScript } from '@the_viveksingh/vivek-ui'
 import type { ReactNode } from 'react'
 import { JsonLd } from '../components/json-ld'
 import { accentScript } from '../lib/accents'
+import { brandIcons } from '../lib/branding'
 import { AUTHOR, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_URL, url } from '../lib/site'
 import { softwareApplication, website } from '../lib/structured-data'
 import { SiteHeader } from './site-header'
@@ -61,6 +62,17 @@ export const metadata: Metadata = {
     },
   },
   category: 'technology',
+  /*
+   * Detected from `public/branding/` at build time, so dropping a file in there is the whole
+   * setup. Returns undefined while the folder is empty, and `app/icon.tsx` then supplies a
+   * generated favicon - so the site is never iconless, and no browser requests an icon that
+   * does not exist.
+   *
+   * Note that a real `favicon.ico` in `public/branding/` takes precedence over the generated
+   * one: Next emits the file-convention icon first and these links after, and a browser uses
+   * the last usable `rel="icon"` it finds.
+   */
+  icons: brandIcons(),
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

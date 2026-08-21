@@ -20,7 +20,7 @@ pnpm install
 
 ```bash
 pnpm -r build          # build the library (tsup + LightningCSS + directive check)
-pnpm --filter playground dev   # Vite playground at http://localhost:5173
+pnpm --filter docs dev # the docs site at http://localhost:3100
 
 pnpm -r test           # Vitest
 pnpm -r typecheck      # tsc --noEmit
@@ -29,10 +29,15 @@ pnpm lint:fix          # biome check --write .
 pnpm --filter @the_viveksingh/vivek-ui size    # size-limit budgets
 ```
 
-The playground imports `@the_viveksingh/vivek-ui` **by package name**, never by a relative path into
-`packages/ui/src`. Keep it that way — it is what makes the playground a genuine test of the exports
-map. Run `pnpm --filter @the_viveksingh/vivek-ui build` (or `pnpm --filter @the_viveksingh/vivek-ui dev` to watch) before it picks
-up your changes.
+The docs site imports `@the_viveksingh/vivek-ui` **by package name**, never by a relative path into
+`packages/ui/src`. Keep it that way — it is what makes the site a genuine test of the exports map,
+and it is how three real packaging bugs were found. Run
+`pnpm --filter @the_viveksingh/vivek-ui build` (or `dev` to watch) before it picks up your changes.
+
+There used to be a separate `apps/playground` Vite app for local development. It is gone: the docs
+site renders a live preview for all 83 components and has an in-browser playground at `/playground`,
+so a second app was a duplicate React toolchain to maintain for no coverage the docs site did not
+already give. Develop against the docs site.
 
 ## Repository shape
 
@@ -41,8 +46,7 @@ packages/ui/          the only published package
   src/components/     one directory per component
   src/styles/         reset.css, tokens.css, entry.css
   src/utils/          internal, NOT exported from the package entry
-apps/playground/      Vite app for local development
-apps/docs/            Next.js + MDX docs site (M3)
+apps/docs/            Next.js docs site: previews, playground, and the public site
 scripts/              build guards
 ```
 

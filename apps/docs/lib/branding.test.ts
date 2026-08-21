@@ -1,20 +1,34 @@
 /**
- * Keeps the brand assets and the metadata that references them in step.
+ * Keeps the brand assets and the metadata that references them in step, and keeps them small.
  *
- * The failure being prevented is a silent one: a filename typo, or a file added to
- * `public/branding/` that nothing reads. Neither errors — the site just renders with the
- * generated fallback icon and nobody notices the file they added did nothing.
+ * Both halves came from real failures on the first set of icons that arrived:
  *
- * So this checks both directions: everything the metadata points at exists, and everything
- * present is actually wired in.
+ * 1. **Names.** They came out of realfavicongenerator.net — `apple-touch-icon.png`,
+ *    `web-app-manifest-192x192.png` — and the site was reading names I had invented. Four of
+ *    six files were silently ignored: no error, the site just fell back to the generated
+ *    icon, and nothing said the files had done nothing.
+ * 2. **Size.** `icon.svg` was a 1528×1592 PNG base64-embedded in an `<svg>` wrapper: 4.8 MB,
+ *    zero `<path>` elements. Browsers *prefer* SVG when it is offered, so that was the
+ *    favicon being downloaded on every single page view.
+ *
+ * Neither is visible by looking at the site — the icon renders fine either way.
  */
-import { existsSync, readdirSync } from 'node:fs'
+import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { BRAND_FILES, brandIcons, hasBrandFile, manifestIcons } from './branding'
+import {
+  brandIcons,
+  ICON_ROLES,
+  type IconRole,
+  manifestIcons,
+  RECOGNISED_FILENAMES,
+  resolveRole,
+} from './branding'
 
 const ROOT = join(__dirname, '..')
 const BRANDING = join(ROOT, 'public', 'branding')
+
+const ROLES = Object.keys(ICON_ROLES) as IconRole[]
 
 /** Every URL the icon metadata emits, flattened. */
 function iconUrls(): string[] {
@@ -30,78 +44,110 @@ function iconUrls(): string[] {
   return urls
 }
 
-describe('brand assets', () => {
+const kb = (bytes: number) => `${(bytes / 1024).toFixed(0)} KB`
+
+describe('brand asset wiring', () => {
   it('has the folder, with its instructions', () => {
-    expect(existsSync(BRANDING), 'public/branding/ is missing').toBe(true)
-    expect(existsSync(join(BRANDING, 'README.md')), 'the filename spec is missing').toBe(true)
+    expect(readdirSync(BRANDING)).toContain('README.md')
   })
 
   it('points only at files that exist', () => {
-    // A <link rel="icon"> to a 404 is worse than no link: the browser fetches, fails, and
-    // then falls back anyway.
+    // A <link rel="icon"> to a 404 is worse than no link: the browser fetches, fails, then
+    // falls back anyway.
     for (const url of iconUrls()) {
-      const relative = url.replace(/^\//, '')
-      expect(existsSync(join(ROOT, 'public', relative)), `metadata references ${url}`).toBe(true)
+      const path = join(ROOT, 'public', url.replace(/^\//, ''))
+      expect(statSync(path).isFile(), `metadata references ${url}, which is not a file`).toBe(true)
     }
   })
 
-  it('wires in every recognised file that is present', () => {
-    const urls = iconUrls()
-    for (const name of [BRAND_FILES.favicon, BRAND_FILES.svg, BRAND_FILES.png192]) {
-      if (hasBrandFile(name)) {
-        expect(urls, `${name} exists but nothing links to it`).toContain(`/branding/${name}`)
-      }
-    }
-    if (hasBrandFile(BRAND_FILES.apple)) {
-      expect(urls).toContain(`/branding/${BRAND_FILES.apple}`)
-    }
-  })
-
-  it('has no unrecognised image sitting in the folder unused', () => {
-    // Catches `favicon.png` when the site reads `favicon.ico`, or `apple-touch-icon.png`
-    // when it reads `apple-icon.png` - a real filename to get wrong, and silent when wrong.
-    const known = new Set<string>([...Object.values(BRAND_FILES), 'README.md'])
-    const strays = readdirSync(BRANDING).filter((name) => !known.has(name))
+  it('leaves no image in the folder unused', () => {
+    // The check that would have caught the naming mismatch. A file the site does not read is
+    // indistinguishable, from the outside, from a file it does.
+    const strays = readdirSync(BRANDING).filter(
+      (name) => name !== 'README.md' && !RECOGNISED_FILENAMES.includes(name),
+    )
     expect(
       strays,
-      `these are not names the site reads - see public/branding/README.md for the list`,
+      `not names the site reads. Accepted: ${RECOGNISED_FILENAMES.join(', ')}`,
     ).toEqual([])
   })
 
-  it('always yields at least one manifest icon', () => {
-    // Falls back to the generated /icon route, so an install prompt is never iconless.
-    expect(manifestIcons().length).toBeGreaterThan(0)
+  it('wires in every role that has a file present', () => {
+    const urls = iconUrls()
+    for (const role of ['ico', 'svg', 'png96', 'apple'] as const) {
+      const found = resolveRole(role)
+      if (found) {
+        expect(urls, `${found.file} exists but nothing links to it`).toContain(
+          `/branding/${found.file}`,
+        )
+      }
+    }
   })
 
-  it('falls back to the generated icon while the folder is empty', () => {
-    const anyPresent = Object.values(BRAND_FILES).some(hasBrandFile)
-    if (!anyPresent) {
-      expect(brandIcons(), 'with no files present nothing should be linked').toBeUndefined()
-      expect(existsSync(join(ROOT, 'app', 'icon.tsx')), 'the generated fallback is missing').toBe(
-        true,
-      )
-    }
+  it('always yields at least one manifest icon', () => {
+    expect(manifestIcons().length).toBeGreaterThan(0)
+  })
+})
+
+describe('brand asset weight', () => {
+  /*
+   * Budgets differ by how often a browser fetches the file, which is the only thing that
+   * makes a budget meaningful. An `everyLoad` icon rides along with every page view; an
+   * `install` icon is fetched once, if ever.
+   */
+  it.each(ROLES.map((role) => [role, ICON_ROLES[role]] as const))(
+    '%s stays within its budget',
+    (role, spec) => {
+      const found = resolveRole(role)
+      if (!found) return
+      expect(
+        found.bytes,
+        `${found.file} is ${kb(found.bytes)}; the budget for a ${spec.frequency} icon is ${kb(spec.maxBytes)}`,
+      ).toBeLessThanOrEqual(spec.maxBytes)
+    },
+  )
+
+  it('has no SVG that is really a raster in a wrapper', () => {
+    // The specific 4.8 MB failure. An SVG with an embedded base64 image and no vector
+    // geometry is a PNG wearing a costume: it is the file browsers prefer, and it is the
+    // largest one in the folder.
+    const found = resolveRole('svg')
+    if (!found) return
+    const source = readFileSync(join(BRANDING, found.file), 'utf8')
+    const hasGeometry = /<(path|circle|rect|polygon|ellipse|line|polyline)\b/.test(source)
+    const hasEmbeddedRaster = /<image\b[^>]*base64/.test(source)
+    expect(
+      hasEmbeddedRaster && !hasGeometry,
+      `${found.file} embeds a raster image and contains no vector geometry — export a real vector, or delete it and let the .ico and PNGs serve`,
+    ).toBe(false)
+  })
+
+  it('keeps the every-page-load icons small in total', () => {
+    // What a first-time visitor actually pays for icons before seeing anything.
+    const total = ROLES.filter((role) => ICON_ROLES[role].frequency === 'everyLoad').reduce(
+      (sum, role) => sum + (resolveRole(role)?.bytes ?? 0),
+      0,
+    )
+    expect(total, `every-page-load icons total ${kb(total)}`).toBeLessThanOrEqual(150 * 1024)
   })
 })
 
 describe('branding module', () => {
   it('is never imported by a client component', () => {
-    // It reads the filesystem. Reaching a client bundle would be a build error at best and a
-    // bundled `node:fs` shim at worst.
-    const clientFiles: string[] = []
+    // It reads the filesystem. Reaching a client bundle would be a build error at best.
+    const files: string[] = []
     const walk = (dir: string) => {
-      for (const name of readdirSync(dir, { withFileTypes: true })) {
-        if (name.name === 'node_modules' || name.name === '.next') continue
-        const path = join(dir, name.name)
-        if (name.isDirectory()) walk(path)
-        else if (/\.tsx?$/.test(name.name)) clientFiles.push(path)
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        if (entry.name === 'node_modules' || entry.name === '.next') continue
+        const path = join(dir, entry.name)
+        if (entry.isDirectory()) walk(path)
+        else if (/\.tsx?$/.test(entry.name)) files.push(path)
       }
     }
     walk(join(ROOT, 'app'))
     walk(join(ROOT, 'components'))
 
-    const { readFileSync } = require('node:fs') as typeof import('node:fs')
-    for (const file of clientFiles) {
+    for (const file of files) {
       const source = readFileSync(file, 'utf8')
       if (!source.startsWith("'use client'")) continue
       expect(

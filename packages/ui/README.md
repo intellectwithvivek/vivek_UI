@@ -11,9 +11,17 @@ Pages and App Router.
 [![npm](https://img.shields.io/npm/v/@the_viveksingh/vivek-ui?color=4f46e5)](https://www.npmjs.com/package/@the_viveksingh/vivek-ui)
 [![license](https://img.shields.io/npm/l/@the_viveksingh/vivek-ui?color=4f46e5)](https://github.com/intellectwithvivek/vivek_UI/blob/main/LICENSE)
 [![runtime deps](https://img.shields.io/badge/runtime%20deps-0-4f46e5)](#zero-dependencies-verifiable)
-[![one component](https://img.shields.io/badge/one%20component-198%20B-4f46e5)](#how-small-actually)
+[![one component](https://img.shields.io/badge/one%20component-773%20B-4f46e5)](#how-small-actually)
+[![docs](https://img.shields.io/badge/docs-ui.vivekkumarsingh.in-4f46e5)](https://ui.vivekkumarsingh.in)
 
-[Website](https://vivekkumarsingh.in) &middot; [GitHub](https://github.com/intellectwithvivek) &middot; [LinkedIn](https://www.linkedin.com/in/singhvvk/)
+### [**Documentation, live examples and a playground &rarr;**](https://ui.vivekkumarsingh.in)
+
+Every component and chart has a page with a rendered example, the code in TypeScript **and**
+JavaScript, and a props table generated from the package's own type declarations.
+
+[Components](https://ui.vivekkumarsingh.in/docs/components) &middot; [Charts](https://ui.vivekkumarsingh.in/docs/charts) &middot; [Playground](https://ui.vivekkumarsingh.in/playground) &middot; [Installation](https://ui.vivekkumarsingh.in/docs/installation) &middot; [FAQ](https://ui.vivekkumarsingh.in/docs/faq)
+
+[Author's site](https://vivekkumarsingh.in) &middot; [GitHub](https://github.com/intellectwithvivek) &middot; [LinkedIn](https://www.linkedin.com/in/singhvvk/)
 
 </div>
 
@@ -379,8 +387,8 @@ Report a vulnerability via [SECURITY.md](https://github.com/intellectwithvivek/v
 | Status | |
 |---|---|
 | **Shipped** | Layout, typography, actions, forms, overlays, navigation, data, AI chat, sections, media, charts, theming |
-| Next | Documentation site with live examples and props tables |
-| Then | Built-in icon set; a Playwright pass for colour contrast and real-browser behaviour |
+| **Shipped** | [Documentation site](https://ui.vivekkumarsingh.in) &mdash; a page per component with live previews, props tables and an in-browser playground |
+| Next | Built-in icon set; a Playwright pass for colour contrast and real-browser behaviour |
 | Later | `DataTable` virtualisation, richer chart types — driven by what people actually ask for |
 
 ## Contributing
@@ -392,6 +400,7 @@ real demand jump the queue.
 
 **Vivek Kumar Singh**
 
+- Documentation &mdash; [ui.vivekkumarsingh.in](https://ui.vivekkumarsingh.in)
 - Website &mdash; [vivekkumarsingh.in](https://vivekkumarsingh.in)
 - GitHub &mdash; [@intellectwithvivek](https://github.com/intellectwithvivek)
 - LinkedIn &mdash; [in/singhvvk](https://www.linkedin.com/in/singhvvk/)

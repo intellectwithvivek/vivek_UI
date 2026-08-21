@@ -9,18 +9,16 @@ Set this in **Vercel → Project → Settings → Environment Variables**, for P
 (and Preview, if you want preview links to be self-consistent):
 
 ```
-NEXT_PUBLIC_SITE_URL = https://vivekui.vivekkumarsingh.in
+NEXT_PUBLIC_SITE_URL = https://ui.vivekkumarsingh.in
 ```
 
-> **Check the spelling of the host.** You wrote `vivekui-vivekkumarsingh.in`. I have used
-> `vivekui.vivekkumarsingh.in` — a subdomain of your existing site — because that is what
-> "sub domain" means and it is what your DNS is already set up to serve. If you genuinely
-> registered the hyphenated domain `vivekui-vivekkumarsingh.in` as a separate name, set the
-> variable to that instead. Nothing else in the codebase needs changing: the value flows
-> from `lib/site.ts` to everything else.
+This is the host the site is actually served from. If it ever moves, this variable is the only
+thing to change — the value flows from `lib/site.ts` into every canonical link, Open Graph
+tag, sitemap entry, JSON-LD block and `llms.txt` line.
 
-If the variable is unset the build falls back to `https://vivekui.vivekkumarsingh.in`, so a
-local build still produces absolute URLs. It is not a substitute for setting it.
+The build falls back to the same value when the variable is unset, so a local build still
+produces absolute URLs. Setting it explicitly in Vercel is still worth doing: it is what makes
+the deployment independent of a default committed in source.
 
 ## Vercel project settings
 
@@ -44,9 +42,9 @@ For a subdomain of an existing domain, add one record at your DNS provider:
 
 | Type | Name | Value |
 |---|---|---|
-| CNAME | `vivekui` | `cname.vercel-dns.com` |
+| CNAME | `ui` | `cname.vercel-dns.com` |
 
-Then add `vivekui.vivekkumarsingh.in` under **Vercel → Project → Settings → Domains**.
+Then add `ui.vivekkumarsingh.in` under **Vercel → Project → Settings → Domains**.
 Vercel issues the TLS certificate automatically once the record propagates.
 
 Do **not** also point the apex domain at this project — `vivekkumarsingh.in` is your main

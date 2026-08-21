@@ -1,6 +1,6 @@
 {
-  "name": "vivek-ui",
-  "version": "0.0.0",
+  "name": "@the_viveksingh/vivek-ui",
+  "version": "0.1.0-next.0",
   "description": "A zero-runtime-dependency React UI library: primitives, full page sections, icons and charts in one install. Works in React 18/19, Next.js Pages and App Router.",
   "license": "MIT",
   "author": "Vivek Kumar Singh",

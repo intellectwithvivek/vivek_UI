@@ -25,12 +25,12 @@ pnpm -r test           # Vitest
 pnpm -r typecheck      # tsc --noEmit
 pnpm lint              # biome check .
 pnpm lint:fix          # biome check --write .
-pnpm --filter vivek-ui size    # size-limit budgets
+pnpm --filter @the_viveksingh/vivek-ui size    # size-limit budgets
 ```
 
-The playground imports `vivek-ui` **by package name**, never by a relative path into
+The playground imports `@the_viveksingh/vivek-ui` **by package name**, never by a relative path into
 `packages/ui/src`. Keep it that way — it is what makes the playground a genuine test of the exports
-map. Run `pnpm --filter vivek-ui build` (or `pnpm --filter vivek-ui dev` to watch) before it picks
+map. Run `pnpm --filter @the_viveksingh/vivek-ui build` (or `pnpm --filter @the_viveksingh/vivek-ui dev` to watch) before it picks
 up your changes.
 
 ## Repository shape

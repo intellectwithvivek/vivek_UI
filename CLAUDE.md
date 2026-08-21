@@ -7,7 +7,7 @@
 
 | Thing | Value |
 |---|---|
-| Published package | `vivek-ui` (the **only** published package) |
+| Published package | `@the_viveksingh/vivek-ui` (the **only** published package) |
 | Class prefix | `vk-` (e.g. `.vk-button`) — **public API** |
 | Token prefix | `--vk-` (e.g. `--vk-color-primary`) — **public API** |
 | License | MIT |
@@ -70,7 +70,7 @@ Repo-wide gates (CI blocks merge on red): `typecheck` -> `lint` -> `test` -> `bu
 | M5 · Polish | **v1.0.0** — full docs, size budgets green, migration notes |
 | M6 · v1.1 | Icon set to 150+, Combobox, CommandPalette, OTPInput, Rating, Carousel |
 | M7 · v1.2 | **DataTable** (sort/search/paginate/select, responsive stack mode) |
-| M8 · v1.3 | **`vivek-ui/charts`** — Sparkline, Line, Area, Bar, Pie/Donut, ProgressRing |
+| M8 · v1.3 | **`@the_viveksingh/vivek-ui/charts`** — Sparkline, Line, Area, Bar, Pie/Donut, ProgressRing |
 
 **Do not scaffold beyond the current milestone.** Sequencing is what gets this shipped instead of
 abandoned at thirty half-finished components (§1.3).
@@ -83,7 +83,7 @@ pnpm -r typecheck        # tsc --noEmit per package
 pnpm lint               # biome check .
 pnpm -r test            # vitest run
 pnpm -r build           # tsup + lightningcss + directive check
-pnpm --filter vivek-ui size   # size-limit budgets
+pnpm --filter @the_viveksingh/vivek-ui size   # size-limit budgets
 pnpm changeset          # required on every PR that touches packages/ui
 ```
 

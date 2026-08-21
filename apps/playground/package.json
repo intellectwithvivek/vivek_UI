@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "vivek-ui": "workspace:*"
+    "@the_viveksingh/vivek-ui": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",

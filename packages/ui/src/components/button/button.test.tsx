@@ -118,6 +118,95 @@ describe('Button', () => {
     expect(onClick).toHaveBeenCalledTimes(1)
   })
 
+  describe('asChild', () => {
+    // Found by building a real page: `Button` had no `asChild` while Navbar.Link,
+    // Sidebar.Item and Breadcrumb.Item did, so "a button that navigates" - the single
+    // most common need in any app - had no correct answer.
+    it('renders the caller element instead of a button', () => {
+      render(
+        <Button asChild>
+          <a href="/pricing">Pricing</a>
+        </Button>,
+      )
+      const link = screen.getByRole('link', { name: 'Pricing' })
+      expect(link.tagName).toBe('A')
+      expect(screen.queryByRole('button')).toBeNull()
+    })
+
+    it('passes its styling onto the caller element', () => {
+      render(
+        <Button asChild variant="outline" size="lg" fullWidth>
+          <a href="/x">Go</a>
+        </Button>,
+      )
+      const link = screen.getByRole('link')
+      expect(link).toHaveClass('vk-button')
+      expect(link).toHaveAttribute('data-variant', 'outline')
+      expect(link).toHaveAttribute('data-size', 'lg')
+      expect(link).toHaveAttribute('data-full-width', 'true')
+    })
+
+    it('merges the caller className rather than replacing it', () => {
+      render(
+        <Button asChild className="mine">
+          <a className="theirs" href="/x">
+            Go
+          </a>
+        </Button>,
+      )
+      const link = screen.getByRole('link')
+      expect(link).toHaveClass('vk-button', 'mine', 'theirs')
+    })
+
+    it('forwards the ref to the caller element', () => {
+      const ref = createRef<HTMLButtonElement>()
+      render(
+        <Button asChild ref={ref}>
+          <a href="/x">Go</a>
+        </Button>,
+      )
+      expect(ref.current).toBeInstanceOf(HTMLAnchorElement)
+    })
+
+    it('keeps the caller own handler working alongside ours', () => {
+      const ours = vi.fn()
+      const theirs = vi.fn()
+      render(
+        <Button asChild onClick={ours}>
+          {/* biome-ignore lint/a11y/useValidAnchor: exercising handler composition, not navigation */}
+          <a href="#x" onClick={theirs}>
+            Go
+          </a>
+        </Button>,
+      )
+      screen.getByRole('link').click()
+      expect(theirs).toHaveBeenCalledTimes(1)
+      expect(ours).toHaveBeenCalledTimes(1)
+    })
+
+    it('does not put disabled or a spinner on a non-button element', () => {
+      render(
+        <Button asChild loading disabled>
+          <a href="/x">Go</a>
+        </Button>,
+      )
+      const link = screen.getByRole('link')
+      // `disabled` is not valid on an anchor, and a spinner would fight the caller's
+      // children. Documented on the prop: use a real button for pending states.
+      expect(link).not.toHaveAttribute('disabled')
+      expect(link.querySelector('.vk-button__spinner')).toBeNull()
+    })
+
+    it('has no axe violations as a link', async () => {
+      const { container } = render(
+        <Button asChild>
+          <a href="/pricing">Pricing</a>
+        </Button>,
+      )
+      expect(await axe(container)).toHaveNoViolations()
+    })
+  })
+
   describe('accessibility', () => {
     it('has no axe violations in its default state', async () => {
       const { container } = render(<Button>Get started</Button>)

@@ -4,9 +4,12 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { CodeBlock } from '../../../../components/code-block'
 import { ComponentPreview } from '../../../../components/component-preview'
+import { JsonLd } from '../../../../components/json-ld'
 import { PropsTable } from '../../../../components/props-table'
 import { examplesFor } from '../../../../lib/examples'
+import { apiDescription, pageMeta } from '../../../../lib/page-meta'
 import { neighbours, PACKAGE_NAME, REPO_URL, registry } from '../../../../lib/registry'
+import { breadcrumbs, componentReference, techArticle } from '../../../../lib/structured-data'
 
 export function generateStaticParams() {
   return registry.components.map((entry) => ({ slug: entry.slug }))
@@ -20,10 +23,24 @@ export async function generateMetadata({
   const { slug } = await params
   const entry = registry.components.find((item) => item.slug === slug)
   if (!entry) return {}
-  return {
+  return pageMeta({
     title: entry.title,
-    description: entry.description || `${entry.title} — a VivekUI component.`,
-  }
+    description: apiDescription({
+      title: entry.title,
+      kind: 'component',
+      description: entry.description,
+      exports: entry.exports,
+    }),
+    path: `/docs/components/${slug}`,
+    hasOwnImage: true,
+    // The phrases someone actually types. `entry.exports` covers the case where they
+    // search the export name rather than the component name.
+    keywords: [
+      `react ${entry.title.toLowerCase()} component`,
+      `${entry.title.toLowerCase()} react example`,
+      ...entry.exports.map((name) => `${name} props`),
+    ],
+  })
 }
 
 export default async function ComponentPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -35,8 +52,35 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   const examples = examplesFor(slug)
   const importLine = `import { ${entry.exports.join(', ')} } from '${PACKAGE_NAME}'`
 
+  const path = `/docs/components/${slug}`
+
   return (
     <>
+      <JsonLd
+        data={[
+          techArticle({
+            title: `${entry.title} — React component`,
+            description: apiDescription({
+              title: entry.title,
+              kind: 'component',
+              description: entry.description,
+              exports: entry.exports,
+            }),
+            path,
+          }),
+          componentReference({
+            name: entry.title,
+            description: entry.description || `The ${entry.title} component.`,
+            path,
+            exports: entry.exports,
+          }),
+          breadcrumbs([
+            { name: 'Docs', path: '/docs' },
+            { name: 'Components', path: '/docs/components' },
+            { name: entry.title, path },
+          ]),
+        ]}
+      />
       <header className="doc-header">
         <Text size="sm" tone="muted">
           {entry.category}

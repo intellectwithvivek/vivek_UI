@@ -31,6 +31,7 @@ const GUIDE_GROUPS: NavGroup[] = [
       { href: '/docs/accessibility', label: 'Accessibility' },
       { href: '/docs/security', label: 'Security' },
       { href: '/docs/typescript', label: 'TypeScript' },
+      { href: '/docs/faq', label: 'FAQ' },
     ],
   },
   {

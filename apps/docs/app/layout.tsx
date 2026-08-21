@@ -4,17 +4,61 @@ import '@the_viveksingh/vivek-ui/styles.css'
 import '@the_viveksingh/vivek-ui/charts.css'
 import { ThemeProvider, themeScript } from '@the_viveksingh/vivek-ui'
 import type { ReactNode } from 'react'
+import { JsonLd } from '../components/json-ld'
+import { AUTHOR, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_URL, url } from '../lib/site'
+import { softwareApplication, website } from '../lib/structured-data'
 import { SiteHeader } from './site-header'
 import './docs.css'
 
+/**
+ * Sitewide metadata.
+ *
+ * `metadataBase` is the important line: without it Next emits Open Graph and canonical
+ * URLs as relative paths, which every crawler and every social scraper treats as invalid.
+ * A site can look perfectly fine and be unshareable for exactly this reason.
+ */
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'VivekUI — a zero-dependency React component library',
-    template: '%s · VivekUI',
+    default: `${SITE_NAME} — a free, zero-dependency React component library`,
+    template: `%s · ${SITE_NAME}`,
   },
-  description:
-    '83 accessible, server-safe React components and 6 SVG charts with zero runtime dependencies. One install, one CSS import, no configuration.',
-  authors: [{ name: 'Vivek Kumar Singh', url: 'https://vivekkumarsingh.in' }],
+  description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
+  applicationName: SITE_NAME,
+  authors: [{ name: AUTHOR.name, url: AUTHOR.url }],
+  creator: AUTHOR.name,
+  publisher: AUTHOR.name,
+  // Self-referencing canonical on the root. Each page sets its own; without one, a page
+  // reachable at more than one URL competes with itself.
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — a free, zero-dependency React component library`,
+    description: SITE_DESCRIPTION,
+    url: url('/'),
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_NAME} — a free, zero-dependency React component library`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      // Let Google use the full snippet and a large image preview. The default caps the
+      // snippet, which is the opposite of what a docs site wants.
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+    },
+  },
+  category: 'technology',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -29,6 +73,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         */}
         {/* biome-ignore lint/security/noDangerouslySetInnerHtml: a build-time constant exported by the library, not user input */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/*
+          Sitewide structured data: the library as a SoftwareApplication with a price of 0,
+          and the site itself. Rendered on the server, because several crawlers - including
+          some answer engines - never execute JavaScript.
+        */}
+        <JsonLd data={[softwareApplication(), website()]} />
       </head>
       <body>
         <ThemeProvider>

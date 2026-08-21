@@ -35,7 +35,8 @@
       "require": "./dist/charts/index.cjs"
     },
     "./styles.css": "./dist/styles.css",
-    "./charts.css": "./dist/charts.css"
+    "./charts.css": "./dist/charts.css",
+    "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

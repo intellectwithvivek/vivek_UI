@@ -15,6 +15,7 @@
 
 @import "./reset.css";
 @import "./tokens.css";
+@import "./utilities.css";
 
 /* generated below by scripts/gen-exports.mjs */
 @import "../components/code/code.css";

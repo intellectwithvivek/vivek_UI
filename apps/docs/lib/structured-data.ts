@@ -20,6 +20,7 @@
  *     page genuinely is questions and answers; faking it is a manual-action risk.
  */
 import { AUTHOR, PACKAGE_NAME, REPO_URL, SITE_NAME, SITE_TAGLINE, url } from './site'
+import { LIBRARY_VERSION } from './version'
 
 type Json = Record<string, unknown>
 
@@ -35,7 +36,10 @@ export function softwareApplication(): Json {
     operatingSystem: 'Any',
     url: url('/'),
     description: SITE_TAGLINE,
-    softwareVersion: process.env.NEXT_PUBLIC_PACKAGE_VERSION ?? undefined,
+    // Was `process.env.NEXT_PUBLIC_PACKAGE_VERSION`, which nothing ever set - so this field
+    // was silently absent and an answer engine asked "what version is VivekUI" had nothing
+    // to read. Derived now, like everywhere else.
+    softwareVersion: LIBRARY_VERSION,
     license: 'https://opensource.org/licenses/MIT',
     codeRepository: REPO_URL,
     programmingLanguage: ['TypeScript', 'JavaScript'],

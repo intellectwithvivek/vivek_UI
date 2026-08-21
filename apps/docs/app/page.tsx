@@ -14,7 +14,7 @@ import {
 import Link from 'next/link'
 import { SupportCta } from '../components/support-cta'
 import { registry } from '../lib/registry'
-import { LIBRARY_VERSION } from '../lib/version'
+import { LIBRARY_VERSION_LABEL } from '../lib/version'
 
 /*
  * Facts about the library, derived rather than typed.
@@ -45,7 +45,7 @@ export default function HomePage() {
   return (
     <>
       <Hero
-        eyebrow={`v${LIBRARY_VERSION} · MIT`}
+        eyebrow={`${LIBRARY_VERSION_LABEL} · MIT`}
         title="Every building block of a website. Zero dependencies."
         description={`${COMPONENT_COUNT} accessible React components and ${CHART_COUNT} SVG charts. One install, one CSS import, no configuration. Works in React 18 and 19, and in Next.js with both routers.`}
         actions={

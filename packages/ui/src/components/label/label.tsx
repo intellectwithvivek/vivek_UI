@@ -7,6 +7,13 @@ export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   required?: boolean
 }
 
+/**
+ * A form label.
+ *
+ * Associate it with `htmlFor`, or let `Field` wire it for you. The `required` marker is
+ * `aria-hidden`: the control's own `required` attribute is what assistive technology
+ * reads, and announcing "star" on every field is noise.
+ */
 export const Label = forwardRef<HTMLLabelElement, LabelProps>(function Label(
   { size = 'sm', required, className, children, ...rest },
   ref,

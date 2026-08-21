@@ -111,28 +111,30 @@ function isClientFile(file) {
 }
 
 /**
- * Pull the leading JSDoc summary off the main exported component in a source file.
- * The library documents its components properly, so this is real prose, not a stub.
+ * The component's own JSDoc summary, read from its declared symbol.
+ *
+ * Deliberately NOT a regex over the source. The previous version scanned backwards for
+ * the nearest `/** … *\/` followed by the declaration, and whenever a component's JSDoc
+ * did not sit *directly* above it — an interface or a helper in between — the match
+ * swallowed everything in the gap. 29 of 89 entries ended up with a "description" that
+ * was raw interface source, comment markers and all, printed on the page.
+ *
+ * The checker knows exactly which comment belongs to which symbol, so it cannot drift.
  */
-function summaryFrom(source, exportName) {
-  const pattern = new RegExp(
-    `/\\*\\*([\\s\\S]*?)\\*/\\s*(?:export\\s+)?(?:const|function)\\s+${exportName}\\b`,
-  )
-  const match = pattern.exec(source)
-  if (!match) return ''
-  const body = (match[1] ?? '')
-    .split('\n')
-    .map((line) =>
-      line
-        .replace(/^\s*\*ableToken?/, '')
-        .replace(/^\s*\*\s?/, '')
-        .trimEnd(),
-    )
-    .join('\n')
-    .trim()
-  // First paragraph only — the rest is design rationale, valuable but not a summary.
-  const paragraph = body.split(/\n\s*\n/)[0] ?? ''
-  return paragraph.replace(/\s*\n\s*/g, ' ').trim()
+/** Paragraph break: a newline, optional horizontal whitespace, another newline. */
+const BLANK_LINE = /\n[ \t]*\n/
+
+function summaryFor(name) {
+  const entry = declarations.get(name)
+  if (!entry) return ''
+  const symbol = checker.getSymbolAtLocation(entry.node.name)
+  if (!symbol) return ''
+  const docs = ts.displayPartsToString(symbol.getDocumentationComment(checker)).trim()
+  if (!docs) return ''
+  // First paragraph only: the rest is design rationale, valuable in the source but not a
+  // one-line summary.
+  const paragraph = docs.split(BLANK_LINE)[0] ?? ''
+  return paragraph.replace(/\s+/g, ' ').trim()
 }
 
 /** Every value export a barrel declares, in order. */
@@ -182,11 +184,22 @@ const checker = program.getTypeChecker()
 /** Props declarations found in the emitted .d.ts, keyed by name. */
 const interfaces = new Map()
 const aliases = new Map()
+/** Value declarations (`declare const Button: …`), for reading a component's own JSDoc. */
+const declarations = new Map()
 for (const file of program.getSourceFiles()) {
   if (!file.fileName.includes('dist')) continue
   ts.forEachChild(file, (node) => {
     if (ts.isInterfaceDeclaration(node)) interfaces.set(node.name.text, { node, file })
     else if (ts.isTypeAliasDeclaration(node)) aliases.set(node.name.text, { node, file })
+    else if (ts.isVariableStatement(node)) {
+      for (const declaration of node.declarationList.declarations) {
+        if (ts.isIdentifier(declaration.name)) {
+          declarations.set(declaration.name.text, { node: declaration, file })
+        }
+      }
+    } else if (ts.isFunctionDeclaration(node) && node.name) {
+      declarations.set(node.name.text, { node, file })
+    }
   })
 }
 
@@ -332,7 +345,6 @@ function scan(root, kind) {
       continue
     }
 
-    const source = existsSync(implPath) ? readFileSync(implPath, 'utf8') : ''
     // The primary export is the one named after the directory, not simply the first in
     // the barrel: `prose` exports `isSafeHref` first, and `theme-provider` exports
     // `createThemeScript` first, so taking values[0] looked for `isSafeHrefProps` and
@@ -355,7 +367,7 @@ function scan(root, kind) {
       exports: values,
       typeExports: types,
       primary,
-      description: summaryFrom(source, primary),
+      description: summaryFor(primary),
       isClient: existsSync(implPath) ? isClientFile(implPath) : false,
       api: propsFor(propsName),
       compound: values.length > 1,

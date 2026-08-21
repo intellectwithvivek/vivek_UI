@@ -15,6 +15,13 @@ export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   truncate?: boolean
 }
 
+/**
+ * A heading, `h1` through `h6`.
+ *
+ * `level` sets the semantics and `size` sets the appearance, deliberately separately.
+ * Tying them together is what pushes people to pick the wrong tag to get the right size,
+ * which quietly breaks the document outline every screen reader relies on.
+ */
 export const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(function Heading(
   { level = 2, size, align, truncate, className, ...rest },
   ref,

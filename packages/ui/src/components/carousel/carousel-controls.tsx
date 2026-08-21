@@ -65,7 +65,15 @@ export interface CarouselControlsProps {
   nextLabel: string
   playLabel: string
   pauseLabel: string
-  dotLabel: (index: number, total: number) => string
+  /**
+   * One accessible name per dot, already resolved.
+   *
+   * Not the `(index, total) => string` callback the public `dotLabel` prop takes: this
+   * component sits behind a `'use client'` boundary, and a function cannot cross from a
+   * Server Component to a Client Component. Resolving the strings in `Carousel` keeps the
+   * root server-renderable, which is the whole reason the controls were split out.
+   */
+  dotLabels: readonly string[]
   showArrows?: boolean
   showDots?: boolean
   autoPlay?: boolean
@@ -80,7 +88,7 @@ export function CarouselControls({
   nextLabel,
   playLabel,
   pauseLabel,
-  dotLabel,
+  dotLabels,
   showArrows,
   showDots,
   autoPlay,
@@ -246,7 +254,7 @@ export function CarouselControls({
                   key={`vk-dot-${dot}`}
                   type="button"
                   className="vk-carousel__dot"
-                  aria-label={dotLabel(dot, slideCount)}
+                  aria-label={dotLabels[dot] ?? `Go to slide ${dot + 1} of ${slideCount}`}
                   aria-current={dot === index ? 'true' : undefined}
                   data-active={dot === index ? 'true' : undefined}
                   onClick={() => goTo(dot)}

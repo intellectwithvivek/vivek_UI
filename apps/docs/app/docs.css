@@ -82,7 +82,14 @@ body {
   min-width: 0;
 }
 
-/* Prose measure, but tables and previews are free to use the full column. */
+/*
+ * Prose measure, but tables and previews are free to use the full column.
+ *
+ * One selector for both places a paragraph appears. Two rules setting the same value at
+ * different specificities is what `noDescendingSpecificity` objects to, and it is right
+ * to: the pair only worked because the values happened to agree.
+ */
+.doc-header > p,
 .docs-shell__content > section > p {
   max-width: 68ch;
 }
@@ -93,10 +100,6 @@ body {
   gap: var(--vk-space-3);
   padding-block-end: var(--vk-space-4);
   border-block-end: 1px solid var(--vk-color-border);
-}
-
-.doc-header > p {
-  max-width: 68ch;
 }
 
 .doc-pager {
@@ -158,6 +161,51 @@ body {
   background: #db2777;
   color: #fff;
   border-radius: var(--vk-radius-full);
+}
+
+/*
+ * Scaffolding for previews of layout primitives. Box, Stack and Grid render nothing
+ * visible on their own, so the demo has to supply the boxes whose arrangement is the
+ * point. These are docs-site classes, deliberately not library ones — shipping a
+ * `.vk-tile` just to make screenshots work would put a decoration in the public API.
+ */
+.preview-tile {
+  padding: var(--vk-space-3) var(--vk-space-4);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-bg));
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.preview-panel {
+  padding: var(--vk-space-4);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-bg));
+}
+
+.preview-portal-note {
+  padding: var(--vk-space-2) var(--vk-space-3);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-full);
+  background: var(--vk-color-bg);
+  box-shadow: var(--vk-shadow-md);
+  font-size: var(--vk-text-sm);
+}
+
+/* Previews that need a bounded stage: Sidebar, Drawer, Navbar, Carousel. */
+.preview-stage {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-bg));
+  min-height: 14rem;
 }
 
 .props-variant {

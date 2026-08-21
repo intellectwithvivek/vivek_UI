@@ -8,6 +8,13 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
   resize?: 'none' | 'vertical' | 'both'
 }
 
+/**
+ * A multi-line text input.
+ *
+ * Native by design: no wrapper element, so `rows`, `maxLength`, `autoComplete` and the
+ * browser's own validation all keep working. `resize` controls whether the user may
+ * resize it, and `invalid` sets `aria-invalid` alongside the visual state.
+ */
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
   { size = 'md', invalid, resize = 'vertical', rows = 3, className, ...rest },
   ref,

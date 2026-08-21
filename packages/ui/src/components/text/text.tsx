@@ -14,6 +14,13 @@ export interface TextProps extends HTMLAttributes<HTMLElement> {
   lineClamp?: number
 }
 
+/**
+ * Body text.
+ *
+ * `as` retags it — `p` by default, `span` for inline. `tone`, `size`, `weight` and `align`
+ * cover the choices that would otherwise become one-off CSS, and `truncate` or
+ * `lineClamp` handle overflow without needing a wrapper element.
+ */
 export const Text = forwardRef<HTMLElement, TextProps>(function Text(
   {
     as: Component = 'p',

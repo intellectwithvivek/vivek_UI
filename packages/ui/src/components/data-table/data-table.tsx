@@ -756,6 +756,15 @@ interface DataTableComponent {
   displayName?: string
 }
 
+/**
+ * A table with sorting, search, pagination and row selection built in.
+ *
+ * Generic over the row type, so a mistyped column `key` is a compile error rather than a
+ * silently empty column. `render` and `sortAccessor` mean raw API rows go straight in —
+ * nested objects and nulls included — with no pre-transform. Every client-side feature
+ * has a controlled counterpart (`onSortChange`, `onPageChange`, `onSearchChange`) for
+ * driving it from a server instead.
+ */
 export const DataTable = forwardRef(DataTableRoot) as DataTableComponent
 
 DataTable.displayName = 'DataTable'

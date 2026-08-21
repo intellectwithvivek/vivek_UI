@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "generatedFrom": "packages/ui — do not edit by hand, run `pnpm gen:registry`",
   "categories": [
     "Layout",
@@ -22,7 +22,12 @@
       "title": "Accordion",
       "kind": "component",
       "category": "Overlays",
-      "exports": ["Accordion", "AccordionContent", "AccordionItem", "AccordionTrigger"],
+      "exports": [
+        "Accordion",
+        "AccordionContent",
+        "AccordionItem",
+        "AccordionTrigger"
+      ],
       "typeExports": [
         "AccordionContentProps",
         "AccordionItemProps",
@@ -32,7 +37,7 @@
         "AccordionVariant"
       ],
       "primary": "Accordion",
-      "description": "Shared empty state, so an uncontrolled accordion does not churn array identity. */ const NO_VALUES: readonly string[] = []",
+      "description": "Accordion — `Accordion`, `Accordion.Item`, `Accordion.Trigger`, `Accordion.Content`.",
       "isClient": true,
       "api": {
         "props": [
@@ -2073,7 +2078,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["AccordionBaseProps & (AccordionSingleProps | AccordionMultipleProps)"]
+        "extends": [
+          "AccordionBaseProps & (AccordionSingleProps | AccordionMultipleProps)"
+        ]
       },
       "compound": true
     },
@@ -2082,10 +2089,14 @@
       "title": "Alert",
       "kind": "component",
       "category": "Feedback",
-      "exports": ["Alert"],
-      "typeExports": ["AlertProps"],
+      "exports": [
+        "Alert"
+      ],
+      "typeExports": [
+        "AlertProps"
+      ],
       "primary": "Alert",
-      "description": "Bold leading line. */ title?: ReactNode /** Leading glyph. Pass `null` to drop the default. */ icon?: ReactNode }",
+      "description": "A static, inline message. `danger` and `warning` get `role=\"alert\"` so screen readers interrupt for them; `info` and `success` use `role=\"status\"`, which waits for a pause instead of talking over the user.",
       "isClient": false,
       "api": {
         "props": [
@@ -2119,7 +2130,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLDivElement>, 'title'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
+        ]
       },
       "compound": false
     },
@@ -2128,10 +2141,15 @@
       "title": "Animated counter",
       "kind": "component",
       "category": "Media & time",
-      "exports": ["AnimatedCounter"],
-      "typeExports": ["AnimatedCounterProps", "CounterFormat"],
+      "exports": [
+        "AnimatedCounter"
+      ],
+      "typeExports": [
+        "AnimatedCounterProps",
+        "CounterFormat"
+      ],
       "primary": "AnimatedCounter",
-      "description": "`Intl.NumberFormat` options, or your own formatter.",
+      "description": "A number that counts up to its value the first time it is scrolled into view.",
       "isClient": true,
       "api": {
         "props": [
@@ -2193,7 +2211,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLSpanElement>, 'children'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLSpanElement>, 'children'>"
+        ]
       },
       "compound": false
     },
@@ -2202,10 +2222,14 @@
       "title": "Aspect ratio",
       "kind": "component",
       "category": "Layout",
-      "exports": ["AspectRatio"],
-      "typeExports": ["AspectRatioProps"],
+      "exports": [
+        "AspectRatio"
+      ],
+      "typeExports": [
+        "AspectRatioProps"
+      ],
       "primary": "AspectRatio",
-      "description": "Width-to-height ratio. `16 / 9` and `1.777` are equivalent. Defaults to `16 / 9`. */ ratio?: number }",
+      "description": "Reserves space at a fixed ratio so media cannot cause layout shift.",
       "isClient": false,
       "api": {
         "props": [
@@ -2218,7 +2242,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     },
@@ -2227,10 +2253,15 @@
       "title": "Avatar",
       "kind": "component",
       "category": "Data display",
-      "exports": ["Avatar"],
-      "typeExports": ["AvatarGroupProps", "AvatarProps"],
+      "exports": [
+        "Avatar"
+      ],
+      "typeExports": [
+        "AvatarGroupProps",
+        "AvatarProps"
+      ],
       "primary": "Avatar",
-      "description": "Image URL. When absent (or it fails to load) the fallback shows instead. */ src?: string /** Describes the person. Also seeds the initials fallback. */ name?: string size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' shape?: 'circle' | 'square' /** Overrides the derived initials. */ fallback?: string imgProps?: ImgHTMLAttributes<HTMLImageElement> }",
+      "description": "Compound component: `Avatar` and `Avatar.Group`.",
       "isClient": false,
       "api": {
         "props": [
@@ -2278,7 +2309,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLSpanElement>, 'children'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLSpanElement>, 'children'>"
+        ]
       },
       "compound": false
     },
@@ -2287,10 +2320,14 @@
       "title": "Badge",
       "kind": "component",
       "category": "Data display",
-      "exports": ["Badge"],
-      "typeExports": ["BadgeProps"],
+      "exports": [
+        "Badge"
+      ],
+      "typeExports": [
+        "BadgeProps"
+      ],
       "primary": "Badge",
-      "description": "Pill-shaped instead of rounded-rectangle. */ pill?: boolean }",
+      "description": "A small status or category label.",
       "isClient": false,
       "api": {
         "props": [
@@ -2324,7 +2361,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLSpanElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLSpanElement>"
+        ]
       },
       "compound": false
     },
@@ -2333,10 +2372,16 @@
       "title": "Bento grid",
       "kind": "component",
       "category": "Layout",
-      "exports": ["BentoGrid"],
-      "typeExports": ["BentoGridItemProps", "BentoGridProps", "ResponsiveSpan"],
+      "exports": [
+        "BentoGrid"
+      ],
+      "typeExports": [
+        "BentoGridItemProps",
+        "BentoGridProps",
+        "ResponsiveSpan"
+      ],
       "primary": "BentoGrid",
-      "description": "Responsive span, on the same fixed breakpoints as `Grid`: sm 640 · md 768 · lg 1024 · xl 1280.",
+      "description": "Compound component: `BentoGrid` and `BentoGrid.Item`.",
       "isClient": false,
       "api": {
         "props": [
@@ -2377,7 +2422,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": false
     },
@@ -2386,10 +2433,14 @@
       "title": "Box",
       "kind": "component",
       "category": "Layout",
-      "exports": ["Box"],
-      "typeExports": ["BoxProps"],
+      "exports": [
+        "Box"
+      ],
+      "typeExports": [
+        "BoxProps"
+      ],
       "primary": "Box",
-      "description": "Render as a different element. Defaults to `div`. */ as?: ElementType }",
+      "description": "The lowest-level layout primitive: a styled `div` you can retag.",
       "isClient": false,
       "api": {
         "props": [
@@ -2402,7 +2453,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": false
     },
@@ -2411,7 +2464,9 @@
       "title": "Breadcrumb",
       "kind": "component",
       "category": "Navigation",
-      "exports": ["Breadcrumb"],
+      "exports": [
+        "Breadcrumb"
+      ],
       "typeExports": [
         "BreadcrumbItemData",
         "BreadcrumbItemProps",
@@ -2419,7 +2474,7 @@
         "BreadcrumbSeparatorProps"
       ],
       "primary": "Breadcrumb",
-      "description": "One hop in the trail. `href` is omitted on the current page — see `BreadcrumbProps`. */ export interface BreadcrumbItemData { label: ReactNode href?: string /** Leading glyph. Decorative: hidden from assistive tech. */ icon?: ReactNode /** Force the \"you are here\" rendering. Defaults to `true` for the last item, which is what a breadcrumb trail means, so this is only needed for a trail that continues past the current page. / current?: boolean }",
+      "description": "Compound component: `Breadcrumb`, `Breadcrumb.Item`, `Breadcrumb.Separator`.",
       "isClient": false,
       "api": {
         "props": [
@@ -2460,7 +2515,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLElement>, 'children'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLElement>, 'children'>"
+        ]
       },
       "compound": false
     },
@@ -2469,10 +2526,14 @@
       "title": "Button",
       "kind": "component",
       "category": "Actions",
-      "exports": ["Button"],
-      "typeExports": ["ButtonProps"],
+      "exports": [
+        "Button"
+      ],
+      "typeExports": [
+        "ButtonProps"
+      ],
       "primary": "Button",
-      "description": "",
+      "description": "A button.",
       "isClient": false,
       "api": {
         "props": [
@@ -2513,7 +2574,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["ButtonHTMLAttributes<HTMLButtonElement>"]
+        "extends": [
+          "ButtonHTMLAttributes<HTMLButtonElement>"
+        ]
       },
       "compound": false
     },
@@ -2522,10 +2585,14 @@
       "title": "Button group",
       "kind": "component",
       "category": "Actions",
-      "exports": ["ButtonGroup"],
-      "typeExports": ["ButtonGroupProps"],
+      "exports": [
+        "ButtonGroup"
+      ],
+      "typeExports": [
+        "ButtonGroupProps"
+      ],
       "primary": "ButtonGroup",
-      "description": "Butt the buttons together into one seam-free control. */ attached?: boolean /** Accessible name for the group, e.g. \"Text alignment\". */ label?: string }",
+      "description": "Groups related buttons. `attached` joins them into a single segmented control.",
       "isClient": false,
       "api": {
         "props": [
@@ -2552,7 +2619,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     },
@@ -2561,7 +2630,12 @@
       "title": "Calendar",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Calendar", "formatDate", "parseISODate", "toISODate"],
+      "exports": [
+        "Calendar",
+        "formatDate",
+        "parseISODate",
+        "toISODate"
+      ],
       "typeExports": [
         "CalendarProps",
         "CalendarRangeProps",
@@ -2573,7 +2647,7 @@
         "WeekStart"
       ],
       "primary": "Calendar",
-      "description": "What a `Calendar` can hold: one day, a range, or nothing. */ export type CalendarSelection = Date | DateRange | null",
+      "description": "A month grid, keyboard-navigable per the WAI-ARIA Authoring Practices grid pattern.",
       "isClient": true,
       "api": {
         "props": [
@@ -4670,7 +4744,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["CalendarSingleProps | CalendarRangeProps"]
+        "extends": [
+          "CalendarSingleProps | CalendarRangeProps"
+        ]
       },
       "compound": true
     },
@@ -4679,10 +4755,15 @@
       "title": "Card",
       "kind": "component",
       "category": "Data display",
-      "exports": ["Card"],
-      "typeExports": ["CardProps", "CardSlotProps"],
+      "exports": [
+        "Card"
+      ],
+      "typeExports": [
+        "CardProps",
+        "CardSlotProps"
+      ],
       "primary": "Card",
-      "description": "Lift on hover. Only set this when the whole card is clickable. */ interactive?: boolean }",
+      "description": "Compound component: `Card`, `Card.Header`, `Card.Body`, `Card.Footer`.",
       "isClient": false,
       "api": {
         "props": [
@@ -4709,7 +4790,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     },
@@ -4718,10 +4801,14 @@
       "title": "Carousel",
       "kind": "component",
       "category": "Media & time",
-      "exports": ["Carousel"],
-      "typeExports": ["CarouselProps"],
+      "exports": [
+        "Carousel"
+      ],
+      "typeExports": [
+        "CarouselProps"
+      ],
       "primary": "Carousel",
-      "description": "Order matters: each breakpoint falls back to the one below it. */ const BREAKPOINTS = ['base', 'sm', 'md', 'lg', 'xl'] as const",
+      "description": "A carousel built on CSS scroll-snap.",
       "isClient": false,
       "api": {
         "props": [
@@ -4839,7 +4926,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     },
@@ -4848,10 +4937,15 @@
       "title": "Chat code block",
       "kind": "component",
       "category": "AI chat",
-      "exports": ["ChatCodeBlock"],
-      "typeExports": ["ChatCodeBlockHighlighter", "ChatCodeBlockProps"],
+      "exports": [
+        "ChatCodeBlock"
+      ],
+      "typeExports": [
+        "ChatCodeBlockHighlighter",
+        "ChatCodeBlockProps"
+      ],
       "primary": "ChatCodeBlock",
-      "description": "Render-prop escape hatch for syntax highlighting. It receives the raw source and the language and returns whatever React nodes it likes - a Shiki/Prism/Highlight.js integration, or nothing.",
+      "description": "A fenced code block with a copy button, built on `Code`.",
       "isClient": true,
       "api": {
         "props": [
@@ -4934,7 +5028,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onCopy'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onCopy'>"
+        ]
       },
       "compound": false
     },
@@ -4943,10 +5039,14 @@
       "title": "Chat input",
       "kind": "component",
       "category": "AI chat",
-      "exports": ["ChatInput"],
-      "typeExports": ["ChatInputProps"],
+      "exports": [
+        "ChatInput"
+      ],
+      "typeExports": [
+        "ChatInputProps"
+      ],
       "primary": "ChatInput",
-      "description": "Native props we replace with chat-shaped ones. */ type ChatInputBase = Omit< FormHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'defaultValue' | 'value' >",
+      "description": "The composer: an auto-growing textarea, an attachment slot, and a send button.",
       "isClient": true,
       "api": {
         "props": [
@@ -5071,7 +5171,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["ChatInputBase"]
+        "extends": [
+          "ChatInputBase"
+        ]
       },
       "compound": false
     },
@@ -5080,7 +5182,9 @@
       "title": "Chat message",
       "kind": "component",
       "category": "AI chat",
-      "exports": ["ChatMessage"],
+      "exports": [
+        "ChatMessage"
+      ],
       "typeExports": [
         "ChatMessageProps",
         "ChatMessageRole",
@@ -5088,7 +5192,7 @@
         "ChatMessageVariant"
       ],
       "primary": "ChatMessage",
-      "description": "Who produced the turn. Drives layout, colour and the accessible name. */ export type ChatMessageRole = 'user' | 'assistant' | 'system'",
+      "description": "One turn in a conversation.",
       "isClient": false,
       "api": {
         "props": [
@@ -5164,7 +5268,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLElement>, 'role' | 'content'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLElement>, 'role' | 'content'>"
+        ]
       },
       "compound": false
     },
@@ -5173,10 +5279,17 @@
       "title": "Chat thread",
       "kind": "component",
       "category": "AI chat",
-      "exports": ["ChatThread", "ChatThreadEmpty"],
-      "typeExports": ["ChatThreadEmptyProps", "ChatThreadMessage", "ChatThreadProps"],
+      "exports": [
+        "ChatThread",
+        "ChatThreadEmpty"
+      ],
+      "typeExports": [
+        "ChatThreadEmptyProps",
+        "ChatThreadMessage",
+        "ChatThreadProps"
+      ],
       "primary": "ChatThread",
-      "description": "A message in the data-driven form. `id` is the React key.",
+      "description": "Compound component: `ChatThread`, `ChatThread.Message`, `ChatThread.Empty`.",
       "isClient": true,
       "api": {
         "props": [
@@ -5231,7 +5344,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": true
     },
@@ -5240,10 +5355,14 @@
       "title": "Checkbox",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Checkbox"],
-      "typeExports": ["CheckboxProps"],
+      "exports": [
+        "Checkbox"
+      ],
+      "typeExports": [
+        "CheckboxProps"
+      ],
       "primary": "Checkbox",
-      "description": "Visible label. Omit it and supply `aria-label` instead. */ label?: ReactNode /** Secondary line under the label. */ description?: ReactNode size?: 'sm' | 'md' invalid?: boolean }",
+      "description": "A checkbox built on the native input.",
       "isClient": false,
       "api": {
         "props": [
@@ -5277,7 +5396,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>"]
+        "extends": [
+          "Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>"
+        ]
       },
       "compound": false
     },
@@ -5286,10 +5407,14 @@
       "title": "Clock",
       "kind": "component",
       "category": "Media & time",
-      "exports": ["Clock"],
-      "typeExports": ["ClockProps"],
+      "exports": [
+        "Clock"
+      ],
+      "typeExports": [
+        "ClockProps"
+      ],
       "primary": "Clock",
-      "description": "Epoch milliseconds from anything date-ish, or `NaN`.",
+      "description": "The current time, ticking, via `Intl.DateTimeFormat` — no date library.",
       "isClient": true,
       "api": {
         "props": [
@@ -5344,7 +5469,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<TimeHTMLAttributes<HTMLTimeElement>, 'dateTime'>"]
+        "extends": [
+          "Omit<TimeHTMLAttributes<HTMLTimeElement>, 'dateTime'>"
+        ]
       },
       "compound": false
     },
@@ -5353,10 +5480,14 @@
       "title": "Code",
       "kind": "component",
       "category": "Typography",
-      "exports": ["Code"],
-      "typeExports": ["CodeProps"],
+      "exports": [
+        "Code"
+      ],
+      "typeExports": [
+        "CodeProps"
+      ],
       "primary": "Code",
-      "description": "Render as a fenced block (`pre > code`) instead of inline. */ block?: boolean size?: 'sm' | 'md' }",
+      "description": "Monospaced code. Inline by default; `block` wraps it in a scrollable `pre`.",
       "isClient": false,
       "api": {
         "props": [
@@ -5376,7 +5507,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": false
     },
@@ -5385,7 +5518,9 @@
       "title": "Combobox",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Combobox"],
+      "exports": [
+        "Combobox"
+      ],
       "typeExports": [
         "ComboboxMultipleProps",
         "ComboboxOption",
@@ -5393,7 +5528,7 @@
         "ComboboxSingleProps"
       ],
       "primary": "Combobox",
-      "description": "The full list. Filtering happens here, so pass everything you have. */ options: ComboboxOption[] /** Match test. Default: case-insensitive substring on the label. */ filter?: (option: ComboboxOption, query: string) => boolean /** Offer \"Create …\" when the query matches no option exactly. */ creatable?: boolean /** Called when the create row is chosen, before the value is added. */ onCreate?: (label: string) => void /** Show a busy row instead of results — for a server-side search. */ loading?: boolean /** Shown when nothing matches. Default `'No results'`. */ emptyState?: ReactNode /** Text shown while `loading`. Default `'Loading…'`. */ loadingLabel?: string placeholder?: string size?: 'sm' | 'md' | 'lg' disabled?: boolean readOnly?: boolean /** Sets `aria-invalid` on the input. Injected by `Field`. */ invalid?: boolean /** Injected by `Field`. */ required?: boolean /** Submits with the form — one hidden input per selected value. */ name?: string /** Controlled popup state. */ open?: boolean defaultOpen?: boolean onOpenChange?: (open: boolean) => void /** Offer a button that empties the selection. Default `true` unless `required`. */ clearable?: boolean /** Accessible name for the clear button. Default `'Clear selection'`. */ clearLabel?: string /** Accessible name for a chip's remove button in `multiple` mode. */ removeLabel?: (label: string) => string /** Label for the create row. Default `` `Create \"${query}\"` ``. */ createLabel?: (query: string) => string side?: Side align?: Align offset?: number padding?: number container?: PortalContainer }",
+      "description": "A filterable select, following the ARIA combobox pattern.",
       "isClient": true,
       "api": {
         "props": [
@@ -7574,7 +7709,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["ComboboxSingleProps | ComboboxMultipleProps"]
+        "extends": [
+          "ComboboxSingleProps | ComboboxMultipleProps"
+        ]
       },
       "compound": false
     },
@@ -7583,7 +7720,9 @@
       "title": "Command palette",
       "kind": "component",
       "category": "Navigation",
-      "exports": ["CommandPalette"],
+      "exports": [
+        "CommandPalette"
+      ],
       "typeExports": [
         "CommandPaletteEntry",
         "CommandPaletteGroup",
@@ -7591,7 +7730,7 @@
         "CommandPaletteProps"
       ],
       "primary": "CommandPalette",
-      "description": "One command. `id` must be unique across the whole palette — it is the identity used for the active option and for `aria-activedescendant`. */ export interface CommandPaletteItem { id: string /** The searchable, announced name. */ label: string /** Second line. Also searched. */ description?: string /** Decorative leading glyph. */ icon?: ReactNode /** Trailing hint, usually a `Kbd`. Not part of the accessible name. */ shortcut?: ReactNode /** Extra search terms that are not shown — \"settings\", \"prefs\", \"theme\". */ keywords?: string[] /** Rendered, announced as unavailable, and skipped by the arrow keys. */ disabled?: boolean }",
+      "description": "The ⌘K palette: a search box over a flat list of commands.",
       "isClient": true,
       "api": {
         "props": [
@@ -7739,10 +7878,14 @@
       "title": "Container",
       "kind": "component",
       "category": "Layout",
-      "exports": ["Container"],
-      "typeExports": ["ContainerProps"],
+      "exports": [
+        "Container"
+      ],
+      "typeExports": [
+        "ContainerProps"
+      ],
       "primary": "Container",
-      "description": "Max content width. Defaults to `lg` (64rem). */ size?: 'sm' | 'md' | 'lg' | 'xl' | 'full' /** Remove the horizontal gutter. */ flush?: boolean }",
+      "description": "Centres content and caps its width, with a responsive gutter.",
       "isClient": false,
       "api": {
         "props": [
@@ -7769,7 +7912,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": false
     },
@@ -7778,10 +7923,15 @@
       "title": "Copy button",
       "kind": "component",
       "category": "Actions",
-      "exports": ["CopyButton"],
-      "typeExports": ["CopyButtonProps", "CopyState"],
+      "exports": [
+        "CopyButton"
+      ],
+      "typeExports": [
+        "CopyButtonProps",
+        "CopyState"
+      ],
       "primary": "CopyButton",
-      "description": "The legacy path: a throwaway textarea plus `document.execCommand('copy')`.",
+      "description": "Copy to clipboard, with a transient confirmation.",
       "isClient": true,
       "api": {
         "props": [
@@ -7875,10 +8025,15 @@
       "title": "Countdown",
       "kind": "component",
       "category": "Media & time",
-      "exports": ["Countdown"],
-      "typeExports": ["CountdownProps", "CountdownUnit"],
+      "exports": [
+        "Countdown"
+      ],
+      "typeExports": [
+        "CountdownProps",
+        "CountdownUnit"
+      ],
       "primary": "Countdown",
-      "description": "Largest to smallest. `format` is filtered through this, so order is never the caller's problem. */ const ORDER: readonly CountdownUnit[] = ['days', 'hours', 'minutes', 'seconds']",
+      "description": "A countdown to a fixed moment.",
       "isClient": true,
       "api": {
         "props": [
@@ -7947,7 +8102,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     },
@@ -7956,10 +8113,14 @@
       "title": "Cta",
       "kind": "component",
       "category": "Sections",
-      "exports": ["CTA"],
-      "typeExports": ["CTAProps"],
+      "exports": [
+        "CTA"
+      ],
+      "typeExports": [
+        "CTAProps"
+      ],
       "primary": "CTA",
-      "description": "A plain string becomes a pill `Badge`; a node is rendered as given. */ eyebrow?: ReactNode title?: ReactNode description?: ReactNode /** Usually one or two `Button`s. Laid out in a row that wraps. */ actions?: ReactNode /** Surface treatment. `primary` re-points the palette for the whole block. */ variant?: 'default' | 'muted' | 'primary' /** Level of `title`. Defaults to `2`. */ headingLevel?: HeadingLevel }",
+      "description": "The closing ask.",
       "isClient": false,
       "api": {
         "props": [
@@ -8007,7 +8168,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<SectionProps, 'title' | 'background'>"]
+        "extends": [
+          "Omit<SectionProps, 'title' | 'background'>"
+        ]
       },
       "compound": false
     },
@@ -8016,7 +8179,9 @@
       "title": "Data table",
       "kind": "component",
       "category": "Data display",
-      "exports": ["DataTable"],
+      "exports": [
+        "DataTable"
+      ],
       "typeExports": [
         "Column",
         "ColumnKey",
@@ -8029,7 +8194,7 @@
         "SortValue"
       ],
       "primary": "DataTable",
-      "description": "",
+      "description": "A table with sorting, search, pagination and row selection built in.",
       "isClient": true,
       "api": {
         "props": [
@@ -8287,7 +8452,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLDivElement>, 'children'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'children'>"
+        ]
       },
       "compound": false
     },
@@ -8296,10 +8463,14 @@
       "title": "Date picker",
       "kind": "component",
       "category": "Forms",
-      "exports": ["DatePicker"],
-      "typeExports": ["DatePickerProps"],
+      "exports": [
+        "DatePicker"
+      ],
+      "typeExports": [
+        "DatePickerProps"
+      ],
       "primary": "DatePicker",
-      "description": "Controlled value. */ value?: Date | null /** Uncontrolled initial value. */ defaultValue?: Date | null onValueChange?: (value: Date | null) => void min?: Date | null max?: Date | null disabledDates?: DisabledDates weekStartsOn?: WeekStart locale?: DateLocale size?: 'sm' | 'md' | 'lg' disabled?: boolean readOnly?: boolean /** Sets `aria-invalid` on the input. Injected by `Field`. */ invalid?: boolean /** Injected by `Field`. */ required?: boolean /** Submits the input's text with the form. With the default format, that is the ISO date. */ name?: string /** Shown when empty. Defaults to the expected text format. */ placeholder?: string /** Renders a value as the input's text. Default `YYYY-MM-DD`. */ format?: (date: Date) => string /** Reads the input's text. Default: strict `YYYY-MM-DD` (or `YYYY/M/D`). */ parse?: (text: string) => Date | null /** Controlled popup state. */ open?: boolean defaultOpen?: boolean onOpenChange?: (open: boolean) => void /** Preferred side for the popup. Flipped when there is no room. Default `'bottom'`. */ side?: Side align?: Align offset?: number padding?: number container?: PortalContainer /** Accessible name for the trigger button. Default `'Choose date'`. */ openLabel?: string }",
+      "description": "A text input with a `Calendar` in a popup.",
       "isClient": true,
       "api": {
         "props": [
@@ -8498,10 +8669,14 @@
       "title": "Divider",
       "kind": "component",
       "category": "Layout",
-      "exports": ["Divider"],
-      "typeExports": ["DividerProps"],
+      "exports": [
+        "Divider"
+      ],
+      "typeExports": [
+        "DividerProps"
+      ],
       "primary": "Divider",
-      "description": "Optional inline label, centred on the rule. */ label?: ReactNode }",
+      "description": "A separator.",
       "isClient": false,
       "api": {
         "props": [
@@ -8521,7 +8696,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": false
     },
@@ -8548,7 +8725,7 @@
         "DrawerTitleProps"
       ],
       "primary": "Drawer",
-      "description": "Logical, not physical: `start`/`end` follow the writing direction, so a drawer that slides in from the left in English slides in from the right in Arabic without the consumer changing a prop. / export type DrawerSide = 'start' | 'end' | 'top' | 'bottom'",
+      "description": "A modal dialog attached to an edge of the viewport.",
       "isClient": true,
       "api": {
         "props": [
@@ -8568,7 +8745,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<DialogBaseProps, 'block' | 'panelData'>"]
+        "extends": [
+          "Omit<DialogBaseProps, 'block' | 'panelData'>"
+        ]
       },
       "compound": true
     },
@@ -8596,7 +8775,7 @@
         "DropdownMenuTriggerProps"
       ],
       "primary": "DropdownMenu",
-      "description": "Which end of the menu takes focus when it opens. */ type OpenIntent = 'first' | 'last'",
+      "description": "A button that opens a list of commands.",
       "isClient": true,
       "api": {
         "props": [
@@ -8695,10 +8874,15 @@
       "title": "Empty state",
       "kind": "component",
       "category": "Feedback",
-      "exports": ["EmptyState"],
-      "typeExports": ["EmptyStateProps", "EmptyStateSize"],
+      "exports": [
+        "EmptyState"
+      ],
+      "typeExports": [
+        "EmptyStateProps",
+        "EmptyStateSize"
+      ],
       "primary": "EmptyState",
-      "description": "Visual weight of the title follows the block's size, not the document outline. */ const TITLE_SIZE: Record<EmptyStateSize, NonNullable<HeadingProps['size']>> = { sm: 'md', md: 'lg', lg: 'xl', }",
+      "description": "The \"nothing here yet\" block: a glyph, a line explaining what is missing, and the action that fixes it.",
       "isClient": false,
       "api": {
         "props": [
@@ -8746,7 +8930,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLDivElement>, 'title'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
+        ]
       },
       "compound": false
     },
@@ -8755,10 +8941,15 @@
       "title": "Faq",
       "kind": "component",
       "category": "Sections",
-      "exports": ["FAQ"],
-      "typeExports": ["FAQProps", "FaqItem"],
+      "exports": [
+        "FAQ"
+      ],
+      "typeExports": [
+        "FAQProps",
+        "FaqItem"
+      ],
       "primary": "FAQ",
-      "description": "Stable React key. Supply it whenever the data is dynamic: the fallback key is a content field, which collides when two items share it (two reviews by the same author, two stats with the same label) and makes React mis-attach state on reorder. / id?: string | number question: string answer: ReactNode }",
+      "description": "A frequently-asked-questions list built on native `<details>`/`<summary>`.",
       "isClient": false,
       "api": {
         "props": [
@@ -8813,7 +9004,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<SectionProps, 'title'>"]
+        "extends": [
+          "Omit<SectionProps, 'title'>"
+        ]
       },
       "compound": false
     },
@@ -8822,10 +9015,15 @@
       "title": "Feature grid",
       "kind": "component",
       "category": "Sections",
-      "exports": ["FeatureGrid"],
-      "typeExports": ["Feature", "FeatureGridProps"],
+      "exports": [
+        "FeatureGrid"
+      ],
+      "typeExports": [
+        "Feature",
+        "FeatureGridProps"
+      ],
       "primary": "FeatureGrid",
-      "description": "Stable React key. Supply it whenever the data is dynamic: the fallback key is a content field, which collides when two items share it (two reviews by the same author, two stats with the same label) and makes React mis-attach state on reorder. / id?: string | number /** Decorative by definition — it is rendered `aria-hidden`, because the title says it. */ icon?: ReactNode title: string description: string }",
+      "description": "A responsive grid of icon + title + description cells.",
       "isClient": false,
       "api": {
         "props": [
@@ -8880,7 +9078,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<SectionProps, 'title'>"]
+        "extends": [
+          "Omit<SectionProps, 'title'>"
+        ]
       },
       "compound": false
     },
@@ -8889,10 +9089,14 @@
       "title": "Field",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Field"],
-      "typeExports": ["FieldProps"],
+      "exports": [
+        "Field"
+      ],
+      "typeExports": [
+        "FieldProps"
+      ],
       "primary": "Field",
-      "description": "Visible label, wired to the control with `htmlFor`. */ label?: ReactNode /** Hint text, wired via `aria-describedby`. */ help?: ReactNode /** Error text. When set, the control gets `aria-invalid` and the message replaces the hint in `aria-describedby`, so a screen reader hears the problem, not the tip. / error?: ReactNode /** Marks the label and sets `required` on the control. */ required?: boolean size?: 'sm' | 'md' /** Explicit id for the control. One is generated when omitted. */ id?: string /** Exactly one form control: `Input`, `Textarea`, `Select`, and so on. */ children: ReactNode }",
+      "description": "Wires a label, hint and error message to a form control.",
       "isClient": true,
       "api": {
         "props": [
@@ -8947,7 +9151,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLDivElement>, 'children'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'children'>"
+        ]
       },
       "compound": false
     },
@@ -8956,10 +9162,18 @@
       "title": "File upload",
       "kind": "component",
       "category": "Forms",
-      "exports": ["FileUpload", "formatBytes", "matchesAccept"],
-      "typeExports": ["FileRejection", "FileRejectReason", "FileUploadProps"],
+      "exports": [
+        "FileUpload",
+        "formatBytes",
+        "matchesAccept"
+      ],
+      "typeExports": [
+        "FileRejection",
+        "FileRejectReason",
+        "FileUploadProps"
+      ],
       "primary": "FileUpload",
-      "description": "Why a file was refused. */ export type FileRejectReason = 'size' | 'count' | 'type' | 'duplicate'",
+      "description": "A dropzone over a real `<input type=\"file\">`.",
       "isClient": true,
       "api": {
         "props": [
@@ -9088,10 +9302,16 @@
       "title": "Footer",
       "kind": "component",
       "category": "Sections",
-      "exports": ["Footer"],
-      "typeExports": ["FooterColumn", "FooterLink", "FooterProps"],
+      "exports": [
+        "Footer"
+      ],
+      "typeExports": [
+        "FooterColumn",
+        "FooterLink",
+        "FooterProps"
+      ],
       "primary": "Footer",
-      "description": "Opens in a new tab. `rel` gains `noopener noreferrer` automatically. */ target?: '_self' | '_blank' rel?: string }",
+      "description": "The site footer.",
       "isClient": false,
       "api": {
         "props": [
@@ -9139,7 +9359,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<SectionProps, 'as'>"]
+        "extends": [
+          "Omit<SectionProps, 'as'>"
+        ]
       },
       "compound": false
     },
@@ -9148,10 +9370,15 @@
       "title": "Grid",
       "kind": "component",
       "category": "Layout",
-      "exports": ["Grid"],
-      "typeExports": ["GridProps", "ResponsiveCols"],
+      "exports": [
+        "Grid"
+      ],
+      "typeExports": [
+        "GridProps",
+        "ResponsiveCols"
+      ],
       "primary": "Grid",
-      "description": "Fixed breakpoints, documented once: sm 640 · md 768 · lg 1024 · xl 1280. */ export interface ResponsiveCols { base?: number sm?: number md?: number lg?: number xl?: number }",
+      "description": "Responsive grid at zero runtime cost. Responsive `cols` become inline custom properties that the static stylesheet reads inside fixed media queries — no style computation, no CSS generation, SSR-identical.",
       "isClient": false,
       "api": {
         "props": [
@@ -9185,7 +9412,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": false
     },
@@ -9194,10 +9423,14 @@
       "title": "Heading",
       "kind": "component",
       "category": "Typography",
-      "exports": ["Heading"],
-      "typeExports": ["HeadingProps"],
+      "exports": [
+        "Heading"
+      ],
+      "typeExports": [
+        "HeadingProps"
+      ],
       "primary": "Heading",
-      "description": "",
+      "description": "A heading, `h1` through `h6`.",
       "isClient": false,
       "api": {
         "props": [
@@ -9231,7 +9464,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLHeadingElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLHeadingElement>"
+        ]
       },
       "compound": false
     },
@@ -9240,10 +9475,14 @@
       "title": "Hero",
       "kind": "component",
       "category": "Sections",
-      "exports": ["Hero"],
-      "typeExports": ["HeroProps"],
+      "exports": [
+        "Hero"
+      ],
+      "typeExports": [
+        "HeroProps"
+      ],
       "primary": "Hero",
-      "description": "A plain string becomes a pill `Badge`; a node is rendered as given. */ eyebrow?: ReactNode title?: ReactNode description?: ReactNode /** Usually one or two `Button`s. Laid out in a row that wraps. */ actions?: ReactNode /** Screenshot or illustration. Sits beside the copy in the `split` layout. */ media?: ReactNode align?: 'start' | 'center' /** `centered` stacks and centres; `split` puts `media` beside the copy when there is room. */ layout?: 'centered' | 'split' /** Level of `title`. Defaults to `1` — a hero is normally the page's only h1. */ headingLevel?: HeadingLevel }",
+      "description": "The top-of-page pitch. Renders from props alone; pass `children` to take the inner layout over completely.",
       "isClient": false,
       "api": {
         "props": [
@@ -9305,7 +9544,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<SectionProps, 'align' | 'title'>"]
+        "extends": [
+          "Omit<SectionProps, 'align' | 'title'>"
+        ]
       },
       "compound": false
     },
@@ -9314,10 +9555,14 @@
       "title": "Icon button",
       "kind": "component",
       "category": "Actions",
-      "exports": ["IconButton"],
-      "typeExports": ["IconButtonProps"],
+      "exports": [
+        "IconButton"
+      ],
+      "typeExports": [
+        "IconButtonProps"
+      ],
       "primary": "IconButton",
-      "description": "",
+      "description": "A square button holding a single icon.",
       "isClient": false,
       "api": {
         "props": [
@@ -9358,7 +9603,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["ButtonHTMLAttributes<HTMLButtonElement>"]
+        "extends": [
+          "ButtonHTMLAttributes<HTMLButtonElement>"
+        ]
       },
       "compound": false
     },
@@ -9367,10 +9614,14 @@
       "title": "Input",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Input"],
-      "typeExports": ["InputProps"],
+      "exports": [
+        "Input"
+      ],
+      "typeExports": [
+        "InputProps"
+      ],
       "primary": "Input",
-      "description": "Marks the field invalid and sets `aria-invalid`. */ invalid?: boolean }",
+      "description": "A text input. Native by design: no wrapper element, so `type`, `pattern`, `autoComplete`, form validation and the browser's own UI all keep working.",
       "isClient": false,
       "api": {
         "props": [
@@ -9390,7 +9641,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>"]
+        "extends": [
+          "Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>"
+        ]
       },
       "compound": false
     },
@@ -9399,8 +9652,12 @@
       "title": "Kbd",
       "kind": "component",
       "category": "Typography",
-      "exports": ["Kbd"],
-      "typeExports": ["KbdProps"],
+      "exports": [
+        "Kbd"
+      ],
+      "typeExports": [
+        "KbdProps"
+      ],
       "primary": "Kbd",
       "description": "A keyboard key, for documenting shortcuts.",
       "isClient": false,
@@ -9415,7 +9672,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": false
     },
@@ -9424,10 +9683,14 @@
       "title": "Label",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Label"],
-      "typeExports": ["LabelProps"],
+      "exports": [
+        "Label"
+      ],
+      "typeExports": [
+        "LabelProps"
+      ],
       "primary": "Label",
-      "description": "",
+      "description": "A form label.",
       "isClient": false,
       "api": {
         "props": [
@@ -9447,7 +9710,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["LabelHTMLAttributes<HTMLLabelElement>"]
+        "extends": [
+          "LabelHTMLAttributes<HTMLLabelElement>"
+        ]
       },
       "compound": false
     },
@@ -9456,10 +9721,15 @@
       "title": "Logo cloud",
       "kind": "component",
       "category": "Sections",
-      "exports": ["LogoCloud"],
-      "typeExports": ["Logo", "LogoCloudProps"],
+      "exports": [
+        "LogoCloud"
+      ],
+      "typeExports": [
+        "Logo",
+        "LogoCloudProps"
+      ],
       "primary": "LogoCloud",
-      "description": "Stable React key. Supply it whenever the data is dynamic: the fallback key is a content field, which collides when two items share it (two reviews by the same author, two stats with the same label) and makes React mis-attach state on reorder. / id?: string | number /** Image URL. Rendered as an `<img>` with `alt` set from `alt`. */ src?: string /** The company name. Required — it is the accessible name of the logo, whichever form it takes. */ alt: string /** An inline SVG or other node, used instead of `src`. Labelled with `alt`. */ node?: ReactNode }",
+      "description": "A row of customer or partner logos.",
       "isClient": false,
       "api": {
         "props": [
@@ -9486,7 +9756,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<SectionProps, 'title'>"]
+        "extends": [
+          "Omit<SectionProps, 'title'>"
+        ]
       },
       "compound": false
     },
@@ -9495,10 +9767,15 @@
       "title": "Marquee",
       "kind": "component",
       "category": "Media & time",
-      "exports": ["Marquee"],
-      "typeExports": ["MarqueeDirection", "MarqueeProps"],
+      "exports": [
+        "Marquee"
+      ],
+      "typeExports": [
+        "MarqueeDirection",
+        "MarqueeProps"
+      ],
       "primary": "Marquee",
-      "description": "Travel direction. `up`/`down` imply a vertical marquee, so `vertical` is only needed when you want to keep saying `left`/`right` — those then mean `up`/`down`. / export type MarqueeDirection = 'left' | 'right' | 'up' | 'down'",
+      "description": "An infinite ticker: the content, then an `aria-hidden` copy of it, translated by exactly half the track so the seam is invisible.",
       "isClient": false,
       "api": {
         "props": [
@@ -9553,7 +9830,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     },
@@ -9579,7 +9858,7 @@
         "ModalTitleProps"
       ],
       "primary": "Modal",
-      "description": "Panel width. `full` fills the viewport. Default `md`. */ size?: ModalSize }",
+      "description": "A centred modal dialog.",
       "isClient": true,
       "api": {
         "props": [
@@ -9592,7 +9871,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<DialogBaseProps, 'block' | 'panelData'>"]
+        "extends": [
+          "Omit<DialogBaseProps, 'block' | 'panelData'>"
+        ]
       },
       "compound": true
     },
@@ -9618,7 +9899,7 @@
         "NavbarToggleProps"
       ],
       "primary": "Navbar",
-      "description": "The container width at which the links stop collapsing, in `rem`.",
+      "description": "Compound component: `Navbar`, `Navbar.Brand`, `Navbar.Links`, `Navbar.Link`, `Navbar.Actions`, `Navbar.Toggle`.",
       "isClient": true,
       "api": {
         "props": [
@@ -9673,7 +9954,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": true
     },
@@ -9682,10 +9965,14 @@
       "title": "Otp input",
       "kind": "component",
       "category": "Forms",
-      "exports": ["OTPInput"],
-      "typeExports": ["OTPInputProps"],
+      "exports": [
+        "OTPInput"
+      ],
+      "typeExports": [
+        "OTPInputProps"
+      ],
       "primary": "OTPInput",
-      "description": "Number of boxes. Default `6`. */ length?: number /** Controlled value. Longer strings are truncated, invalid characters dropped. */ value?: string /** Uncontrolled initial value. */ defaultValue?: string /** Called with the whole code on every edit, in both modes. */ onChange?: (value: string) => void /** Called once the last box is filled. Handy for auto-submit. */ onComplete?: (value: string) => void /** `'numeric'` (default) accepts digits; `'alphanumeric'` also accepts letters. */ type?: 'numeric' | 'alphanumeric' /** Render the characters as dots. */ mask?: boolean size?: 'sm' | 'md' | 'lg' disabled?: boolean readOnly?: boolean /** Sets `aria-invalid` on every box. Injected by `Field`. */ invalid?: boolean /** Injected by `Field`. */ required?: boolean /** Submits the whole code with the form, via one hidden input. */ name?: string /** Focus the first box on mount. */ autoFocus?: boolean }",
+      "description": "A one-time-code field: one box per character, one string of state.",
       "isClient": true,
       "api": {
         "props": [
@@ -9800,10 +10087,15 @@
       "title": "Pagination",
       "kind": "component",
       "category": "Navigation",
-      "exports": ["Pagination"],
-      "typeExports": ["PaginationLabels", "PaginationProps"],
+      "exports": [
+        "Pagination"
+      ],
+      "typeExports": [
+        "PaginationLabels",
+        "PaginationProps"
+      ],
       "primary": "Pagination",
-      "description": "A rendered slot: a page number, or a gap standing in for the pages we skipped. */ type PageSlot = number | 'gap-start' | 'gap-end'",
+      "description": "Page-by-page navigation.",
       "isClient": true,
       "api": {
         "props": [
@@ -9865,7 +10157,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLElement>, 'onChange'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLElement>, 'onChange'>"
+        ]
       },
       "compound": false
     },
@@ -9874,10 +10168,16 @@
       "title": "Password input",
       "kind": "component",
       "category": "Forms",
-      "exports": ["PasswordInput"],
-      "typeExports": ["PasswordInputProps", "PasswordRule", "PasswordStrengthLevel"],
+      "exports": [
+        "PasswordInput"
+      ],
+      "typeExports": [
+        "PasswordInputProps",
+        "PasswordRule",
+        "PasswordStrengthLevel"
+      ],
       "primary": "PasswordInput",
-      "description": "One requirement in the checklist. `test` is called with the current value only. */ export interface PasswordRule { /** Stable key. Falls back to `label`, which is normally unique anyway. */ id?: string /** Shown in the checklist and announced as met or unmet. */ label: string test: (value: string) => boolean }",
+      "description": "A password field with a reveal toggle and an optional strength meter.",
       "isClient": true,
       "api": {
         "props": [
@@ -9978,7 +10278,12 @@
       "title": "Popover",
       "kind": "component",
       "category": "Overlays",
-      "exports": ["Popover", "PopoverClose", "PopoverContent", "PopoverTrigger"],
+      "exports": [
+        "Popover",
+        "PopoverClose",
+        "PopoverContent",
+        "PopoverTrigger"
+      ],
       "typeExports": [
         "PopoverCloseProps",
         "PopoverContentProps",
@@ -9986,7 +10291,7 @@
         "PopoverTriggerProps"
       ],
       "primary": "Popover",
-      "description": "Throws with the part name, because \"cannot read property of null\" is not a bug report. */ function usePopoverContext(part: string): PopoverContextValue { const context = useContext(PopoverContext) if (!context) throw new Error(`${part} must be rendered inside <Popover>.`) return context }",
+      "description": "A click-triggered non-modal dialog anchored to its trigger.",
       "isClient": true,
       "api": {
         "props": [
@@ -10071,10 +10376,15 @@
       "title": "Portal",
       "kind": "component",
       "category": "Overlays",
-      "exports": ["Portal"],
-      "typeExports": ["PortalContainer", "PortalProps"],
+      "exports": [
+        "Portal"
+      ],
+      "typeExports": [
+        "PortalContainer",
+        "PortalProps"
+      ],
       "primary": "Portal",
-      "description": "Where to portal to: an element, a ref to one, or `null` for \"not ready yet\". */ export type PortalContainer = Element | { readonly current: Element | null } | null",
+      "description": "Renders its children somewhere else in the DOM — the escape hatch every overlay needs to get out from under `overflow: hidden` and a parent's stacking context.",
       "isClient": true,
       "api": {
         "props": [
@@ -10087,7 +10397,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     },
@@ -10096,10 +10408,15 @@
       "title": "Pricing",
       "kind": "component",
       "category": "Sections",
-      "exports": ["Pricing"],
-      "typeExports": ["PricingPlan", "PricingProps"],
+      "exports": [
+        "Pricing"
+      ],
+      "typeExports": [
+        "PricingPlan",
+        "PricingProps"
+      ],
       "primary": "Pricing",
-      "description": "Stable React key. Supply it whenever the data is dynamic: the fallback key is a content field, which collides when two items share it (two reviews by the same author, two stats with the same label) and makes React mis-attach state on reorder. / id?: string | number name: string /** `\"$29\"`, or a node if you need to mark up the currency. */ price: ReactNode /** Billing unit, e.g. `\"/month\"`. Read out after the price. */ period?: string description?: string features: string[] /** Usually a `Button`. */ cta?: ReactNode /** Lifts the plan and gives it the brand accent. */ highlighted?: boolean /** Short flag such as `\"Most popular\"`, rendered as a `Badge`. */ badge?: string }",
+      "description": "A plan comparison table built out of `Card`s.",
       "isClient": false,
       "api": {
         "props": [
@@ -10154,7 +10471,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<SectionProps, 'title'>"]
+        "extends": [
+          "Omit<SectionProps, 'title'>"
+        ]
       },
       "compound": false
     },
@@ -10163,10 +10482,14 @@
       "title": "Progress",
       "kind": "component",
       "category": "Feedback",
-      "exports": ["Progress"],
-      "typeExports": ["ProgressProps"],
+      "exports": [
+        "Progress"
+      ],
+      "typeExports": [
+        "ProgressProps"
+      ],
       "primary": "Progress",
-      "description": "Current value. Omit for an indeterminate bar. */ value?: number max?: number size?: 'sm' | 'md' | 'lg' tone?: 'primary' | 'success' | 'warning' | 'danger' /** Accessible name, e.g. \"Upload progress\". */ label?: string }",
+      "description": "A determinate or indeterminate progress bar.",
       "isClient": false,
       "api": {
         "props": [
@@ -10207,7 +10530,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLDivElement>, 'children'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'children'>"
+        ]
       },
       "compound": false
     },
@@ -10216,10 +10541,16 @@
       "title": "Prose",
       "kind": "component",
       "category": "Typography",
-      "exports": ["isSafeHref", "Prose"],
-      "typeExports": ["ProseLinkProps", "ProseProps"],
+      "exports": [
+        "isSafeHref",
+        "Prose"
+      ],
+      "typeExports": [
+        "ProseLinkProps",
+        "ProseProps"
+      ],
       "primary": "Prose",
-      "description": "Root element. Defaults to `div`. */ as?: ElementType size?: 'sm' | 'md' | 'lg' /** Cap the measure at a readable line length. Defaults to `true`. */ measure?: boolean }",
+      "description": "Compound component: `Prose` and `Prose.Link`.",
       "isClient": false,
       "api": {
         "props": [
@@ -10246,7 +10577,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": true
     },
@@ -10255,10 +10588,17 @@
       "title": "Radio group",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Radio", "RadioGroup"],
-      "typeExports": ["RadioGroupProps", "RadioOption", "RadioProps"],
+      "exports": [
+        "Radio",
+        "RadioGroup"
+      ],
+      "typeExports": [
+        "RadioGroupProps",
+        "RadioOption",
+        "RadioProps"
+      ],
       "primary": "RadioGroup",
-      "description": "A single radio. Usually rendered for you by `RadioGroup`. */ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio( { label, description, className, id, ...rest }, ref, ) { return ( <label className={cx('vk-radio', className)} htmlFor={id}> <input ref={ref} id={id} type=\"radio\" className=\"vk-radio__input\" {...rest} /> <span className=\"vk-radio__circle\" aria-hidden=\"true\" /> {label || description ? ( <span className=\"vk-radio__text\"> {label ? <span className=\"vk-radio__label\">{label}</span> : null} {description ? <span className=\"vk-radio__description\">{description}</span> : null} </span> ) : null} </label> ) })",
+      "description": "A group of radios.",
       "isClient": false,
       "api": {
         "props": [
@@ -10334,7 +10674,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLFieldSetElement>, 'onChange'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLFieldSetElement>, 'onChange'>"
+        ]
       },
       "compound": true
     },
@@ -10343,10 +10685,14 @@
       "title": "Rating",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Rating"],
-      "typeExports": ["RatingProps"],
+      "exports": [
+        "Rating"
+      ],
+      "typeExports": [
+        "RatingProps"
+      ],
       "primary": "Rating",
-      "description": "Controlled value. `0` means \"not rated\". */ value?: number /** Uncontrolled initial value. Default `0`. */ defaultValue?: number onValueChange?: (value: number) => void /** Number of icons. Default `5`. */ max?: number /** Allow half steps — 0.5, 1, 1.5 … */ allowHalf?: boolean /** Render as static output: no radios, no keyboard target, no form value. */ readOnly?: boolean size?: 'sm' | 'md' | 'lg' /** The glyph. Defaults to a CSS-drawn star, so no icon package is needed. */ icon?: ReactNode /** Group label, rendered as the `<legend>`. Falls back to `aria-label`. */ label?: ReactNode /** Shared radio `name`. Generated when omitted, so grouping always works. */ name?: string disabled?: boolean /** Sets `aria-invalid` on the group. Injected by `Field`. */ invalid?: boolean /** Injected by `Field`. Also suppresses the \"no rating\" option. */ required?: boolean /** Offer a focusable \"no rating\" radio, so the keyboard can clear a value that native radios otherwise make permanent. Default `true` unless `required`. / allowClear?: boolean /** Accessible name for one option and for the read-only summary. */ formatLabel?: (value: number, max: number) => string }",
+      "description": "A star rating that is a real radio group.",
       "isClient": true,
       "api": {
         "props": [
@@ -10457,7 +10803,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLFieldSetElement>, 'defaultValue' | 'onChange'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLFieldSetElement>, 'defaultValue' | 'onChange'>"
+        ]
       },
       "compound": false
     },
@@ -10466,10 +10814,14 @@
       "title": "Relative time",
       "kind": "component",
       "category": "Media & time",
-      "exports": ["RelativeTime"],
-      "typeExports": ["RelativeTimeProps"],
+      "exports": [
+        "RelativeTime"
+      ],
+      "typeExports": [
+        "RelativeTimeProps"
+      ],
       "primary": "RelativeTime",
-      "description": "Epoch milliseconds from anything date-ish, or `NaN`.",
+      "description": "\"3 minutes ago\", via `Intl.RelativeTimeFormat` — no date library.",
       "isClient": true,
       "api": {
         "props": [
@@ -10524,7 +10876,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<TimeHTMLAttributes<HTMLTimeElement>, 'dateTime' | 'children'>"]
+        "extends": [
+          "Omit<TimeHTMLAttributes<HTMLTimeElement>, 'dateTime' | 'children'>"
+        ]
       },
       "compound": false
     },
@@ -10533,10 +10887,14 @@
       "title": "Scroll area",
       "kind": "component",
       "category": "Layout",
-      "exports": ["ScrollArea"],
-      "typeExports": ["ScrollAreaProps"],
+      "exports": [
+        "ScrollArea"
+      ],
+      "typeExports": [
+        "ScrollAreaProps"
+      ],
       "primary": "ScrollArea",
-      "description": "Which axis may overflow. Default `vertical`. */ orientation?: 'vertical' | 'horizontal' | 'both' /** `auto` — a scrollbar appears when the content overflows (the browser default). `always` — the track is reserved, so the content never reflows when it starts to overflow. `hidden` — the scrollbar is not painted, but the area still scrolls with the wheel, a trackpad, touch, and the keyboard.",
+      "description": "A styled overflow container.",
       "isClient": false,
       "api": {
         "props": [
@@ -10563,7 +10921,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     },
@@ -10572,10 +10932,16 @@
       "title": "Section",
       "kind": "component",
       "category": "Layout",
-      "exports": ["Section"],
-      "typeExports": ["HeadingLevel", "SectionHeaderProps", "SectionProps"],
+      "exports": [
+        "Section"
+      ],
+      "typeExports": [
+        "HeadingLevel",
+        "SectionHeaderProps",
+        "SectionProps"
+      ],
       "primary": "Section",
-      "description": "Semantic heading level, shared by every page section. */ export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6",
+      "description": "Compound component: `Section` and `Section.Header`.",
       "isClient": false,
       "api": {
         "props": [
@@ -10623,7 +10989,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": false
     },
@@ -10632,10 +11000,15 @@
       "title": "Select",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Select"],
-      "typeExports": ["SelectOption", "SelectProps"],
+      "exports": [
+        "Select"
+      ],
+      "typeExports": [
+        "SelectOption",
+        "SelectProps"
+      ],
       "primary": "Select",
-      "description": "Options as data. Ignored when `children` is provided. */ options?: SelectOption[] /** Adds a disabled first option, for the \"nothing chosen yet\" state. */ placeholder?: string }",
+      "description": "A native `<select>`.",
       "isClient": false,
       "api": {
         "props": [
@@ -10669,7 +11042,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'>"]
+        "extends": [
+          "Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'>"
+        ]
       },
       "compound": false
     },
@@ -10678,7 +11053,12 @@
       "title": "Sidebar",
       "kind": "component",
       "category": "Navigation",
-      "exports": ["Sidebar", "SidebarItem", "SidebarSection", "SidebarToggle"],
+      "exports": [
+        "Sidebar",
+        "SidebarItem",
+        "SidebarSection",
+        "SidebarToggle"
+      ],
       "typeExports": [
         "SidebarItemProps",
         "SidebarProps",
@@ -10686,7 +11066,7 @@
         "SidebarToggleProps"
       ],
       "primary": "Sidebar",
-      "description": "`null` outside a `Sidebar`, so every part still renders something sensible on its own instead of throwing — an item reused in a settings panel is a reasonable thing to do. / function useSidebarContext(): SidebarContextValue | null { return useContext(SidebarContext) }",
+      "description": "Compound component: `Sidebar`, `Sidebar.Section`, `Sidebar.Item`, `Sidebar.Toggle`.",
       "isClient": true,
       "api": {
         "props": [
@@ -10741,7 +11121,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": true
     },
@@ -10750,10 +11132,14 @@
       "title": "Skeleton",
       "kind": "component",
       "category": "Feedback",
-      "exports": ["Skeleton"],
-      "typeExports": ["SkeletonProps"],
+      "exports": [
+        "Skeleton"
+      ],
+      "typeExports": [
+        "SkeletonProps"
+      ],
       "primary": "Skeleton",
-      "description": "Number of stacked lines. Only meaningful for `variant=\"text\"`. */ lines?: number /** Turn off the shimmer. */ static?: boolean }",
+      "description": "A loading placeholder. Hidden from assistive tech — the live region announces state.",
       "isClient": false,
       "api": {
         "props": [
@@ -10794,7 +11180,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     },
@@ -10803,10 +11191,17 @@
       "title": "Slider",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Slider"],
-      "typeExports": ["SliderMark", "SliderProps", "SliderRangeProps", "SliderSingleProps"],
+      "exports": [
+        "Slider"
+      ],
+      "typeExports": [
+        "SliderMark",
+        "SliderProps",
+        "SliderRangeProps",
+        "SliderSingleProps"
+      ],
       "primary": "Slider",
-      "description": "A tick on the track. `label` is optional — a bare tick is often enough. */ export interface SliderMark { value: number label?: ReactNode }",
+      "description": "A slider built on `<input type=\"range\">`.",
       "isClient": true,
       "api": {
         "props": [
@@ -12910,7 +13305,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["SliderSingleProps | SliderRangeProps"]
+        "extends": [
+          "SliderSingleProps | SliderRangeProps"
+        ]
       },
       "compound": false
     },
@@ -12919,10 +13316,14 @@
       "title": "Spinner",
       "kind": "component",
       "category": "Feedback",
-      "exports": ["Spinner"],
-      "typeExports": ["SpinnerProps"],
+      "exports": [
+        "Spinner"
+      ],
+      "typeExports": [
+        "SpinnerProps"
+      ],
       "primary": "Spinner",
-      "description": "Announced to screen readers. Pass `null` for a purely decorative spinner sitting next to text that already says what is happening. / label?: string | null }",
+      "description": "An indeterminate loading indicator. Inherits `currentColor`.",
       "isClient": false,
       "api": {
         "props": [
@@ -12942,7 +13343,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLSpanElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLSpanElement>"
+        ]
       },
       "compound": false
     },
@@ -12951,10 +13354,19 @@
       "title": "Stack",
       "kind": "component",
       "category": "Layout",
-      "exports": ["Flex", "Stack"],
-      "typeExports": ["FlexProps", "StackAlign", "StackGap", "StackJustify", "StackProps"],
+      "exports": [
+        "Flex",
+        "Stack"
+      ],
+      "typeExports": [
+        "FlexProps",
+        "StackAlign",
+        "StackGap",
+        "StackJustify",
+        "StackProps"
+      ],
       "primary": "Stack",
-      "description": "Main axis. `vertical` (default) stacks children top-to-bottom. */ direction?: 'vertical' | 'horizontal' /** Gap on the `--vk-space-*` scale. */ gap?: StackGap align?: StackAlign justify?: StackJustify /** Allow children to wrap onto multiple lines. */ wrap?: boolean }",
+      "description": "Flex container with a token-based gap. `Flex` is the horizontal alias.",
       "isClient": false,
       "api": {
         "props": [
@@ -13002,7 +13414,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": true
     },
@@ -13011,10 +13425,15 @@
       "title": "Stats",
       "kind": "component",
       "category": "Sections",
-      "exports": ["Stats"],
-      "typeExports": ["Stat", "StatsProps"],
+      "exports": [
+        "Stats"
+      ],
+      "typeExports": [
+        "Stat",
+        "StatsProps"
+      ],
       "primary": "Stats",
-      "description": "Stable React key. Supply it whenever the data is dynamic: the fallback key is a content field, which collides when two items share it (two reviews by the same author, two stats with the same label) and makes React mis-attach state on reorder. / id?: string | number /** The headline figure, e.g. `\"99.98%\"`. */ value: ReactNode /** What the figure measures. Always announced with the value. */ label: string description?: string }",
+      "description": "A row of headline figures.",
       "isClient": false,
       "api": {
         "props": [
@@ -13069,7 +13488,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<SectionProps, 'title'>"]
+        "extends": [
+          "Omit<SectionProps, 'title'>"
+        ]
       },
       "compound": false
     },
@@ -13078,10 +13499,17 @@
       "title": "Stepper",
       "kind": "component",
       "category": "Data display",
-      "exports": ["Stepper"],
-      "typeExports": ["Step", "StepperOrientation", "StepperProps", "StepStatus"],
+      "exports": [
+        "Stepper"
+      ],
+      "typeExports": [
+        "Step",
+        "StepperOrientation",
+        "StepperProps",
+        "StepStatus"
+      ],
       "primary": "Stepper",
-      "description": "Replaces the number (or the tick) inside the marker. Decorative. */ icon?: ReactNode disabled?: boolean }",
+      "description": "Where the user is in a multi-step flow.",
       "isClient": true,
       "api": {
         "props": [
@@ -13150,7 +13578,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": false
     },
@@ -13159,10 +13589,14 @@
       "title": "Switch",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Switch"],
-      "typeExports": ["SwitchProps"],
+      "exports": [
+        "Switch"
+      ],
+      "typeExports": [
+        "SwitchProps"
+      ],
       "primary": "Switch",
-      "description": "Put the control after the label instead of before it. */ labelPosition?: 'start' | 'end' }",
+      "description": "An on/off toggle.",
       "isClient": false,
       "api": {
         "props": [
@@ -13196,7 +13630,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>"]
+        "extends": [
+          "Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>"
+        ]
       },
       "compound": false
     },
@@ -13205,7 +13641,9 @@
       "title": "Table",
       "kind": "component",
       "category": "Data display",
-      "exports": ["Table"],
+      "exports": [
+        "Table"
+      ],
       "typeExports": [
         "TableAlign",
         "TableCaptionProps",
@@ -13218,7 +13656,7 @@
         "TableSize"
       ],
       "primary": "Table",
-      "description": "Logical alignment, so RTL works for free. `numeric` implies `end`. */ export type TableAlign = 'start' | 'center' | 'end'",
+      "description": "Compound component: `Table`, `Table.Head`, `Table.Body`, `Table.Foot`, `Table.Row`, `Table.Cell`, `Table.HeaderCell`, `Table.Caption`.",
       "isClient": false,
       "api": {
         "props": [
@@ -13266,7 +13704,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["TableHTMLAttributes<HTMLTableElement>"]
+        "extends": [
+          "TableHTMLAttributes<HTMLTableElement>"
+        ]
       },
       "compound": false
     },
@@ -13275,7 +13715,13 @@
       "title": "Tabs",
       "kind": "component",
       "category": "Overlays",
-      "exports": ["Tabs", "TabsList", "TabsPanel", "TabsPanels", "TabsTab"],
+      "exports": [
+        "Tabs",
+        "TabsList",
+        "TabsPanel",
+        "TabsPanels",
+        "TabsTab"
+      ],
       "typeExports": [
         "TabsActivationMode",
         "TabsListProps",
@@ -13288,7 +13734,7 @@
         "TabsVariant"
       ],
       "primary": "Tabs",
-      "description": "`'automatic'` — selection follows arrow-key focus (APG \"Tabs with Automatic Activation\"). `'manual'` — arrows move focus only; Enter or Space selects (APG \"Manual Activation\").",
+      "description": "Tabs — `Tabs`, `Tabs.List`, `Tabs.Tab`, `Tabs.Panels`, `Tabs.Panel`.",
       "isClient": true,
       "api": {
         "props": [
@@ -13350,7 +13796,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>"
+        ]
       },
       "compound": true
     },
@@ -13359,10 +13807,15 @@
       "title": "Tag input",
       "kind": "component",
       "category": "Forms",
-      "exports": ["TagInput"],
-      "typeExports": ["TagInputProps", "TagRejectReason"],
+      "exports": [
+        "TagInput"
+      ],
+      "typeExports": [
+        "TagInputProps",
+        "TagRejectReason"
+      ],
       "primary": "TagInput",
-      "description": "Why a tag was refused. Passed to `onReject` so the caller can count or log it. */ export type TagRejectReason = 'empty' | 'duplicate' | 'max' | 'invalid'",
+      "description": "A list of tags with a text field on the end.",
       "isClient": true,
       "api": {
         "props": [
@@ -13498,10 +13951,15 @@
       "title": "Testimonials",
       "kind": "component",
       "category": "Sections",
-      "exports": ["Testimonials"],
-      "typeExports": ["Testimonial", "TestimonialsProps"],
+      "exports": [
+        "Testimonials"
+      ],
+      "typeExports": [
+        "Testimonial",
+        "TestimonialsProps"
+      ],
       "primary": "Testimonials",
-      "description": "Stable React key. Supply it whenever the data is dynamic: the fallback key is a content field, which collides when two items share it (two reviews by the same author, two stats with the same label) and makes React mis-attach state on reorder. / id?: string | number quote: ReactNode author: string role?: string /** An image URL becomes an `Avatar`; a node is rendered as given. */ avatar?: ReactNode }",
+      "description": "Customer quotes.",
       "isClient": false,
       "api": {
         "props": [
@@ -13556,7 +14014,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<SectionProps, 'title'>"]
+        "extends": [
+          "Omit<SectionProps, 'title'>"
+        ]
       },
       "compound": false
     },
@@ -13565,10 +14025,14 @@
       "title": "Text",
       "kind": "component",
       "category": "Typography",
-      "exports": ["Text"],
-      "typeExports": ["TextProps"],
+      "exports": [
+        "Text"
+      ],
+      "typeExports": [
+        "TextProps"
+      ],
       "primary": "Text",
-      "description": "",
+      "description": "Body text.",
       "isClient": false,
       "api": {
         "props": [
@@ -13623,7 +14087,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLElement>"
+        ]
       },
       "compound": false
     },
@@ -13632,10 +14098,14 @@
       "title": "Textarea",
       "kind": "component",
       "category": "Forms",
-      "exports": ["Textarea"],
-      "typeExports": ["TextareaProps"],
+      "exports": [
+        "Textarea"
+      ],
+      "typeExports": [
+        "TextareaProps"
+      ],
       "primary": "Textarea",
-      "description": "",
+      "description": "A multi-line text input.",
       "isClient": false,
       "api": {
         "props": [
@@ -13662,7 +14132,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["TextareaHTMLAttributes<HTMLTextAreaElement>"]
+        "extends": [
+          "TextareaHTMLAttributes<HTMLTextAreaElement>"
+        ]
       },
       "compound": false
     },
@@ -13687,7 +14159,7 @@
         "ThemeScriptOptions"
       ],
       "primary": "ThemeProvider",
-      "description": "`'system'` has already been resolved against `prefers-color-scheme`. */ export type ResolvedTheme = 'light' | 'dark'",
+      "description": "Owns the theme: resolves it, applies it to `<html>`, persists it, and follows the OS.",
       "isClient": true,
       "api": {
         "props": [
@@ -13737,10 +14209,15 @@
       "title": "Theme toggle",
       "kind": "component",
       "category": "Theming",
-      "exports": ["ThemeToggle"],
-      "typeExports": ["ThemeToggleMode", "ThemeToggleProps"],
+      "exports": [
+        "ThemeToggle"
+      ],
+      "typeExports": [
+        "ThemeToggleMode",
+        "ThemeToggleProps"
+      ],
       "primary": "ThemeToggle",
-      "description": "`toggle` flips light and dark. `cycle` walks light → dark → system → light. */ export type ThemeToggleMode = 'toggle' | 'cycle'",
+      "description": "The theme switch every consumer asks for.",
       "isClient": true,
       "api": {
         "props": [
@@ -13767,7 +14244,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["Omit<IconButtonProps, 'aria-label' | 'children'>"]
+        "extends": [
+          "Omit<IconButtonProps, 'aria-label' | 'children'>"
+        ]
       },
       "compound": false
     },
@@ -13776,7 +14255,9 @@
       "title": "Timeline",
       "kind": "component",
       "category": "Data display",
-      "exports": ["Timeline"],
+      "exports": [
+        "Timeline"
+      ],
       "typeExports": [
         "TimelineAlign",
         "TimelineItemProps",
@@ -13785,7 +14266,7 @@
         "TimelineStatus"
       ],
       "primary": "Timeline",
-      "description": "`alternate` zig-zags entries either side of the rail — vertical only, and only when wide. */ export type TimelineAlign = 'start' | 'alternate' export type TimelineStatus = 'complete' | 'current' | 'pending'",
+      "description": "Compound component: `Timeline` and `Timeline.Item`.",
       "isClient": false,
       "api": {
         "props": [
@@ -13805,7 +14286,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLOListElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLOListElement>"
+        ]
       },
       "compound": false
     },
@@ -13814,10 +14297,19 @@
       "title": "Toast",
       "kind": "component",
       "category": "Overlays",
-      "exports": ["Toast", "ToastProvider", "useToast"],
-      "typeExports": ["ToastProps", "ToastTone", "ToastPosition", "ToastProviderProps"],
+      "exports": [
+        "Toast",
+        "ToastProvider",
+        "useToast"
+      ],
+      "typeExports": [
+        "ToastProps",
+        "ToastTone",
+        "ToastPosition",
+        "ToastProviderProps"
+      ],
       "primary": "Toast",
-      "description": "Same four tones as `Alert`, for the same reason: severity drives politeness. */ export type ToastTone = 'info' | 'success' | 'warning' | 'danger'",
+      "description": "One notification. `ToastProvider` renders these for you, but it is exported so a static toast can be dropped into a docs page or a form's inline slot.",
       "isClient": false,
       "api": {
         "props": [
@@ -13879,7 +14371,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLDivElement>, 'title'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
+        ]
       },
       "compound": true
     },
@@ -13888,10 +14382,15 @@
       "title": "Tooltip",
       "kind": "component",
       "category": "Overlays",
-      "exports": ["Tooltip"],
-      "typeExports": ["TooltipProps", "TooltipTriggerProps"],
+      "exports": [
+        "Tooltip"
+      ],
+      "typeExports": [
+        "TooltipProps",
+        "TooltipTriggerProps"
+      ],
       "primary": "Tooltip",
-      "description": "The props Tooltip injects into whatever element you pass as its child.",
+      "description": "A description that appears on hover and on focus.",
       "isClient": true,
       "api": {
         "props": [
@@ -13988,7 +14487,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'content'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'content'>"
+        ]
       },
       "compound": false
     },
@@ -13997,10 +14498,14 @@
       "title": "Typing indicator",
       "kind": "component",
       "category": "AI chat",
-      "exports": ["TypingIndicator"],
-      "typeExports": ["TypingIndicatorProps"],
+      "exports": [
+        "TypingIndicator"
+      ],
+      "typeExports": [
+        "TypingIndicatorProps"
+      ],
       "primary": "TypingIndicator",
-      "description": "Announced text. Defaults to `Assistant is typing`. */ label?: string /** Also show the label on screen. Off by default: the dots carry the meaning. */ showLabel?: boolean /** How many dots. Defaults to 3. */ dots?: number size?: 'sm' | 'md' /** When `false` the live region stays mounted but empty. Use this when you want a guaranteed announcement — see the accessibility note on the component. / active?: boolean }",
+      "description": "Three animated dots meaning \"a reply is coming\".",
       "isClient": false,
       "api": {
         "props": [
@@ -14041,7 +14546,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["HTMLAttributes<HTMLDivElement>"]
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     }
@@ -14052,10 +14559,14 @@
       "title": "AreaChart",
       "kind": "chart",
       "category": "Charts",
-      "exports": ["AreaChart"],
-      "typeExports": ["AreaChartProps"],
+      "exports": [
+        "AreaChart"
+      ],
+      "typeExports": [
+        "AreaChartProps"
+      ],
       "primary": "AreaChart",
-      "description": "Single series. `[{ x, y }]`, or a bare `number[]` where the index is the x. */ data?: ChartData /** Multiple series. Takes precedence over `data` when both are given. */ series?: readonly ChartSeries[] height?: number showGrid?: boolean showAxes?: boolean showLegend?: boolean showPoints?: boolean curve?: 'linear' | 'smooth' strokeWidth?: number /** Stack the series on top of one another instead of overlaying them. Positive and negative values stack in opposite directions from zero, so mixed signs still read. / stacked?: boolean /** Opt in to the pointer hover tooltip. Mouse only - the data table is the AT path. */ tooltip?: boolean }",
+      "description": "A line chart with the region under each series filled. The y axis always includes zero, because an area measured from an arbitrary floor overstates its own magnitude.",
       "isClient": false,
       "api": {
         "props": [
@@ -14138,7 +14649,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["ChartRootProps"]
+        "extends": [
+          "ChartRootProps"
+        ]
       },
       "compound": false
     },
@@ -14147,10 +14660,14 @@
       "title": "BarChart",
       "kind": "chart",
       "category": "Charts",
-      "exports": ["BarChart"],
-      "typeExports": ["BarChartProps"],
+      "exports": [
+        "BarChart"
+      ],
+      "typeExports": [
+        "BarChartProps"
+      ],
       "primary": "BarChart",
-      "description": "Single series. `[{ x, y }]`, or a bare `number[]` where the index is the x. */ data?: ChartData /** Multiple series. Takes precedence over `data` when both are given. */ series?: readonly ChartSeries[] height?: number showGrid?: boolean showAxes?: boolean showLegend?: boolean /** `grouped` puts a series side by side inside each category; `stacked` piles them, with negatives stacking downward from zero. / mode?: 'grouped' | 'stacked' /** Bars run left to right, with the categories down the left edge. */ horizontal?: boolean /** Corner radius, in viewBox px. Clamped so short bars do not turn into lozenges. */ barRadius?: number /** Fraction of each category slot left empty, 0 to 0.9. */ categoryPadding?: number /** Print each value at the end of its bar - the clearest non-colour cue there is. */ showValues?: boolean /** Pointer hover tooltip. Mouse only, and ignored for `horizontal`. */ tooltip?: boolean }",
+      "description": "Vertical or horizontal bars, grouped or stacked, in pure SVG. The value axis always includes zero - a bar chart that starts anywhere else misrepresents its own data - and negative bars extend the other side of the zero line.",
       "isClient": false,
       "api": {
         "props": [
@@ -14240,7 +14757,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["ChartRootProps"]
+        "extends": [
+          "ChartRootProps"
+        ]
       },
       "compound": false
     },
@@ -14249,10 +14768,14 @@
       "title": "LineChart",
       "kind": "chart",
       "category": "Charts",
-      "exports": ["LineChart"],
-      "typeExports": ["LineChartProps"],
+      "exports": [
+        "LineChart"
+      ],
+      "typeExports": [
+        "LineChartProps"
+      ],
       "primary": "LineChart",
-      "description": "Single series. `[{ x, y }]`, or a bare `number[]` where the index is the x. */ data?: ChartData /** Multiple series. Takes precedence over `data` when both are given. */ series?: readonly ChartSeries[] /** Height of the `viewBox`, in px. The chart scales to its container width. */ height?: number showGrid?: boolean showAxes?: boolean /** Defaults to on for more than one series. */ showLegend?: boolean /** Per-point markers. Defaults to on while every series has 24 points or fewer. */ showPoints?: boolean /** `smooth` draws a Catmull-Rom spline; control points are clamped to the plot. */ curve?: 'linear' | 'smooth' strokeWidth?: number /** Opt in to the pointer hover tooltip. Mouse only - the data table is the AT path. */ tooltip?: boolean }",
+      "description": "A multi-series line chart in pure SVG - no d3, no canvas, nothing measured, so it renders complete on the server.",
       "isClient": false,
       "api": {
         "props": [
@@ -14328,7 +14851,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["ChartRootProps"]
+        "extends": [
+          "ChartRootProps"
+        ]
       },
       "compound": false
     },
@@ -14337,10 +14862,15 @@
       "title": "PieChart",
       "kind": "chart",
       "category": "Charts",
-      "exports": ["PieChart"],
-      "typeExports": ["PieChartProps", "PieDatum"],
+      "exports": [
+        "PieChart"
+      ],
+      "typeExports": [
+        "PieChartProps",
+        "PieDatum"
+      ],
       "primary": "PieChart",
-      "description": "Any CSS colour. Defaults to the `--vk-chart-n` token for this slice index. */ color?: string /** `stroke-dasharray` for the slice edge, so slices differ without colour. */ dash?: string }",
+      "description": "A pie or donut chart in pure SVG. Non-positive and non-finite slices are dropped - they have no meaning in a part-to-whole picture - and the remaining values are normalised, so slices always add up to the circle.",
       "isClient": false,
       "api": {
         "props": [
@@ -14416,7 +14946,9 @@
           }
         ],
         "spreadsHostProps": false,
-        "extends": ["ChartRootProps"]
+        "extends": [
+          "ChartRootProps"
+        ]
       },
       "compound": false
     },
@@ -14425,10 +14957,14 @@
       "title": "ProgressRing",
       "kind": "chart",
       "category": "Charts",
-      "exports": ["ProgressRing"],
-      "typeExports": ["ProgressRingProps"],
+      "exports": [
+        "ProgressRing"
+      ],
+      "typeExports": [
+        "ProgressRingProps"
+      ],
       "primary": "ProgressRing",
-      "description": "Current value. Out-of-range and non-finite input is clamped, never NaN. */ value?: number max?: number /** Diameter in px. The ring scales down responsively but never past this. */ size?: number /** Stroke width in px. Clamped so it can never exceed the radius. */ thickness?: number /** Accessible name, e.g. \"Storage used\". */ label?: string /** Percentage in the middle of the ring. */ showValue?: boolean /** Arbitrary centre content, e.g. a big number over a caption. Wins over `showValue`. */ children?: ReactNode /** Any CSS colour for the filled arc. Defaults to the `--vk-chart-1` token. */ color?: string /** Any CSS colour for the unfilled track. */ trackColor?: string /** Formats the centre percentage. Must be locale-stable to stay hydration-safe. */ formatValue?: (percent: number) => string /** Degrees clockwise from 12 o clock where the arc begins. */ startAngle?: number /** Square off the arc ends. */ square?: boolean /** SVG `<title>` for the graphic. */ title?: string description?: string }",
+      "description": "A circular determinate progress indicator: one SVG circle with a dash offset, which is why it needs no path maths, no measurement and no client JS.",
       "isClient": false,
       "api": {
         "props": [
@@ -14532,7 +15068,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLDivElement>, 'title'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
+        ]
       },
       "compound": false
     },
@@ -14541,10 +15079,14 @@
       "title": "Sparkline",
       "kind": "chart",
       "category": "Charts",
-      "exports": ["Sparkline"],
-      "typeExports": ["SparklineProps"],
+      "exports": [
+        "Sparkline"
+      ],
+      "typeExports": [
+        "SparklineProps"
+      ],
       "primary": "Sparkline",
-      "description": "The trend. Non-finite entries are dropped before anything is drawn. */ data?: readonly number[] /** Height of the internal coordinate space, in px. Default `32`. */ height?: number /** Width of the internal coordinate space. The sparkline stretches to fill its container, so this only sets the aspect ratio the geometry is designed against. / width?: number /** Any CSS colour. Defaults to the `--vk-chart-1` token. */ stroke?: string /** Fill under the line: `true` for a tint of `stroke`, or an explicit CSS colour. */ fill?: boolean | string strokeWidth?: number /** Dot on the final value - the \"where are we now\" cue. */ showLastPoint?: boolean curve?: 'linear' | 'smooth' title?: string description?: string /** Visually hidden `<table>` of the values. On by default. */ accessibleTable?: boolean formatValue?: (value: number) => string xLabel?: string yLabel?: string }",
+      "description": "A tiny, axis-free trend line meant to sit inside a sentence, a table cell or a stat card. Pure SVG, no measurement, no dependencies.",
       "isClient": false,
       "api": {
         "props": [
@@ -14648,7 +15190,9 @@
           }
         ],
         "spreadsHostProps": true,
-        "extends": ["Omit<HTMLAttributes<HTMLElement>, 'title'>"]
+        "extends": [
+          "Omit<HTMLAttributes<HTMLElement>, 'title'>"
+        ]
       },
       "compound": false
     }

@@ -7,7 +7,14 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!**/dist", "!**/node_modules", "!**/.changeset/*.md"]
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/node_modules",
+      "!**/.changeset/*.md",
+      "!**/.next",
+      "!apps/docs/registry.json"
+    ]
   },
   "formatter": {
     "enabled": true,

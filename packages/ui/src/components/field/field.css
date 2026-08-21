@@ -1,0 +1,42 @@
+:where(.vk-field) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-2);
+  min-width: 0;
+  font-family: var(--vk-font-sans);
+}
+
+:where(.vk-field[data-size="sm"]) {
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-field[data-size="md"]) {
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-field__label) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15em;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-field__required) {
+  color: var(--vk-color-danger);
+}
+
+:where(.vk-field__help) {
+  margin: 0;
+  color: var(--vk-color-muted);
+  font-size: 0.875em;
+  line-height: 1.4;
+}
+
+:where(.vk-field__error) {
+  margin: 0;
+  color: var(--vk-color-danger);
+  font-size: 0.875em;
+  line-height: 1.4;
+}

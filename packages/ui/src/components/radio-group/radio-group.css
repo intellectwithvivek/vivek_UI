@@ -1,0 +1,124 @@
+:where(.vk-radio-group) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-radio-group[data-size="sm"]) {
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-radio-group[data-size="md"]) {
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-radio-group__legend) {
+  padding: 0;
+  margin-bottom: var(--vk-space-2);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+:where(.vk-radio-group__items) {
+  display: flex;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-radio-group[data-orientation="vertical"]) > :where(.vk-radio-group__items) {
+  flex-direction: column;
+}
+
+:where(.vk-radio-group[data-orientation="horizontal"]) > :where(.vk-radio-group__items) {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--vk-space-4);
+}
+
+:where(.vk-radio) {
+  display: inline-grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--vk-space-2);
+  align-items: start;
+  cursor: pointer;
+}
+
+/* Visually hidden, but still focusable and still submitted with the form. */
+:where(.vk-radio__input) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:where(.vk-radio__circle) {
+  position: relative;
+  flex: none;
+  width: 1.125em;
+  height: 1.125em;
+  margin-top: 0.15em;
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-full);
+  transition: border-color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-radio__circle)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0.5em;
+  height: 0.5em;
+  background: var(--vk-color-primary);
+  border-radius: var(--vk-radius-full);
+  transform: scale(0);
+  transition: transform var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-radio__input:checked) + :where(.vk-radio__circle) {
+  border-color: var(--vk-color-primary);
+}
+
+:where(.vk-radio__input:checked) + :where(.vk-radio__circle)::after {
+  transform: scale(1);
+}
+
+:where(.vk-radio__input:focus-visible) + :where(.vk-radio__circle) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+:where(.vk-radio:has(.vk-radio__input:disabled)) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+:where(.vk-radio__text) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+}
+
+:where(.vk-radio__label) {
+  line-height: 1.4;
+}
+
+:where(.vk-radio__description) {
+  color: var(--vk-color-muted);
+  font-size: 0.875em;
+  line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-radio__circle),
+  :where(.vk-radio__circle)::after {
+    transition: none;
+  }
+}

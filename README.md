@@ -10,7 +10,7 @@ Pages and App Router.
 
 [![npm](https://img.shields.io/npm/v/@the_viveksingh/vivek-ui?color=4f46e5)](https://www.npmjs.com/package/@the_viveksingh/vivek-ui)
 [![license](https://img.shields.io/npm/l/@the_viveksingh/vivek-ui?color=4f46e5)](LICENSE)
-[![one component](https://img.shields.io/badge/one%20component-201%20B-4f46e5)](#how-small-actually)
+[![one component](https://img.shields.io/badge/one%20component-199%20B-4f46e5)](#how-small-actually)
 
 [Website](https://vivekkumarsingh.in) &middot; [GitHub](https://github.com/intellectwithvivek) &middot; [LinkedIn](https://www.linkedin.com/in/singhvvk/)
 
@@ -75,21 +75,43 @@ drifted from upstream. VivekUI is a normal dependency: `npm update` and you have
 
 ## Components
 
-**20 components shipping today.** Every one is server-safe, accessible, and covered by tests
-including automated axe checks.
+**28 components shipping today.** All but one are server-safe (no `'use client'`), every one is
+accessible, and every one is covered by tests including automated axe checks.
 
-| Layout | Typography | Actions | Display | Feedback |
-|---|---|---|---|---|
-| `Box` | `Heading` | `Button` | `Badge` | `Alert` |
-| `Stack` | `Text` | `IconButton` | `Card` | `Spinner` |
-| `Flex` | `Code` | `ButtonGroup` | `Card.Header` | `Skeleton` |
-| `Grid` | `Kbd` | | `Card.Body` | `Progress` |
-| `Container` | | | `Card.Footer` | |
-| `Divider` | | | `Avatar` | |
-| `AspectRatio` | | | `Avatar.Group` | |
+| Layout | Typography | Actions | Forms | Display | Feedback |
+|---|---|---|---|---|---|
+| `Box` | `Heading` | `Button` | `Field` | `Badge` | `Alert` |
+| `Stack` | `Text` | `IconButton` | `Label` | `Card` | `Spinner` |
+| `Flex` | `Code` | `ButtonGroup` | `Input` | `Card.Header` | `Skeleton` |
+| `Grid` | `Kbd` | | `Textarea` | `Card.Body` | `Progress` |
+| `Container` | | | `Select` | `Card.Footer` | |
+| `Divider` | | | `Checkbox` | `Avatar` | |
+| `AspectRatio` | | | `RadioGroup` | `Avatar.Group` | |
+| | | | `Switch` | | |
 
-Forms, full page sections, overlays, icons, DataTable and charts are next — see the
+Full page sections, overlays, icons, DataTable and charts are next — see the
 [roadmap](#roadmap).
+
+### Forms solve the boilerplate everyone gets wrong
+
+`Field` derives every id and ARIA relationship from one place, so the wiring cannot drift:
+
+```tsx
+<Field label="Email" help="We will never share it." error={errors.email} required>
+  <Input type="email" autoComplete="email" />
+</Field>
+```
+
+That renders the label with `htmlFor`, sets `required` and `aria-invalid` on the input, and points
+`aria-describedby` at the **error** when there is one and the **hint** when there is not — because a
+screen-reader user needs the reason their input was rejected, not the tip. The error is a live region,
+so a message that appears after submit is actually announced. Any `aria-describedby` you pass
+yourself is preserved alongside it.
+
+Controls stay native underneath: `Select` is a real `<select>`, `RadioGroup` is a real `<fieldset>`
+with a `<legend>` (which is what names the group, with no ARIA at all), and `Checkbox` and `Switch`
+are real inputs that are visually hidden but never `display: none` — so focus, keyboard toggling,
+form submission and the browser's own validation all keep working.
 
 ## How small, actually
 
@@ -97,13 +119,13 @@ Measured with `size-limit`, minified and brotlied, React excluded:
 
 | Import | Cost |
 |---|---|
-| `{ Button }` | **201 B** |
-| `{ Card, Badge, Alert }` | **497 B** |
-| The entire library | **2.42 kB** |
-| `styles.css` (every component) | 23 kB, ~4 kB gzipped |
+| `{ Button }` | **199 B** |
+| `{ Card, Badge, Alert }` | **501 B** |
+| The entire library (28 components) | **3.48 kB** |
+| `styles.css` (every component) | 35 kB, ~5 kB gzipped |
 
 Per-file ESM plus `sideEffects: false` means you pay only for what you import. A hundred-component
-catalog will still cost 201 B if `Button` is all you use.
+catalog will still cost 199 B if `Button` is all you use.
 
 ### Zero dependencies, verifiable
 
@@ -179,17 +201,19 @@ is designed so the accessible thing is the default:
 
 ## Server Components
 
-Static components carry no `'use client'` and render fine in React Server Components. Only genuinely
-interactive components will declare it, per file. The build is unbundled precisely so each file keeps
-its own directive, and CI asserts they survive every build.
+27 of the 28 components carry no `'use client'` and render fine in React Server Components. Only
+`Field` declares it, and only because `useId` is a hook — pass `id` yourself and nothing else in the
+library needs a client boundary.
+
+The build is unbundled precisely so each file keeps its own directive, and CI asserts it survives
+every build in **both** ESM and CJS output.
 
 ## Roadmap
 
 | Status | Ships |
 |---|---|
-| **Now** | Design tokens, layout, typography, actions, display, feedback — 20 components |
-| Next | Forms — `Field`, `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch` |
-| Then | **Sections** — `Navbar`, `Hero`, `Footer`, `Pricing`, `FAQ`, `CTA`, `Stats`, `Sidebar` |
+| **Now** | Tokens, layout, typography, actions, **forms**, display, feedback — 28 components |
+| Next | **Sections** — `Navbar`, `Hero`, `Footer`, `Pricing`, `FAQ`, `CTA`, `Stats`, `Sidebar` |
 | Then | Overlays — `Modal`, `Drawer`, `Tabs`, `Accordion`, `Tooltip`, `Popover`, `Dropdown`, `Toast` |
 | Then | Built-in icon set, `DataTable`, charts |
 

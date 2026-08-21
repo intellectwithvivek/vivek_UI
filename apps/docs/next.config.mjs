@@ -4,10 +4,10 @@ const nextConfig = {
   // needs transpiling — if it did, that would be a bug in the package, not something to
   // paper over with transpilePackages.
   reactStrictMode: true,
-  experimental: {
-    // Keeps the barrel import from pulling all 83 components into every route's graph.
-    optimizePackageImports: ['@the_viveksingh/vivek-ui'],
-  },
+  // optimizePackageImports is deliberately NOT used. It rewrites a barrel import into a
+  // deep path, and this package's exports map exposes only '.', './charts' and the two
+  // stylesheets - there are no per-component subpaths for it to rewrite to. The library
+  // already ships per-file ESM with sideEffects:false, so tree-shaking works without it.
 }
 
 export default nextConfig

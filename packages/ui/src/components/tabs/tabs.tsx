@@ -373,3 +373,11 @@ export const Tabs = Object.assign(TabsRoot, {
   Panels: TabsPanels,
   Panel: TabsPanel,
 })
+
+/* Named part exports — see scripts/add-compound-exports.mjs.
+ *
+ * Tabs is a client component, so a Server Component receives it as a client
+ * reference and `Tabs.Part` reads `undefined` off that reference. These named
+ * exports are the server-usable form; the dot access still works in client components.
+ */
+export { TabsList, TabsPanel, TabsPanels, TabsTab }

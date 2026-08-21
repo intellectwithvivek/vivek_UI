@@ -442,3 +442,11 @@ export const Navbar = Object.assign(NavbarRoot, {
   Actions: NavbarActions,
   Toggle: NavbarToggle,
 })
+
+/* Named part exports — see scripts/add-compound-exports.mjs.
+ *
+ * Navbar is a client component, so a Server Component receives it as a client
+ * reference and `Navbar.Part` reads `undefined` off that reference. These named
+ * exports are the server-usable form; the dot access still works in client components.
+ */
+export { NavbarActions, NavbarBrand, NavbarLink, NavbarLinks, NavbarToggle }

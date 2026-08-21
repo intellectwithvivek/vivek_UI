@@ -14,8 +14,7 @@ import { usePathname } from 'next/navigation'
  */
 export function SiteHeader() {
   const pathname = usePathname()
-  const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href)
+  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href))
 
   return (
     <Navbar sticky bordered>

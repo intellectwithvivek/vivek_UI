@@ -71,3 +71,17 @@ export type {
   DialogSlotProps as DrawerSlotProps,
   DialogTitleProps as DrawerTitleProps,
 }
+
+/* Named part exports — see scripts/add-compound-exports.mjs.
+ *
+ * Drawer is a client component, so a Server Component receives it as a client
+ * reference and `Drawer.Part` reads `undefined` off that reference. These named
+ * exports are the server-usable form; the dot access still works in client components.
+ */
+const DrawerHeader = parts.Header
+const DrawerBody = parts.Body
+const DrawerFooter = parts.Footer
+const DrawerTitle = parts.Title
+const DrawerCloseButton = parts.CloseButton
+
+export { DrawerBody, DrawerCloseButton, DrawerFooter, DrawerHeader, DrawerTitle }

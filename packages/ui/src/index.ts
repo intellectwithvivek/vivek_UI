@@ -22,10 +22,13 @@
 
 export {
   Accordion,
+  AccordionContent,
   type AccordionContentProps,
+  AccordionItem,
   type AccordionItemProps,
   type AccordionProps,
   type AccordionSize,
+  AccordionTrigger,
   type AccordionTriggerProps,
   type AccordionVariant,
 } from './components/accordion'
@@ -85,6 +88,7 @@ export {
 } from './components/chat-message'
 export {
   ChatThread,
+  ChatThreadEmpty,
   type ChatThreadEmptyProps,
   type ChatThreadMessage,
   type ChatThreadProps,
@@ -126,12 +130,17 @@ export { DatePicker, type DatePickerProps } from './components/date-picker'
 export { Divider, type DividerProps } from './components/divider'
 export {
   Drawer,
+  DrawerBody,
+  DrawerCloseButton,
   type DrawerCloseButtonProps,
   type DrawerFocusRef,
+  DrawerFooter,
+  DrawerHeader,
   type DrawerProps,
   type DrawerSide,
   type DrawerSize,
   type DrawerSlotProps,
+  DrawerTitle,
   type DrawerTitleProps,
 } from './components/drawer'
 export {
@@ -179,20 +188,30 @@ export { type Logo, LogoCloud, type LogoCloudProps } from './components/logo-clo
 export { Marquee, type MarqueeDirection, type MarqueeProps } from './components/marquee'
 export {
   Modal,
+  ModalBody,
+  ModalCloseButton,
   type ModalCloseButtonProps,
   type ModalFocusRef,
+  ModalFooter,
+  ModalHeader,
   type ModalProps,
   type ModalSize,
   type ModalSlotProps,
+  ModalTitle,
   type ModalTitleProps,
 } from './components/modal'
 export {
   Navbar,
+  NavbarActions,
   type NavbarActionsProps,
+  NavbarBrand,
   type NavbarBrandProps,
+  NavbarLink,
   type NavbarLinkProps,
+  NavbarLinks,
   type NavbarLinksProps,
   type NavbarProps,
+  NavbarToggle,
   type NavbarToggleProps,
 } from './components/navbar'
 export { OTPInput, type OTPInputProps } from './components/otp-input'
@@ -240,9 +259,12 @@ export {
 export { Select, type SelectOption, type SelectProps } from './components/select'
 export {
   Sidebar,
+  SidebarItem,
   type SidebarItemProps,
   type SidebarProps,
+  SidebarSection,
   type SidebarSectionProps,
+  SidebarToggle,
   type SidebarToggleProps,
 } from './components/sidebar'
 export { Skeleton, type SkeletonProps } from './components/skeleton'
@@ -287,12 +309,16 @@ export {
 export {
   Tabs,
   type TabsActivationMode,
+  TabsList,
   type TabsListProps,
   type TabsOrientation,
+  TabsPanel,
   type TabsPanelProps,
+  TabsPanels,
   type TabsPanelsProps,
   type TabsProps,
   type TabsSize,
+  TabsTab,
   type TabsTabProps,
   type TabsVariant,
 } from './components/tabs'

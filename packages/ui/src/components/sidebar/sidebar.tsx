@@ -320,3 +320,11 @@ export const Sidebar = Object.assign(SidebarRoot, {
   Item: SidebarItem,
   Toggle: SidebarToggle,
 })
+
+/* Named part exports — see scripts/add-compound-exports.mjs.
+ *
+ * Sidebar is a client component, so a Server Component receives it as a client
+ * reference and `Sidebar.Part` reads `undefined` off that reference. These named
+ * exports are the server-usable form; the dot access still works in client components.
+ */
+export { SidebarItem, SidebarSection, SidebarToggle }

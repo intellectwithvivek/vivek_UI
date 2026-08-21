@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   Code,
   CTA,
@@ -47,9 +46,24 @@ export default function HomePage() {
         description="size-limit figures from the published build, minified and brotlied, React excluded."
         items={[
           { id: 'btn', value: '198 B', label: 'One component', description: 'importing Button' },
-          { id: 'all', value: '40.5 kB', label: 'All 83 components', description: 'if you import everything' },
-          { id: 'deps', value: '0', label: 'Runtime dependencies', description: 'verifiable with npm ls' },
-          { id: 'rsc', value: '44', label: 'Server-safe components', description: 'no client boundary needed' },
+          {
+            id: 'all',
+            value: '40.5 kB',
+            label: 'All 83 components',
+            description: 'if you import everything',
+          },
+          {
+            id: 'deps',
+            value: '0',
+            label: 'Runtime dependencies',
+            description: 'verifiable with npm ls',
+          },
+          {
+            id: 'rsc',
+            value: '44',
+            label: 'Server-safe components',
+            description: 'no client boundary needed',
+          },
         ]}
       />
 
@@ -172,7 +186,8 @@ export default function HomePage() {
         title="Install it and see"
         description={
           <>
-            <Code>npm install @the_viveksingh/vivek-ui</Code> — then one CSS import, and you are done.
+            <Code>npm install @the_viveksingh/vivek-ui</Code> — then one CSS import, and you are
+            done.
           </>
         }
         actions={
@@ -207,8 +222,16 @@ export default function HomePage() {
           {
             title: 'Project',
             links: [
-              { label: 'GitHub', href: 'https://github.com/intellectwithvivek/vivek_UI', target: '_blank' },
-              { label: 'npm', href: 'https://www.npmjs.com/package/@the_viveksingh/vivek-ui', target: '_blank' },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/intellectwithvivek/vivek_UI',
+                target: '_blank',
+              },
+              {
+                label: 'npm',
+                href: 'https://www.npmjs.com/package/@the_viveksingh/vivek-ui',
+                target: '_blank',
+              },
             ],
           },
           {
@@ -216,7 +239,11 @@ export default function HomePage() {
             links: [
               { label: 'Website', href: 'https://vivekkumarsingh.in', target: '_blank' },
               { label: 'GitHub', href: 'https://github.com/intellectwithvivek', target: '_blank' },
-              { label: 'LinkedIn', href: 'https://www.linkedin.com/in/singhvvk/', target: '_blank' },
+              {
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/in/singhvvk/',
+                target: '_blank',
+              },
             ],
           },
         ]}

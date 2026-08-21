@@ -1,10 +1,15 @@
 export {
   Drawer,
+  DrawerBody,
+  DrawerCloseButton,
   type DrawerCloseButtonProps,
   type DrawerFocusRef,
+  DrawerFooter,
+  DrawerHeader,
   type DrawerProps,
   type DrawerSide,
   type DrawerSize,
   type DrawerSlotProps,
+  DrawerTitle,
   type DrawerTitleProps,
 } from './drawer'

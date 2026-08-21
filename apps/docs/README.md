@@ -2,7 +2,7 @@
 
 **Lands in M3.**
 
-This will be a Next.js + MDX site (deployed on Vercel) that consumes `vivek-ui` through the
+This will be a Next.js + MDX site (deployed on Vercel) that consumes `@the_viveksingh/vivek-ui` through the
 workspace, so writing docs continuously exercises the real public API — the docs site is the
 library's first production consumer.
 
@@ -12,7 +12,7 @@ for interactive components — its keyboard map and ARIA notes.
 Until then, `apps/playground` is where components are developed and eyeballed:
 
 ```bash
-pnpm --filter vivek-ui build
+pnpm --filter @the_viveksingh/vivek-ui build
 pnpm --filter playground dev
 ```
 

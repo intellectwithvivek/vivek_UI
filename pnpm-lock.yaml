@@ -20,7 +20,7 @@ importers:
 
   apps/playground:
     dependencies:
-      vivek-ui:
+      '@the_viveksingh/vivek-ui':
         specifier: workspace:*
         version: link:../../packages/ui
     devDependencies:

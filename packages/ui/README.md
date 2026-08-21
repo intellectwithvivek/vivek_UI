@@ -15,8 +15,8 @@ and 19, and in Next.js with both the Pages and App Router.
 ## Install
 
 ```bash
-npm install vivek-ui
-# or: pnpm add vivek-ui / yarn add vivek-ui
+npm install @the_viveksingh/vivek-ui
+# or: pnpm add @the_viveksingh/vivek-ui / yarn add @the_viveksingh/vivek-ui
 ```
 
 ## Setup — two lines, total
@@ -27,13 +27,13 @@ Import the stylesheet **once**, at your app's entry point:
 // Next.js App Router: app/layout.tsx
 // Next.js Pages Router: pages/_app.tsx
 // Vite / CRA: src/main.tsx
-import 'vivek-ui/styles.css'
+import '@the_viveksingh/vivek-ui/styles.css'
 ```
 
 Then use components anywhere:
 
 ```tsx
-import { Button } from 'vivek-ui'
+import { Button } from '@the_viveksingh/vivek-ui'
 
 export function SignupCta() {
   return (
@@ -54,7 +54,7 @@ That's the entire setup. There is no step three.
 The published package's `dependencies` field is **empty** — verify it yourself:
 
 ```bash
-npm ls --package-lock-only --omit=dev vivek-ui
+npm ls --package-lock-only --omit=dev @the_viveksingh/vivek-ui
 ```
 
 `react` and `react-dom` are declared as `peerDependencies` only (`^18.0.0 || ^19.0.0`) and are never
@@ -143,7 +143,7 @@ than primitives you assemble yourself.
 | M3 | **Sections** — Navbar, Hero, Footer, Pricing, FAQ, CTA, Stats, Sidebar + docs site |
 | M4 | Overlays — Tabs, Accordion, Tooltip, Popover, Modal, Drawer, Toast |
 | M5 | **v1.0.0** |
-| M6–M8 | Icon set to 150+, `DataTable`, `vivek-ui/charts` |
+| M6–M8 | Icon set to 150+, `DataTable`, `@the_viveksingh/vivek-ui/charts` |
 
 Full detail, including the complete catalog by tier and the decision log:
 [docs/ARCHITECTURE.md](https://github.com/intellectwithvivek/vivek-ui/blob/main/docs/ARCHITECTURE.md) — see §12 for the roadmap.

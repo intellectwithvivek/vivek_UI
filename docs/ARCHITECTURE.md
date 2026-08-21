@@ -5,6 +5,16 @@ Draft v0.2 · August 2026 · Author: Vivek Kumar Singh
 
 > Package name used throughout: `vivek-ui` (placeholder). Verify availability with `npm view vivek-ui` before scaffolding; fallback is a scoped name like `@vivekui/react`, which requires creating a free npm organization.
 
+> **RESOLVED (M0, 2026-08-21):** `vivek-ui` is **not publishable**. `vivek_ui@1.0.1` already exists,
+> and npm's typosquat guard normalizes names by stripping `-`, `_` and `.` — so the whole `vivekui`
+> family (`vivek-ui`, `vivekui`, `vivek.ui`) is permanently blocked unscoped. Note that
+> `npm view <name>` returning 404 does **not** prove a name is publishable: the similarity check runs
+> only at publish time, so this is undetectable in advance. The shipped name is
+> **`@the_viveksingh/vivek-ui`**. Scoped names are namespaced and exempt from the similarity check,
+> which makes a scope the only option that is guaranteed to work. The GitHub repo keeps the name
+> `vivek-ui`; the `vk-` class prefix and `--vk-` token prefix are unchanged. Elsewhere in this
+> document `vivek-ui` should be read as the scoped name.
+
 ---
 
 ## 1. Vision

@@ -2,6 +2,7 @@ import { Alert, Badge, Card, Code, Grid, Heading, Stack, Text } from '@the_vivek
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CodeBlock } from '../../components/code-block'
+import { SupportCta } from '../../components/support-cta'
 import { PACKAGE_NAME, registry } from '../../lib/registry'
 
 export const metadata: Metadata = {
@@ -134,6 +135,9 @@ export default function DocsIndexPage() {
           </Text>
         </Stack>
       </section>
+      <div className="support">
+        <SupportCta />
+      </div>
     </>
   )
 }

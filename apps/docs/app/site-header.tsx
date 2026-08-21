@@ -41,6 +41,17 @@ export function SiteHeader() {
 
       <Navbar.Actions>
         <ThemeToggle mode="cycle" />
+        <Button asChild size="sm" variant="ghost">
+          <a
+            aria-label="Buy me a coffee"
+            href="https://www.buymeacoffee.com/theviveksingh"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="Buy me a coffee"
+          >
+            ☕
+          </a>
+        </Button>
         <Button variant="outline" size="sm" asChild>
           <a
             href="https://github.com/intellectwithvivek/vivek_UI"

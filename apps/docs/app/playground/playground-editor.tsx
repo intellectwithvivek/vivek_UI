@@ -6,6 +6,7 @@ import * as charts from '@the_viveksingh/vivek-ui/charts'
 import * as React from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { transform } from 'sucrase'
+import { prepareSource } from '../../lib/prepare-source'
 import { TEMPLATES } from './templates'
 
 const STORAGE_KEY = 'vk-playground-draft'
@@ -77,24 +78,32 @@ export function PlaygroundEditor() {
 
   const compile = useCallback((source: string) => {
     try {
-      const { code: js } = transform(source, {
+      // `new Function` evaluates a script body, where ESM syntax is a syntax error. Docs
+      // examples are written as modules, so normalise them first - otherwise pasting one
+      // fails with "Unexpected token 'default'".
+      const prepared = prepareSource(source)
+      const { code: js } = transform(prepared.code, {
         transforms: ['typescript', 'jsx'],
         production: true,
       })
       const scope = { ...ui, ...charts, React, ...React }
       const names = Object.keys(scope)
-      // eslint-disable-next-line no-new-func
       const factory = new Function(
         ...names,
-        `${js}; return typeof App !== 'undefined' ? App : null;`,
+        `${js};
+return ${prepared.resolver};`,
       )
-      const App = factory(...names.map((name) => (scope as Record<string, unknown>)[name]))
-      if (typeof App !== 'function') {
-        setError('Define a component called `App` and the preview will render it.')
+      const Component = factory(...names.map((name) => (scope as Record<string, unknown>)[name]))
+      if (typeof Component !== 'function') {
+        setError(
+          prepared.candidates.length > 0
+            ? `Could not find a component to render. Looked for: ${prepared.candidates.join(', ')}.`
+            : 'Define a component - `function App() { … }` - and it will render here.',
+        )
         return
       }
       setError(null)
-      setElement(React.createElement(App as React.ComponentType))
+      setElement(React.createElement(Component as React.ComponentType))
     } catch (thrown) {
       setError(thrown instanceof Error ? thrown.message : String(thrown))
     }

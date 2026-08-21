@@ -7,10 +7,12 @@ import {
   Footer,
   Hero,
   Pricing,
+  Section,
   Stats,
   Testimonials,
 } from '@the_viveksingh/vivek-ui'
 import Link from 'next/link'
+import { SupportCta } from '../components/support-cta'
 
 /**
  * The landing page.
@@ -202,6 +204,10 @@ export default function HomePage() {
         }
       />
 
+      <Section padding="lg">
+        <SupportCta />
+      </Section>
+
       <Footer
         brand={
           <>
@@ -230,6 +236,21 @@ export default function HomePage() {
               {
                 label: 'npm',
                 href: 'https://www.npmjs.com/package/@the_viveksingh/vivek-ui',
+                target: '_blank',
+              },
+            ],
+          },
+          {
+            title: 'Support',
+            links: [
+              {
+                label: 'Buy me a coffee',
+                href: 'https://www.buymeacoffee.com/theviveksingh',
+                target: '_blank',
+              },
+              {
+                label: 'GitHub Sponsors',
+                href: 'https://github.com/sponsors/intellectwithvivek',
                 target: '_blank',
               },
             ],

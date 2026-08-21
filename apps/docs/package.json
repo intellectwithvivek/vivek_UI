@@ -9,7 +9,8 @@
     "typecheck": "tsc --noEmit",
     "build:all": "pnpm --filter @the_viveksingh/vivek-ui build && node scripts/gen-registry.mjs && next build",
     "dev:all": "pnpm --filter @the_viveksingh/vivek-ui build && node scripts/gen-registry.mjs && next dev --port 3100",
-    "gen:registry": "node scripts/gen-registry.mjs"
+    "gen:registry": "node scripts/gen-registry.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "@the_viveksingh/vivek-ui": "workspace:*",
@@ -22,6 +23,9 @@
     "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "typescript": "^5.9.3"
+    "@vitejs/plugin-react": "^6.1.0",
+    "jsdom": "^30.0.1",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
   }
 }

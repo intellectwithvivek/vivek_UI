@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: typecheck / lint / test / build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint and format check
+        run: pnpm exec biome ci .
+
+      - name: Typecheck
+        run: pnpm -r typecheck
+
+      - name: Test
+        run: pnpm -r test
+
+      - name: Build
+        run: pnpm -r build
+
+      - name: Size limit
+        run: pnpm --filter vivek-ui size
+
+      - name: Assert the published package has no runtime dependencies
+        run: |
+          node -e "
+            const pkg = require('./packages/ui/package.json');
+            const deps = Object.keys(pkg.dependencies ?? {});
+            if (deps.length > 0) {
+              console.error('vivek-ui must ship zero runtime dependencies, found: ' + deps.join(', '));
+              process.exit(1);
+            }
+            console.log('OK: no runtime dependencies');
+          "
+
+  react18:
+    name: react 18 compatibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build the library
+        run: pnpm --filter vivek-ui build
+
+      # The peer range promises ^18 || ^19 (ARCHITECTURE §5.6), so CI has to prove it.
+      - name: Re-test against React 18
+        run: |
+          pnpm --filter vivek-ui add -D react@^18 react-dom@^18 @types/react@^18 @types/react-dom@^18
+          pnpm --filter vivek-ui test

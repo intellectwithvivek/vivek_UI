@@ -1,0 +1,87 @@
+{
+  "name": "vivek-ui",
+  "version": "0.0.0",
+  "description": "A zero-runtime-dependency React UI library: primitives, full page sections, icons and charts in one install. Works in React 18/19, Next.js Pages and App Router.",
+  "license": "MIT",
+  "author": "Vivek Kumar Singh",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/intellectwithvivek/vivek-ui.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/intellectwithvivek/vivek-ui#readme",
+  "bugs": {
+    "url": "https://github.com/intellectwithvivek/vivek-ui/issues"
+  },
+  "keywords": [
+    "react",
+    "ui",
+    "component-library",
+    "design-system",
+    "nextjs",
+    "react-server-components",
+    "zero-dependency",
+    "css-variables",
+    "accessible",
+    "typescript"
+  ],
+  "scripts": {
+    "build": "tsup && pnpm build:css && node ../../scripts/check-directives.mjs",
+    "build:css": "lightningcss --bundle --minify src/styles/entry.css -o dist/styles.css",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "size": "size-limit"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "size-limit": [
+    {
+      "name": "Button (esm, tree-shaken)",
+      "path": "dist/index.js",
+      "import": "{ Button }",
+      "limit": "3 kB",
+      "ignore": [
+        "react",
+        "react-dom",
+        "react/jsx-runtime"
+      ]
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^13.0.3",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "jsdom": "^30.0.1",
+    "lightningcss-cli": "^1.33.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "size-limit": "^13.0.3",
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11",
+    "vitest-axe": "^0.1.0"
+  }
+}

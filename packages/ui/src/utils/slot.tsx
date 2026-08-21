@@ -192,9 +192,22 @@ function clone(
   forwardedRef: ForwardedRef<unknown>,
   children?: ReactNode[],
 ) {
-  const props = {
-    ...mergeProps(element.props, slotProps),
-    ref: mergeRefs(forwardedRef as Ref<unknown>, readChildRef(element)),
+  const childRef = readChildRef(element)
+  const props: AnyProps = { ...mergeProps(element.props, slotProps) }
+
+  /*
+   * A `ref` is attached only when one actually exists.
+   *
+   * React forbids a `ref` prop in a Server Component, and it counts `ref={null}` as
+   * passing one — so setting `ref` unconditionally made every `asChild` usage fail a
+   * prerender with "Refs cannot be used in Server Components", even with no ref in sight.
+   *
+   * This went unnoticed because the components that had `asChild` first — Navbar,
+   * Sidebar, Breadcrumb — are all client components. It only surfaced when `Button`, a
+   * server-safe component, gained `asChild` and was rendered from a Server Component.
+   */
+  if (forwardedRef || childRef) {
+    props.ref = mergeRefs(forwardedRef as Ref<unknown>, childRef)
   }
   // `mergeProps` never copies `children`, so the third argument is the only thing that
   // can replace the child's own subtree — and it is only passed when we decorated it.

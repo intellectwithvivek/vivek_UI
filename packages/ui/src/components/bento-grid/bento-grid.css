@@ -1,0 +1,153 @@
+/*
+ * BentoGrid — the asymmetric tile wall.
+ *
+ * The whole responsive story is two inherited custom properties:
+ *
+ *   --vk-bento-c   the track count in force at this width  (resolved on the grid)
+ *   --vk-bento-cs  the tile's column span at this width    (resolved on the tile)
+ *   --vk-bento-rs  the tile's row span at this width       (resolved on the tile)
+ *
+ * Each is re-resolved from the caller's inline `--vk-bento-cols*` / `--vk-bento-*-span*`
+ * chain inside a fixed media query, exactly the way `Grid` does it. Resolving into a
+ * SEPARATE property name is what makes the fallback chain expressible at all — a custom
+ * property cannot be defined in terms of itself — and it is also what lets a tile clamp
+ * its span against the grid's track count, because `--vk-bento-c` inherits down to it.
+ */
+
+:where(.vk-bento) {
+  --vk-bento-c: var(--vk-bento-cols, 1);
+
+  display: grid;
+  grid-template-columns: repeat(var(--vk-bento-c), minmax(0, 1fr));
+  grid-auto-rows: minmax(var(--vk-bento-row-height, 10rem), auto);
+  min-width: 0;
+}
+
+:where(.vk-bento[data-dense]) {
+  grid-auto-flow: dense;
+}
+
+:where(.vk-bento[data-gap="1"]) {
+  gap: var(--vk-space-1);
+}
+:where(.vk-bento[data-gap="2"]) {
+  gap: var(--vk-space-2);
+}
+:where(.vk-bento[data-gap="3"]) {
+  gap: var(--vk-space-3);
+}
+:where(.vk-bento[data-gap="4"]) {
+  gap: var(--vk-space-4);
+}
+:where(.vk-bento[data-gap="6"]) {
+  gap: var(--vk-space-6);
+}
+:where(.vk-bento[data-gap="8"]) {
+  gap: var(--vk-space-8);
+}
+:where(.vk-bento[data-gap="12"]) {
+  gap: var(--vk-space-12);
+}
+:where(.vk-bento[data-gap="16"]) {
+  gap: var(--vk-space-16);
+}
+
+:where(.vk-bento__item) {
+  --vk-bento-cs: var(--vk-bento-col-span, 1);
+  --vk-bento-rs: var(--vk-bento-row-span, 1);
+
+  /*
+   * Plain `span 1` first, so a browser that rejects a math function in an <integer>
+   * position degrades to a uniform grid instead of losing the declaration entirely.
+   * The clamped form then wins wherever `min()` is understood.
+   */
+  grid-column: span 1;
+  /* biome-ignore lint/suspicious/noDuplicateProperties: deliberate CSS fallback pair — the
+     line above is the graceful degradation for a browser that rejects min() here. */
+  grid-column: span min(var(--vk-bento-cs), var(--vk-bento-c));
+  grid-row: span var(--vk-bento-rs);
+
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* A single child fills the tile, so a `rowSpan={2}` Card is actually twice as tall. */
+:where(.vk-bento__item) > :where(*:only-child) {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+@media (min-width: 640px) {
+  :where(.vk-bento) {
+    --vk-bento-c: var(--vk-bento-cols-sm, var(--vk-bento-cols, 1));
+  }
+  :where(.vk-bento__item) {
+    --vk-bento-cs: var(--vk-bento-col-span-sm, var(--vk-bento-col-span, 1));
+    --vk-bento-rs: var(--vk-bento-row-span-sm, var(--vk-bento-row-span, 1));
+  }
+}
+
+@media (min-width: 768px) {
+  :where(.vk-bento) {
+    --vk-bento-c: var(--vk-bento-cols-md, var(--vk-bento-cols-sm, var(--vk-bento-cols, 1)));
+  }
+  :where(.vk-bento__item) {
+    --vk-bento-cs: var(
+      --vk-bento-col-span-md,
+      var(--vk-bento-col-span-sm, var(--vk-bento-col-span, 1))
+    );
+    --vk-bento-rs: var(
+      --vk-bento-row-span-md,
+      var(--vk-bento-row-span-sm, var(--vk-bento-row-span, 1))
+    );
+  }
+}
+
+@media (min-width: 1024px) {
+  :where(.vk-bento) {
+    --vk-bento-c: var(
+      --vk-bento-cols-lg,
+      var(--vk-bento-cols-md, var(--vk-bento-cols-sm, var(--vk-bento-cols, 1)))
+    );
+  }
+  :where(.vk-bento__item) {
+    --vk-bento-cs: var(
+      --vk-bento-col-span-lg,
+      var(--vk-bento-col-span-md, var(--vk-bento-col-span-sm, var(--vk-bento-col-span, 1)))
+    );
+    --vk-bento-rs: var(
+      --vk-bento-row-span-lg,
+      var(--vk-bento-row-span-md, var(--vk-bento-row-span-sm, var(--vk-bento-row-span, 1)))
+    );
+  }
+}
+
+@media (min-width: 1280px) {
+  :where(.vk-bento) {
+    --vk-bento-c: var(
+      --vk-bento-cols-xl,
+      var(
+        --vk-bento-cols-lg,
+        var(--vk-bento-cols-md, var(--vk-bento-cols-sm, var(--vk-bento-cols, 1)))
+      )
+    );
+  }
+  :where(.vk-bento__item) {
+    --vk-bento-cs: var(
+      --vk-bento-col-span-xl,
+      var(
+        --vk-bento-col-span-lg,
+        var(--vk-bento-col-span-md, var(--vk-bento-col-span-sm, var(--vk-bento-col-span, 1)))
+      )
+    );
+    --vk-bento-rs: var(
+      --vk-bento-row-span-xl,
+      var(
+        --vk-bento-row-span-lg,
+        var(--vk-bento-row-span-md, var(--vk-bento-row-span-sm, var(--vk-bento-row-span, 1)))
+      )
+    );
+  }
+}

@@ -1,0 +1,21 @@
+/*
+ * ThemeProvider renders no DOM, so this file exists for one reason: telling the browser
+ * which palette it is in.
+ *
+ * `color-scheme` is what makes native UI follow the theme — scrollbars, form controls, the
+ * date picker, the caret, the default canvas behind a page that has not painted yet. No
+ * amount of `--vk-color-*` reaches those. `themeScript` and the provider both set it
+ * inline on `<html>` for the pre-paint case; these rules cover a consumer who sets
+ * `data-theme` themselves, in markup or from their own framework.
+ *
+ * Scoped to `html[data-theme]` rather than `:root` so it never fights a page that has not
+ * opted into the attribute at all.
+ */
+
+:where(html[data-theme="light"]) {
+  color-scheme: light;
+}
+
+:where(html[data-theme="dark"]) {
+  color-scheme: dark;
+}

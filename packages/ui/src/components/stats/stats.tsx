@@ -4,6 +4,12 @@ import { Grid, type ResponsiveCols } from '../grid'
 import { type HeadingLevel, landmarkName, Section, type SectionProps } from '../section/section'
 
 export interface Stat {
+  /**
+   * Stable React key. Supply it whenever the data is dynamic: the fallback key is a
+   * content field, which collides when two items share it (two reviews by the same
+   * author, two stats with the same label) and makes React mis-attach state on reorder.
+   */
+  id?: string | number
   /** The headline figure, e.g. `"99.98%"`. */
   value: ReactNode
   /** What the figure measures. Always announced with the value. */
@@ -77,7 +83,7 @@ export const Stats = forwardRef<HTMLElement, StatsProps>(function Stats(
               className="vk-stats__list"
             >
               {items.map((item) => (
-                <div className="vk-stats__item" key={item.label}>
+                <div className="vk-stats__item" key={item.id ?? item.label}>
                   <dt className="vk-stats__label">{item.label}</dt>
                   <dd className="vk-stats__value">{item.value}</dd>
                   {item.description ? (

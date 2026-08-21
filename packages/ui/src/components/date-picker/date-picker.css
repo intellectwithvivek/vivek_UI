@@ -1,0 +1,132 @@
+/*
+ * DatePicker. The field borrows `.vk-input`; this file is the trigger button, the popup
+ * shell and the parse message.
+ */
+
+:where(.vk-date-picker) {
+  --vk-date-picker-trigger: 2rem;
+  --vk-date-picker-accent: var(--vk-color-primary);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  width: 100%;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-date-picker__control) {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Room for the trigger, so a typed date never runs under it. */
+:where(.vk-date-picker__input) {
+  padding-inline-end: calc(var(--vk-date-picker-trigger) + var(--vk-space-2));
+  font-variant-numeric: tabular-nums;
+}
+
+:where(.vk-date-picker__trigger) {
+  position: absolute;
+  inset-inline-end: var(--vk-space-1);
+  display: inline-grid;
+  place-items: center;
+  width: var(--vk-date-picker-trigger);
+  height: var(--vk-date-picker-trigger);
+  color: var(--vk-color-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+}
+
+:where(.vk-date-picker__trigger:hover:not(:disabled)) {
+  color: var(--vk-color-fg);
+  background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+}
+
+:where(.vk-date-picker__trigger:focus-visible) {
+  outline: 2px solid var(--vk-date-picker-accent);
+  outline-offset: 1px;
+}
+
+:where(.vk-date-picker__trigger:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* A calendar page: a bordered box with a heavier top rule and two tabs. */
+:where(.vk-date-picker__icon) {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  border: 1.5px solid currentcolor;
+  border-radius: 2px;
+}
+
+:where(.vk-date-picker__icon)::before {
+  content: "";
+  position: absolute;
+  inset-inline: -1.5px;
+  inset-block-start: 0.15rem;
+  height: 1.5px;
+  background: currentcolor;
+}
+
+:where(.vk-date-picker__icon)::after {
+  content: "";
+  position: absolute;
+  inset-block-start: -0.15rem;
+  inset-inline-start: 0.15rem;
+  width: 0.5rem;
+  height: 1.5px;
+  background: currentcolor;
+  box-shadow: 0.15rem 0 0 -0.05rem currentcolor;
+}
+
+:where(.vk-date-picker__error) {
+  margin: 0;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-danger);
+}
+
+/*
+ * The popup. `position: fixed` because `useAnchoredPosition` reports viewport
+ * coordinates, and transparent until it has been measured so it never flashes at 0,0.
+ */
+:where(.vk-date-picker__popup) {
+  position: fixed;
+  z-index: var(--vk-z-overlay);
+  opacity: 0;
+  background: var(--vk-color-bg);
+  border-radius: var(--vk-radius-lg);
+  box-shadow: var(--vk-shadow-md);
+}
+
+:where(.vk-date-picker__popup[data-positioned]) {
+  opacity: 1;
+  animation: vk-date-picker-in var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-date-picker__popup:focus-visible) {
+  outline: none;
+}
+
+@keyframes vk-date-picker-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-date-picker__popup[data-positioned]) {
+    animation: none;
+  }
+}

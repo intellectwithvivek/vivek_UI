@@ -1,0 +1,17 @@
+/*
+ * Clock — a `<time>` element that changes every second, so the digits must not move the
+ * layout. `tabular-nums` gives every digit the same advance width, which is what keeps
+ * `12:09:59` and `12:10:00` exactly the same width.
+ */
+
+:where(.vk-clock) {
+  display: inline-block;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+:where(.vk-clock[data-pending]) {
+  color: var(--vk-color-muted);
+}

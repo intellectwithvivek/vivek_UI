@@ -12,6 +12,12 @@ import {
 import { Text } from '../text'
 
 export interface FaqItem {
+  /**
+   * Stable React key. Supply it whenever the data is dynamic: the fallback key is a
+   * content field, which collides when two items share it (two reviews by the same
+   * author, two stats with the same label) and makes React mis-attach state on reorder.
+   */
+  id?: string | number
   question: string
   answer: ReactNode
 }
@@ -94,7 +100,7 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
               {items.map((item, index) => (
                 <details
                   className="vk-faq__item"
-                  key={item.question}
+                  key={item.id ?? item.question}
                   name={name}
                   open={index === defaultOpen || undefined}
                 >

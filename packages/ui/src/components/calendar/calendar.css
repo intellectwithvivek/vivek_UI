@@ -1,0 +1,231 @@
+/*
+ * Calendar. Component-scoped custom properties (`--vk-calendar-*`) sit in front of the
+ * global tokens so a consumer can retheme just the calendar without overriding selectors.
+ */
+
+:where(.vk-calendar) {
+  --vk-calendar-cell: 2.25rem;
+  --vk-calendar-gap: var(--vk-space-1);
+  --vk-calendar-accent: var(--vk-color-primary);
+  --vk-calendar-accent-fg: var(--vk-color-primary-fg);
+  --vk-calendar-range-bg: color-mix(in oklab, var(--vk-calendar-accent) 14%, transparent);
+
+  container-type: inline-size;
+  container-name: vk-calendar;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--vk-space-2);
+  padding: var(--vk-space-3);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-lg);
+}
+
+:where(.vk-calendar[data-size="sm"]) {
+  --vk-calendar-cell: 1.875rem;
+  font-size: var(--vk-text-sm);
+}
+:where(.vk-calendar[data-size="lg"]) {
+  --vk-calendar-cell: 2.75rem;
+  font-size: var(--vk-text-md);
+}
+
+/*
+ * A calendar dropped into a wide container gets roomier cells without a prop or a media
+ * query. Container-correct rather than viewport-correct: the same calendar is narrow in a
+ * sidebar and wide in a page body on the identical screen.
+ */
+@container vk-calendar (min-width: 22rem) {
+  :where(.vk-calendar) {
+    --vk-calendar-cell: 2.5rem;
+  }
+}
+
+:where(.vk-calendar[data-disabled]) {
+  opacity: 0.55;
+}
+
+:where(.vk-calendar__header) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-1);
+}
+
+:where(.vk-calendar__title) {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-calendar__nav) {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  color: var(--vk-color-fg);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+  transition: background-color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-calendar__nav:hover:not(:disabled)) {
+  background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+}
+
+:where(.vk-calendar__nav:focus-visible) {
+  outline: 2px solid var(--vk-calendar-accent);
+  outline-offset: 1px;
+}
+
+:where(.vk-calendar__nav:disabled) {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Chevron from one rotated corner - no icon dependency. */
+:where(.vk-calendar__chevron) {
+  width: 0.4em;
+  height: 0.4em;
+  border-inline-start: 1.5px solid currentcolor;
+  border-block-start: 1.5px solid currentcolor;
+  transform: rotate(-45deg);
+}
+
+:where(.vk-calendar__nav[data-nav^="next"]) :where(.vk-calendar__chevron) {
+  transform: rotate(135deg);
+}
+
+/* The year buttons get a second chevron via a pseudo-element. */
+:where(.vk-calendar__chevron[data-double])::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-inline-start: 1.5px solid currentcolor;
+  border-block-start: 1.5px solid currentcolor;
+  transform: translate(45%, -45%);
+}
+
+:where(.vk-calendar__grid) {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+:where(.vk-calendar__weekday) {
+  width: var(--vk-calendar-cell);
+  padding-block-end: var(--vk-space-1);
+  font-size: 0.8em;
+  font-weight: 500;
+  color: var(--vk-color-muted);
+  text-align: center;
+}
+
+/* Visually hidden, never display:none - the long weekday name must stay announceable. */
+:where(.vk-calendar__sr) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:where(.vk-calendar__cell) {
+  padding: 0;
+  text-align: center;
+}
+
+:where(.vk-calendar__day) {
+  display: inline-grid;
+  place-items: center;
+  width: var(--vk-calendar-cell);
+  height: var(--vk-calendar-cell);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  color: var(--vk-color-fg);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--vk-duration) var(--vk-ease),
+    color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-calendar__day:hover:not(:disabled)) {
+  background: color-mix(in oklab, var(--vk-calendar-accent) 12%, transparent);
+}
+
+:where(.vk-calendar__day:focus-visible) {
+  outline: 2px solid var(--vk-calendar-accent);
+  outline-offset: 1px;
+}
+
+:where(.vk-calendar__day[data-today]) {
+  font-weight: 700;
+  border-color: color-mix(in oklab, var(--vk-calendar-accent) 45%, transparent);
+}
+
+:where(.vk-calendar__day[data-selected]) {
+  color: var(--vk-calendar-accent-fg);
+  background: var(--vk-calendar-accent);
+  border-color: var(--vk-calendar-accent);
+}
+
+:where(.vk-calendar__day:disabled) {
+  color: var(--vk-color-muted);
+  opacity: 0.45;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* Range fill sits on the cell, so it reaches the gaps between the day buttons. */
+:where(.vk-calendar__cell[data-in-range]) {
+  background: var(--vk-calendar-range-bg);
+}
+
+:where(.vk-calendar__cell[data-range-start]) {
+  background: linear-gradient(to right, transparent 50%, var(--vk-calendar-range-bg) 50%);
+}
+
+:where(.vk-calendar__cell[data-range-end]) {
+  background: linear-gradient(to right, var(--vk-calendar-range-bg) 50%, transparent 50%);
+}
+
+/*
+ * A start with no end yet must not paint half a bar into nowhere, and a single-day range
+ * must not paint at all.
+ */
+:where(.vk-calendar__cell[data-range-start][data-range-end]) {
+  background: transparent;
+}
+
+:where(.vk-calendar__cell[data-in-range]) :where(.vk-calendar__day) {
+  border-radius: 0;
+}
+
+:where(.vk-calendar__outside) {
+  display: inline-grid;
+  place-items: center;
+  width: var(--vk-calendar-cell);
+  height: var(--vk-calendar-cell);
+  color: var(--vk-color-muted);
+  opacity: 0.4;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-calendar__day),
+  :where(.vk-calendar__nav) {
+    transition: none;
+  }
+}

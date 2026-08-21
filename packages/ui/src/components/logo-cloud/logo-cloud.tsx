@@ -4,6 +4,12 @@ import { Heading } from '../heading'
 import { type HeadingLevel, landmarkName, Section, type SectionProps } from '../section/section'
 
 export interface Logo {
+  /**
+   * Stable React key. Supply it whenever the data is dynamic: the fallback key is a
+   * content field, which collides when two items share it (two reviews by the same
+   * author, two stats with the same label) and makes React mis-attach state on reorder.
+   */
+  id?: string | number
   /** Image URL. Rendered as an `<img>` with `alt` set from `alt`. */
   src?: string
   /** The company name. Required — it is the accessible name of the logo, whichever form it takes. */
@@ -85,7 +91,7 @@ export const LogoCloud = forwardRef<HTMLElement, LogoCloudProps>(function LogoCl
               className="vk-logo-cloud__list"
             >
               {logos.map((logo) => (
-                <li className="vk-logo-cloud__item" key={logo.alt}>
+                <li className="vk-logo-cloud__item" key={logo.id ?? logo.alt}>
                   <LogoMark logo={logo} />
                 </li>
               ))}

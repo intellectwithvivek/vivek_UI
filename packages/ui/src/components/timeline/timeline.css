@@ -1,0 +1,204 @@
+/*
+ * Timeline — an ordered list laid out as a rail.
+ *
+ * The rail is each item's `::before`, not a background on the list, so it stops exactly
+ * at the last marker instead of running off the end. The root is a named inline-size
+ * container, which is what lets `align="alternate"` fall back to a single column when the
+ * timeline is narrow — its OWN width, not the viewport's.
+ */
+
+:where(.vk-timeline) {
+  --vk-timeline-marker: 1.75rem;
+  --vk-timeline-rail: 2px;
+  --vk-timeline-gap: var(--vk-space-6);
+
+  display: grid;
+  gap: var(--vk-timeline-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  container: vk-timeline / inline-size;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-timeline__item) {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--vk-timeline-marker) minmax(0, 1fr);
+  column-gap: var(--vk-space-4);
+  min-width: 0;
+}
+
+:where(.vk-timeline__marker) {
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--vk-timeline-marker);
+  height: var(--vk-timeline-marker);
+  border: var(--vk-timeline-rail) solid var(--vk-color-border);
+  border-radius: var(--vk-radius-full);
+  background: var(--vk-color-bg);
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+  line-height: 1;
+}
+
+:where(.vk-timeline__marker) > :where(svg, img) {
+  width: 1em;
+  height: 1em;
+}
+
+:where(.vk-timeline__content) {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  min-width: 0;
+  padding-block-end: var(--vk-space-1);
+}
+
+:where(.vk-timeline__timestamp) {
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-timeline__title) {
+  margin: 0;
+}
+
+:where(.vk-timeline__description) {
+  margin: 0;
+}
+
+/* Announced, never shown: the third, text-only carrier of status. */
+:where(.vk-timeline__status) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Status: fill (colour) pairs with the glyph (shape) the component already rendered. */
+:where(.vk-timeline__item[data-status="complete"]) > :where(.vk-timeline__marker) {
+  border-color: var(--vk-color-primary);
+  background: var(--vk-color-primary);
+  color: var(--vk-color-primary-fg);
+}
+
+:where(.vk-timeline__item[data-status="current"]) > :where(.vk-timeline__marker) {
+  border-color: var(--vk-color-primary);
+  color: var(--vk-color-primary);
+  box-shadow: 0 0 0 var(--vk-timeline-rail)
+    color-mix(in oklab, var(--vk-color-primary) 28%, transparent);
+}
+
+:where(.vk-timeline__item[data-status="current"])
+  > :where(.vk-timeline__content)
+  > :where(.vk-timeline__title) {
+  color: var(--vk-color-primary);
+}
+
+/* The rail, vertical. */
+:where(.vk-timeline[data-orientation="vertical"]) > :where(.vk-timeline__item)::before {
+  content: "";
+  position: absolute;
+  inset-block-start: var(--vk-timeline-marker);
+  inset-inline-start: calc((var(--vk-timeline-marker) - var(--vk-timeline-rail)) / 2);
+  width: var(--vk-timeline-rail);
+  height: calc(100% - var(--vk-timeline-marker) + var(--vk-timeline-gap));
+  background: var(--vk-color-border);
+}
+
+:where(.vk-timeline) > :where(.vk-timeline__item:last-child)::before {
+  content: none;
+}
+
+/* A completed step's rail is filled too, so progress reads at a glance. */
+:where(.vk-timeline) > :where(.vk-timeline__item[data-status="complete"])::before {
+  background: color-mix(in oklab, var(--vk-color-primary) 55%, var(--vk-color-border));
+}
+
+/* Horizontal: marker above the copy, rail running across. */
+:where(.vk-timeline[data-orientation="horizontal"]) {
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+:where(.vk-timeline[data-orientation="horizontal"]) > :where(.vk-timeline__item) {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: var(--vk-timeline-marker) auto;
+  row-gap: var(--vk-space-3);
+}
+
+:where(.vk-timeline[data-orientation="horizontal"])
+  > :where(.vk-timeline__item)
+  > :where(.vk-timeline__marker) {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+:where(.vk-timeline[data-orientation="horizontal"])
+  > :where(.vk-timeline__item)
+  > :where(.vk-timeline__content) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+:where(.vk-timeline[data-orientation="horizontal"]) > :where(.vk-timeline__item)::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: var(--vk-timeline-marker);
+  inset-block-start: calc((var(--vk-timeline-marker) - var(--vk-timeline-rail)) / 2);
+  height: var(--vk-timeline-rail);
+  width: calc(100% - var(--vk-timeline-marker) + var(--vk-timeline-gap));
+  background: var(--vk-color-border);
+}
+
+/*
+ * Alternating sides. Two columns of copy need room, so this only switches on once the
+ * timeline itself is at least 40rem wide — below that it stays a single column, which is
+ * why `align="alternate"` is safe to set without a media query of your own.
+ */
+@container vk-timeline (min-width: 40rem) {
+  :where(.vk-timeline[data-orientation="vertical"][data-align="alternate"])
+    > :where(.vk-timeline__item) {
+    grid-template-columns: minmax(0, 1fr) var(--vk-timeline-marker) minmax(0, 1fr);
+  }
+
+  :where(.vk-timeline[data-orientation="vertical"][data-align="alternate"])
+    > :where(.vk-timeline__item)
+    > :where(.vk-timeline__marker) {
+    grid-column: 2;
+  }
+
+  :where(.vk-timeline[data-orientation="vertical"][data-align="alternate"])
+    > :where(.vk-timeline__item)
+    > :where(.vk-timeline__content) {
+    grid-column: 3;
+  }
+
+  /* Every second entry crosses to the start side and its copy hugs the rail. */
+  :where(.vk-timeline[data-orientation="vertical"][data-align="alternate"])
+    > :where(.vk-timeline__item:nth-child(even))
+    > :where(.vk-timeline__content) {
+    grid-column: 1;
+    align-items: flex-end;
+    text-align: end;
+  }
+
+  :where(.vk-timeline[data-orientation="vertical"][data-align="alternate"])
+    > :where(.vk-timeline__item)::before {
+    inset-inline-start: calc(50% - var(--vk-timeline-rail) / 2);
+  }
+}

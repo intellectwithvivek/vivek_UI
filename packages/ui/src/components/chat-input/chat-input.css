@@ -1,0 +1,186 @@
+/*
+ * The composer.
+ *
+ * The auto-grow is entirely CSS. `.vk-chat-input__grow` is a one-cell grid holding two
+ * things stacked in that cell: the textarea, and an invisible ::after replicating the
+ * current text via `content: attr(data-value)`. The cell is as tall as the taller of
+ * the two, so the box tracks the text exactly - server-rendered, no measurement, no
+ * layout thrash per keystroke, and nothing to get wrong on hydration. `max-block-size`
+ * caps it at `maxRows`, past which the textarea scrolls on its own.
+ *
+ * The replica and the field MUST agree on font, line-height and padding, which is why
+ * both take them from the same custom properties declared on the root.
+ */
+:where(.vk-chat-input) {
+  --vk-chat-input-line-height: 1.5;
+  --vk-chat-input-pad-block: var(--vk-space-2);
+  --vk-chat-input-pad-inline: var(--vk-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-2);
+  min-width: 0;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+  container: vk-chat-input / inline-size;
+}
+
+:where(.vk-chat-input__label) {
+  font-size: var(--vk-text-sm);
+  font-weight: 600;
+}
+
+/* Visible to assistive tech, invisible on screen. Never display:none - a hidden
+   label is a label the screen reader cannot use. */
+:where(.vk-chat-input__label[data-hidden]) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+:where(.vk-chat-input__attachments) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vk-space-2);
+  align-items: center;
+  min-width: 0;
+}
+
+:where(.vk-chat-input__shell) {
+  display: flex;
+  gap: var(--vk-space-2);
+  align-items: flex-end;
+  min-width: 0;
+  padding: var(--vk-space-1);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-lg);
+  transition:
+    border-color var(--vk-duration) var(--vk-ease),
+    box-shadow var(--vk-duration) var(--vk-ease);
+}
+
+/* The field itself is borderless, so the shell wears the focus ring for it. */
+:where(.vk-chat-input__shell:focus-within) {
+  border-color: var(--vk-color-primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-primary) 25%, transparent);
+}
+
+:where(.vk-chat-input__grow) {
+  display: grid;
+  flex: 1 1 auto;
+  min-width: 0;
+  /* `1em` resolves against this element's own font-size, which the replica and the
+     field both inherit - so the row maths is the same for all three. */
+  font-size: var(--vk-text-md);
+  max-block-size: calc(
+    var(--vk-chat-input-max-rows, 8) *
+    var(--vk-chat-input-line-height) *
+    1em +
+    2 *
+    var(--vk-chat-input-pad-block)
+  );
+}
+
+:where(.vk-chat-input__grow)::after {
+  content: attr(data-value) " ";
+  grid-area: 1 / 1 / 2 / 2;
+  padding: var(--vk-chat-input-pad-block) var(--vk-chat-input-pad-inline);
+  font: inherit;
+  line-height: var(--vk-chat-input-line-height);
+  /* Same wrapping rules as a textarea, or the replica measures the wrong height. */
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  visibility: hidden;
+  min-block-size: calc(
+    var(--vk-chat-input-min-rows, 1) *
+    var(--vk-chat-input-line-height) *
+    1em +
+    2 *
+    var(--vk-chat-input-pad-block)
+  );
+}
+
+:where(.vk-chat-input__field) {
+  grid-area: 1 / 1 / 2 / 2;
+  inline-size: 100%;
+  min-width: 0;
+  padding: var(--vk-chat-input-pad-block) var(--vk-chat-input-pad-inline);
+  font: inherit;
+  line-height: var(--vk-chat-input-line-height);
+  color: var(--vk-color-fg);
+  background: none;
+  border: 0;
+  border-radius: var(--vk-radius-md);
+  overflow-wrap: break-word;
+  /* The grid cell owns the height; the box scrolls once the cap is hit. */
+  block-size: 100%;
+  resize: none;
+  overflow-y: auto;
+  outline: none;
+}
+
+:where(.vk-chat-input__field::placeholder) {
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-chat-input__field:disabled) {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+:where(.vk-chat-input__submit) {
+  flex: none;
+  align-self: flex-end;
+}
+
+:where(.vk-chat-input__submit-icon) {
+  line-height: 1;
+}
+
+:where(.vk-chat-input__hint) {
+  margin: 0;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-chat-input[data-disabled]) {
+  opacity: 0.7;
+}
+
+/*
+ * Narrow container: the send button keeps its glyph and drops to icon-only. The label
+ * text is moved off screen rather than removed, so the button keeps its accessible
+ * name - an unnamed icon button is the single most common a11y bug in chat UIs.
+ */
+@container vk-chat-input (max-width: 22rem) {
+  :where(.vk-chat-input__submit-text) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@container vk-chat-input (min-width: 34rem) {
+  :where(.vk-chat-input) {
+    --vk-chat-input-pad-block: var(--vk-space-3);
+    --vk-chat-input-pad-inline: var(--vk-space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-chat-input__shell) {
+    transition: none;
+  }
+}

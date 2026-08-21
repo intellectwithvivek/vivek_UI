@@ -1,0 +1,20 @@
+version: 2
+updates:
+  # Actions are pinned to commit SHAs for supply-chain safety, which means nothing
+  # updates them automatically. Dependabot rewrites the SHA and the trailing version
+  # comment together, so pinning does not turn into rotting.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      dev-dependencies:
+        patterns: ['*']
+        update-types: [minor, patch]

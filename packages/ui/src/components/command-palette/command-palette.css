@@ -1,0 +1,233 @@
+/*
+ * CommandPalette — the ⌘K pattern.
+ *
+ * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2) and every
+ * value is a --vk-* token. The shell is `Modal`, so the backdrop, panel width and the
+ * open animation all come from modal.css; everything here is the palette's own interior.
+ *
+ * `--vk-command-palette-max-list` (fallback 22rem) caps the results so the panel cannot
+ * grow past a short viewport.
+ */
+
+/* The palette sits nearer the top than a centred dialog: it is a thing you summon and
+   type into, and the results should grow downwards from under your eyes. */
+:where(.vk-command-palette__overlay) {
+  align-items: flex-start;
+  padding-block-start: 10vh;
+}
+
+:where(.vk-command-palette) {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  /* Longhands, not the `container:` shorthand. This class lands on the same element as
+     `.vk-modal__panel`, which already sets `container-type: inline-size`; the shorthand
+     would reset `container-name` to `none` if modal.css happened to be imported after
+     this file, and the container query below would silently stop matching. */
+  container-type: inline-size;
+  container-name: vk-command-palette;
+}
+
+/* --- search ------------------------------------------------------- */
+
+:where(.vk-command-palette__search) {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--vk-space-3);
+  padding: var(--vk-space-3) var(--vk-space-4);
+  border-block-end: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-command-palette__search-icon) {
+  flex: 0 0 auto;
+  inline-size: var(--vk-space-4);
+  block-size: var(--vk-space-4);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-command-palette__input) {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  outline: none;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-lg);
+  line-height: 1.5;
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-command-palette__input::placeholder) {
+  color: var(--vk-color-muted);
+}
+
+/* --- results ------------------------------------------------------ */
+
+:where(.vk-command-palette__list) {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  max-block-size: var(--vk-command-palette-max-list, 22rem);
+  padding: var(--vk-space-2);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--vk-color-fg) 22%, transparent) transparent;
+}
+
+/* An empty listbox must not leave a padded gap above the empty state. */
+:where(.vk-command-palette__list:empty) {
+  padding: 0;
+}
+
+:where(.vk-command-palette__group) {
+  display: block;
+}
+
+:where(.vk-command-palette__group + .vk-command-palette__group) {
+  margin-block-start: var(--vk-space-2);
+}
+
+:where(.vk-command-palette__group-heading) {
+  padding: var(--vk-space-2) var(--vk-space-2) var(--vk-space-1);
+  font-size: var(--vk-text-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-command-palette__option) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-3);
+  padding: var(--vk-space-2) var(--vk-space-3);
+  border-radius: var(--vk-radius-sm);
+  color: var(--vk-color-fg);
+  cursor: pointer;
+  /* No transition on the highlight: at arrow-key speed a fade reads as lag, and the
+     active option must appear to be exactly where the keyboard has put it. */
+}
+
+/*
+ * The highlight follows `data-active`, which mirrors `aria-activedescendant` — NOT
+ * `:focus`. Focus never leaves the search box, so a `:focus` style here would never fire,
+ * and that mismatch is the classic reason a hand-rolled palette looks broken to a sighted
+ * keyboard user and reads correctly to a screen reader, or the other way around.
+ */
+:where(.vk-command-palette__option[data-active]) {
+  background: color-mix(in oklab, var(--vk-color-primary) 14%, transparent);
+}
+
+@media (hover: hover) {
+  :where(.vk-command-palette__option:hover:not([data-disabled])) {
+    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  }
+  :where(.vk-command-palette__option[data-active]:hover) {
+    background: color-mix(in oklab, var(--vk-color-primary) 14%, transparent);
+  }
+}
+
+:where(.vk-command-palette__option[data-disabled]) {
+  color: var(--vk-color-muted);
+  cursor: not-allowed;
+}
+
+:where(.vk-command-palette__option-icon) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--vk-space-4);
+  block-size: var(--vk-space-4);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-command-palette__option-icon > svg) {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+:where(.vk-command-palette__option-text) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+:where(.vk-command-palette__option-label) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: var(--vk-text-md);
+  line-height: 1.4;
+}
+
+:where(.vk-command-palette__option-description) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: var(--vk-text-sm);
+  line-height: 1.4;
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-command-palette__option-shortcut) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--vk-space-1);
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+}
+
+/* --- empty state and footer --------------------------------------- */
+
+:where(.vk-command-palette__empty) {
+  flex: 0 0 auto;
+  padding: var(--vk-space-8) var(--vk-space-4);
+  text-align: center;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-command-palette__footer) {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vk-space-2);
+  padding: var(--vk-space-2) var(--vk-space-4);
+  border-block-start: 1px solid var(--vk-color-border);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+/* --- narrow ------------------------------------------------------- */
+
+/*
+ * On a phone the palette is effectively full-screen, so the description second line and
+ * the shortcut hint stop earning their space. The description is dropped visually only
+ * for the shortcut column — the label, which is the accessible name, is never touched.
+ */
+@container vk-command-palette (max-width: 26rem) {
+  :where(.vk-command-palette__option-shortcut) {
+    display: none;
+  }
+
+  :where(.vk-command-palette__input) {
+    font-size: var(--vk-text-md);
+  }
+
+  :where(.vk-command-palette__list) {
+    max-block-size: var(--vk-command-palette-max-list, 60dvh);
+  }
+}
+
+/* Nothing in the palette's interior animates — the panel's own entrance comes from
+   modal.css, which already has its own prefers-reduced-motion block. The highlight is
+   deliberately instant, at every motion preference. */

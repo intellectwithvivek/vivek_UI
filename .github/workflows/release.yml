@@ -18,13 +18,13 @@ jobs:
     name: Version or publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version-file: .nvmrc
           cache: pnpm
@@ -54,7 +54,7 @@ jobs:
       # Once that PR is merged there are no changesets left, so `publish` runs instead.
       - name: Create release PR or publish
         if: steps.npm.outputs.configured == 'true'
-        uses: changesets/action@v1
+        uses: changesets/action@ce079ea084e08a340947ed4d6ecedb2433c8f293 # v1
         with:
           version: pnpm changeset version
           publish: pnpm release
@@ -64,3 +64,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # changesets shells out to `pnpm publish`, which ignores
+          # publishConfig.provenance - that is npm-CLI-only. This env var is what
+          # actually produces the attestation. Verify with `npm audit signatures`.
+          NPM_CONFIG_PROVENANCE: 'true'

@@ -1,0 +1,182 @@
+/*
+ * Marquee — one CSS animation, no JavaScript.
+ *
+ * The track holds the content twice and slides by exactly one copy plus one gap, so the
+ * moment the animation restarts the second copy is sitting where the first one began and
+ * the seam is invisible. `-50%` alone would be off by half a gap, which is why the
+ * distance is `-50% - gap/2`.
+ *
+ * Every local value is a `--vk-marquee-*` custom property, so a consumer can retime or
+ * resize the whole ticker without writing a selector.
+ */
+
+:where(.vk-marquee) {
+  --vk-marquee-cycle: 20s;
+  --vk-marquee-speed: 1;
+  --vk-marquee-fade: var(--vk-space-8);
+  --vk-marquee-gap: var(--vk-space-4);
+  --vk-marquee-height: 18rem;
+
+  display: flex;
+  overflow: hidden;
+  max-width: 100%;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-marquee[data-gap="1"]) {
+  --vk-marquee-gap: var(--vk-space-1);
+}
+:where(.vk-marquee[data-gap="2"]) {
+  --vk-marquee-gap: var(--vk-space-2);
+}
+:where(.vk-marquee[data-gap="3"]) {
+  --vk-marquee-gap: var(--vk-space-3);
+}
+:where(.vk-marquee[data-gap="4"]) {
+  --vk-marquee-gap: var(--vk-space-4);
+}
+:where(.vk-marquee[data-gap="6"]) {
+  --vk-marquee-gap: var(--vk-space-6);
+}
+:where(.vk-marquee[data-gap="8"]) {
+  --vk-marquee-gap: var(--vk-space-8);
+}
+:where(.vk-marquee[data-gap="12"]) {
+  --vk-marquee-gap: var(--vk-space-12);
+}
+:where(.vk-marquee[data-gap="16"]) {
+  --vk-marquee-gap: var(--vk-space-16);
+}
+
+:where(.vk-marquee__track) {
+  display: flex;
+  flex: none;
+  gap: var(--vk-marquee-gap);
+  animation-duration: calc(var(--vk-marquee-cycle) / var(--vk-marquee-speed));
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+:where(.vk-marquee__group) {
+  display: flex;
+  flex: none;
+  gap: var(--vk-marquee-gap);
+  align-items: center;
+}
+
+/* Horizontal (default). */
+:where(.vk-marquee[data-axis="horizontal"]) > :where(.vk-marquee__track) {
+  flex-direction: row;
+  width: max-content;
+  animation-name: vk-marquee-x;
+}
+
+/* Vertical. The viewport needs a bounded block size or there is nothing to scroll past. */
+:where(.vk-marquee[data-axis="vertical"]) {
+  flex-direction: column;
+  max-height: var(--vk-marquee-height);
+}
+
+:where(.vk-marquee[data-axis="vertical"]) > :where(.vk-marquee__track) {
+  flex-direction: column;
+  height: max-content;
+  animation-name: vk-marquee-y;
+}
+
+:where(.vk-marquee[data-axis="vertical"])
+  > :where(.vk-marquee__track)
+  > :where(.vk-marquee__group) {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* `right`/`down` are the same animation played backwards. */
+:where(.vk-marquee[data-reverse]) > :where(.vk-marquee__track) {
+  animation-direction: reverse;
+}
+
+/*
+ * Hover is opt-in; focus-within never is. Content that will not hold still is content a
+ * keyboard user cannot read, and a link inside a moving strip cannot be clicked.
+ */
+:where(.vk-marquee[data-pause-on-hover]:hover) > :where(.vk-marquee__track),
+:where(.vk-marquee:focus-within) > :where(.vk-marquee__track) {
+  animation-play-state: paused;
+}
+
+/*
+ * Edge fades as a mask rather than an overlay, so they work on any background — a
+ * gradient-to-background-colour overlay is wrong the moment the marquee sits on an image.
+ * The colour here is an alpha channel, not a themed colour, so it is not tokenised.
+ */
+:where(.vk-marquee[data-gradient][data-axis="horizontal"]) {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    rgb(0 0 0) var(--vk-marquee-fade),
+    rgb(0 0 0) calc(100% - var(--vk-marquee-fade)),
+    transparent
+  );
+}
+
+:where(.vk-marquee[data-gradient][data-axis="vertical"]) {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(0 0 0) var(--vk-marquee-fade),
+    rgb(0 0 0) calc(100% - var(--vk-marquee-fade)),
+    transparent
+  );
+}
+
+@keyframes vk-marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-50% - var(--vk-marquee-gap) / 2), 0, 0);
+  }
+}
+
+@keyframes vk-marquee-y {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, calc(-50% - var(--vk-marquee-gap) / 2), 0);
+  }
+}
+
+/*
+ * Reduced motion: fully static. The animation is removed (not slowed), the duplicate
+ * copy is dropped so nothing reads or shows twice, and the remaining row is allowed to
+ * wrap so no content ends up clipped behind `overflow: hidden`.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-marquee__track) {
+    animation: none;
+    transform: none;
+    width: auto;
+    height: auto;
+    flex-wrap: wrap;
+    will-change: auto;
+  }
+
+  :where(.vk-marquee__track) > :where(.vk-marquee__group[aria-hidden="true"]) {
+    display: none;
+  }
+
+  :where(.vk-marquee__group) {
+    flex-wrap: wrap;
+  }
+
+  :where(.vk-marquee[data-axis="vertical"]) {
+    max-height: none;
+  }
+
+  :where(.vk-marquee[data-gradient]) {
+    mask-image: none;
+  }
+}

@@ -1,0 +1,130 @@
+/*
+ * Pagination — page-by-page navigation.
+ *
+ * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2). Sizing is
+ * driven by one local custom property per size so a page button, a step button and a gap
+ * are all exactly the same box — the control keeps its width as you walk through it.
+ */
+
+:where(.vk-pagination) {
+  --vk-pagination-size: var(--vk-space-8);
+  --vk-pagination-text: var(--vk-text-sm);
+  font-family: var(--vk-font-sans);
+  container: vk-pagination / inline-size;
+}
+
+:where(.vk-pagination[data-size="sm"]) {
+  --vk-pagination-size: var(--vk-space-6);
+  --vk-pagination-text: var(--vk-text-sm);
+}
+:where(.vk-pagination[data-size="md"]) {
+  --vk-pagination-size: var(--vk-space-8);
+  --vk-pagination-text: var(--vk-text-sm);
+}
+:where(.vk-pagination[data-size="lg"]) {
+  --vk-pagination-size: var(--vk-space-12);
+  --vk-pagination-text: var(--vk-text-md);
+}
+
+:where(.vk-pagination__list) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vk-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A real flex item, not `display: contents`: browsers have shipped bugs where
+   `display: contents` on an `<li>` drops it out of the accessibility tree. */
+:where(.vk-pagination__item) {
+  display: inline-flex;
+}
+
+:where(.vk-pagination__page),
+:where(.vk-pagination__step),
+:where(.vk-pagination__ellipsis) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--vk-pagination-size);
+  block-size: var(--vk-pagination-size);
+  padding-inline: var(--vk-space-1);
+  font-size: var(--vk-pagination-text);
+  font-variant-numeric: tabular-nums;
+  border-radius: var(--vk-radius-sm);
+}
+
+:where(.vk-pagination__page),
+:where(.vk-pagination__step) {
+  border: 1px solid transparent;
+  background: none;
+  color: var(--vk-color-fg);
+  cursor: pointer;
+  transition:
+    background var(--vk-duration) var(--vk-ease),
+    border-color var(--vk-duration) var(--vk-ease),
+    color var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-pagination__page:hover:not([data-current])),
+  :where(.vk-pagination__step:hover:not(:disabled)) {
+    background: color-mix(in oklab, var(--vk-color-fg) 7%, transparent);
+  }
+}
+
+/* The current page: styled, and inert by intent — the button stays enabled so it keeps
+   its place in the tab order and its aria-current is discoverable, but clicking it is a
+   no-op in JS. */
+:where(.vk-pagination__page[data-current]) {
+  background: var(--vk-color-primary);
+  border-color: var(--vk-color-primary);
+  color: var(--vk-color-primary-fg);
+  font-weight: 600;
+  cursor: default;
+}
+
+:where(.vk-pagination__step) {
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-pagination__step:disabled) {
+  color: var(--vk-color-border);
+  cursor: not-allowed;
+}
+
+:where(.vk-pagination__chevron) {
+  inline-size: var(--vk-space-4);
+  block-size: var(--vk-space-4);
+}
+
+:where(.vk-pagination__ellipsis) {
+  color: var(--vk-color-muted);
+  user-select: none;
+}
+
+/*
+ * A narrow container: drop the gap glyphs and every page except the current one, leaving
+ * "‹ 4 ›". Safe to do in CSS here — unlike a breadcrumb hop, a page button is not a
+ * unique destination: prev/next reach every page, so nothing becomes unreachable.
+ */
+@container vk-pagination (max-width: 22rem) {
+  :where(.vk-pagination__ellipsis),
+  :where(.vk-pagination__item:has(.vk-pagination__page:not([data-current]))) {
+    display: none;
+  }
+
+  :where(.vk-pagination__list) {
+    gap: var(--vk-space-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-pagination__page),
+  :where(.vk-pagination__step) {
+    transition: none;
+  }
+}

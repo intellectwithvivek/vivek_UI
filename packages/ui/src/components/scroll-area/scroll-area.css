@@ -1,0 +1,117 @@
+/*
+ * ScrollArea — a styled overflow container.
+ *
+ * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2) and every
+ * value is a --vk-* token. Two scrollbar APIs are set for every state: the standard
+ * `scrollbar-width`/`scrollbar-color` pair (Firefox, Chrome 121+, Safari 18.2+) and the
+ * `::-webkit-scrollbar` pseudo-elements for older WebKit. Browsers that honour the
+ * standard properties ignore the pseudo-elements, so there is no double styling.
+ *
+ * The thumb and track colours are derived from --vk-color-fg/--vk-color-bg with
+ * color-mix, so a dark theme gets a dark scrollbar for free.
+ */
+
+:where(.vk-scroll-area) {
+  --vk-scroll-thumb: color-mix(in oklab, var(--vk-color-fg) 22%, transparent);
+  --vk-scroll-thumb-hover: color-mix(in oklab, var(--vk-color-fg) 38%, transparent);
+  --vk-scroll-track: transparent;
+  --vk-scroll-size: var(--vk-space-2);
+
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  /* Scroll chaining stops at the edge of the area instead of dragging the page with it. */
+  overscroll-behavior: contain;
+  scrollbar-color: var(--vk-scroll-thumb) var(--vk-scroll-track);
+}
+
+/* Programmatic and keyboard focus look different on purpose: the area is a tab stop so it
+   can be scrolled by keyboard, but a click on its content should not draw a ring. */
+:where(.vk-scroll-area:focus) {
+  outline: none;
+}
+:where(.vk-scroll-area:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+/* --- axes --------------------------------------------------------- */
+
+/*
+ * `overflow: hidden` is never used on the scrolling axis. The cross axis gets `hidden`,
+ * which is what stops a nested wide child from producing a second, pointless scrollbar.
+ */
+:where(.vk-scroll-area[data-orientation="vertical"]) {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+:where(.vk-scroll-area[data-orientation="horizontal"]) {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+:where(.vk-scroll-area[data-orientation="both"]) {
+  overflow: auto;
+}
+
+/* --- scrollbar: auto | always | hidden ---------------------------- */
+
+:where(.vk-scroll-area[data-scrollbar="always"][data-orientation="vertical"]) {
+  overflow-y: scroll;
+}
+:where(.vk-scroll-area[data-scrollbar="always"][data-orientation="horizontal"]) {
+  overflow-x: scroll;
+}
+:where(.vk-scroll-area[data-scrollbar="always"][data-orientation="both"]) {
+  overflow: scroll;
+}
+
+:where(.vk-scroll-area[data-thickness="thin"]) {
+  scrollbar-width: thin;
+}
+:where(.vk-scroll-area[data-thickness="auto"]) {
+  scrollbar-width: auto;
+  --vk-scroll-size: var(--vk-space-3);
+}
+
+/*
+ * `hidden` hides the scrollbar and nothing else. `overflow` stays `auto`/`scroll` from the
+ * rules above, so the wheel, touch, and every keyboard scroll key still work — hiding the
+ * *overflow* instead is how a styled scroll container becomes a keyboard trap.
+ */
+:where(.vk-scroll-area[data-scrollbar="hidden"]) {
+  scrollbar-width: none;
+}
+
+/* --- older WebKit ------------------------------------------------- */
+
+:where(.vk-scroll-area)::-webkit-scrollbar {
+  inline-size: var(--vk-scroll-size);
+  block-size: var(--vk-scroll-size);
+}
+
+:where(.vk-scroll-area)::-webkit-scrollbar-track {
+  background: var(--vk-scroll-track);
+}
+
+:where(.vk-scroll-area)::-webkit-scrollbar-thumb {
+  background: var(--vk-scroll-thumb);
+  border-radius: var(--vk-radius-full);
+}
+
+@media (hover: hover) {
+  :where(.vk-scroll-area)::-webkit-scrollbar-thumb:hover {
+    background: var(--vk-scroll-thumb-hover);
+  }
+}
+
+:where(.vk-scroll-area)::-webkit-scrollbar-corner {
+  background: var(--vk-scroll-track);
+}
+
+:where(.vk-scroll-area[data-scrollbar="hidden"])::-webkit-scrollbar {
+  display: none;
+}
+
+/* Nothing here animates, so there is no `prefers-reduced-motion` block to write. What the
+   preference does affect is scroll *behaviour*, and the area never sets `scroll-behavior:
+   smooth`, leaving that entirely to the consumer and the platform. */

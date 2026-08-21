@@ -1,0 +1,244 @@
+/*
+ * Typography for rich text the caller already rendered as elements. No parsing, no
+ * sanitising, no `innerHTML` - just descendant selectors, every one at zero specificity
+ * so a consumer's own rules always win.
+ *
+ * Sizes come from the container, not the viewport: assistant output inside a 320px
+ * sidebar gets sidebar-sized type without a single prop.
+ */
+:where(.vk-prose) {
+  --vk-prose-lead: 1.7;
+  min-width: 0;
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-md);
+  line-height: var(--vk-prose-lead);
+  /* Model output is full of URLs and identifiers with no break opportunities. */
+  overflow-wrap: break-word;
+  container: vk-prose / inline-size;
+}
+
+:where(.vk-prose[data-size="sm"]) {
+  font-size: var(--vk-text-sm);
+}
+:where(.vk-prose[data-size="lg"]) {
+  font-size: var(--vk-text-lg);
+}
+
+:where(.vk-prose[data-measure="true"]) {
+  max-inline-size: 68ch;
+}
+
+/* Vertical rhythm: one rule, everything else inherits it. */
+:where(.vk-prose) > :where(* + *) {
+  margin-block-start: var(--vk-space-4);
+}
+
+:where(.vk-prose) > :where(:first-child) {
+  margin-block-start: 0;
+}
+
+:where(.vk-prose) > :where(:last-child) {
+  margin-block-end: 0;
+}
+
+:where(.vk-prose p),
+:where(.vk-prose ul),
+:where(.vk-prose ol),
+:where(.vk-prose dl),
+:where(.vk-prose blockquote),
+:where(.vk-prose figure),
+:where(.vk-prose table) {
+  margin-block: 0;
+}
+
+:where(.vk-prose h1),
+:where(.vk-prose h2),
+:where(.vk-prose h3),
+:where(.vk-prose h4),
+:where(.vk-prose h5),
+:where(.vk-prose h6) {
+  margin-block: 0;
+  font-weight: 650;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+/* Headings pull up against the paragraph above them, so a section reads as a unit. */
+:where(.vk-prose) > :where(h1 + *),
+:where(.vk-prose) > :where(h2 + *),
+:where(.vk-prose) > :where(h3 + *),
+:where(.vk-prose) > :where(h4 + *),
+:where(.vk-prose) > :where(h5 + *),
+:where(.vk-prose) > :where(h6 + *) {
+  margin-block-start: var(--vk-space-2);
+}
+
+:where(.vk-prose h1) {
+  font-size: var(--vk-text-2xl);
+}
+:where(.vk-prose h2) {
+  font-size: var(--vk-text-xl);
+}
+:where(.vk-prose h3) {
+  font-size: var(--vk-text-lg);
+}
+:where(.vk-prose h4),
+:where(.vk-prose h5),
+:where(.vk-prose h6) {
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-prose ul),
+:where(.vk-prose ol) {
+  padding-inline-start: var(--vk-space-6);
+}
+
+:where(.vk-prose ul) {
+  list-style: disc;
+}
+:where(.vk-prose ol) {
+  list-style: decimal;
+}
+:where(.vk-prose ul ul) {
+  list-style: circle;
+}
+
+:where(.vk-prose li) {
+  margin-block: var(--vk-space-1);
+}
+
+:where(.vk-prose li > ul),
+:where(.vk-prose li > ol) {
+  margin-block-start: var(--vk-space-1);
+}
+
+:where(.vk-prose dt) {
+  font-weight: 650;
+}
+:where(.vk-prose dd) {
+  margin-inline-start: var(--vk-space-4);
+}
+
+:where(.vk-prose a),
+:where(.vk-prose .vk-prose__link) {
+  color: var(--vk-color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+:where(.vk-prose a:hover),
+:where(.vk-prose .vk-prose__link:hover) {
+  text-decoration-thickness: 2px;
+}
+
+:where(.vk-prose a:focus-visible),
+:where(.vk-prose .vk-prose__link:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+  border-radius: var(--vk-radius-sm);
+}
+
+/*
+ * A link whose href failed the scheme allowlist. Still readable, deliberately not
+ * clickable and deliberately not styled like a link, so nobody hunts for the target.
+ */
+:where(.vk-prose__blocked-link) {
+  color: var(--vk-color-muted);
+  text-decoration: underline dotted;
+  cursor: not-allowed;
+}
+
+:where(.vk-prose strong),
+:where(.vk-prose b) {
+  font-weight: 650;
+}
+
+:where(.vk-prose em),
+:where(.vk-prose i) {
+  font-style: italic;
+}
+
+:where(.vk-prose code) {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+/* A bare inline <code> gets the chip treatment; one inside a <pre> must not. */
+:where(.vk-prose :not(pre) > code) {
+  padding: 0.15em 0.4em;
+  background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+}
+
+:where(.vk-prose pre) {
+  margin-block: 0;
+  padding: var(--vk-space-4);
+  overflow-x: auto;
+  background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+:where(.vk-prose blockquote) {
+  padding-inline-start: var(--vk-space-4);
+  border-inline-start: 3px solid var(--vk-color-border);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-prose hr) {
+  border: 0;
+  border-block-start: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-prose img),
+:where(.vk-prose video) {
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--vk-radius-md);
+}
+
+/* Wide tables scroll inside their own box; the page never scrolls sideways. */
+:where(.vk-prose table) {
+  display: block;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+:where(.vk-prose th),
+:where(.vk-prose td) {
+  padding: var(--vk-space-2) var(--vk-space-3);
+  border: 1px solid var(--vk-color-border);
+  text-align: start;
+  vertical-align: top;
+}
+
+:where(.vk-prose th) {
+  font-weight: 650;
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, transparent);
+}
+
+/* A narrow container gets tighter type and a shallower list indent. */
+@container vk-prose (max-width: 24rem) {
+  :where(.vk-prose) {
+    --vk-prose-lead: 1.6;
+  }
+
+  :where(.vk-prose ul),
+  :where(.vk-prose ol) {
+    padding-inline-start: var(--vk-space-4);
+  }
+
+  :where(.vk-prose h1) {
+    font-size: var(--vk-text-xl);
+  }
+
+  :where(.vk-prose h2) {
+    font-size: var(--vk-text-lg);
+  }
+}

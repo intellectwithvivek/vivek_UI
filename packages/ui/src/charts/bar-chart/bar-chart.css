@@ -41,3 +41,36 @@
     animation: none;
   }
 }
+
+/*
+ * Hover feedback.
+ *
+ * `@media (hover: hover)` so a touch device never gets a state it cannot leave — without
+ * the guard, tapping a bar on a phone leaves it stuck highlighted until you tap elsewhere.
+ *
+ * Dimming the SIBLINGS rather than brightening the target is the important choice: it
+ * isolates one series without changing the colour of the thing being read, so a value
+ * compared by eye against the axis does not shift as the pointer moves.
+ */
+@media (hover: hover) {
+  :where(.vk-bar-chart .vk-chart__series:hover) > :where(.vk-bar-chart__bar) {
+    opacity: 0.45;
+    transition: opacity var(--vk-duration-fast) var(--vk-ease);
+  }
+
+  :where(.vk-bar-chart .vk-chart__series:hover) > :where(.vk-bar-chart__bar:hover) {
+    opacity: 1;
+    /* A hairline outline in the surface colour separates the hovered bar from its
+       neighbours in a stacked chart, where bars touch and a brightness change alone is
+       ambiguous about which segment is meant. */
+    stroke: var(--vk-color-surface);
+    stroke-width: 1.5;
+    paint-order: stroke;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-bar-chart .vk-chart__series:hover) > :where(.vk-bar-chart__bar) {
+    transition: none;
+  }
+}

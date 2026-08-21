@@ -61,7 +61,7 @@
 /* The ring goes on the zone, since the input itself is a clipped pixel. */
 :where(.vk-file-upload__zone:has(.vk-file-upload__input:focus-visible)) {
   outline: 2px solid var(--vk-file-upload-accent);
-  outline-offset: 2px;
+  outline-offset: var(--vk-ring-offset);
   border-color: var(--vk-file-upload-accent);
 }
 

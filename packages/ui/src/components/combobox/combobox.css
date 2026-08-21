@@ -30,7 +30,7 @@
   min-height: 2.5rem;
   padding: var(--vk-space-2);
   padding-inline-end: var(--vk-space-8);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-md);
   cursor: text;
@@ -201,10 +201,10 @@
   font-family: var(--vk-font-sans);
   font-size: var(--vk-text-md);
   color: var(--vk-color-fg);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-md);
-  box-shadow: var(--vk-shadow-md);
+  box-shadow: var(--vk-shadow-lg);
   opacity: 0;
 }
 

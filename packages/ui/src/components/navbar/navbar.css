@@ -19,7 +19,7 @@
   --vk-navbar-height: var(--vk-navbar-height-md, 3.5rem);
   position: relative;
   display: block;
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   color: var(--vk-color-fg);
   font-family: var(--vk-font-sans);
   font-size: var(--vk-text-md);
@@ -110,7 +110,7 @@
   margin: 0;
   padding: var(--vk-space-3) var(--vk-space-4);
   list-style: none;
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   border-block-end: 1px solid var(--vk-color-border);
   box-shadow: var(--vk-shadow-md);
   /* A long menu scrolls rather than running off the bottom of a phone. */
@@ -149,14 +149,14 @@
 
 @media (hover: hover) {
   :where(.vk-navbar__link:hover) {
-    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    background: var(--vk-color-surface-hover);
     color: var(--vk-color-fg);
   }
 }
 
 :where(.vk-navbar__link[data-active]) {
   color: var(--vk-color-fg);
-  background: color-mix(in oklab, var(--vk-color-primary) 12%, transparent);
+  background: var(--vk-color-primary-subtle);
 }
 
 :where(.vk-navbar__link-icon) {
@@ -197,7 +197,7 @@
 
 @media (hover: hover) {
   :where(.vk-navbar__toggle:hover) {
-    background: color-mix(in oklab, var(--vk-color-fg) 7%, transparent);
+    background: var(--vk-color-surface-hover);
   }
 }
 

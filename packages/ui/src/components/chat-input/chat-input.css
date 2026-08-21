@@ -57,7 +57,7 @@
   align-items: flex-end;
   min-width: 0;
   padding: var(--vk-space-1);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface-subtle);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-lg);
   transition:
@@ -67,8 +67,8 @@
 
 /* The field itself is borderless, so the shell wears the focus ring for it. */
 :where(.vk-chat-input__shell:focus-within) {
-  border-color: var(--vk-color-primary);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-primary) 25%, transparent);
+  border-color: var(--vk-color-ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-ring) 32%, transparent);
 }
 
 :where(.vk-chat-input__grow) {

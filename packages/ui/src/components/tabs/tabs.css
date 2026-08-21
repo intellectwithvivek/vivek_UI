@@ -57,7 +57,7 @@
 :where(.vk-tabs__list[data-variant="pill"]) {
   gap: var(--vk-space-1);
   padding: var(--vk-space-1);
-  background: color-mix(in oklab, var(--vk-color-fg) 5%, transparent);
+  background: var(--vk-color-surface-hover);
   border-radius: var(--vk-radius-md);
 }
 
@@ -105,7 +105,7 @@
 }
 
 :where(.vk-tabs__tab:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
   outline-offset: -2px;
 }
 
@@ -150,7 +150,7 @@
 
 :where(.vk-tabs__tab[data-variant="enclosed"][data-state="active"]) {
   color: var(--vk-color-fg);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   border-color: var(--vk-color-border);
   border-bottom-color: var(--vk-color-bg);
 }
@@ -181,7 +181,7 @@
 
 @media (hover: hover) {
   :where(.vk-tabs__tab[data-variant="pill"]:hover:not([data-disabled]):not([data-state="active"])) {
-    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    background: var(--vk-color-surface-hover);
   }
 }
 
@@ -206,8 +206,8 @@
 
 /* A focus ring on the panel itself, since the panel is a tab stop (APG). */
 :where(.vk-tabs__panel:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
   border-radius: var(--vk-radius-sm);
 }
 

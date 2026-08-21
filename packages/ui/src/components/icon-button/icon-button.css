@@ -44,11 +44,11 @@
 
 @media (hover: hover) {
   :where(.vk-icon-button[data-variant="solid"]:hover:not(:disabled)) {
-    background: color-mix(in oklab, var(--vk-color-primary) 88%, black);
+    background: var(--vk-color-primary-hover);
   }
   :where(.vk-icon-button[data-variant="outline"]:hover:not(:disabled)),
   :where(.vk-icon-button[data-variant="ghost"]:hover:not(:disabled)) {
-    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    background: var(--vk-color-surface-hover);
   }
 }
 
@@ -61,8 +61,8 @@
 }
 
 :where(.vk-icon-button:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
 }
 
 :where(.vk-icon-button) > :where(svg) {

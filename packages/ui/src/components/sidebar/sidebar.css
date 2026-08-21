@@ -23,7 +23,7 @@
   inline-size: var(--vk-sidebar-current);
   min-inline-size: 0;
   padding: var(--vk-space-4) var(--vk-space-3);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   color: var(--vk-color-fg);
   font-family: var(--vk-font-sans);
   border-inline-end: 1px solid var(--vk-color-border);
@@ -103,13 +103,13 @@
 
 @media (hover: hover) {
   :where(.vk-sidebar__link:hover) {
-    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    background: var(--vk-color-surface-hover);
     color: var(--vk-color-fg);
   }
 }
 
 :where(.vk-sidebar__link[data-active]) {
-  background: color-mix(in oklab, var(--vk-color-primary) 12%, transparent);
+  background: var(--vk-color-primary-subtle);
   color: var(--vk-color-primary);
   font-weight: 600;
 }
@@ -147,7 +147,7 @@
   font-variant-numeric: tabular-nums;
   line-height: 1.5;
   color: var(--vk-color-fg);
-  background: color-mix(in oklab, var(--vk-color-fg) 10%, transparent);
+  background: var(--vk-color-surface-active);
   border-radius: var(--vk-radius-full);
 }
 
@@ -226,7 +226,7 @@
 
 @media (hover: hover) {
   :where(.vk-sidebar__toggle:hover) {
-    background: color-mix(in oklab, var(--vk-color-fg) 7%, transparent);
+    background: var(--vk-color-surface-hover);
     color: var(--vk-color-fg);
   }
 }

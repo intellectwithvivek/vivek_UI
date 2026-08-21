@@ -19,11 +19,11 @@
   padding: var(--vk-space-4);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-md);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   color: var(--vk-color-fg);
   font-family: var(--vk-font-sans);
   font-size: var(--vk-text-md);
-  box-shadow: var(--vk-shadow-md);
+  box-shadow: var(--vk-shadow-lg);
 
   /* Invisible until measured, so it is never seen at 0,0. */
   opacity: 0;
@@ -35,8 +35,8 @@
 }
 
 :where(.vk-popover:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
 }
 
 :where(.vk-popover[data-side="top"]) {

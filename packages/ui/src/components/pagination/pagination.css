@@ -72,7 +72,7 @@
 @media (hover: hover) {
   :where(.vk-pagination__page:hover:not([data-current])),
   :where(.vk-pagination__step:hover:not(:disabled)) {
-    background: color-mix(in oklab, var(--vk-color-fg) 7%, transparent);
+    background: var(--vk-color-surface-hover);
   }
 }
 

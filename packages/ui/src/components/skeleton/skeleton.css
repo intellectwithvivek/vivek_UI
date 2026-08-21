@@ -1,11 +1,6 @@
 :where(.vk-skeleton) {
-  background: color-mix(in oklab, var(--vk-color-fg) 9%, transparent);
-  background-image: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in oklab, var(--vk-color-fg) 6%, transparent),
-    transparent
-  );
+  background: var(--vk-color-surface-active);
+  background-image: linear-gradient(90deg, transparent, var(--vk-color-surface-hover), transparent);
   background-size: 200% 100%;
   background-repeat: no-repeat;
   animation: vk-skeleton-shimmer 1.4s ease-in-out infinite;

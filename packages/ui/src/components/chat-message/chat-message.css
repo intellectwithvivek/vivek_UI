@@ -19,8 +19,8 @@
 
 /* Programmatic focus only (tabindex="-1"): show it, but do not draw a box on click. */
 :where(.vk-chat-message:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
   border-radius: var(--vk-radius-md);
 }
 

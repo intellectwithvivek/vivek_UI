@@ -19,7 +19,7 @@
   font-family: var(--vk-font-sans);
   font-size: var(--vk-text-sm);
   color: var(--vk-color-fg);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-lg);
 }
@@ -76,7 +76,7 @@
 }
 
 :where(.vk-calendar__nav:hover:not(:disabled)) {
-  background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  background: var(--vk-color-surface-hover);
 }
 
 :where(.vk-calendar__nav:focus-visible) {

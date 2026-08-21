@@ -41,8 +41,8 @@
 :where(.vk-table) {
   --vk-table-pad-inline: var(--vk-space-4);
   --vk-table-pad-block: var(--vk-space-3);
-  --vk-table-stripe: color-mix(in oklab, var(--vk-color-fg) 3%, transparent);
-  --vk-table-hover: color-mix(in oklab, var(--vk-color-fg) 5%, transparent);
+  --vk-table-stripe: var(--vk-color-surface-hover);
+  --vk-table-hover: var(--vk-color-surface-hover);
   --vk-table-selected: color-mix(in oklab, var(--vk-color-primary) 8%, transparent);
 
   inline-size: 100%;
@@ -167,7 +167,7 @@
   inset-block-start: 0;
   z-index: 1;
   /* opaque: rows must scroll UNDER the header, not show through it */
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
 }
 
 /* caption */

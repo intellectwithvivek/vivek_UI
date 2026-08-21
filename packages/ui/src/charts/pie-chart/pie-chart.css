@@ -52,3 +52,39 @@
     animation: none;
   }
 }
+
+/*
+ * Hover feedback: the hovered slice grows slightly from the centre while its siblings
+ * recede. Scaling from `transform-box: fill-box` with a 50% origin would scale about the
+ * slice's own bounding box, which pushes it off the pie; the transform is applied to the
+ * group instead so every slice shares the pie's centre.
+ */
+@media (hover: hover) {
+  :where(.vk-pie-chart__svg:hover) :where(.vk-pie-chart__slice) {
+    opacity: 0.5;
+    transition:
+      opacity var(--vk-duration-fast) var(--vk-ease),
+      transform var(--vk-duration) var(--vk-ease-out);
+  }
+
+  :where(.vk-pie-chart__svg:hover) :where(.vk-pie-chart__slice:hover) {
+    opacity: 1;
+    /* Scales about the SVG's own centre, which is the pie's centre in every chart this
+       component renders, so a slice expands outward along its own radius. */
+    transform: scale(1.035);
+    transform-origin: center;
+    transform-box: view-box;
+    stroke: var(--vk-color-surface);
+    stroke-width: 1.5;
+    paint-order: stroke;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-pie-chart__svg:hover) :where(.vk-pie-chart__slice) {
+    transition: none;
+  }
+  :where(.vk-pie-chart__svg:hover) :where(.vk-pie-chart__slice:hover) {
+    transform: none;
+  }
+}

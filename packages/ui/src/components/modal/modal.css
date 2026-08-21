@@ -43,13 +43,13 @@
   max-width: var(--vk-modal-width-md, 32rem);
   padding: var(--vk-space-6);
   gap: var(--vk-space-4);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   color: var(--vk-color-fg);
   font-family: var(--vk-font-sans);
   font-size: var(--vk-text-md);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-lg);
-  box-shadow: var(--vk-shadow-md);
+  box-shadow: var(--vk-shadow-xl);
   animation: vk-modal-panel-in var(--vk-duration) var(--vk-ease);
   /* Sections and grids inside the panel respond to the panel's width. */
   container-type: inline-size;
@@ -62,8 +62,8 @@
   outline: none;
 }
 :where(.vk-modal__panel:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
 }
 
 :where(.vk-modal__panel[data-size="sm"]) {
@@ -142,14 +142,14 @@
 
 @media (hover: hover) {
   :where(.vk-modal__close:hover) {
-    background: color-mix(in oklab, var(--vk-color-fg) 8%, transparent);
+    background: var(--vk-color-surface-active);
     color: var(--vk-color-fg);
   }
 }
 
 :where(.vk-modal__close:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
 }
 
 :where(.vk-modal__close-icon) {

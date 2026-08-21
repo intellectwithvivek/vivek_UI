@@ -8,7 +8,7 @@
   font-weight: 500;
   line-height: 1;
   color: var(--vk-color-fg);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface-subtle);
   border: 1px solid var(--vk-color-border);
   border-bottom-width: 2px;
   border-radius: var(--vk-radius-sm);

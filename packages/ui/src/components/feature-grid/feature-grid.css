@@ -24,7 +24,7 @@
   block-size: var(--vk-space-12);
   margin-block-end: var(--vk-space-1);
   color: var(--vk-color-primary);
-  background: color-mix(in oklab, var(--vk-color-primary) 12%, transparent);
+  background: var(--vk-color-primary-subtle);
   border-radius: var(--vk-radius-md);
 }
 

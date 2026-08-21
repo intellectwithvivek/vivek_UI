@@ -1,6 +1,6 @@
 :where(.vk-code) {
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  background: var(--vk-color-surface-hover);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-sm);
   color: var(--vk-color-fg);

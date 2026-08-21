@@ -1,57 +1,189 @@
 /*
  * VivekUI design tokens.
  *
- * These custom properties ARE the theming API. Renaming one is a MAJOR bump (§10.1).
- * Rebranding is plain CSS the consumer already knows:
+ * These custom properties ARE the theming API. Renaming one is a MAJOR bump (§10.1), so
+ * every name that has ever shipped is still here. Rebranding is plain CSS the consumer
+ * already knows:
  *
- * :root { --vk-color-primary: #0ea5e9; --vk-radius-md: 2px; }
+ *   :root { --vk-color-primary: #0ea5e9; --vk-radius-md: 2px; }
+ *
+ * ---------------------------------------------------------------------------------------
+ * Two rules this file follows, because breaking either is what makes a component library
+ * look cheap no matter how good the components are:
+ *
+ * 1. EVERY accent doubles as a text colour AND as a solid background with inverted text.
+ *    Contrast is symmetric, so one value clearing 4.5:1 against the page covers both
+ *    directions. Every accent below is measured, not eyeballed. In dark mode the accents
+ *    are bright, so `-fg` flips to near-black: white on a bright accent fails, and that
+ *    is also what macOS and iOS do for prominent tinted buttons.
+ *
+ * 2. DARK MODE IS NOT A COLOUR SWAP. A shadow is black, so on a dark page it is invisible
+ *    and every card renders flat. Depth in dark mode comes from surfaces that are LIGHTER
+ *    than the page, plus a hairline top highlight — so the shadow ramp and the surface
+ *    ramp are both re-tuned below, not inherited.
+ * ---------------------------------------------------------------------------------------
  */
 
 :root {
-  /* color */
-  --vk-color-primary: #4f46e5;
-  --vk-color-primary-fg: #ffffff;
+  /* ---------------------------------------------------------------- colour: surfaces
+   * A single flat `bg` is the main reason a UI reads as "basic": every panel, input,
+   * menu and code block lands on the same white, so nothing recedes and nothing lifts.
+   * Four levels, from sunken to raised.
+   */
   --vk-color-bg: #ffffff;
-  --vk-color-fg: #111827;
-  --vk-color-muted: #6b7280;
-  --vk-color-border: #e5e7eb;
-  --vk-color-danger: #dc2626;
-  --vk-color-success: #16a34a;
-  --vk-color-warning: #ca8a04;
-  --vk-color-overlay: rgb(9 9 11 / 0.6);
+  /* Raised: cards, popovers, menus, sheets. Equal to `bg` in light mode by design — a
+     hairline plus a soft shadow does the lifting, which is subtler than a grey box. */
+  --vk-color-surface: #ffffff;
+  /* Recessed: inputs, table stripes, code blocks, disabled tracks. */
+  --vk-color-surface-subtle: #f5f5f7;
+  /* Deeper still: the well behind a scroll area or an inset panel. */
+  --vk-color-surface-sunken: #ebebef;
+  /* Interaction washes. Mixed against `fg` rather than hard-coded so they stay correct
+     in both themes and after a consumer rebrands. */
+  --vk-color-surface-hover: color-mix(in oklab, var(--vk-color-fg) 4%, transparent);
+  --vk-color-surface-active: color-mix(in oklab, var(--vk-color-fg) 8%, transparent);
 
-  /* spacing - 4px scale */
+  /* ------------------------------------------------------------------- colour: text */
+  --vk-color-fg: #1d1d1f;
+  /* Between `fg` and `muted`: secondary copy that must still read as primary content. */
+  --vk-color-fg-subtle: #424245;
+  --vk-color-muted: #67676d;
+
+  /* ---------------------------------------------------------------- colour: borders
+   * Three weights. One border colour forces every divider to shout at the same volume.
+   */
+  --vk-color-border-subtle: #f0f0f3;
+  --vk-color-border: #e3e3e8;
+  --vk-color-border-strong: #8e8e97;
+
+  /* ------------------------------------------------------------------ colour: accent
+   * #0071e3 measures 4.70:1 on white, so it passes as body text and as a solid button.
+   * Hover goes LIGHTER, which is what the platform does and reads as a surface catching
+   * light rather than being pressed; active goes darker.
+   */
+  --vk-color-primary: #0071e3;
+  --vk-color-primary-fg: #ffffff;
+  --vk-color-primary-hover: #0077ed;
+  --vk-color-primary-active: #0062c4;
+  /* Tinted background for soft badges, selected rows and info alerts, with a foreground
+     dark enough to read on it. */
+  --vk-color-primary-subtle: #eaf3fd;
+  --vk-color-primary-subtle-fg: #00509e;
+
+  /* ------------------------------------------------------------------ colour: status
+   * All three measured against white: danger 5.38:1, success 5.42:1, warning 4.87:1.
+   * The previous warning (#ca8a04) measured 2.94:1 and the previous success (#16a34a)
+   * 3.30:1 — both were unreadable as text, which no amount of styling fixes.
+   */
+  --vk-color-danger: #d70015;
+  --vk-color-danger-fg: #ffffff;
+  --vk-color-danger-hover: #e30017;
+  --vk-color-danger-subtle: #fdecec;
+  --vk-color-danger-subtle-fg: #a5000f;
+
+  --vk-color-success: #0f7a3d;
+  --vk-color-success-fg: #ffffff;
+  --vk-color-success-subtle: #e8f6ec;
+  --vk-color-success-subtle-fg: #0b5c2e;
+
+  --vk-color-warning: #9a6700;
+  --vk-color-warning-fg: #ffffff;
+  --vk-color-warning-subtle: #fdf3e0;
+  --vk-color-warning-subtle-fg: #7a5100;
+
+  /* ------------------------------------------------------------------- colour: misc */
+  --vk-color-overlay: rgb(0 0 0 / 0.44);
+  /* Focus ring, deliberately its own token: a consumer rebranding `primary` to a pale
+     colour would otherwise silently lose their focus indicator. */
+  --vk-color-ring: #0071e3;
+  --vk-ring-width: 2px;
+  --vk-ring-offset: 2px;
+
+  /* ------------------------------------------------------------------------- spacing
+   * 4px scale. The name is the step, so `--vk-space-6` is 6 × 4px = 1.5rem.
+   */
   --vk-space-1: 0.25rem;
   --vk-space-2: 0.5rem;
   --vk-space-3: 0.75rem;
   --vk-space-4: 1rem;
+  --vk-space-5: 1.25rem;
   --vk-space-6: 1.5rem;
+  --vk-space-7: 1.75rem;
   --vk-space-8: 2rem;
+  --vk-space-10: 2.5rem;
   --vk-space-12: 3rem;
+  --vk-space-14: 3.5rem;
   --vk-space-16: 4rem;
+  --vk-space-20: 5rem;
+  --vk-space-24: 6rem;
 
-  /* typography */
-  --vk-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* ---------------------------------------------------------------------- typography
+   * `-apple-system` leads so Apple platforms get the optical-size-aware system face,
+   * which is a real difference at heading sizes, not a preference.
+   */
+  --vk-font-sans:
+    -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --vk-font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --vk-text-xs: 0.75rem;
   --vk-text-sm: 0.875rem;
   --vk-text-md: 1rem;
   --vk-text-lg: 1.125rem;
   --vk-text-xl: 1.5rem;
   --vk-text-2xl: 2rem;
+  --vk-text-3xl: 2.5rem;
   --vk-text-hero: clamp(2.25rem, 5vw, 3.75rem);
 
-  /* shape & elevation */
+  /* Line height as a ratio, so it scales with whatever size it lands on. */
+  --vk-leading-none: 1;
+  --vk-leading-tight: 1.15;
+  --vk-leading-snug: 1.35;
+  --vk-leading-normal: 1.55;
+  --vk-leading-relaxed: 1.7;
+
+  /*
+   * Letter spacing. Large type set at 0 is the single most common reason a heading looks
+   * generic: type designed for body copy is too loose once it is 32px. Negative tracking
+   * on headings and slightly positive on small caps-y text is most of the difference
+   * between "a website" and "a product".
+   */
+  --vk-tracking-tighter: -0.022em;
+  --vk-tracking-tight: -0.014em;
+  --vk-tracking-snug: -0.006em;
+  --vk-tracking-normal: 0;
+  --vk-tracking-wide: 0.02em;
+
+  --vk-weight-normal: 400;
+  --vk-weight-medium: 500;
+  --vk-weight-semibold: 600;
+  --vk-weight-bold: 700;
+
+  /* --------------------------------------------------------------------------- shape */
+  --vk-radius-xs: 4px;
   --vk-radius-sm: 6px;
   --vk-radius-md: 10px;
   --vk-radius-lg: 16px;
+  --vk-radius-xl: 24px;
   --vk-radius-full: 9999px;
-  --vk-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
-  --vk-shadow-md: 0 4px 12px rgb(0 0 0 / 0.08);
 
-  /* layering */
+  /* ----------------------------------------------------------------------- elevation
+   * Two layers each: a tight contact shadow that grounds the element, and a wide
+   * ambient one that suggests the light source. One flat blur is the giveaway of a
+   * shadow that was guessed rather than built.
+   */
+  --vk-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.04);
+  --vk-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04), 0 2px 4px -1px rgb(0 0 0 / 0.05);
+  --vk-shadow-md: 0 2px 4px -1px rgb(0 0 0 / 0.04), 0 6px 16px -3px rgb(0 0 0 / 0.09);
+  --vk-shadow-lg: 0 4px 8px -2px rgb(0 0 0 / 0.05), 0 16px 36px -8px rgb(0 0 0 / 0.13);
+  --vk-shadow-xl: 0 8px 16px -4px rgb(0 0 0 / 0.06), 0 28px 64px -12px rgb(0 0 0 / 0.18);
+
+  /* --------------------------------------------------------------------------- layer */
   --vk-z-overlay: 1000;
   --vk-toast-z: 1100;
 
-  /* overlay sizing */
+  /* ------------------------------------------------------------------ overlay sizing */
   --vk-modal-width-sm: 24rem;
   --vk-modal-width-md: 32rem;
   --vk-modal-width-lg: 42rem;
@@ -64,17 +196,78 @@
   --vk-toast-gap: 0.75rem;
   --vk-toast-inset: 1rem;
 
-  /* motion */
-  --vk-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* -------------------------------------------------------------------------- motion
+   * `--vk-ease` is the default: fast out of the gate, long settle. Anything that moves
+   * on a user's own input should use `--vk-duration-fast`, because a delay the user
+   * caused feels like lag rather than polish.
+   */
+  --vk-duration-fast: 120ms;
   --vk-duration: 180ms;
+  --vk-duration-slow: 280ms;
+  --vk-duration-slower: 420ms;
+  --vk-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --vk-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --vk-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  /* A slight overshoot, for something arriving rather than changing. Never for colour. */
+  --vk-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/*
+ * Dark theme.
+ *
+ * The surface ramp INVERTS direction: raised surfaces get lighter than the page, because
+ * that is the only cue left once shadows stop reading. Accents brighten and their `-fg`
+ * flips to near-black, which the contrast maths requires — every pair below measures
+ * above 6.7:1 in both directions.
+ */
 [data-theme="dark"] {
-  --vk-color-bg: #0b0f19;
-  --vk-color-fg: #f3f4f6;
-  --vk-color-border: #1f2937;
-  --vk-color-muted: #9ca3af;
-  --vk-color-success: #4ade80;
-  --vk-color-warning: #fbbf24;
-  --vk-color-overlay: rgb(0 0 0 / 0.72);
+  --vk-color-bg: #0a0a0b;
+  --vk-color-surface: #17171a;
+  --vk-color-surface-subtle: #1f1f23;
+  --vk-color-surface-sunken: #08080a;
+
+  --vk-color-fg: #f5f5f7;
+  --vk-color-fg-subtle: #c8c8cd;
+  --vk-color-muted: #8e8e93;
+
+  --vk-color-border-subtle: #1e1e22;
+  --vk-color-border: #2a2a2f;
+  --vk-color-border-strong: #6b6b74;
+
+  --vk-color-primary: #3b9bff;
+  --vk-color-primary-fg: #0a0a0b;
+  --vk-color-primary-hover: #57a9ff;
+  --vk-color-primary-active: #2b8cf0;
+  --vk-color-primary-subtle: #10243a;
+  --vk-color-primary-subtle-fg: #8cc2ff;
+
+  --vk-color-danger: #ff6169;
+  --vk-color-danger-fg: #0a0a0b;
+  --vk-color-danger-hover: #ff7b81;
+  --vk-color-danger-subtle: #341216;
+  --vk-color-danger-subtle-fg: #ff9ba1;
+
+  --vk-color-success: #3fd07a;
+  --vk-color-success-fg: #0a0a0b;
+  --vk-color-success-subtle: #0d2a1a;
+  --vk-color-success-subtle-fg: #7ee2a6;
+
+  --vk-color-warning: #e0a83d;
+  --vk-color-warning-fg: #0a0a0b;
+  --vk-color-warning-subtle: #2e2210;
+  --vk-color-warning-subtle-fg: #f0c877;
+
+  --vk-color-overlay: rgb(0 0 0 / 0.7);
+  --vk-color-ring: #3b9bff;
+
+  /*
+   * Deeper and wider than the light ramp, and paired with the lighter surfaces above.
+   * A shadow alone cannot separate two dark greys, so these read as the ambient occlusion
+   * under a raised panel rather than as the whole effect.
+   */
+  --vk-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.5);
+  --vk-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5), 0 2px 6px -1px rgb(0 0 0 / 0.45);
+  --vk-shadow-md: 0 2px 4px -1px rgb(0 0 0 / 0.5), 0 8px 20px -4px rgb(0 0 0 / 0.55);
+  --vk-shadow-lg: 0 4px 8px -2px rgb(0 0 0 / 0.55), 0 20px 44px -10px rgb(0 0 0 / 0.65);
+  --vk-shadow-xl: 0 8px 16px -4px rgb(0 0 0 / 0.6), 0 32px 72px -14px rgb(0 0 0 / 0.72);
 }

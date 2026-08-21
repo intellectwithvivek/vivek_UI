@@ -63,7 +63,7 @@
 }
 
 :where(button.vk-stepper__control:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
   outline-offset: 3px;
   border-radius: var(--vk-radius-sm);
 }
@@ -78,7 +78,7 @@
   height: var(--vk-stepper-marker);
   border: var(--vk-stepper-rail) solid var(--vk-color-border);
   border-radius: var(--vk-radius-full);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   color: var(--vk-color-muted);
   font-size: var(--vk-text-sm);
   font-weight: 600;

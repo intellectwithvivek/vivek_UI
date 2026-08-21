@@ -20,11 +20,11 @@
   padding: var(--vk-space-1);
   border: 1px solid var(--vk-color-border);
   border-radius: var(--vk-radius-md);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   color: var(--vk-color-fg);
   font-family: var(--vk-font-sans);
   font-size: var(--vk-text-sm);
-  box-shadow: var(--vk-shadow-md);
+  box-shadow: var(--vk-shadow-lg);
 
   /* Invisible until measured, so it is never seen at 0,0. */
   opacity: 0;
@@ -54,7 +54,7 @@
 /* The menu owns focus while open, so its own focus ring would be noise on top of
    the focused item's. It only shows for an empty menu, which has nothing else. */
 :where(.vk-dropdown-menu:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
   outline-offset: -2px;
 }
 
@@ -75,7 +75,7 @@
 
 @media (hover: hover) {
   :where(.vk-dropdown-menu__item:hover:not([data-disabled])) {
-    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    background: var(--vk-color-surface-hover);
   }
 }
 
@@ -83,11 +83,11 @@
    than a ring - the same visual language as pointer hover. */
 :where(.vk-dropdown-menu__item:focus) {
   outline: none;
-  background: color-mix(in oklab, var(--vk-color-primary) 12%, transparent);
+  background: var(--vk-color-primary-subtle);
 }
 
 :where(.vk-dropdown-menu__item:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
   outline-offset: -2px;
 }
 

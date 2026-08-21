@@ -91,6 +91,7 @@
 
 :where(.vk-toast) {
   --vk-toast-color: var(--vk-color-primary);
+  --vk-toast-on-color: var(--vk-color-primary-fg);
 
   pointer-events: auto;
   display: flex;
@@ -105,11 +106,11 @@
   line-height: 1.5;
   text-align: start;
   color: var(--vk-color-fg);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   border: 1px solid var(--vk-color-border);
   border-inline-start: var(--vk-space-1) solid var(--vk-toast-color);
   border-radius: var(--vk-radius-md);
-  box-shadow: var(--vk-shadow-md);
+  box-shadow: var(--vk-shadow-lg);
 }
 
 /*
@@ -118,6 +119,7 @@
  */
 :where(.vk-toast[data-tone="info"]) {
   --vk-toast-color: var(--vk-color-primary);
+  --vk-toast-on-color: var(--vk-color-primary-fg);
 }
 :where(.vk-toast[data-tone="success"]) {
   --vk-toast-color: var(--vk-color-success, #16a34a);
@@ -127,6 +129,7 @@
 }
 :where(.vk-toast[data-tone="danger"]) {
   --vk-toast-color: var(--vk-color-danger);
+  --vk-toast-on-color: var(--vk-color-danger-fg);
 }
 
 :where(.vk-toast__icon) {
@@ -142,7 +145,7 @@
   line-height: 1;
   border-radius: var(--vk-radius-full);
   background: var(--vk-toast-color);
-  color: #fff;
+  color: var(--vk-toast-on-color, var(--vk-color-primary-fg));
 }
 
 :where(.vk-toast) > :where(.vk-toast__icon) > :where(svg) {
@@ -198,12 +201,12 @@
 
 :where(.vk-toast__dismiss:hover) {
   color: var(--vk-color-fg);
-  background: color-mix(in oklab, var(--vk-color-fg) 8%, transparent);
+  background: var(--vk-color-surface-active);
 }
 
 :where(.vk-toast__dismiss:focus-visible) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
 }
 
 /* Slide along the block axis only — nothing to flip for RTL. */

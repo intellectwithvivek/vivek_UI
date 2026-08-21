@@ -4,7 +4,7 @@
   justify-content: center;
   flex: none;
   overflow: hidden;
-  background: color-mix(in oklab, var(--vk-color-fg) 10%, transparent);
+  background: var(--vk-color-surface-active);
   color: var(--vk-color-fg);
   font-family: var(--vk-font-sans);
   font-weight: 600;

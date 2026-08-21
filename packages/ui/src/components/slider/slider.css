@@ -124,7 +124,7 @@
   width: var(--vk-slider-thumb);
   height: var(--vk-slider-thumb);
   margin-block-start: calc((var(--vk-slider-rail) - var(--vk-slider-thumb)) / 2);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   border: 2px solid var(--vk-slider-accent);
   border-radius: var(--vk-radius-full);
   box-shadow: var(--vk-shadow-sm);
@@ -136,7 +136,7 @@
 :where(.vk-slider__input)::-moz-range-thumb {
   width: var(--vk-slider-thumb);
   height: var(--vk-slider-thumb);
-  background: var(--vk-color-bg);
+  background: var(--vk-color-surface);
   border: 2px solid var(--vk-slider-accent);
   border-radius: var(--vk-radius-full);
   box-shadow: var(--vk-shadow-sm);
@@ -161,11 +161,11 @@
 }
 :where(.vk-slider__input:focus-visible)::-webkit-slider-thumb {
   outline: 2px solid var(--vk-slider-accent);
-  outline-offset: 2px;
+  outline-offset: var(--vk-ring-offset);
 }
 :where(.vk-slider__input:focus-visible)::-moz-range-thumb {
   outline: 2px solid var(--vk-slider-accent);
-  outline-offset: 2px;
+  outline-offset: var(--vk-ring-offset);
 }
 
 :where(.vk-slider__value) {

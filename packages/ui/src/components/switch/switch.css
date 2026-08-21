@@ -51,10 +51,15 @@
   inset-inline-start: 0.15em;
   width: 0.95em;
   height: 0.95em;
-  background: #fff;
+  /*
+   * Deliberately a light constant in both themes, not `--vk-color-surface`: the thumb is
+   * a physical knob sitting on a coloured track, and in dark mode a surface-coloured
+   * knob on a dark track disappears. Exposed as a variable so it stays themeable.
+   */
+  background: var(--vk-switch-thumb, #fff);
   border-radius: var(--vk-radius-full);
   box-shadow: var(--vk-shadow-sm);
-  transition: transform var(--vk-duration) var(--vk-ease);
+  transition: transform var(--vk-duration) var(--vk-ease-spring);
 }
 
 :where(.vk-switch__input:checked) + :where(.vk-switch__track) {
@@ -74,8 +79,8 @@
 }
 
 :where(.vk-switch__input:focus-visible) + :where(.vk-switch__track) {
-  outline: 2px solid var(--vk-color-primary);
-  outline-offset: 2px;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
 }
 
 :where(.vk-switch:has(.vk-switch__input:disabled)) {

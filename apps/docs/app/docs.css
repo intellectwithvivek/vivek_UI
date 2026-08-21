@@ -1,0 +1,40 @@
+/*
+ * Docs-site chrome only. Everything here uses --vk-* tokens, so the site and the
+ * components it documents can never drift apart on colour or spacing.
+ *
+ * Deliberately no Tailwind and no second UI library: the site is built from the library
+ * it documents, which is both the strongest demonstration of the "one install" claim and
+ * the fastest way to find the library's rough edges.
+ */
+
+body {
+  margin: 0;
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Visible only once focused, which is the whole point of a skip link. */
+.skip-link {
+  position: absolute;
+  inset-inline-start: var(--vk-space-4);
+  inset-block-start: -3rem;
+  z-index: 2000;
+  padding: var(--vk-space-2) var(--vk-space-4);
+  background: var(--vk-color-primary);
+  color: var(--vk-color-primary-fg);
+  border-radius: var(--vk-radius-md);
+  text-decoration: none;
+  transition: inset-block-start var(--vk-duration) var(--vk-ease);
+}
+
+.skip-link:focus-visible {
+  inset-block-start: var(--vk-space-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
+}

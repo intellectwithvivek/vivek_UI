@@ -58,13 +58,17 @@
 
   /* ------------------------------------------------------------------ colour: accent
    * #0071e3 measures 4.70:1 on white, so it passes as body text and as a solid button.
-   * Hover goes LIGHTER, which is what the platform does and reads as a surface catching
-   * light rather than being pressed; active goes darker.
+   *
+   * Hover and active both move AWAY from the foreground that sits on them, so contrast
+   * only ever improves on interaction. In light mode that means darker, because the text
+   * is white. An earlier version went lighter on hover - the platform convention - and
+   * #0077ed put white text at 4.32:1, i.e. a hovered primary button that failed AA. There
+   * is no headroom to lighten an accent that is already within 0.2 of the 4.5 threshold.
    */
   --vk-color-primary: #0071e3;
   --vk-color-primary-fg: #ffffff;
-  --vk-color-primary-hover: #0077ed;
-  --vk-color-primary-active: #0062c4;
+  --vk-color-primary-hover: #0266cd;
+  --vk-color-primary-active: #0659b2;
   /* Tinted background for soft badges, selected rows and info alerts, with a foreground
      dark enough to read on it. */
   --vk-color-primary-subtle: #eaf3fd;
@@ -77,7 +81,7 @@
    */
   --vk-color-danger: #d70015;
   --vk-color-danger-fg: #ffffff;
-  --vk-color-danger-hover: #e30017;
+  --vk-color-danger-hover: #c10915;
   --vk-color-danger-subtle: #fdecec;
   --vk-color-danger-subtle-fg: #a5000f;
 
@@ -236,14 +240,15 @@
 
   --vk-color-primary: #3b9bff;
   --vk-color-primary-fg: #0a0a0b;
-  --vk-color-primary-hover: #57a9ff;
-  --vk-color-primary-active: #2b8cf0;
+  /* Bright accent, near-black text: away from the foreground means lighter. */
+  --vk-color-primary-hover: #62acff;
+  --vk-color-primary-active: #2c8ef1;
   --vk-color-primary-subtle: #10243a;
   --vk-color-primary-subtle-fg: #8cc2ff;
 
   --vk-color-danger: #ff6169;
   --vk-color-danger-fg: #0a0a0b;
-  --vk-color-danger-hover: #ff7b81;
+  --vk-color-danger-hover: #ff8284;
   --vk-color-danger-subtle: #341216;
   --vk-color-danger-subtle-fg: #ff9ba1;
 

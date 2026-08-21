@@ -264,3 +264,21 @@
     transition: none;
   }
 }
+
+/*
+ * The icon-less fallback: the label's initial, shown only while collapsed. Expanded, the
+ * real label is visible and a duplicate initial beside it would be noise.
+ */
+:where(.vk-sidebar:not([data-collapsed])) :where(.vk-sidebar__icon[data-fallback]) {
+  display: none;
+}
+
+:where(.vk-sidebar__icon[data-fallback]) {
+  font-size: var(--vk-text-sm);
+  font-weight: var(--vk-weight-semibold);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-sidebar__link[data-active]) :where(.vk-sidebar__icon[data-fallback]) {
+  color: inherit;
+}

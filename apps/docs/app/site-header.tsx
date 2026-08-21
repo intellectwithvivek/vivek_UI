@@ -3,6 +3,8 @@
 import { Badge, Button, Navbar, ThemeToggle } from '@the_viveksingh/vivek-ui'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { AccentPicker } from '../components/accent-picker'
+import { LIBRARY_VERSION } from '../lib/version'
 
 /**
  * The site header, built from the library's own `Navbar`.
@@ -20,7 +22,7 @@ export function SiteHeader() {
     <Navbar sticky bordered>
       <Navbar.Brand asChild>
         <Link href="/">
-          VivekUI <Badge tone="neutral">v0.2.2</Badge>
+          VivekUI <Badge tone="neutral">v{LIBRARY_VERSION}</Badge>
         </Link>
       </Navbar.Brand>
 
@@ -40,6 +42,7 @@ export function SiteHeader() {
       </Navbar.Links>
 
       <Navbar.Actions>
+        <AccentPicker />
         <ThemeToggle mode="cycle" />
         <Button asChild size="sm" variant="ghost">
           <a

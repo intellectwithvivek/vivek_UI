@@ -265,3 +265,98 @@
     transition: none;
   }
 }
+
+/* ---- interactive legend --------------------------------------------------------------
+ *
+ * Series toggling with no JavaScript: each legend entry is a real checkbox, and `:has()`
+ * lets the chart root react to it. The consequence is that the number of addressable series
+ * is fixed at the palette size, which is why there are exactly six rules below rather than
+ * a loop - CSS has no loop, and six covers every series the palette can colour distinctly.
+ *
+ * Written out explicitly rather than generated, so what ships is what you read.
+ */
+
+:where(.vk-chart__legend[data-interactive]) :where(.vk-chart__legend-control) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+  padding: var(--vk-space-1) var(--vk-space-2);
+  margin-inline: calc(var(--vk-space-2) * -1);
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--vk-duration-fast) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-chart__legend[data-interactive]) :where(.vk-chart__legend-control:hover) {
+    background: var(--vk-color-surface-hover);
+  }
+}
+
+/* The checkbox is clipped, not hidden: it stays focusable and announced. */
+:where(.vk-chart__legend-toggle) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Focus lands on the clipped input, so the ring has to be drawn on its label. */
+:where(.vk-chart__legend-control:has(.vk-chart__legend-toggle:focus-visible)) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
+}
+
+/* An unchecked entry dims itself, so the legend still reads as a complete key. */
+:where(.vk-chart__legend-control:has(.vk-chart__legend-toggle:not(:checked))) {
+  opacity: 0.45;
+}
+
+:where(.vk-chart__legend-control:has(.vk-chart__legend-toggle:not(:checked)))
+  :where(.vk-chart__legend-label) {
+  text-decoration: line-through;
+}
+
+/*
+ * The series themselves. `opacity` plus `visibility` rather than `display: none`, so the
+ * change can animate - and `visibility` on a delay stops a hidden series from swallowing
+ * pointer events once it has faded out.
+ */
+/*
+ * Targets anything carrying a palette slot, not just a series group: the XY charts wrap
+ * each series in its own `<g>`, while BarChart keeps all bars in one group and tags each
+ * rect, and PieChart tags each slice.
+ */
+:where([data-series-index]) {
+  transition:
+    opacity var(--vk-duration-slow) var(--vk-ease-out),
+    visibility 0s linear var(--vk-duration-slow);
+  visibility: visible;
+}
+
+:where(.vk-chart:has(.vk-chart__legend-toggle[data-series="1"]:not(:checked)))
+  :where([data-series-index="1"]),
+:where(.vk-chart:has(.vk-chart__legend-toggle[data-series="2"]:not(:checked)))
+  :where([data-series-index="2"]),
+:where(.vk-chart:has(.vk-chart__legend-toggle[data-series="3"]:not(:checked)))
+  :where([data-series-index="3"]),
+:where(.vk-chart:has(.vk-chart__legend-toggle[data-series="4"]:not(:checked)))
+  :where([data-series-index="4"]),
+:where(.vk-chart:has(.vk-chart__legend-toggle[data-series="5"]:not(:checked)))
+  :where([data-series-index="5"]),
+:where(.vk-chart:has(.vk-chart__legend-toggle[data-series="6"]:not(:checked)))
+  :where([data-series-index="6"]) {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--vk-duration-slow) var(--vk-ease-out),
+    visibility 0s linear var(--vk-duration-slow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where([data-series-index]) {
+    transition: none;
+  }
+}

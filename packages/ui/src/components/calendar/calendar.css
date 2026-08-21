@@ -10,8 +10,16 @@
   --vk-calendar-accent-fg: var(--vk-color-primary-fg);
   --vk-calendar-range-bg: color-mix(in oklab, var(--vk-calendar-accent) 14%, transparent);
 
-  container-type: inline-size;
-  container-name: vk-calendar;
+  /*
+   * Content-sized, and deliberately NOT a container query context.
+   *
+   * `container-type: inline-size` makes an element's inline size independent of its
+   * contents. On this `inline-flex` box that collapsed the width to just the padding, so
+   * the calendar rendered as a narrow vertical capsule with the month grid spilling out of
+   * it. The query it enabled only nudged the cell from 2.25rem to 2.5rem, which is not
+   * worth breaking the component for - and a calendar should size to its seven columns
+   * rather than stretch to whatever contains it.
+   */
   display: inline-flex;
   flex-direction: column;
   gap: var(--vk-space-2);
@@ -33,16 +41,8 @@
   font-size: var(--vk-text-md);
 }
 
-/*
- * A calendar dropped into a wide container gets roomier cells without a prop or a media
- * query. Container-correct rather than viewport-correct: the same calendar is narrow in a
- * sidebar and wide in a page body on the identical screen.
- */
-@container vk-calendar (min-width: 22rem) {
-  :where(.vk-calendar) {
-    --vk-calendar-cell: 2.5rem;
-  }
-}
+/* Roomier cells come from `size`, which is explicit, rather than from the width it
+   happens to be given. See the note above about why this is not a query context. */
 
 :where(.vk-calendar[data-disabled]) {
   opacity: 0.55;
@@ -57,8 +57,12 @@
 :where(.vk-calendar__title) {
   flex: 1;
   text-align: center;
-  font-weight: 600;
+  font-weight: var(--vk-weight-semibold);
   font-size: var(--vk-text-md);
+  /* A long month name in another locale should widen the header, not wrap inside it and
+     make the calendar two lines taller than the grid needs. */
+  white-space: nowrap;
+  padding-inline: var(--vk-space-1);
 }
 
 :where(.vk-calendar__nav) {

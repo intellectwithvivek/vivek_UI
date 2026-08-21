@@ -177,12 +177,52 @@
   display: contents;
 }
 
+/*
+ * Arrows overlay the track, so the track has to reserve room for them - otherwise they sit
+ * on top of the slide content, which is unreadable when a slide is text rather than an
+ * image. `scroll-padding` matches the reserved space so a snapped slide lands clear of the
+ * arrow rather than under it.
+ *
+ * Only applied when arrows are actually rendered: a carousel with dots only should not
+ * carry dead space on both edges.
+ */
+:where(.vk-carousel[data-arrows]) > :where(.vk-carousel__track) {
+  padding-inline: var(--vk-carousel-arrow-gutter);
+  scroll-padding-inline: var(--vk-carousel-arrow-gutter);
+}
+
+:where(.vk-carousel) {
+  /* Arrow diameter plus its edge margin plus breathing room. */
+  --vk-carousel-arrow-gutter: calc(2.5rem + var(--vk-space-2) + var(--vk-space-2));
+}
+
 :where(.vk-carousel__arrow) {
   grid-area: track;
   z-index: 1;
   align-self: center;
   background: var(--vk-color-surface);
-  box-shadow: var(--vk-shadow-sm);
+  box-shadow: var(--vk-shadow-md);
+  border: 1px solid var(--vk-color-border);
+  transition:
+    background-color var(--vk-duration-fast) var(--vk-ease),
+    box-shadow var(--vk-duration) var(--vk-ease-out),
+    transform var(--vk-duration) var(--vk-ease-out);
+}
+
+@media (hover: hover) {
+  :where(.vk-carousel__arrow:hover:not(:disabled)) {
+    box-shadow: var(--vk-shadow-lg);
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-carousel__arrow) {
+    transition: none;
+  }
+  :where(.vk-carousel__arrow:hover:not(:disabled)) {
+    transform: none;
+  }
 }
 
 :where(.vk-carousel__arrow[data-direction="prev"]) {

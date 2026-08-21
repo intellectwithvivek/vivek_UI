@@ -8,7 +8,7 @@ import type { ReactNode } from 'react'
 import type { CartesianModel } from './cartesian'
 import { LABEL_SIZE } from './cartesian'
 import type { MarkerShape } from './palette'
-import { markerPath } from './palette'
+import { markerPath, SERIES_COUNT } from './palette'
 import { f } from './scale'
 
 /**
@@ -138,14 +138,37 @@ export interface ChartLegendProps {
   swatch?: 'line' | 'box'
   /** Hide from AT when a data table already names every series. */
   redundant?: boolean
+  /**
+   * Turn each entry into a checkbox that shows and hides its series.
+   *
+   * Implemented with real checkboxes and a `:has()` selector rather than with state, so an
+   * interactive legend does NOT drag the chart onto the client - these components render
+   * entirely on the server and that is the point of them. It also comes out better than a
+   * JavaScript version would: a checkbox is keyboard-operable and announced as
+   * "Revenue, checkbox, checked" for free, where a clickable `<li>` would need a role, a
+   * tabindex, key handlers and an `aria-pressed` to get to the same place.
+   *
+   * The trade-off is that the number of series a stylesheet can address is fixed - see the
+   * six rules in `charts.css`, one per palette slot.
+   */
+  interactive?: boolean
 }
 
-export function ChartLegend({ items, swatch = 'line', redundant }: ChartLegendProps) {
+export function ChartLegend({ items, swatch = 'line', redundant, interactive }: ChartLegendProps) {
   if (items.length === 0) return null
   return (
-    <ul className="vk-chart__legend" aria-hidden={redundant ? 'true' : undefined}>
-      {items.map((item) => (
-        <li className="vk-chart__legend-item" key={item.key}>
+    <ul
+      className="vk-chart__legend"
+      data-interactive={interactive ? '' : undefined}
+      /*
+       * An interactive legend can never be `aria-hidden`: it holds controls, and hiding a
+       * focusable control from assistive technology is worse than the duplication the flag
+       * was there to avoid.
+       */
+      aria-hidden={redundant && !interactive ? 'true' : undefined}
+    >
+      {items.map((item, index) => {
+        const swatchNode = (
           <svg
             className="vk-chart__swatch"
             viewBox="0 0 18 12"
@@ -173,9 +196,36 @@ export function ChartLegend({ items, swatch = 'line', redundant }: ChartLegendPr
               </>
             )}
           </svg>
-          <span className="vk-chart__legend-label">{item.name}</span>
-        </li>
-      ))}
+        )
+        const label = <span className="vk-chart__legend-label">{item.name}</span>
+
+        return (
+          <li className="vk-chart__legend-item" key={item.key}>
+            {interactive ? (
+              /*
+               * The input sits inside the label, so the association is implicit and no
+               * generated id is needed - which matters because these components render on
+               * the server and two charts on one page must not collide on ids.
+               */
+              <label className="vk-chart__legend-control">
+                <input
+                  type="checkbox"
+                  className="vk-chart__legend-toggle"
+                  data-series={(index % SERIES_COUNT) + 1}
+                  defaultChecked
+                />
+                {swatchNode}
+                {label}
+              </label>
+            ) : (
+              <>
+                {swatchNode}
+                {label}
+              </>
+            )}
+          </li>
+        )
+      })}
     </ul>
   )
 }

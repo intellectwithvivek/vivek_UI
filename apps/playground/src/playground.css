@@ -1,0 +1,89 @@
+/*
+ * Playground chrome only. Nothing here belongs to the library — it exists to lay out
+ * the component matrix, and it deliberately uses the same --vk-* tokens a real
+ * consumer would theme with.
+ */
+
+body {
+  margin: 0;
+  padding: var(--vk-space-8);
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  transition: background-color var(--vk-duration) var(--vk-ease);
+}
+
+.pg-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vk-space-4);
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--vk-space-8);
+}
+
+.pg-title {
+  font-size: var(--vk-text-2xl);
+  font-weight: 600;
+}
+
+.pg-subtitle {
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+}
+
+.pg-section {
+  margin-bottom: var(--vk-space-12);
+}
+
+.pg-section-title {
+  font-size: var(--vk-text-lg);
+  font-weight: 600;
+  padding-bottom: var(--vk-space-2);
+  margin-bottom: var(--vk-space-4);
+  border-bottom: 1px solid var(--vk-color-border);
+}
+
+.pg-matrix {
+  display: grid;
+  grid-template-columns: 5rem repeat(3, minmax(0, 1fr));
+  gap: var(--vk-space-4);
+  align-items: center;
+  max-width: 46rem;
+}
+
+.pg-matrix-label {
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+  font-weight: 500;
+}
+
+.pg-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vk-space-4);
+  align-items: center;
+}
+
+.pg-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-4);
+  max-width: 22rem;
+}
+
+.pg-note {
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+  margin-top: var(--vk-space-2);
+}
+
+/*
+ * Proof that :where() gives library styles zero specificity: this single flat class
+ * beats .vk-button[data-variant="solid"] with no !important anywhere.
+ */
+.pg-override {
+  background: #db2777;
+  color: #fff;
+  border-radius: 999px;
+}

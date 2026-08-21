@@ -54,7 +54,7 @@ jobs:
       # Once that PR is merged there are no changesets left, so `publish` runs instead.
       - name: Create release PR or publish
         if: steps.npm.outputs.configured == 'true'
-        uses: changesets/action@ce079ea084e08a340947ed4d6ecedb2433c8f293 # v1
+        uses: changesets/action@198f833dd7d863100ea6e28967bc9a9fdefadb0a # v1
         with:
           version: pnpm changeset version
           publish: pnpm release

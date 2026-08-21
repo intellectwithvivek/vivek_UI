@@ -205,6 +205,21 @@ export interface SidebarItemProps
  * removed from the DOM, only clipped when collapsed, which is what keeps an icon-only
  * item accessibly named.
  */
+/**
+ * First letter of a label, for the icon-less collapsed fallback.
+ *
+ * Only handles what a label realistically is - a string, a number, or an array whose first
+ * element is one. Anything else (an element, a fragment) returns nothing rather than
+ * guessing, because reaching into arbitrary children to extract text is how a helper like
+ * this starts throwing on valid input.
+ */
+function initialOf(children: ReactNode): string {
+  const first = Array.isArray(children) ? children[0] : children
+  if (typeof first === 'number') return String(first).charAt(0)
+  if (typeof first !== 'string') return ''
+  return first.trim().charAt(0).toUpperCase()
+}
+
 const SidebarItem = forwardRef<HTMLAnchorElement, SidebarItemProps>(function SidebarItem(
   { icon, active, badge, asChild, itemProps, className, children, href, target, rel, ...rest },
   ref,
@@ -229,7 +244,20 @@ const SidebarItem = forwardRef<HTMLAnchorElement, SidebarItemProps>(function Sid
           <span className="vk-sidebar__icon" aria-hidden="true">
             {icon}
           </span>
-        ) : null}
+        ) : (
+          /*
+           * No icon supplied: fall back to the label's initial.
+           *
+           * Collapsing clips every label, so an item without an icon collapsed to nothing
+           * at all - an empty rail with no way to tell one row from another, or even that
+           * rows existed. `aria-hidden`, because the clipped label is still what names the
+           * link; this is purely so the collapsed state degrades to something usable
+           * rather than to blank.
+           */
+          <span className="vk-sidebar__icon" data-fallback="" aria-hidden="true">
+            {initialOf(children)}
+          </span>
+        )}
         {/* Slottable, so `asChild` keeps the icon, the label wrapper and the badge:
             see utils/slot.tsx. */}
         <Slottable wrapperClassName="vk-sidebar__label">{children}</Slottable>

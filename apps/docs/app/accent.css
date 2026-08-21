@@ -1,0 +1,119 @@
+/*
+ * Accent presets for the docs site.
+ *
+ * GENERATED, and verified rather than eyeballed. Every preset is checked in both themes
+ * for: the accent as text on the page, the foreground on the accent, the foreground on the
+ * hover and active states, the subtle tint against its own foreground, and the focus ring
+ * as a non-text boundary. `accent.test.ts` re-runs those checks against this file.
+ *
+ * Steps are derived in OKLCH, not by mixing toward white in sRGB - that desaturates, and
+ * turned the emerald accent into a grey-green.
+ *
+ * Hover and active move AWAY from the foreground sitting on them, so contrast only
+ * improves on interaction: darker in light mode where the text is white, lighter in dark
+ * mode where it is near-black. Lightening on hover in light mode is the platform
+ * convention and it is wrong here - it put white text at 4.32:1 on the default blue.
+ *
+ * These override the library's own tokens, which is the whole demonstration: retheming is
+ * a handful of custom properties, not a build step.
+ */
+
+[data-accent="blue"] {
+  --vk-color-primary: #0071e3;
+  --vk-color-primary-hover: #0266cd;
+  --vk-color-primary-active: #0659b2;
+  --vk-color-primary-subtle: #e8f1fe;
+  --vk-color-primary-subtle-fg: #126ace;
+  --vk-color-primary-fg: #ffffff;
+  --vk-color-ring: #0071e3;
+}
+
+[data-theme="dark"][data-accent="blue"] {
+  --vk-color-primary: #3b9bff;
+  --vk-color-primary-hover: #62acff;
+  --vk-color-primary-active: #2c8ef1;
+  --vk-color-primary-subtle: #112740;
+  --vk-color-primary-subtle-fg: #3b9bff;
+  --vk-color-primary-fg: #0a0a0b;
+  --vk-color-ring: #3b9bff;
+}
+
+[data-accent="violet"] {
+  --vk-color-primary: #6d28d9;
+  --vk-color-primary-hover: #6311cb;
+  --vk-color-primary-active: #5403b1;
+  --vk-color-primary-subtle: #f0eefd;
+  --vk-color-primary-subtle-fg: #6d28d9;
+  --vk-color-primary-fg: #ffffff;
+  --vk-color-ring: #6d28d9;
+}
+
+[data-theme="dark"][data-accent="violet"] {
+  --vk-color-primary: #a78bfa;
+  --vk-color-primary-hover: #b59ffe;
+  --vk-color-primary-active: #9b7fec;
+  --vk-color-primary-subtle: #28213f;
+  --vk-color-primary-subtle-fg: #a78bfa;
+  --vk-color-primary-fg: #0a0a0b;
+  --vk-color-ring: #a78bfa;
+}
+
+[data-accent="emerald"] {
+  --vk-color-primary: #0f7a3d;
+  --vk-color-primary-hover: #0c6d36;
+  --vk-color-primary-active: #035d2c;
+  --vk-color-primary-subtle: #dbf9e1;
+  --vk-color-primary-subtle-fg: #0f7a3d;
+  --vk-color-primary-fg: #ffffff;
+  --vk-color-ring: #0f7a3d;
+}
+
+[data-theme="dark"][data-accent="emerald"] {
+  --vk-color-primary: #3fd07a;
+  --vk-color-primary-hover: #54e189;
+  --vk-color-primary-active: #2cc36e;
+  --vk-color-primary-subtle: #0d2e19;
+  --vk-color-primary-subtle-fg: #3fd07a;
+  --vk-color-primary-fg: #0a0a0b;
+  --vk-color-ring: #3fd07a;
+}
+
+[data-accent="rose"] {
+  --vk-color-primary: #c8215d;
+  --vk-color-primary-hover: #ba0652;
+  --vk-color-primary-active: #a10546;
+  --vk-color-primary-subtle: #fdebee;
+  --vk-color-primary-subtle-fg: #c8215d;
+  --vk-color-primary-fg: #ffffff;
+  --vk-color-ring: #c8215d;
+}
+
+[data-theme="dark"][data-accent="rose"] {
+  --vk-color-primary: #ff7aa8;
+  --vk-color-primary-hover: #ff98b9;
+  --vk-color-primary-active: #f16d9c;
+  --vk-color-primary-subtle: #3c1a25;
+  --vk-color-primary-subtle-fg: #ff7aa8;
+  --vk-color-primary-fg: #0a0a0b;
+  --vk-color-ring: #ff7aa8;
+}
+
+[data-accent="amber"] {
+  --vk-color-primary: #9a6700;
+  --vk-color-primary-hover: #8b5d05;
+  --vk-color-primary-active: #785002;
+  --vk-color-primary-subtle: #feedd7;
+  --vk-color-primary-subtle-fg: #916311;
+  --vk-color-primary-fg: #ffffff;
+  --vk-color-ring: #9a6700;
+}
+
+[data-theme="dark"][data-accent="amber"] {
+  --vk-color-primary: #e0a83d;
+  --vk-color-primary-hover: #f1b84f;
+  --vk-color-primary-active: #d39b2d;
+  --vk-color-primary-subtle: #342301;
+  --vk-color-primary-subtle-fg: #e0a83d;
+  --vk-color-primary-fg: #0a0a0b;
+  --vk-color-ring: #e0a83d;
+}

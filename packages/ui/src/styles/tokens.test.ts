@@ -128,6 +128,44 @@ describe.each(THEMES)('%s theme', (themeName, theme) => {
     },
   )
 
+  /*
+   * Interaction states, which the first version of this gate did not cover - and that gap
+   * shipped a bug. `--vk-color-primary-hover` was set LIGHTER than the base on the
+   * reasoning that platforms lighten on hover, which put white text at 4.32:1: a hovered
+   * primary button below AA. An accent sitting 0.2 above the threshold has no room to be
+   * lightened.
+   *
+   * The rule these assertions encode: hover and active must move AWAY from the foreground
+   * that sits on them, so contrast can only improve when the user interacts.
+   */
+  it.each([
+    ['primary', 'hover'],
+    ['primary', 'active'],
+    ['danger', 'hover'],
+  ] as const)('accent %s keeps its %s state readable', (accent, state) => {
+    const base = on(`--vk-color-${accent}`)
+    const stateColour = on(`--vk-color-${accent}-${state}`)
+    const foreground = on(`--vk-color-${accent}-fg`)
+
+    expect(
+      contrast(foreground, stateColour),
+      `--vk-color-${accent}-fg on --vk-color-${accent}-${state} in ${themeName}`,
+    ).toBeGreaterThanOrEqual(AA)
+
+    /*
+     * Hover additionally must not be worse than resting: it is a sustained state, and the
+     * label gets read while the pointer is on it. `active` is exempt - it lasts as long as
+     * a mouse-down, and a press that dims slightly is the conventional cue in a dark theme
+     * where the accent is already bright. It still has to clear AA above.
+     */
+    if (state === 'hover') {
+      expect(
+        contrast(foreground, stateColour),
+        `--vk-color-${accent}-hover in ${themeName} is harder to read than its resting state`,
+      ).toBeGreaterThanOrEqual(contrast(foreground, base) - 0.01)
+    }
+  })
+
   it.each(['primary', 'danger', 'success', 'warning'])(
     'soft variant %s pairs a tint with a readable foreground',
     (accent) => {

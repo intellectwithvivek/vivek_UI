@@ -27,6 +27,15 @@ export interface PieChartProps extends ChartRootProps {
   innerRadius?: number
   /** Side of the square `viewBox`, in px, and the widest the chart will draw. */
   size?: number
+  /**
+   * Show the legend. Defaults to `true`.
+   *
+   * Note there is deliberately no `interactiveLegend` here, unlike LineChart, AreaChart and
+   * BarChart. A pie shows parts of a whole, and hiding one wedge would leave a gap while
+   * the rest kept their original angles - so the chart would no longer sum to 100% and
+   * would quietly misreport every remaining share. Re-proportioning needs the geometry
+   * recomputed, which CSS cannot do. Use a BarChart when series need to be toggled.
+   */
   showLegend?: boolean
   /** Percentage inside each slice. Slices under 4% are skipped, as they cannot fit. */
   showLabels?: boolean

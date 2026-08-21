@@ -1,6 +1,20 @@
 :where(.vk-badge) {
   --vk-badge-color: var(--vk-color-primary);
   display: inline-flex;
+  /*
+   * `fit-content`, so a flex or grid container cannot stretch it.
+   *
+   * `align-items` defaults to `stretch`, and Stack leaves it unset unless `align` is
+   * passed - so this chip in a vertical Stack or a Card.Header was being stretched to the
+   * full container width. A "Most popular" badge spanning an entire pricing card is the
+   * visible symptom.
+   *
+   * `width: fit-content` rather than `align-self: start`: stretch only applies when the
+   * cross-size property is `auto`, so a definite width switches it off. `align-self`
+   * would also force top-alignment in a horizontal row, where a badge beside a heading
+   * should stay vertically centred.
+   */
+  width: fit-content;
   align-items: center;
   gap: var(--vk-space-1);
   font-family: var(--vk-font-sans);

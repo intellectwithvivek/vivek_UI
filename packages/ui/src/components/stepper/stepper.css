@@ -152,6 +152,16 @@
   align-items: flex-start;
 }
 
+/*
+ * The rail sits at the marker's vertical centre, which is also where the label's first
+ * line was landing - so the connector ran straight through the text and read as a
+ * strike-through. The text block is pushed below the marker's centre line instead, which
+ * both clears the rail and gives the label the breathing room it was missing.
+ */
+:where(.vk-stepper[data-orientation="horizontal"]) :where(.vk-stepper__text) {
+  padding-block-start: calc(var(--vk-stepper-marker) / 2 + var(--vk-space-1));
+}
+
 :where(.vk-stepper[data-orientation="horizontal"]) :where(.vk-stepper__item)::before {
   content: "";
   position: absolute;
@@ -160,6 +170,13 @@
   width: calc(100% - var(--vk-stepper-marker) - var(--vk-space-2) + var(--vk-stepper-gap));
   height: var(--vk-stepper-rail);
   background: var(--vk-color-border);
+  /* Behind the text, so a long label that does reach the rail is still legible. */
+  z-index: 0;
+}
+
+:where(.vk-stepper[data-orientation="horizontal"]) :where(.vk-stepper__text) {
+  position: relative;
+  z-index: 1;
 }
 
 /* Vertical: one step per row, connector runs down. */

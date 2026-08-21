@@ -5,9 +5,11 @@ import '@the_viveksingh/vivek-ui/charts.css'
 import { ThemeProvider, themeScript } from '@the_viveksingh/vivek-ui'
 import type { ReactNode } from 'react'
 import { JsonLd } from '../components/json-ld'
+import { accentScript } from '../lib/accents'
 import { AUTHOR, SITE_DESCRIPTION, SITE_KEYWORDS, SITE_NAME, SITE_URL, url } from '../lib/site'
 import { softwareApplication, website } from '../lib/structured-data'
 import { SiteHeader } from './site-header'
+import './accent.css'
 import './docs.css'
 
 /**
@@ -73,6 +75,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         */}
         {/* biome-ignore lint/security/noDangerouslySetInnerHtml: a build-time constant exported by the library, not user input */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/*
+          Same reasoning as the theme script: the accent has to be on <html> before the
+          body paints, or every reload flashes the default colour first. The script only
+          applies a value from its own allow-list, since localStorage is writable by
+          anything on the origin and this lands in a DOM attribute.
+        */}
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: a build-time constant built from an allow-list, not user input */}
+        <script dangerouslySetInnerHTML={{ __html: accentScript }} />
         {/*
           Sitewide structured data: the library as a SoftwareApplication with a price of 0,
           and the site itself. Rendered on the server, because several crawlers - including

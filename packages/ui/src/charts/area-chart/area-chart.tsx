@@ -11,6 +11,14 @@ export interface AreaChartProps extends ChartRootProps {
   showGrid?: boolean
   showAxes?: boolean
   showLegend?: boolean
+  /**
+   * Turn each legend entry into a checkbox that shows and hides its series, with a fade.
+   *
+   * No JavaScript and no client boundary: the entries are real checkboxes and the chart
+   * reacts with `:has()`. Off by default, because it makes the legend a set of controls -
+   * right for a dashboard, wrong for a figure in a report.
+   */
+  interactiveLegend?: boolean
   showPoints?: boolean
   curve?: 'linear' | 'smooth'
   strokeWidth?: number
@@ -35,6 +43,7 @@ export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(function Are
     showGrid,
     showAxes,
     showLegend,
+    interactiveLegend,
     showPoints,
     curve,
     strokeWidth,
@@ -63,6 +72,7 @@ export const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(function Are
       showGrid={showGrid}
       showAxes={showAxes}
       showLegend={showLegend}
+      interactiveLegend={interactiveLegend}
       showPoints={showPoints}
       curve={curve}
       stacked={stacked}

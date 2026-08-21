@@ -495,14 +495,79 @@ body {
   }
 }
 
-/* Charts and single components read better centred than left-aligned in a wide column. */
+/*
+ * Charts and single components read better centred than left-aligned in a wide column.
+ *
+ * `overflow: visible` overrides the `overflow-x: auto` on `.preview`, which was producing a
+ * scrollbar under every chart. A scroll container's scrollable area includes its
+ * descendants' overflow, and `.vk-chart__svg` is deliberately `overflow: visible` so an
+ * edge marker or the hover tooltip is not clipped - so the container found space to scroll
+ * even though nothing meaningful was out there. Charts are width-constrained and centred,
+ * so they have no need to scroll.
+ */
 .preview--center {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 /* The support card should not compete with the content above it. */
 .docs-shell__content > .support {
   margin-block-start: var(--vk-space-8);
+}
+
+/* --- accent picker -------------------------------------------------------------- */
+
+.accent-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-1);
+  padding: var(--vk-space-1);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-full);
+  background: var(--vk-color-surface-subtle);
+}
+
+.accent-picker__swatch {
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  border: 1px solid color-mix(in oklab, var(--vk-color-fg) 14%, transparent);
+  border-radius: var(--vk-radius-full);
+  background: var(--swatch);
+  cursor: pointer;
+  transition:
+    transform var(--vk-duration) var(--vk-ease-spring),
+    box-shadow var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  .accent-picker__swatch:hover {
+    transform: scale(1.15);
+  }
+}
+
+/*
+ * The selected swatch gets a ring in the page background, so the indicator reads on both
+ * themes without needing a second colour. Not `border`, which would change its size.
+ */
+.accent-picker__swatch[aria-checked="true"] {
+  box-shadow:
+    0 0 0 2px var(--vk-color-bg),
+    0 0 0 4px var(--swatch);
+}
+
+.accent-picker__swatch:focus-visible {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accent-picker__swatch {
+    transition: none;
+  }
+  .accent-picker__swatch:hover {
+    transform: none;
+  }
 }

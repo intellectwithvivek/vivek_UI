@@ -14613,6 +14613,13 @@
             "default": ""
           },
           {
+            "name": "interactiveLegend",
+            "type": "boolean",
+            "required": false,
+            "description": "Turn each legend entry into a checkbox that shows and hides its series, with a fade. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`. Off by default, because it makes the legend a set of controls - right for a dashboard, wrong for a figure in a report.",
+            "default": ""
+          },
+          {
             "name": "showPoints",
             "type": "boolean",
             "required": false,
@@ -14711,6 +14718,13 @@
             "type": "boolean",
             "required": false,
             "description": "",
+            "default": ""
+          },
+          {
+            "name": "interactiveLegend",
+            "type": "boolean",
+            "required": false,
+            "description": "Turn each legend entry into a checkbox that shows and hides its series, with a fade. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`. Off by default, because it makes the legend a set of controls - right for a dashboard, wrong for a figure in a report.",
             "default": ""
           },
           {
@@ -14822,6 +14836,13 @@
             "default": ""
           },
           {
+            "name": "interactiveLegend",
+            "type": "boolean",
+            "required": false,
+            "description": "Turn each legend entry into a checkbox that shows and hides its series, with a fade. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`. Off by default, because it makes the legend a set of controls - right for a dashboard, wrong for a figure in a report.",
+            "default": ""
+          },
+          {
             "name": "showPoints",
             "type": "boolean",
             "required": false,
@@ -14906,7 +14927,7 @@
             "name": "showLegend",
             "type": "boolean",
             "required": false,
-            "description": "",
+            "description": "Show the legend. Defaults to `true`. Note there is deliberately no `interactiveLegend` here, unlike LineChart, AreaChart and BarChart. A pie shows parts of a whole, and hiding one wedge would leave a gap while the rest kept their original angles - so the chart would no longer sum to 100% and would quietly misreport every remaining share. Re-proportioning needs the geometry recomputed, which CSS cannot do. Use a BarChart when series need to be toggled.",
             "default": ""
           },
           {

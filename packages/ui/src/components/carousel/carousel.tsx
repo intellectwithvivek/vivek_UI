@@ -136,6 +136,9 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(function Carou
 ) {
   const slides = Children.toArray(children)
   const total = slides.length
+  // `data-arrows` drives the track's arrow gutter in CSS. The arrows overlay the track, so
+  // it has to reserve room for them or they sit on top of the slide content - but only when
+  // arrows are actually shown, or a dots-only carousel carries dead margins on both edges.
   const needsControls = Boolean(showArrows || showDots || autoPlay)
 
   // Resolved here rather than passed as a callback: the controls are a Client Component,
@@ -154,6 +157,7 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(function Carou
       data-align={align}
       data-gap={gap}
       data-loop={loop || undefined}
+      data-arrows={showArrows ? '' : undefined}
       style={{ ...slidesVars(slidesPerView), ...style } as CSSProperties}
       {...rest}
     >

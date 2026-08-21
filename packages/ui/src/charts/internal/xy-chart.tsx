@@ -12,7 +12,7 @@ import { cx } from '../../utils/cx'
 import { resolveCartesian, stackSeries } from './cartesian'
 import type { HoverSlot } from './hover-layer'
 import { ChartHoverLayer } from './hover-layer'
-import { markerPath } from './palette'
+import { markerPath, SERIES_COUNT } from './palette'
 import {
   CartesianFrame,
   ChartCaption,
@@ -39,6 +39,13 @@ export interface XYChartProps {
   showGrid?: boolean
   showAxes?: boolean
   showLegend?: boolean
+  /**
+   * Make each legend entry a checkbox that shows and hides its series, with a fade.
+   *
+   * Off by default: it turns the legend into a set of controls, which is the right call for
+   * an exploratory dashboard and the wrong one for a figure in a report.
+   */
+  interactiveLegend?: boolean
   showPoints?: boolean
   curve?: 'linear' | 'smooth'
   stacked?: boolean
@@ -65,6 +72,7 @@ export function XYChart({
   showGrid = true,
   showAxes = true,
   showLegend,
+  interactiveLegend,
   showPoints,
   curve = 'linear',
   stacked = false,
@@ -190,8 +198,15 @@ export function XYChart({
         <ChartCaption title={title} description={description} />
         <CartesianFrame model={model} showGrid={showGrid} showAxes={showAxes} />
         {hasData ? null : <ChartEmpty model={model} />}
-        {layers.map((layer) => (
-          <g className="vk-chart__series" key={layer.key} data-series-name={layer.series.name}>
+        {layers.map((layer, seriesIndex) => (
+          <g
+            className="vk-chart__series"
+            key={layer.key}
+            data-series-name={layer.series.name}
+            // Palette slot, so the six static rules in charts.css can hide this group when
+            // its legend checkbox is cleared. Wraps with the palette, same as the colour.
+            data-series-index={(seriesIndex % SERIES_COUNT) + 1}
+          >
             {layer.fill ? (
               <path className="vk-chart__area" d={layer.fill} fill={layer.series.color} />
             ) : null}
@@ -228,6 +243,7 @@ export function XYChart({
           }))}
           swatch="line"
           redundant={showTable}
+          interactive={interactiveLegend}
         />
       ) : null}
       {showTable ? (

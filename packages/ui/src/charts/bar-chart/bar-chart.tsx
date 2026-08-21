@@ -3,6 +3,7 @@ import { cx } from '../../utils/cx'
 import { LABEL_SIZE, resolveCartesian, stackSeries } from '../internal/cartesian'
 import type { HoverSlot } from '../internal/hover-layer'
 import { ChartHoverLayer } from '../internal/hover-layer'
+import { SERIES_COUNT } from '../internal/palette'
 import {
   CartesianFrame,
   ChartCaption,
@@ -25,6 +26,14 @@ export interface BarChartProps extends ChartRootProps {
   showAxes?: boolean
   showLegend?: boolean
   /**
+   * Turn each legend entry into a checkbox that shows and hides its series, with a fade.
+   *
+   * No JavaScript and no client boundary: the entries are real checkboxes and the chart
+   * reacts with `:has()`. Off by default, because it makes the legend a set of controls -
+   * right for a dashboard, wrong for a figure in a report.
+   */
+  interactiveLegend?: boolean
+  /**
    * `grouped` puts a series side by side inside each category; `stacked` piles them,
    * with negatives stacking downward from zero.
    */
@@ -43,6 +52,8 @@ export interface BarChartProps extends ChartRootProps {
 
 interface Bar {
   key: string
+  /** Palette slot, 1-based. What the interactive-legend rules in charts.css target. */
+  seriesIndex: number
   x: number
   y: number
   width: number
@@ -70,6 +81,7 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(function BarCh
     showGrid = true,
     showAxes = true,
     showLegend,
+    interactiveLegend,
     mode = 'grouped',
     horizontal = false,
     barRadius = 3,
@@ -132,6 +144,7 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(function BarCh
         horizontal
           ? {
               key: `${si}:${category}`,
+              seriesIndex: (si % SERIES_COUNT) + 1,
               x: start,
               y: offset,
               width: length,
@@ -146,6 +159,7 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(function BarCh
             }
           : {
               key: `${si}:${category}`,
+              seriesIndex: (si % SERIES_COUNT) + 1,
               x: offset,
               y: start,
               width: barSize,
@@ -220,6 +234,7 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(function BarCh
               <rect
                 className="vk-bar-chart__bar"
                 key={bar.key}
+                data-series-index={bar.seriesIndex}
                 x={f(bar.x)}
                 y={f(bar.y)}
                 width={f(bar.width)}
@@ -260,6 +275,7 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(function BarCh
             color: s.color,
             dash: s.dash,
           }))}
+          interactive={interactiveLegend}
           swatch="box"
           redundant={showTable}
         />

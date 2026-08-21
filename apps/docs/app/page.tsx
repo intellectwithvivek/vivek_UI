@@ -13,6 +13,23 @@ import {
 } from '@the_viveksingh/vivek-ui'
 import Link from 'next/link'
 import { SupportCta } from '../components/support-cta'
+import { registry } from '../lib/registry'
+import { LIBRARY_VERSION } from '../lib/version'
+
+/*
+ * Facts about the library, derived rather than typed.
+ *
+ * The page previously claimed 44 server-safe components when the real number was 49, and
+ * 198 B for Button when size-limit reported 773 B. Both were true once. A landing page full
+ * of specific, checkable numbers is only an asset while the numbers are right - and these
+ * are the first thing an evaluating engineer verifies.
+ *
+ * The byte figures come from `pnpm --filter @the_viveksingh/vivek-ui size` and are asserted
+ * against the real budgets in `lib/landing-facts.test.ts`.
+ */
+const COMPONENT_COUNT = registry.components.length
+const CHART_COUNT = registry.charts.length
+const SERVER_SAFE = registry.components.filter((entry) => !entry.isClient).length
 
 /**
  * The landing page.
@@ -28,9 +45,9 @@ export default function HomePage() {
   return (
     <>
       <Hero
-        eyebrow="v0.2.2 · MIT"
+        eyebrow={`v${LIBRARY_VERSION} · MIT`}
         title="Every building block of a website. Zero dependencies."
-        description="83 accessible React components and 6 SVG charts. One install, one CSS import, no configuration. Works in React 18 and 19, and in Next.js with both routers."
+        description={`${COMPONENT_COUNT} accessible React components and ${CHART_COUNT} SVG charts. One install, one CSS import, no configuration. Works in React 18 and 19, and in Next.js with both routers.`}
         actions={
           <>
             <Button size="lg" asChild>
@@ -47,11 +64,11 @@ export default function HomePage() {
         title="Measured, not claimed"
         description="size-limit figures from the published build, minified and brotlied, React excluded."
         items={[
-          { id: 'btn', value: '198 B', label: 'One component', description: 'importing Button' },
+          { id: 'btn', value: '773 B', label: 'One component', description: 'importing Button' },
           {
             id: 'all',
-            value: '40.5 kB',
-            label: 'All 83 components',
+            value: '40.8 kB',
+            label: `All ${COMPONENT_COUNT} components`,
             description: 'if you import everything',
           },
           {
@@ -62,7 +79,7 @@ export default function HomePage() {
           },
           {
             id: 'rsc',
-            value: '44',
+            value: String(SERVER_SAFE),
             label: 'Server-safe components',
             description: 'no client boundary needed',
           },
@@ -83,8 +100,7 @@ export default function HomePage() {
           {
             id: 'rsc',
             title: 'Server-safe by default',
-            description:
-              '44 of 83 components carry no use-client directive. The build is unbundled per file so each one keeps its own, and CI proves it survives in both ESM and CJS.',
+            description: `${SERVER_SAFE} of ${COMPONENT_COUNT} components carry no use-client directive. The build is unbundled per file so each one keeps its own, and CI proves it survives in both ESM and CJS.`,
           },
           {
             id: 'css',
@@ -107,8 +123,7 @@ export default function HomePage() {
           {
             id: 'charts',
             title: 'Charts with no chart library',
-            description:
-              'Six chart types in pure SVG, 8.14 kB for all of them. Each renders a real table fallback, and never encodes a series by colour alone.',
+            description: `${CHART_COUNT} chart types in pure SVG, 8.14 kB for all of them. Each renders a real table fallback, and never encodes a series by colour alone.`,
           },
         ]}
       />
@@ -137,8 +152,8 @@ export default function HomePage() {
             price: '$0',
             description: 'Everything, for any use including commercial.',
             features: [
-              'All 83 components',
-              'All 6 charts',
+              `All ${COMPONENT_COUNT} components`,
+              `All ${CHART_COUNT} charts`,
               'Full TypeScript types',
               'Server Components support',
               'MIT licence',

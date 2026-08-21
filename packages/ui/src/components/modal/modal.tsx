@@ -64,3 +64,17 @@ export type {
   DialogSlotProps as ModalSlotProps,
   DialogTitleProps as ModalTitleProps,
 }
+
+/* Named part exports — see scripts/add-compound-exports.mjs.
+ *
+ * Modal is a client component, so a Server Component receives it as a client
+ * reference and `Modal.Part` reads `undefined` off that reference. These named
+ * exports are the server-usable form; the dot access still works in client components.
+ */
+const ModalHeader = parts.Header
+const ModalBody = parts.Body
+const ModalFooter = parts.Footer
+const ModalTitle = parts.Title
+const ModalCloseButton = parts.CloseButton
+
+export { ModalBody, ModalCloseButton, ModalFooter, ModalHeader, ModalTitle }

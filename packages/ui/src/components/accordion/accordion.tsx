@@ -313,3 +313,11 @@ export const Accordion = Object.assign(AccordionRoot, {
   Trigger: AccordionTrigger,
   Content: AccordionContent,
 })
+
+/* Named part exports — see scripts/add-compound-exports.mjs.
+ *
+ * Accordion is a client component, so a Server Component receives it as a client
+ * reference and `Accordion.Part` reads `undefined` off that reference. These named
+ * exports are the server-usable form; the dot access still works in client components.
+ */
+export { AccordionContent, AccordionItem, AccordionTrigger }

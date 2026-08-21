@@ -222,3 +222,11 @@ export const ChatThread = Object.assign(ChatThreadRoot, {
 })
 
 export type { ChatThreadEmptyProps }
+
+/* Named part exports — see scripts/add-compound-exports.mjs.
+ *
+ * ChatThread is a client component, so a Server Component receives it as a client
+ * reference and `ChatThread.Part` reads `undefined` off that reference. These named
+ * exports are the server-usable form; the dot access still works in client components.
+ */
+export { ChatThreadEmpty }

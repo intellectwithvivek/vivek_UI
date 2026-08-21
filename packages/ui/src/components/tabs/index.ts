@@ -1,12 +1,16 @@
 export {
   Tabs,
   type TabsActivationMode,
+  TabsList,
   type TabsListProps,
   type TabsOrientation,
+  TabsPanel,
   type TabsPanelProps,
+  TabsPanels,
   type TabsPanelsProps,
   type TabsProps,
   type TabsSize,
+  TabsTab,
   type TabsTabProps,
   type TabsVariant,
 } from './tabs'

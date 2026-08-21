@@ -1,0 +1,156 @@
+/*
+ * Button styles (ARCHITECTURE §3.2).
+ *
+ * Every selector is :where()-wrapped => specificity 0, so a consumer's plain
+ * `.my-button { background: red }` wins with no !important. Every value comes from
+ * a --vk-* token, so rebranding needs no new syntax.
+ */
+
+:where(.vk-button) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vk-space-2);
+  font-family: var(--vk-font-sans);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--vk-radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--vk-duration) var(--vk-ease),
+    border-color var(--vk-duration) var(--vk-ease),
+    color var(--vk-duration) var(--vk-ease),
+    opacity var(--vk-duration) var(--vk-ease);
+}
+
+/* variants */
+
+:where(.vk-button[data-variant="solid"]) {
+  background: var(--vk-color-primary);
+  color: var(--vk-color-primary-fg);
+}
+
+:where(.vk-button[data-variant="outline"]) {
+  background: transparent;
+  border-color: var(--vk-color-border);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-button[data-variant="ghost"]) {
+  background: transparent;
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-button[data-variant="link"]) {
+  height: auto;
+  padding: 0;
+  background: transparent;
+  color: var(--vk-color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  border-radius: var(--vk-radius-sm);
+}
+
+/* hover / active - guarded so they never fire on a disabled or loading button */
+
+@media (hover: hover) {
+  :where(.vk-button[data-variant="solid"]:hover:not(:disabled)) {
+    background: color-mix(in oklab, var(--vk-color-primary) 88%, black);
+  }
+
+  :where(.vk-button[data-variant="outline"]:hover:not(:disabled)) {
+    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    border-color: color-mix(in oklab, var(--vk-color-border) 70%, var(--vk-color-fg));
+  }
+
+  :where(.vk-button[data-variant="ghost"]:hover:not(:disabled)) {
+    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+  }
+
+  :where(.vk-button[data-variant="link"]:hover:not(:disabled)) {
+    color: color-mix(in oklab, var(--vk-color-primary) 80%, black);
+  }
+}
+
+:where(.vk-button:active:not(:disabled)) {
+  transform: translateY(0.5px);
+}
+
+/* sizes */
+
+:where(.vk-button[data-size="sm"]) {
+  height: 2rem;
+  padding-inline: var(--vk-space-3);
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-button[data-size="md"]) {
+  height: 2.5rem;
+  padding-inline: var(--vk-space-4);
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-button[data-size="lg"]) {
+  height: 3rem;
+  padding-inline: var(--vk-space-6);
+  font-size: var(--vk-text-lg);
+}
+
+/* the link variant is text, not a control: no fixed height or inline padding */
+:where(.vk-button[data-variant="link"][data-size="sm"]),
+:where(.vk-button[data-variant="link"][data-size="md"]),
+:where(.vk-button[data-variant="link"][data-size="lg"]) {
+  height: auto;
+  padding-inline: 0;
+}
+
+/* modifiers */
+
+:where(.vk-button[data-full-width]) {
+  width: 100%;
+}
+
+:where(.vk-button:disabled) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+:where(.vk-button[data-loading]) {
+  cursor: progress;
+}
+
+:where(.vk-button:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+/* spinner - border-based so it needs no SVG and inherits currentColor */
+
+:where(.vk-button__spinner) {
+  flex: none;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: var(--vk-radius-full);
+  animation: vk-button-spin 600ms linear infinite;
+}
+
+@keyframes vk-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-button__spinner) {
+    animation-duration: 1.6s;
+  }
+
+  :where(.vk-button:active:not(:disabled)) {
+    transform: none;
+  }
+}

@@ -1,0 +1,43 @@
+/*
+ * VivekUI minimal reset.
+ * Deliberately small: it normalizes the handful of defaults that make component
+ * styling unpredictable, and nothing else. Every selector is :where()-wrapped
+ * (specificity 0) so consumer CSS always wins without !important (ARCHITECTURE §3.2).
+ */
+
+:where(*, *::before, *::after) {
+  box-sizing: border-box;
+}
+
+:where(body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd) {
+  margin: 0;
+}
+
+:where(img, picture, video, canvas, svg) {
+  display: block;
+  max-width: 100%;
+}
+
+:where(input, button, textarea, select) {
+  font: inherit;
+  color: inherit;
+}
+
+:where(button) {
+  background: none;
+}
+
+:where(p, h1, h2, h3, h4, h5, h6) {
+  overflow-wrap: break-word;
+}
+
+:where(ul[role="list"], ol[role="list"]) {
+  list-style: none;
+  padding: 0;
+}
+
+/* A visible, consistent keyboard focus ring for anything the library renders. */
+:where(:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}

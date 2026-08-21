@@ -1,0 +1,57 @@
+/*
+ * VivekUI design tokens (ARCHITECTURE §3.2).
+ *
+ * These custom properties ARE the theming API. Renaming one is a MAJOR bump (§10.1).
+ * Rebranding is plain CSS the consumer already knows:
+ *
+ *   :root { --vk-color-primary: #0ea5e9; --vk-radius-md: 2px; }
+ */
+
+:root {
+  /* color */
+  --vk-color-primary: #4f46e5;
+  --vk-color-primary-fg: #ffffff;
+  --vk-color-bg: #ffffff;
+  --vk-color-fg: #111827;
+  --vk-color-muted: #6b7280;
+  --vk-color-border: #e5e7eb;
+  --vk-color-danger: #dc2626;
+
+  /* spacing - 4px scale */
+  --vk-space-1: 0.25rem;
+  --vk-space-2: 0.5rem;
+  --vk-space-3: 0.75rem;
+  --vk-space-4: 1rem;
+  --vk-space-6: 1.5rem;
+  --vk-space-8: 2rem;
+  --vk-space-12: 3rem;
+  --vk-space-16: 4rem;
+
+  /* typography */
+  --vk-font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --vk-text-sm: 0.875rem;
+  --vk-text-md: 1rem;
+  --vk-text-lg: 1.125rem;
+  --vk-text-xl: 1.5rem;
+  --vk-text-2xl: 2rem;
+  --vk-text-hero: clamp(2.25rem, 5vw, 3.75rem);
+
+  /* shape & elevation */
+  --vk-radius-sm: 6px;
+  --vk-radius-md: 10px;
+  --vk-radius-lg: 16px;
+  --vk-radius-full: 9999px;
+  --vk-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
+  --vk-shadow-md: 0 4px 12px rgb(0 0 0 / 0.08);
+
+  /* motion */
+  --vk-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --vk-duration: 180ms;
+}
+
+[data-theme="dark"] {
+  --vk-color-bg: #0b0f19;
+  --vk-color-fg: #f3f4f6;
+  --vk-color-border: #1f2937;
+  --vk-color-muted: #9ca3af;
+}

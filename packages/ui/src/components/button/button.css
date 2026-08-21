@@ -1,5 +1,5 @@
 /*
- * Button styles (ARCHITECTURE §3.2).
+ * Button styles.
  *
  * Every selector is :where()-wrapped => specificity 0, so a consumer's plain
  * `.my-button { background: red }` wins with no !important. Every value comes from

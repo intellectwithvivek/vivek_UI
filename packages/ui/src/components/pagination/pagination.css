@@ -1,7 +1,7 @@
 /*
  * Pagination — page-by-page navigation.
  *
- * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2). Sizing is
+ * Every selector is :where()-wrapped for zero specificity. Sizing is
  * driven by one local custom property per size so a page button, a step button and a gap
  * are all exactly the same box — the control keeps its width as you walk through it.
  */

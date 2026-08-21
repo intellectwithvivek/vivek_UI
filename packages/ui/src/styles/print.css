@@ -3,18 +3,18 @@
  *
  * Two jobs, both inside a single `@media print` block:
  *
- *   1. Make VivekUI tables print well by default — repeat the header on every page,
- *      never split a row across a page break, drop the scroll box and the screen-only
- *      chrome (search field, pagination, sort carets).
- *   2. Support `printElement()` from `utils/export.ts`: while it is running,
- *      `<html>` carries `data-vk-printing` and one element carries `data-vk-print-root`,
- *      and the rules at the bottom hide everything except that element's subtree. That
- *      is how "export to PDF" works here — the browser's own print-to-PDF, with no PDF
- *      encoder in the bundle.
+ * 1. Make VivekUI tables print well by default — repeat the header on every page,
+ * never split a row across a page break, drop the scroll box and the screen-only
+ * chrome (search field, pagination, sort carets).
+ * 2. Support `printElement()` from `utils/export.ts`: while it is running,
+ * `<html>` carries `data-vk-printing` and one element carries `data-vk-print-root`,
+ * and the rules at the bottom hide everything except that element's subtree. That
+ * is how "export to PDF" works here — the browser's own print-to-PDF, with no PDF
+ * encoder in the bundle.
  *
  * Not imported by `styles/entry.css`: printing is opt-in, and it must load AFTER
  * `styles.css` so that equal-specificity rules (everything here is `:where()`-wrapped
- * to specificity 0, per ARCHITECTURE §3.2) resolve in its favour.
+ * to specificity 0) resolve in its favour.
  *
  * Deliberately no `@page` rule: page margins are the document's business, not a
  * component library's, and `@page` cannot be scoped away once shipped.

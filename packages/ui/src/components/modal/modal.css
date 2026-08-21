@@ -2,17 +2,17 @@
  * Modal — a centred modal dialog.
  *
  * Every selector is wrapped in :where() for zero specificity, so consumer CSS always
- * wins (ARCHITECTURE §3.2).
+ * wins.
  *
  * Values come from --vk-* custom properties throughout. Four of them do not exist in
  * styles/tokens.css yet, so they are written as var(<token>, <fallback>): the fallback
  * keeps the component correct today, and the moment the token is added to :root the
  * component picks it up with no change here.
  *
- *   --vk-z-overlay          stacking level for portalled overlays   (fallback 1000)
- *   --vk-color-overlay      backdrop colour                        (fallback black 55%)
- *   --vk-modal-width-*      panel max-widths per data-size
- *   --vk-modal-enter-*      entry animation offset and scale
+ * --vk-z-overlay stacking level for portalled overlays (fallback 1000)
+ * --vk-color-overlay backdrop colour (fallback black 55%)
+ * --vk-modal-width-* panel max-widths per data-size
+ * --vk-modal-enter-* entry animation offset and scale
  */
 
 :where(.vk-modal) {

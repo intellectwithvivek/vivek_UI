@@ -23,7 +23,7 @@ import { cx } from './cx'
  * peer dependency on a router.
  *
  * Internal utility: deliberately NOT exported from `src/index.ts`, so it stays
- * refactorable (CLAUDE.md, Conventions).
+ * refactorable.
  */
 
 /** Anything a Slot can forward. A Slot is a pass-through, so the keys are open. */

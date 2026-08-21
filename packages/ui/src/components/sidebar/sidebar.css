@@ -1,12 +1,12 @@
 /*
  * Sidebar — the navigation rail of an app shell.
  *
- * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2) and every
+ * Every selector is :where()-wrapped for zero specificity and every
  * value is a --vk-* token, with `var(<token>, <fallback>)` for the two that are not yet in
  * styles/tokens.css so adding them to :root later Just Works:
  *
- *   --vk-sidebar-width            expanded width            (fallback 16rem)
- *   --vk-sidebar-width-collapsed  icons-only width          (fallback 3.5rem)
+ * --vk-sidebar-width expanded width (fallback 16rem)
+ * --vk-sidebar-width-collapsed icons-only width (fallback 3.5rem)
  *
  * `--vk-sidebar-width` is also what the `width` prop sets inline, so a consumer can drive
  * it from either side.

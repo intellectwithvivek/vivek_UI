@@ -1,7 +1,7 @@
 /**
  * Join class names, dropping anything falsy.
  *
- * This is why the library does not depend on `clsx` (ARCHITECTURE §4.2) — the five
+ * This is why the library does not depend on `clsx` — the five
  * lines below cover every case the component contract needs. Internal utility:
  * deliberately NOT exported from the package entry point, so it stays refactorable.
  */

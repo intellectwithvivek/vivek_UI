@@ -3,7 +3,7 @@ import { defineConfig } from 'tsup'
 export default defineConfig({
   // Glob every source file as its own entry. Combined with `bundle: false` this gives
   // per-file output that mirrors src/, which is what preserves each file's own
-  // 'use client' directive and maximizes tree-shaking (ARCHITECTURE §5, §8.2).
+  // 'use client' directive and maximizes tree-shaking.
   entry: ['src/**/*.ts', 'src/**/*.tsx', '!src/**/*.test.*', '!src/**/*.d.ts'],
   bundle: false,
   format: ['esm', 'cjs'],

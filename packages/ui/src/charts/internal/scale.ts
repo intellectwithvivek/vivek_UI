@@ -1,7 +1,7 @@
 /**
  * Chart maths. No dependencies, no DOM, no React - every helper here is a pure
  * function, which is what lets the charts render identically on the server and in the
- * browser without measuring anything (ARCHITECTURE §9).
+ * browser without measuring anything.
  *
  * The one rule that matters: **nothing in this file may return a non-finite number.**
  * Every coordinate a chart emits flows through `num()`, so a NaN or Infinity in the

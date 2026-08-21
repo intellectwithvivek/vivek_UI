@@ -2,13 +2,13 @@
 /**
  * Make per-file output resolvable by Node.
  *
- * tsup with `bundle: false` (ARCHITECTURE §8.2) transpiles each source file
+ * tsup with `bundle: false` transpiles each source file
  * independently, which is what preserves per-file 'use client' directives — but it
  * copies relative import specifiers through verbatim. That leaves two things Node
  * cannot resolve:
  *
- *   import { Button } from './components/button'   -> ERR_UNSUPPORTED_DIR_IMPORT
- *   require('../../utils/cx')                      -> looks for cx.js, we emit cx.cjs
+ * import { Button } from './components/button' -> ERR_UNSUPPORTED_DIR_IMPORT
+ * require('../../utils/cx') -> looks for cx.js, we emit cx.cjs
  *
  * Bundlers (Vite, webpack, Next) paper over both with their own resolution, so the
  * breakage only shows up for consumers using native Node ESM or plain require() —
@@ -80,7 +80,7 @@ for (const file of walk(DIST)) {
 
 if (unresolved.length > 0) {
   console.error('fix-dist-specifiers: could not resolve these relative specifiers:')
-  for (const line of unresolved) console.error(`  ${line}`)
+  for (const line of unresolved) console.error(` ${line}`)
   process.exit(1)
 }
 

@@ -16,4 +16,5 @@ pnpm --filter @the_viveksingh/vivek-ui build
 pnpm --filter playground dev
 ```
 
-See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) §11.
+Every component page will carry a live example, copyable code, a props table, theming notes and,
+for interactive components, its keyboard map and ARIA notes.

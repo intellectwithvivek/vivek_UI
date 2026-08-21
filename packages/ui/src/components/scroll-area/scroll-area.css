@@ -1,7 +1,7 @@
 /*
  * ScrollArea — a styled overflow container.
  *
- * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2) and every
+ * Every selector is :where()-wrapped for zero specificity and every
  * value is a --vk-* token. Two scrollbar APIs are set for every state: the standard
  * `scrollbar-width`/`scrollbar-color` pair (Firefox, Chrome 121+, Safari 18.2+) and the
  * `::-webkit-scrollbar` pseudo-elements for older WebKit. Browsers that honour the

@@ -1,5 +1,5 @@
 /**
- * `@the_viveksingh/vivek-ui/charts` (ARCHITECTURE §14, M8).
+ * `@the_viveksingh/vivek-ui/charts`.
  *
  * Six charts, zero runtime dependencies, pure inline SVG. No d3, no canvas, no
  * Recharts - the scale and path maths is in `internal/scale.ts`, about 300 lines of it.

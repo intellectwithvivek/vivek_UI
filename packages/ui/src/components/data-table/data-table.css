@@ -1,5 +1,5 @@
 /*
- * DataTable styles (ARCHITECTURE §3.2).
+ * DataTable styles.
  *
  * Every selector is :where()-wrapped => specificity 0. Every value is a --vk-* token.
  * The layout below is driven entirely by data-attributes the component already sets, and

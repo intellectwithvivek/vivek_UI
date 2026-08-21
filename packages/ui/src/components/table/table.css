@@ -1,5 +1,5 @@
 /*
- * Table styles (ARCHITECTURE §3.2).
+ * Table styles.
  *
  * Every selector is :where()-wrapped => specificity 0, so a consumer's own
  * `.my-table td { padding: 0 }` wins with no !important. Every dimension and colour

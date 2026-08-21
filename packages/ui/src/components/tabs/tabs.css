@@ -1,5 +1,5 @@
 /*
- * Tabs styles (ARCHITECTURE §3.2).
+ * Tabs styles.
  *
  * Every selector is :where()-wrapped => specificity 0, so a consumer's own
  * `.my-tab { color: red }` wins with no !important. Every value comes from a --vk-*

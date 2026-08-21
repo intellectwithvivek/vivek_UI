@@ -1,5 +1,5 @@
 /*
- * Popover styles (ARCHITECTURE §3.2).
+ * Popover styles.
  *
  * :where()-wrapped selectors, --vk-* values only. `position: fixed` matches the
  * viewport coordinate space that utils/position.ts resolves in - see tooltip.css.

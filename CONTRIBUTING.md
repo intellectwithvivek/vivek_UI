@@ -3,9 +3,9 @@
 Thanks for helping out. This document covers setup, the change flow, and the bar a component has to
 clear before it ships.
 
-The architecture is documented in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and the constraints
-that must never be violated are summarized in [CLAUDE.md](CLAUDE.md). Read both before proposing
-anything structural.
+Read [The hard rules](#the-hard-rules) below before proposing anything structural. They are not
+style preferences — they are the constraints the whole library is built on, and a change that
+breaks one will be sent back.
 
 ## Setup
 
@@ -126,8 +126,9 @@ it working for at least one minor.
 
 ## Scope and sequencing
 
-The roadmap (ARCHITECTURE.md §12) is ordered on purpose, and staying in order is what gets the full
-catalog shipped rather than abandoned at thirty half-finished components. If you want to build
+The [public roadmap](https://github.com/intellectwithvivek/vivek_UI/issues) is ordered on purpose,
+and staying in order is what gets the full catalog shipped rather than abandoned at thirty
+half-finished components. If you want to build
 something from a later milestone, open an issue first — enthusiasm is welcome, but a component that
 lands without its a11y utilities, docs, and tests costs more than it adds.
 

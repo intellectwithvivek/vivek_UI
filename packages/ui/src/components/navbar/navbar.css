@@ -1,12 +1,12 @@
 /*
  * Navbar — the site header.
  *
- * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2) and every
+ * Every selector is :where()-wrapped for zero specificity and every
  * value is a --vk-* token, with `var(<token>, <fallback>)` for the three that are not yet
  * in styles/tokens.css so adding them to :root later Just Works:
  *
- *   --vk-navbar-height-sm|-md|-lg   bar height per data-size
- *   --vk-navbar-z                   stacking level for the sticky bar and its sheet
+ * --vk-navbar-height-sm|-md|-lg bar height per data-size
+ * --vk-navbar-z stacking level for the sticky bar and its sheet
  *
  * Mobile first. The rules below the container query are the *narrow* layout — links as a
  * sheet, toggle visible — and the query re-lays them out as an inline row once the navbar

@@ -1,7 +1,7 @@
 /*
  * Breadcrumb — the trail of ancestors above the current page.
  *
- * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2) and every
+ * Every selector is :where()-wrapped for zero specificity and every
  * value is a --vk-* token. The trail wraps rather than overflowing, and on a narrow
  * container it collapses to "… / parent / current" using a container query — no props.
  */

@@ -430,7 +430,7 @@ describe('Tabs · component contract', () => {
   })
 
   it('renders on the server', () => {
-    // ARCHITECTURE §9: no window/document at module scope or during render. The tab-stop
+    // No window/document at module scope or during render. The tab-stop
     // healing lives in an effect, so a server render simply reflects the selection.
     const html = renderToString(<TabsFixture defaultValue="billing" />)
     expect(html).toContain('role="tablist"')

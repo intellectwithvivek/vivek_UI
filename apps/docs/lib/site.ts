@@ -6,7 +6,7 @@
  *
  * Override at build time:
  *
- *   NEXT_PUBLIC_SITE_URL=https://vivekui.vivekkumarsingh.in pnpm build
+ *   NEXT_PUBLIC_SITE_URL=https://ui.vivekkumarsingh.in pnpm build
  *
  * Set it in Vercel's environment variables for the production deployment. The fallback is
  * only there so a local build and `next build` in CI both produce absolute URLs.
@@ -14,7 +14,7 @@
 
 /** No trailing slash: every path is joined as `${SITE_URL}${path}`. */
 export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://vivekui.vivekkumarsingh.in'
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ui.vivekkumarsingh.in'
 ).replace(/\/$/, '')
 
 export const SITE_NAME = 'VivekUI'

@@ -3,23 +3,47 @@
 Drop your own files in this folder. **The filenames matter** — the site reads exactly these
 names, so a file named anything else is ignored silently.
 
-| File | Size | Used for |
-|---|---|---|
-| `favicon.ico` | 32×32 (16+32 multi-size ideal) | Browser tab, bookmarks. The only one older browsers reliably read. |
-| `icon.svg` | any (vector) | Modern browsers. Preferred when present — sharp at every size. |
-| `icon-192.png` | 192×192 | Android home screen, PWA install prompt. |
-| `icon-512.png` | 512×512 | Android splash screen. |
-| `apple-icon.png` | 180×180 | iOS home screen. **No transparency** — iOS composites it on black, so a transparent logo comes out unreadable. |
+These are exactly the names [realfavicongenerator.net](https://realfavicongenerator.net)
+produces, so its output drops in unrenamed. The second column lists alternatives that also
+work if you are generating them some other way.
+
+| File | Also accepted | Size | Used for |
+|---|---|---|---|
+| `favicon.ico` | — | 32×32 (16+32 multi-size ideal) | Browser tab, bookmarks. The only one older browsers reliably read. |
+| `favicon.svg` | `icon.svg` | vector | Modern browsers. **Preferred over the others when present**, so it must be a real vector — see the size limits below. |
+| `favicon-96x96.png` | `icon-96.png` | 96×96 | Higher-resolution tab icon. |
+| `web-app-manifest-192x192.png` | `icon-192.png` | 192×192 | Android home screen, install prompt. |
+| `web-app-manifest-512x512.png` | `icon-512.png` | 512×512 | Android splash screen. |
+| `apple-touch-icon.png` | `apple-icon.png` | 180×180 | iOS home screen. **No transparency** — iOS composites on black, so a transparent logo comes out unreadable. |
+
+## Size limits, and why they differ
+
+`lib/branding.test.ts` enforces these, because an oversized icon is invisible on the site and
+expensive for every visitor.
+
+| Fetched | Files | Limit each | Total |
+|---|---|---|---|
+| Every page load | `.ico`, `.svg`, `96x96` | 100 KB | 150 KB |
+| Only on install | `192`, `512`, `apple-touch` | 600 KB | — |
+
+The tight budget on the first group is not theoretical. The SVG originally added here was a
+1528×1592 PNG base64-embedded inside an `<svg>` wrapper: **4.8 MB, and no vector geometry at
+all**. Because browsers prefer an SVG when one is offered, that was the favicon being
+downloaded on every single page view. It was removed, and there is now a test that fails on
+an `<svg>` containing an embedded raster and no `<path>`.
+
+If you want a genuine vector icon, it has to be exported *as* vector from the design tool —
+"Save as SVG" on a bitmap just wraps the bitmap. Without one, the `.ico` and the PNGs cover
+every browser perfectly well.
 
 ## What is here already
 
-`icon.svg` is a **placeholder** — a plain "V" on the brand blue. Overwrite it with your own
-file of the same name and you are done; there is no code to change. Delete it and the site
-falls back to `app/icon.tsx`, which generates the same mark at build time, so the site is
-never iconless either way.
+A real icon set: `favicon.ico`, `favicon-96x96.png`, `apple-touch-icon.png` and the two
+manifest PNGs. Replace any of them by overwriting the file — there is no code to change.
 
 Detection is automatic: `lib/branding.ts` checks this folder at build time and links only the
-files that exist. Nothing to wire up, and no browser requesting an icon that is not there.
+files that exist. If you emptied the folder entirely the site would still have an icon, from
+`app/icon.tsx`, which generates one from the brand colour.
 
 ## Getting the files
 

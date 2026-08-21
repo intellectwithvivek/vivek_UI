@@ -6,7 +6,9 @@
     "dev": "next dev --port 3100",
     "build": "next build",
     "start": "next start --port 3100",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:all": "pnpm --filter @the_viveksingh/vivek-ui build && next build",
+    "dev:all": "pnpm --filter @the_viveksingh/vivek-ui build && next dev --port 3100"
   },
   "dependencies": {
     "@the_viveksingh/vivek-ui": "workspace:*",

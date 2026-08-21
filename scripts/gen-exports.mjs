@@ -109,7 +109,7 @@ const rank = (name) => {
   return index === -1 ? CSS_ORDER.length : index
 }
 const orderedCss = [...stylesheets].sort((a, b) => rank(a) - rank(b) || a.localeCompare(b))
-const cssLines = orderedCss.map((d) => `@import \"../components/${d}/${d}.css\";`)
+const cssLines = orderedCss.map((d) => `@import "../components/${d}/${d}.css";`)
 
 const entryExisting = readFileSync(ENTRY, 'utf8')
 const entryHead = entryExisting.split(CSS_MARKER)[0].trimEnd()

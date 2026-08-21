@@ -34,9 +34,9 @@ jobs:
       - name: Lint and format check
         run: pnpm exec biome ci .
 
-      # docs/ARCHITECTURE.md and CLAUDE.md are untracked working documents. A citation to
-      # them in a JSDoc comment survives into the published .d.ts files, so the package
-      # would leak internal structure to every consumer.
+      # A citation to an untracked working document inside a JSDoc comment survives into
+      # the published .d.ts files, so the package would leak internal structure to every
+      # consumer. See scripts/strip-internal-refs.mjs.
       - name: No references to internal documents
         run: node scripts/strip-internal-refs.mjs --check
 

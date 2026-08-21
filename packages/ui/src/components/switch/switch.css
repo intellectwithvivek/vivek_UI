@@ -1,0 +1,107 @@
+:where(.vk-switch) {
+  display: inline-flex;
+  align-items: start;
+  gap: var(--vk-space-3);
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+  cursor: pointer;
+}
+
+:where(.vk-switch[data-size="sm"]) {
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-switch[data-size="md"]) {
+  font-size: var(--vk-text-md);
+}
+
+/* Label first: reverse the visual order without touching the DOM order. */
+:where(.vk-switch[data-label-position="start"]) {
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+/* Visually hidden, but still focusable and still submitted with the form. */
+:where(.vk-switch__input) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:where(.vk-switch__track) {
+  position: relative;
+  flex: none;
+  display: block;
+  width: 2.25em;
+  height: 1.25em;
+  margin-top: 0.1em;
+  background: color-mix(in oklab, var(--vk-color-fg) 22%, transparent);
+  border-radius: var(--vk-radius-full);
+  transition: background-color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-switch__thumb) {
+  position: absolute;
+  inset-block-start: 0.15em;
+  inset-inline-start: 0.15em;
+  width: 0.95em;
+  height: 0.95em;
+  background: #fff;
+  border-radius: var(--vk-radius-full);
+  box-shadow: var(--vk-shadow-sm);
+  transition: transform var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-switch__input:checked) + :where(.vk-switch__track) {
+  background: var(--vk-color-primary);
+}
+
+/* Logical: translates the correct direction under RTL. */
+:where(.vk-switch__input:checked) + :where(.vk-switch__track) > :where(.vk-switch__thumb) {
+  transform: translateX(1em);
+}
+
+:where([dir="rtl"])
+  :where(.vk-switch__input:checked)
+  + :where(.vk-switch__track)
+  > :where(.vk-switch__thumb) {
+  transform: translateX(-1em);
+}
+
+:where(.vk-switch__input:focus-visible) + :where(.vk-switch__track) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+:where(.vk-switch:has(.vk-switch__input:disabled)) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+:where(.vk-switch__text) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+}
+
+:where(.vk-switch__label) {
+  line-height: 1.4;
+}
+
+:where(.vk-switch__description) {
+  color: var(--vk-color-muted);
+  font-size: 0.875em;
+  line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-switch__track),
+  :where(.vk-switch__thumb) {
+    transition: none;
+  }
+}

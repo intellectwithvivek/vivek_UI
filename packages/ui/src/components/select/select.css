@@ -1,0 +1,69 @@
+:where(.vk-select) {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+:where(.vk-select__control) {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  cursor: pointer;
+  transition:
+    border-color var(--vk-duration) var(--vk-ease),
+    box-shadow var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-select[data-size="sm"]) > :where(.vk-select__control) {
+  height: 2rem;
+  padding-inline: var(--vk-space-2) var(--vk-space-8);
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-select[data-size="md"]) > :where(.vk-select__control) {
+  height: 2.5rem;
+  padding-inline: var(--vk-space-3) var(--vk-space-8);
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-select[data-size="lg"]) > :where(.vk-select__control) {
+  height: 3rem;
+  padding-inline: var(--vk-space-4) var(--vk-space-8);
+  font-size: var(--vk-text-lg);
+}
+
+/* Chevron drawn in CSS: no SVG, no icon dependency. */
+:where(.vk-select__arrow) {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: var(--vk-space-3);
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: -0.35rem;
+  border-inline-end: 1.5px solid var(--vk-color-muted);
+  border-block-end: 1.5px solid var(--vk-color-muted);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+:where(.vk-select__control:focus-visible) {
+  outline: none;
+  border-color: var(--vk-color-primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-primary) 25%, transparent);
+}
+
+:where(.vk-select__control[data-invalid]) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-select__control:disabled) {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-bg));
+}

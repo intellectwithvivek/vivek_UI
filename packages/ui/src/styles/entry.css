@@ -1,0 +1,12 @@
+/*
+ * The single stylesheet consumers import:  import 'vivek-ui/styles.css'
+ *
+ * LightningCSS bundles this file into dist/styles.css at build time, which is why
+ * no component .tsx ever imports CSS (ARCHITECTURE §3.4). Every new component adds
+ * one @import line here.
+ */
+
+@import "./reset.css";
+@import "./tokens.css";
+
+@import "../components/button/button.css";

@@ -1,0 +1,251 @@
+/*
+ * FileUpload. The zone is a `<label>` so a click opens the picker with no JavaScript, and
+ * the input inside it is clipped rather than removed - it is still the control.
+ */
+
+:where(.vk-file-upload) {
+  --vk-file-upload-accent: var(--vk-color-primary);
+  --vk-file-upload-zone-bg: color-mix(in oklab, var(--vk-color-fg) 2%, var(--vk-color-bg));
+
+  container-type: inline-size;
+  container-name: vk-file-upload;
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-3);
+  width: 100%;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-file-upload__zone) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vk-space-2);
+  padding: var(--vk-space-6) var(--vk-space-4);
+  text-align: center;
+  background: var(--vk-file-upload-zone-bg);
+  border: 1px dashed var(--vk-color-border);
+  border-radius: var(--vk-radius-lg);
+  cursor: pointer;
+  transition:
+    border-color var(--vk-duration) var(--vk-ease),
+    background-color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-file-upload[data-size="sm"]) :where(.vk-file-upload__zone) {
+  padding: var(--vk-space-4) var(--vk-space-3);
+}
+
+:where(.vk-file-upload__zone:hover) {
+  border-color: color-mix(in oklab, var(--vk-file-upload-accent) 50%, var(--vk-color-border));
+}
+
+/*
+ * Visually hidden, never display:none. This input is the control: hiding it that way
+ * would take it out of the focus order and out of form submission, which is the classic
+ * dropzone bug.
+ */
+:where(.vk-file-upload__input) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The ring goes on the zone, since the input itself is a clipped pixel. */
+:where(.vk-file-upload__zone:has(.vk-file-upload__input:focus-visible)) {
+  outline: 2px solid var(--vk-file-upload-accent);
+  outline-offset: 2px;
+  border-color: var(--vk-file-upload-accent);
+}
+
+:where(.vk-file-upload[data-dragging]) :where(.vk-file-upload__zone) {
+  border-color: var(--vk-file-upload-accent);
+  border-style: solid;
+  background: color-mix(in oklab, var(--vk-file-upload-accent) 8%, var(--vk-color-bg));
+}
+
+:where(.vk-file-upload[data-invalid]) :where(.vk-file-upload__zone) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-file-upload[data-disabled]) {
+  opacity: 0.55;
+}
+
+:where(.vk-file-upload[data-disabled]) :where(.vk-file-upload__zone) {
+  cursor: not-allowed;
+}
+
+/* An upward arrow into a tray, from borders alone. */
+:where(.vk-file-upload__icon) {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-file-upload__icon)::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-inline-start: 2px solid currentcolor;
+  border-block-start: 2px solid currentcolor;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+:where(.vk-file-upload__icon)::after {
+  content: "";
+  position: absolute;
+  inset-inline: 15%;
+  inset-block-end: 0.1rem;
+  height: 0.5rem;
+  border: 2px solid currentcolor;
+  border-block-start: 0;
+  border-radius: 0 0 var(--vk-radius-sm) var(--vk-radius-sm);
+}
+
+:where(.vk-file-upload__label) {
+  font-weight: 500;
+}
+
+:where(.vk-file-upload__hint) {
+  font-size: 0.875em;
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-file-upload__files) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * Stacked by default; one row once there is width for it. A container query rather than a
+ * viewport one, because these rows live in modals and sidebars as often as in page bodies,
+ * and the viewport says nothing about how wide those are.
+ */
+:where(.vk-file-upload__file) {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "name remove"
+    "meta remove";
+  align-items: center;
+  gap: 0 var(--vk-space-2);
+  padding: var(--vk-space-2) var(--vk-space-3);
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-bg));
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+}
+
+@container vk-file-upload (min-width: 26rem) {
+  :where(.vk-file-upload__file) {
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas: "name meta remove";
+    gap: var(--vk-space-3);
+  }
+}
+
+:where(.vk-file-upload__name) {
+  grid-area: name;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+:where(.vk-file-upload__meta) {
+  grid-area: meta;
+  font-size: 0.875em;
+  color: var(--vk-color-muted);
+  white-space: nowrap;
+}
+
+:where(.vk-file-upload__remove) {
+  grid-area: remove;
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--vk-color-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+}
+
+:where(.vk-file-upload__remove:hover:not(:disabled)) {
+  color: var(--vk-color-danger);
+  background: color-mix(in oklab, var(--vk-color-danger) 10%, transparent);
+}
+
+:where(.vk-file-upload__remove:focus-visible) {
+  outline: 2px solid var(--vk-file-upload-accent);
+  outline-offset: 1px;
+}
+
+:where(.vk-file-upload__cross) {
+  position: relative;
+  width: 0.8em;
+  height: 0.8em;
+}
+
+:where(.vk-file-upload__cross)::before,
+:where(.vk-file-upload__cross)::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 10%;
+  width: 80%;
+  height: 1.5px;
+  background: currentcolor;
+}
+
+:where(.vk-file-upload__cross)::before {
+  transform: rotate(45deg);
+}
+:where(.vk-file-upload__cross)::after {
+  transform: rotate(-45deg);
+}
+
+:where(.vk-file-upload__rejections) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875em;
+  color: var(--vk-color-danger);
+}
+
+/* Visually hidden, never display:none - a hidden live region is never announced. */
+:where(.vk-file-upload__sr) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-file-upload__zone) {
+    transition: none;
+  }
+}

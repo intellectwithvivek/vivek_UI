@@ -1,0 +1,91 @@
+/*
+ * Three dots. The only animated thing in the chat family, so the reduced-motion
+ * fallback at the bottom of this file is the whole point of it.
+ */
+:where(.vk-typing-indicator) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-muted);
+}
+
+/* Inactive: the live region stays in the a11y tree but takes no space. */
+:where(.vk-typing-indicator[data-active="false"]) {
+  display: block;
+  block-size: 0;
+  overflow: hidden;
+}
+
+:where(.vk-typing-indicator__dots) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-1);
+  padding: var(--vk-space-2) var(--vk-space-3);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-full);
+  background: color-mix(in oklab, var(--vk-color-fg) 5%, var(--vk-color-bg));
+}
+
+:where(.vk-typing-indicator__dot) {
+  --vk-typing-dot-size: 0.5rem;
+  inline-size: var(--vk-typing-dot-size);
+  block-size: var(--vk-typing-dot-size);
+  border-radius: var(--vk-radius-full);
+  background: currentColor;
+  animation: vk-typing-bounce 1.2s var(--vk-ease) infinite;
+  animation-delay: calc(var(--vk-typing-index, 0) * 160ms);
+}
+
+:where(.vk-typing-indicator[data-size="sm"]) > :where(.vk-typing-indicator__dots) {
+  padding: var(--vk-space-1) var(--vk-space-2);
+}
+
+:where(.vk-typing-indicator[data-size="sm"]) :where(.vk-typing-indicator__dot) {
+  --vk-typing-dot-size: 0.375rem;
+}
+
+/* Visible to assistive tech, invisible on screen - unless asked for. */
+:where(.vk-typing-indicator__label) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+:where(.vk-typing-indicator[data-show-label]) > :where(.vk-typing-indicator__label) {
+  position: static;
+  inline-size: auto;
+  block-size: auto;
+  margin: 0;
+  overflow: visible;
+  clip-path: none;
+  font-size: var(--vk-text-sm);
+}
+
+@keyframes vk-typing-bounce {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-25%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-typing-indicator__dot) {
+    animation: none;
+    transform: none;
+    /* A static stepped ramp still reads as "working", with nothing moving. */
+    opacity: calc(0.4 + var(--vk-typing-index, 0) * 0.25);
+  }
+}

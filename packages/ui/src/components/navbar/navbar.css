@@ -1,0 +1,273 @@
+/*
+ * Navbar — the site header.
+ *
+ * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2) and every
+ * value is a --vk-* token, with `var(<token>, <fallback>)` for the three that are not yet
+ * in styles/tokens.css so adding them to :root later Just Works:
+ *
+ *   --vk-navbar-height-sm|-md|-lg   bar height per data-size
+ *   --vk-navbar-z                   stacking level for the sticky bar and its sheet
+ *
+ * Mobile first. The rules below the container query are the *narrow* layout — links as a
+ * sheet, toggle visible — and the query re-lays them out as an inline row once the navbar
+ * itself is at least 48rem wide. That number is duplicated in `navbar.tsx` as
+ * COLLAPSE_REM; a container query condition cannot read a custom property, so the two are
+ * kept in step by hand.
+ */
+
+:where(.vk-navbar) {
+  --vk-navbar-height: var(--vk-navbar-height-md, 3.5rem);
+  position: relative;
+  display: block;
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-md);
+  /* Named inline-size container: the bar lays itself out against its OWN width, so a
+     Navbar dropped inside an app shell next to a sidebar collapses at the right moment
+     rather than at the viewport's. */
+  container: vk-navbar / inline-size;
+}
+
+:where(.vk-navbar[data-size="sm"]) {
+  --vk-navbar-height: var(--vk-navbar-height-sm, 3rem);
+  font-size: var(--vk-text-sm);
+}
+:where(.vk-navbar[data-size="md"]) {
+  --vk-navbar-height: var(--vk-navbar-height-md, 3.5rem);
+}
+:where(.vk-navbar[data-size="lg"]) {
+  --vk-navbar-height: var(--vk-navbar-height-lg, 4.5rem);
+}
+
+:where(.vk-navbar[data-bordered]) {
+  border-block-end: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-navbar[data-sticky]) {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--vk-navbar-z, 100);
+  /* Translucent only where the browser can actually blur behind it; otherwise the solid
+     --vk-color-bg above stands. */
+  background: color-mix(in oklab, var(--vk-color-bg) 88%, transparent);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  :where(.vk-navbar[data-sticky]) {
+    backdrop-filter: saturate(1.4) blur(8px);
+  }
+}
+
+:where(.vk-navbar__inner) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-4);
+  min-block-size: var(--vk-navbar-height);
+}
+
+/* --- brand -------------------------------------------------------- */
+
+:where(.vk-navbar__brand) {
+  display: inline-flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: var(--vk-space-2);
+  min-width: 0;
+  /* Nothing shrinks the brand away before the links have collapsed. */
+  margin-inline-end: auto;
+  font-size: var(--vk-text-lg);
+  font-weight: 650;
+  line-height: 1.2;
+  color: var(--vk-color-fg);
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--vk-radius-sm);
+}
+
+:where(.vk-navbar__brand > svg),
+:where(.vk-navbar__brand > img) {
+  block-size: 1.5em;
+  inline-size: auto;
+}
+
+/* --- links -------------------------------------------------------- */
+
+/*
+ * Narrow: a full-width sheet dropping out of the bottom edge of the bar. `display: none`
+ * while closed is deliberate — an off-screen-but-focusable menu is the single most common
+ * mobile-nav accessibility bug, and this way its links are genuinely not tab stops.
+ */
+:where(.vk-navbar__links) {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  z-index: var(--vk-navbar-z, 100);
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--vk-space-1);
+  margin: 0;
+  padding: var(--vk-space-3) var(--vk-space-4);
+  list-style: none;
+  background: var(--vk-color-bg);
+  border-block-end: 1px solid var(--vk-color-border);
+  box-shadow: var(--vk-shadow-md);
+  /* A long menu scrolls rather than running off the bottom of a phone. */
+  max-block-size: calc(100dvh - var(--vk-navbar-height));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+:where(.vk-navbar__links[data-state="open"]) {
+  display: flex;
+  animation: vk-navbar-sheet-in var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-navbar__item) {
+  display: flex;
+  min-width: 0;
+}
+
+:where(.vk-navbar__link) {
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--vk-space-2);
+  min-width: 0;
+  padding: var(--vk-space-2) var(--vk-space-3);
+  font-size: var(--vk-text-md);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--vk-color-muted);
+  text-decoration: none;
+  border-radius: var(--vk-radius-sm);
+  transition:
+    background var(--vk-duration) var(--vk-ease),
+    color var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-navbar__link:hover) {
+    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    color: var(--vk-color-fg);
+  }
+}
+
+:where(.vk-navbar__link[data-active]) {
+  color: var(--vk-color-fg);
+  background: color-mix(in oklab, var(--vk-color-primary) 12%, transparent);
+}
+
+:where(.vk-navbar__link-icon) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+:where(.vk-navbar__link-icon > svg) {
+  inline-size: 1.15em;
+  block-size: 1.15em;
+}
+
+/* --- actions and toggle ------------------------------------------- */
+
+:where(.vk-navbar__actions) {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-navbar__toggle) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--vk-space-8);
+  block-size: var(--vk-space-8);
+  padding: 0;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--vk-radius-sm);
+  color: var(--vk-color-fg);
+  cursor: pointer;
+  transition: background var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-navbar__toggle:hover) {
+    background: color-mix(in oklab, var(--vk-color-fg) 7%, transparent);
+  }
+}
+
+:where(.vk-navbar__toggle-icon) {
+  inline-size: var(--vk-space-6);
+  block-size: var(--vk-space-6);
+}
+
+/* --- wide: one inline row ----------------------------------------- */
+
+/*
+ * The whole responsive story, in one query and no props. Source order does the work:
+ * these rules and the narrow ones above are both zero-specificity `:where()`, so the
+ * later block wins whenever the query matches — including over `[data-state="open"]`,
+ * which is exactly what turns a sheet that was open on a phone back into an ordinary row
+ * on a tablet.
+ */
+@container vk-navbar (min-width: 48rem) {
+  /* Narrow, the links are out of flow, so the brand's auto margin is what pushes the
+     actions and the toggle to the far end. Wide, the links are back in flow and take
+     that job over by growing — two auto margins would split the free space between them
+     and leave the links floating in the middle of the bar. Guarded by `:has()`, so a
+     navbar with a brand and actions but no links still pushes the actions to the end. */
+  :where(.vk-navbar__inner:has(.vk-navbar__links)) :where(.vk-navbar__brand) {
+    margin-inline-end: 0;
+  }
+
+  :where(.vk-navbar__links) {
+    position: static;
+    z-index: auto;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--vk-space-1);
+    margin: 0;
+    padding: 0;
+    max-block-size: none;
+    overflow: visible;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    animation: none;
+  }
+
+  :where(.vk-navbar__link) {
+    flex: 0 0 auto;
+    font-size: var(--vk-text-sm);
+  }
+
+  /* Never a tab stop on a wide navbar. */
+  :where(.vk-navbar__toggle) {
+    display: none;
+  }
+}
+
+@keyframes vk-navbar-sheet-in {
+  from {
+    opacity: 0;
+    translate: 0 -0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-navbar__links[data-state="open"]) {
+    animation: none;
+  }
+  :where(.vk-navbar__link),
+  :where(.vk-navbar__toggle) {
+    transition: none;
+  }
+}

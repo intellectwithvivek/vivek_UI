@@ -18,7 +18,12 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(function Skele
 ) {
   const dimensions = { width, height, ...style } as CSSProperties
 
-  if (variant === 'text' && lines > 1) {
+  // Clamp before it reaches Array.from: a non-finite or absurd `lines` (a count that
+  // came from an API, say) would otherwise throw a RangeError out of render or hang the
+  // main thread. 100 placeholder lines is already far past useful.
+  const lineCount = Number.isFinite(lines) ? Math.min(Math.max(1, Math.trunc(lines)), 100) : 1
+
+  if (variant === 'text' && lineCount > 1) {
     return (
       <div
         ref={ref}
@@ -27,7 +32,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(function Skele
         style={style}
         {...rest}
       >
-        {Array.from({ length: lines }, (_, index) => (
+        {Array.from({ length: lineCount }, (_, index) => (
           <div
             // biome-ignore lint/suspicious/noArrayIndexKey: placeholders have no identity
             key={index}

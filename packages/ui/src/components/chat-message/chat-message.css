@@ -1,0 +1,196 @@
+/*
+ * One conversation turn.
+ *
+ * The root is its own inline-size container, so a message laid out in a 320px sidebar
+ * behaves like one on a phone with no props and no JavaScript. Containment is safe
+ * here because the root is a full-width flex row - the `fit-content` bubble lives on
+ * a descendant, which containment does not touch.
+ */
+:where(.vk-chat-message) {
+  display: flex;
+  gap: var(--vk-space-2);
+  align-items: flex-start;
+  min-width: 0;
+  padding-block: var(--vk-space-2);
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+  container: vk-chat-message / inline-size;
+}
+
+/* Programmatic focus only (tabindex="-1"): show it, but do not draw a box on click. */
+:where(.vk-chat-message:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+  border-radius: var(--vk-radius-md);
+}
+
+:where(.vk-chat-message[data-role="user"]) {
+  flex-direction: row-reverse;
+}
+
+:where(.vk-chat-message__avatar) {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+}
+
+:where(.vk-chat-message__main) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  min-width: 0;
+  align-items: flex-start;
+}
+
+:where(.vk-chat-message[data-role="user"]) > :where(.vk-chat-message__main) {
+  align-items: flex-end;
+}
+
+:where(.vk-chat-message__meta) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vk-space-2);
+  align-items: baseline;
+  font-size: var(--vk-text-sm);
+  line-height: 1.2;
+}
+
+:where(.vk-chat-message__name) {
+  font-weight: 600;
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-chat-message__time) {
+  color: var(--vk-color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The bubble. `fit-content` so a two-word reply is not a full-width slab. */
+:where(.vk-chat-message__content) {
+  min-width: 0;
+  max-width: 100%;
+  width: fit-content;
+  font-size: var(--vk-text-md);
+  line-height: 1.6;
+  /* Model output contains URLs and identifiers with no break opportunities. */
+  overflow-wrap: anywhere;
+}
+
+:where(.vk-chat-message[data-variant="bubble"])
+  > :where(.vk-chat-message__main)
+  > :where(.vk-chat-message__content) {
+  padding: var(--vk-space-2) var(--vk-space-3);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-lg);
+  background: color-mix(in oklab, var(--vk-color-fg) 5%, var(--vk-color-bg));
+}
+
+:where(.vk-chat-message[data-variant="bubble"][data-role="user"])
+  > :where(.vk-chat-message__main)
+  > :where(.vk-chat-message__content) {
+  background: var(--vk-color-primary);
+  border-color: var(--vk-color-primary);
+  /* Re-point the palette so nested Text/Code/links stay legible on the fill. */
+  --vk-color-fg: var(--vk-color-primary-fg);
+  --vk-color-muted: color-mix(in oklab, var(--vk-color-primary-fg) 78%, var(--vk-color-primary));
+  --vk-color-border: color-mix(in oklab, var(--vk-color-primary-fg) 28%, transparent);
+  color: var(--vk-color-primary-fg);
+}
+
+:where(.vk-chat-message[data-variant="flat"])
+  > :where(.vk-chat-message__main)
+  > :where(.vk-chat-message__content) {
+  padding: 0;
+}
+
+/* A system turn is an aside, not a participant: centred, quiet, full width. */
+:where(.vk-chat-message[data-role="system"]) {
+  justify-content: center;
+}
+
+:where(.vk-chat-message[data-role="system"]) > :where(.vk-chat-message__main) {
+  align-items: center;
+  text-align: center;
+}
+
+:where(.vk-chat-message[data-role="system"])
+  > :where(.vk-chat-message__main)
+  > :where(.vk-chat-message__content) {
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+  background: none;
+  border-style: dashed;
+}
+
+:where(.vk-chat-message[data-role="system"])
+  > :where(.vk-chat-message__main)
+  > :where(.vk-chat-message__meta) {
+  display: none;
+}
+
+:where(.vk-chat-message[data-status="sending"]) {
+  opacity: 0.72;
+}
+
+:where(.vk-chat-message__status) {
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-chat-message[data-status="error"])
+  > :where(.vk-chat-message__main)
+  > :where(.vk-chat-message__status) {
+  color: var(--vk-color-danger);
+  font-weight: 600;
+}
+
+:where(.vk-chat-message[data-status="error"])
+  > :where(.vk-chat-message__main)
+  > :where(.vk-chat-message__content) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-chat-message__actions) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vk-space-1);
+  align-items: center;
+  /* Present but recessed until the turn is hovered or something inside it is focused,
+     so a long transcript is not a wall of buttons. Always reachable by keyboard. */
+  opacity: 0.55;
+  transition: opacity var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-chat-message:hover) > :where(.vk-chat-message__main) > :where(.vk-chat-message__actions),
+:where(.vk-chat-message:focus-within)
+  > :where(.vk-chat-message__main)
+  > :where(.vk-chat-message__actions) {
+  opacity: 1;
+}
+
+/* Roomier once the turn itself has space - its own width, never the viewport's. */
+@container vk-chat-message (min-width: 30rem) {
+  :where(.vk-chat-message) {
+    gap: var(--vk-space-3);
+    padding-block: var(--vk-space-3);
+  }
+
+  :where(.vk-chat-message__content) {
+    max-width: 46rem;
+  }
+
+  :where(.vk-chat-message[data-variant="bubble"])
+    > :where(.vk-chat-message__main)
+    > :where(.vk-chat-message__content) {
+    padding: var(--vk-space-3) var(--vk-space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-chat-message__actions) {
+    transition: none;
+    opacity: 1;
+  }
+}

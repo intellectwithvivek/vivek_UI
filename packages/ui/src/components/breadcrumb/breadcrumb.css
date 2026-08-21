@@ -1,0 +1,123 @@
+/*
+ * Breadcrumb — the trail of ancestors above the current page.
+ *
+ * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2) and every
+ * value is a --vk-* token. The trail wraps rather than overflowing, and on a narrow
+ * container it collapses to "… / parent / current" using a container query — no props.
+ */
+
+:where(.vk-breadcrumb) {
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-muted);
+  container: vk-breadcrumb / inline-size;
+}
+
+:where(.vk-breadcrumb[data-size="sm"]) {
+  font-size: var(--vk-text-sm);
+}
+:where(.vk-breadcrumb[data-size="md"]) {
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-breadcrumb__list) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vk-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.vk-breadcrumb__item) {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+:where(.vk-breadcrumb__link),
+:where(.vk-breadcrumb__page) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-1);
+  min-width: 0;
+  padding-inline: var(--vk-space-1);
+  border-radius: var(--vk-radius-sm);
+  /* One line, elided, so a long title can never push the current page off-screen. */
+  max-width: 18ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.vk-breadcrumb__link) {
+  color: var(--vk-color-muted);
+  text-decoration: none;
+  transition: color var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-breadcrumb__link:hover) {
+    color: var(--vk-color-fg);
+    text-decoration: underline;
+  }
+}
+
+:where(.vk-breadcrumb__page) {
+  color: var(--vk-color-fg);
+  font-weight: 500;
+  /* The end of the trail is the one label worth room for. */
+  max-width: 28ch;
+}
+
+/* A hop with neither href nor asChild: present in the trail but not navigable. */
+:where(.vk-breadcrumb__page--plain) {
+  color: var(--vk-color-muted);
+  font-weight: inherit;
+}
+
+:where(.vk-breadcrumb__icon) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+:where(.vk-breadcrumb__icon > svg),
+:where(.vk-breadcrumb__chevron) {
+  width: 1em;
+  height: 1em;
+}
+
+:where(.vk-breadcrumb__separator) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  color: var(--vk-color-border);
+  user-select: none;
+}
+
+/*
+ * Narrow container: tighten the rhythm and shorten the elided labels so a deep trail
+ * wraps to two tidy lines instead of one ragged four-line block. The trail is never
+ * truncated in the DOM — `display: none` would take those hops out of the accessibility
+ * tree as well as off the screen, and a hop you cannot reach is worse than a wrap.
+ */
+@container vk-breadcrumb (max-width: 24rem) {
+  :where(.vk-breadcrumb__list) {
+    gap: var(--vk-space-1);
+  }
+
+  :where(.vk-breadcrumb__link) {
+    max-width: 10ch;
+  }
+
+  :where(.vk-breadcrumb__page) {
+    max-width: 16ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-breadcrumb__link) {
+    transition: none;
+  }
+}

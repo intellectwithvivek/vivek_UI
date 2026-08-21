@@ -7,6 +7,12 @@ import { type HeadingLevel, landmarkName, Section, type SectionProps } from '../
 import { Text } from '../text'
 
 export interface Testimonial {
+  /**
+   * Stable React key. Supply it whenever the data is dynamic: the fallback key is a
+   * content field, which collides when two items share it (two reviews by the same
+   * author, two stats with the same label) and makes React mis-attach state on reorder.
+   */
+  id?: string | number
   quote: ReactNode
   author: string
   role?: string
@@ -80,7 +86,7 @@ export const Testimonials = forwardRef<HTMLElement, TestimonialsProps>(function 
               className="vk-testimonials__list"
             >
               {items.map((item) => (
-                <li className="vk-testimonials__item" key={item.author}>
+                <li className="vk-testimonials__item" key={item.id ?? item.author}>
                   <Card variant="outline" padding="lg" className="vk-testimonials__card">
                     <figure className="vk-testimonials__figure">
                       <blockquote className="vk-testimonials__quote">{item.quote}</blockquote>

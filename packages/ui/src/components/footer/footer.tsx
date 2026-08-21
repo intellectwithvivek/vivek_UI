@@ -1,5 +1,6 @@
 import { forwardRef, type ReactNode } from 'react'
 import { cx } from '../../utils/cx'
+import { safeHref, safeRel } from '../../utils/safe-href'
 import { Divider } from '../divider'
 import { Heading } from '../heading'
 import { type HeadingLevel, Section, type SectionProps } from '../section/section'
@@ -8,6 +9,9 @@ import { Text } from '../text'
 export interface FooterLink {
   label: string
   href: string
+  /** Opens in a new tab. `rel` gains `noopener noreferrer` automatically. */
+  target?: '_self' | '_blank'
+  rel?: string
 }
 
 export interface FooterColumn {
@@ -89,7 +93,18 @@ export const Footer = forwardRef<HTMLElement, FooterProps>(function Footer(
                     >
                       {column.links.map((link) => (
                         <li key={link.href}>
-                          <a className="vk-footer__link" href={link.href}>
+                          {/*
+                            Footer links routinely come from a CMS or an API, so the href
+                            is not fully consumer-controlled. An unsafe scheme is dropped
+                            rather than rendered: React 18 happily emits a javascript:
+                            href, and ^18 is in our peer range.
+                          */}
+                          <a
+                            className="vk-footer__link"
+                            href={safeHref(link.href)}
+                            rel={safeRel(link.target, link.rel)}
+                            target={link.target}
+                          >
                             {link.label}
                           </a>
                         </li>

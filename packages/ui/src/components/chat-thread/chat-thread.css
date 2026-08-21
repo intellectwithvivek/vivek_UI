@@ -1,0 +1,65 @@
+/*
+ * The scrolling transcript.
+ *
+ * Named container so a whole chat panel - thread, input, everything nested - adapts to
+ * the panel's own width. A thread in a 320px sidebar and a thread on a phone get the
+ * same layout, with no props and no media queries.
+ */
+:where(.vk-chat-thread) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  min-width: 0;
+  /* Fills whatever height it is given; a bare thread falls back to something usable. */
+  block-size: 100%;
+  max-block-size: 100%;
+  min-block-size: 0;
+  padding: var(--vk-space-3);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  container: vk-chat / inline-size;
+}
+
+:where(.vk-chat-thread__log) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  min-width: 0;
+  /*
+   * Anchors a short transcript to the bottom of the panel. An `auto` margin rather
+   * than `justify-content: flex-end`, which makes overflowing content at the top
+   * unreachable in several browsers - the classic "cannot scroll up" chat bug.
+   *
+   * A live region must never be display:none or clipped away, only ever empty.
+   */
+  margin-block-start: auto;
+}
+
+:where(.vk-chat-thread__empty) {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--vk-space-2);
+  align-items: center;
+  justify-content: center;
+  padding: var(--vk-space-8) var(--vk-space-4);
+  text-align: center;
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-chat-thread__status) {
+  display: flex;
+  flex: none;
+  padding: var(--vk-space-1) 0 var(--vk-space-2);
+}
+
+@container vk-chat (min-width: 40rem) {
+  :where(.vk-chat-thread) {
+    gap: var(--vk-space-2);
+    padding: var(--vk-space-4) var(--vk-space-6);
+  }
+}

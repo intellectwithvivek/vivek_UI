@@ -1,0 +1,89 @@
+/*
+ * A fenced block with a header. Everything visual is `Code` plus a header strip; this
+ * file only owns the strip, the header/body seam, and the wrap toggle.
+ */
+:where(.vk-chat-code-block) {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin-block: var(--vk-space-3);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  overflow: hidden;
+  font-family: var(--vk-font-sans);
+  background: var(--vk-color-bg);
+  container: vk-chat-code / inline-size;
+}
+
+:where(.vk-chat-code-block__header) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vk-space-2);
+  align-items: center;
+  padding: var(--vk-space-1) var(--vk-space-2);
+  border-block-end: 1px solid var(--vk-color-border);
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-bg));
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-chat-code-block__filename) {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-chat-code-block__language) {
+  padding: 0 var(--vk-space-2);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-full);
+  color: var(--vk-color-muted);
+  text-transform: lowercase;
+}
+
+/* Pushed to the end of the strip whatever else is in there. */
+:where(.vk-chat-code-block__copy) {
+  margin-inline-start: auto;
+}
+
+/* Square off the seam: the block's own border and radius do the framing. */
+:where(.vk-chat-code-block__code) {
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+:where(.vk-chat-code-block[data-wrap]) :where(.vk-chat-code-block__code),
+:where(.vk-chat-code-block[data-wrap]) :where(.vk-chat-code-block__code) > :where(code) {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+/* The scrollable region is focusable, so it needs a visible focus ring. */
+:where(.vk-chat-code-block__code:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: -2px;
+}
+
+/* Visible to assistive tech, invisible on screen. */
+:where(.vk-chat-code-block__announce) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Narrow: the copy button drops to its glyph so the filename keeps the room. */
+@container vk-chat-code (max-width: 20rem) {
+  :where(.vk-chat-code-block__copy-text) {
+    display: none;
+  }
+}

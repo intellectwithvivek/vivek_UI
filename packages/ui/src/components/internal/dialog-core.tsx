@@ -117,10 +117,54 @@ function isLiveRegion(element: Element): boolean {
 }
 
 interface HiddenRecord {
-  element: Element
+  /** How many open dialogs are currently hiding this element. */
+  count: number
   /** `null` means the attribute was absent and must be removed again. */
   ariaHidden: string | null
   inert: boolean
+}
+
+/**
+ * Reference count per element, module-scope, mirroring `useScrollLock`.
+ *
+ * Without this, two dialogs that hide the same element both record its state — and the
+ * second records what the first already wrote. Closing them in either order then leaves
+ * the page wrong: close-inner-first un-inerts the page while the outer dialog is still
+ * open (modality silently broken), and close-outer-first re-applies a stale `inert` that
+ * nothing will ever remove (the app is left unclickable and invisible to screen readers,
+ * recoverable only by reload).
+ *
+ * Counting makes hide/restore order-independent and idempotent: original values are
+ * captured only on the 0 -> 1 transition and restored only on the 1 -> 0 transition.
+ * A WeakMap so a removed element cannot leak.
+ */
+const hiddenElements = new WeakMap<Element, HiddenRecord>()
+
+function hideElement(element: Element): void {
+  const existing = hiddenElements.get(element)
+  if (existing) {
+    existing.count += 1
+    return
+  }
+  hiddenElements.set(element, {
+    count: 1,
+    ariaHidden: element.getAttribute('aria-hidden'),
+    inert: element.hasAttribute('inert'),
+  })
+  element.setAttribute('aria-hidden', 'true')
+  element.setAttribute('inert', '')
+}
+
+function restoreElement(element: Element): void {
+  const record = hiddenElements.get(element)
+  if (!record) return
+  record.count -= 1
+  if (record.count > 0) return
+  hiddenElements.delete(element)
+  if (record.ariaHidden === null) element.removeAttribute('aria-hidden')
+  else element.setAttribute('aria-hidden', record.ariaHidden)
+  if (record.inert) element.setAttribute('inert', '')
+  else element.removeAttribute('inert')
 }
 
 /**
@@ -134,14 +178,15 @@ interface HiddenRecord {
  *
  * Both `inert` and `aria-hidden` are set. `inert` is the modern answer and also removes
  * pointer/tab reach, but AT support for it is still uneven, so `aria-hidden` carries the
- * "not exposed" half for older screen readers. Previous values are recorded per element,
- * so nested dialogs restore in LIFO order without clobbering each other's state.
+ * "not exposed" half for older screen readers. Hiding is reference counted per element
+ * (see `hiddenElements`), so overlapping dialogs cannot clobber each other's recorded
+ * state and closing them in any order leaves the page exactly as it was found.
  *
  * Known limitation: elements added to the page *after* a dialog opens are not hidden.
  */
 function hideOutside(dialog: HTMLElement): () => void {
   const body = dialog.ownerDocument.body
-  const records: HiddenRecord[] = []
+  const hidden: Element[] = []
 
   for (let node: Element = dialog; ; ) {
     const parent = node.parentElement
@@ -152,13 +197,8 @@ function hideOutside(dialog: HTMLElement): () => void {
       if (NON_RENDERED_TAGS.has(sibling.tagName)) continue
       if (isLiveRegion(sibling)) continue
 
-      records.push({
-        element: sibling,
-        ariaHidden: sibling.getAttribute('aria-hidden'),
-        inert: sibling.hasAttribute('inert'),
-      })
-      sibling.setAttribute('aria-hidden', 'true')
-      sibling.setAttribute('inert', '')
+      hideElement(sibling)
+      hidden.push(sibling)
     }
 
     if (parent === body) break
@@ -166,13 +206,9 @@ function hideOutside(dialog: HTMLElement): () => void {
   }
 
   return () => {
-    for (let index = records.length - 1; index >= 0; index -= 1) {
-      const record = records[index]
-      if (!record) continue
-      if (record.ariaHidden === null) record.element.removeAttribute('aria-hidden')
-      else record.element.setAttribute('aria-hidden', record.ariaHidden)
-      if (record.inert) record.element.setAttribute('inert', '')
-      else record.element.removeAttribute('inert')
+    for (let index = hidden.length - 1; index >= 0; index -= 1) {
+      const element = hidden[index]
+      if (element) restoreElement(element)
     }
   }
 }

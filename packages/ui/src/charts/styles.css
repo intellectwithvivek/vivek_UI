@@ -5,10 +5,10 @@
  * not pay for its CSS. `@the_viveksingh/vivek-ui/charts.css` is a separate import.
  */
 
-@import './charts.css';
-@import './sparkline/sparkline.css';
-@import './line-chart/line-chart.css';
-@import './area-chart/area-chart.css';
-@import './bar-chart/bar-chart.css';
-@import './pie-chart/pie-chart.css';
-@import './progress-ring/progress-ring.css';
+@import "./charts.css";
+@import "./sparkline/sparkline.css";
+@import "./line-chart/line-chart.css";
+@import "./area-chart/area-chart.css";
+@import "./bar-chart/bar-chart.css";
+@import "./pie-chart/pie-chart.css";
+@import "./progress-ring/progress-ring.css";

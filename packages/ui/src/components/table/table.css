@@ -1,0 +1,196 @@
+/*
+ * Table styles (ARCHITECTURE §3.2).
+ *
+ * Every selector is :where()-wrapped => specificity 0, so a consumer's own
+ * `.my-table td { padding: 0 }` wins with no !important. Every dimension and colour
+ * comes from a --vk-* token, and the handful of table-specific knobs below are
+ * themselves --vk-table-* custom properties a consumer can set per instance.
+ */
+
+:where(.vk-table-wrap) {
+  --vk-table-max-block-size: 60vh;
+
+  /*
+   * The point of the wrapper: a table too wide for its column scrolls HERE, never
+   * turning the page into a horizontal scroller.
+   */
+  max-inline-size: 100%;
+  overflow: auto;
+  overscroll-behavior-x: contain;
+  /*
+   * Named inline-size container, so anything inside (notably DataTable's stack layout)
+   * responds to the table's own width instead of the viewport's.
+   */
+  container: vk-table / inline-size;
+}
+
+:where(.vk-table-wrap[data-bordered]) {
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-lg);
+}
+
+/*
+ * Sticky headers stick to the nearest scroll container, which is this wrapper — so the
+ * wrapper has to be the thing with a limited height, or nothing ever scrolls past the
+ * header. Consumers who want a different cap set --vk-table-max-block-size.
+ */
+:where(.vk-table-wrap[data-sticky-header]) {
+  max-block-size: var(--vk-table-max-block-size);
+}
+
+:where(.vk-table) {
+  --vk-table-pad-inline: var(--vk-space-4);
+  --vk-table-pad-block: var(--vk-space-3);
+  --vk-table-stripe: color-mix(in oklab, var(--vk-color-fg) 3%, transparent);
+  --vk-table-hover: color-mix(in oklab, var(--vk-color-fg) 5%, transparent);
+  --vk-table-selected: color-mix(in oklab, var(--vk-color-primary) 8%, transparent);
+
+  inline-size: 100%;
+  min-inline-size: var(--vk-table-min-inline-size, 100%);
+  /*
+   * `separate` rather than `collapse`: with collapsed borders a sticky header loses its
+   * bottom border while scrolling, because collapsed borders belong to the table box,
+   * not to the cell that appears to own them.
+   */
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-md);
+  color: var(--vk-color-fg);
+  text-align: start;
+}
+
+:where(.vk-table[data-size="sm"]) {
+  --vk-table-pad-inline: var(--vk-space-3);
+  --vk-table-pad-block: var(--vk-space-2);
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-table[data-size="md"]) {
+  --vk-table-pad-inline: var(--vk-space-4);
+  --vk-table-pad-block: var(--vk-space-3);
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-table[data-size="lg"]) {
+  --vk-table-pad-inline: var(--vk-space-6);
+  --vk-table-pad-block: var(--vk-space-4);
+  font-size: var(--vk-text-md);
+}
+
+/* cells */
+
+:where(.vk-table__cell),
+:where(.vk-table__header-cell) {
+  padding: var(--vk-table-pad-block) var(--vk-table-pad-inline);
+  text-align: start;
+  vertical-align: middle;
+  border-block-end: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-table__header-cell) {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--vk-color-muted);
+  white-space: nowrap;
+}
+
+:where(.vk-table__header-cell[scope="row"]) {
+  color: var(--vk-color-fg);
+  white-space: normal;
+}
+
+:where(.vk-table__body .vk-table__row:last-child .vk-table__cell),
+:where(.vk-table__body .vk-table__row:last-child .vk-table__header-cell) {
+  border-block-end: 0;
+}
+
+:where(.vk-table__foot .vk-table__cell),
+:where(.vk-table__foot .vk-table__header-cell) {
+  font-weight: 600;
+  border-block-end: 0;
+  border-block-start: 1px solid var(--vk-color-border);
+}
+
+/* per-cell alignment */
+
+:where(.vk-table__cell[data-align="start"]),
+:where(.vk-table__header-cell[data-align="start"]) {
+  text-align: start;
+}
+
+:where(.vk-table__cell[data-align="center"]),
+:where(.vk-table__header-cell[data-align="center"]) {
+  text-align: center;
+}
+
+:where(.vk-table__cell[data-align="end"]),
+:where(.vk-table__header-cell[data-align="end"]) {
+  text-align: end;
+}
+
+/* numeric wins over an inherited alignment, and lines the digits up */
+:where(.vk-table__cell[data-numeric]),
+:where(.vk-table__header-cell[data-numeric]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+/* modifiers */
+
+:where(.vk-table[data-striped] .vk-table__body .vk-table__row:nth-child(even)) {
+  background: var(--vk-table-stripe);
+}
+
+@media (hover: hover) {
+  :where(.vk-table[data-hoverable] .vk-table__body .vk-table__row:hover) {
+    background: var(--vk-table-hover);
+  }
+}
+
+:where(.vk-table__row[data-selected]) {
+  background: var(--vk-table-selected);
+}
+
+:where(.vk-table[data-bordered] .vk-table__cell),
+:where(.vk-table[data-bordered] .vk-table__header-cell) {
+  border-inline-end: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-table[data-bordered] .vk-table__cell:last-child),
+:where(.vk-table[data-bordered] .vk-table__header-cell:last-child) {
+  border-inline-end: 0;
+}
+
+:where(.vk-table[data-sticky-header] .vk-table__head .vk-table__header-cell) {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  /* opaque: rows must scroll UNDER the header, not show through it */
+  background: var(--vk-color-bg);
+}
+
+/* caption */
+
+:where(.vk-table__caption) {
+  padding-block-end: var(--vk-table-pad-block);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+  text-align: start;
+  caption-side: top;
+}
+
+/*
+ * Off-screen but still announced: display:none or visibility:hidden would remove the
+ * caption from the accessibility tree, taking the table's accessible name with it.
+ */
+:where(.vk-table__caption[data-visually-hidden]) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

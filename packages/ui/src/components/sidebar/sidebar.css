@@ -1,0 +1,266 @@
+/*
+ * Sidebar — the navigation rail of an app shell.
+ *
+ * Every selector is :where()-wrapped for zero specificity (ARCHITECTURE §3.2) and every
+ * value is a --vk-* token, with `var(<token>, <fallback>)` for the two that are not yet in
+ * styles/tokens.css so adding them to :root later Just Works:
+ *
+ *   --vk-sidebar-width            expanded width            (fallback 16rem)
+ *   --vk-sidebar-width-collapsed  icons-only width          (fallback 3.5rem)
+ *
+ * `--vk-sidebar-width` is also what the `width` prop sets inline, so a consumer can drive
+ * it from either side.
+ */
+
+:where(.vk-sidebar) {
+  --vk-sidebar-width: 16rem;
+  --vk-sidebar-current: var(--vk-sidebar-width);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-4);
+  flex: 0 0 auto;
+  inline-size: var(--vk-sidebar-current);
+  min-inline-size: 0;
+  padding: var(--vk-space-4) var(--vk-space-3);
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  border-inline-end: 1px solid var(--vk-color-border);
+  /* An inline-size container so the rail's own contents can respond to the collapse
+     without every part having to read the data attribute. */
+  container: vk-sidebar / inline-size;
+  transition: inline-size var(--vk-duration) var(--vk-ease);
+}
+
+/* Logical, not physical: `end` puts the rule on the leading edge instead, which lands on
+   the correct side in both LTR and RTL with no prop to mirror. */
+:where(.vk-sidebar[data-side="end"]) {
+  border-inline-end: 0;
+  border-inline-start: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-sidebar[data-collapsed]) {
+  --vk-sidebar-current: var(--vk-sidebar-width-collapsed, 3.5rem);
+}
+
+/* --- sections ----------------------------------------------------- */
+
+:where(.vk-sidebar__section) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  min-inline-size: 0;
+}
+
+:where(.vk-sidebar__section-title) {
+  padding-inline: var(--vk-space-2);
+  padding-block-end: var(--vk-space-1);
+  font-size: var(--vk-text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vk-color-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:where(.vk-sidebar__list) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-inline-size: 0;
+}
+
+:where(.vk-sidebar__item) {
+  display: flex;
+  min-inline-size: 0;
+}
+
+/* --- items -------------------------------------------------------- */
+
+:where(.vk-sidebar__link) {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--vk-space-3);
+  min-inline-size: 0;
+  padding: var(--vk-space-2) var(--vk-space-2);
+  font-size: var(--vk-text-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--vk-color-muted);
+  text-decoration: none;
+  border-radius: var(--vk-radius-sm);
+  transition:
+    background var(--vk-duration) var(--vk-ease),
+    color var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-sidebar__link:hover) {
+    background: color-mix(in oklab, var(--vk-color-fg) 6%, transparent);
+    color: var(--vk-color-fg);
+  }
+}
+
+:where(.vk-sidebar__link[data-active]) {
+  background: color-mix(in oklab, var(--vk-color-primary) 12%, transparent);
+  color: var(--vk-color-primary);
+  font-weight: 600;
+}
+
+:where(.vk-sidebar__icon) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--vk-space-4);
+  block-size: var(--vk-space-4);
+}
+
+:where(.vk-sidebar__icon > svg) {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+:where(.vk-sidebar__label) {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:where(.vk-sidebar__badge) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 1.5em;
+  padding-inline: var(--vk-space-1);
+  font-size: var(--vk-text-sm);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  color: var(--vk-color-fg);
+  background: color-mix(in oklab, var(--vk-color-fg) 10%, transparent);
+  border-radius: var(--vk-radius-full);
+}
+
+/* --- collapsed ---------------------------------------------------- */
+
+/*
+ * Icons only. Every label and badge is CLIPPED, never `display: none` — a clipped element
+ * is still in the accessibility tree, so an icon-only item is announced as
+ * "Dashboard, link" and not as an unlabelled graphic. This is the single reason the
+ * collapse is done in CSS rather than by rendering different children.
+ */
+:where(.vk-sidebar[data-collapsed]) :where(.vk-sidebar__label),
+:where(.vk-sidebar[data-collapsed]) :where(.vk-sidebar__section-title) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+:where(.vk-sidebar[data-collapsed]) :where(.vk-sidebar__section) {
+  /* The clipped title is position: absolute, so it no longer reserves a row; a top rule
+     keeps the groups visually separated in its place. */
+  padding-block-start: var(--vk-space-2);
+  border-block-start: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-sidebar[data-collapsed]) :where(.vk-sidebar__section:first-of-type) {
+  padding-block-start: 0;
+  border-block-start: 0;
+}
+
+:where(.vk-sidebar[data-collapsed]) :where(.vk-sidebar__link) {
+  justify-content: center;
+  gap: 0;
+  position: relative;
+}
+
+/* The badge becomes an unread dot pinned to the icon: the count itself is clipped, so it
+   is still read out, and the dot carries the "there is something here" signal visually. */
+:where(.vk-sidebar[data-collapsed]) :where(.vk-sidebar__badge) {
+  position: absolute;
+  inset-block-start: var(--vk-space-1);
+  inset-inline-end: var(--vk-space-1);
+  inline-size: var(--vk-space-2);
+  min-inline-size: 0;
+  block-size: var(--vk-space-2);
+  padding: 0;
+  overflow: hidden;
+  color: transparent;
+  background: var(--vk-color-primary);
+}
+
+/* --- toggle ------------------------------------------------------- */
+
+:where(.vk-sidebar__toggle) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-self: flex-end;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--vk-space-8);
+  block-size: var(--vk-space-8);
+  padding: 0;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--vk-radius-sm);
+  color: var(--vk-color-muted);
+  cursor: pointer;
+  transition:
+    background var(--vk-duration) var(--vk-ease),
+    color var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-sidebar__toggle:hover) {
+    background: color-mix(in oklab, var(--vk-color-fg) 7%, transparent);
+    color: var(--vk-color-fg);
+  }
+}
+
+:where(.vk-sidebar[data-collapsed]) :where(.vk-sidebar__toggle) {
+  align-self: center;
+}
+
+:where(.vk-sidebar__toggle-icon) {
+  inline-size: var(--vk-space-4);
+  block-size: var(--vk-space-4);
+  transition: rotate var(--vk-duration) var(--vk-ease);
+}
+
+/* The chevron points at what will happen, not at the current state. */
+:where(.vk-sidebar__toggle[data-state="collapsed"]) :where(.vk-sidebar__toggle-icon) {
+  rotate: 180deg;
+}
+
+/* An `end`-side rail collapses towards the other edge, so the chevron flips with it. */
+:where(.vk-sidebar[data-side="end"]) :where(.vk-sidebar__toggle-icon) {
+  rotate: 180deg;
+}
+:where(.vk-sidebar[data-side="end"])
+  :where(.vk-sidebar__toggle[data-state="collapsed"])
+  :where(.vk-sidebar__toggle-icon) {
+  rotate: 0deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-sidebar),
+  :where(.vk-sidebar__link),
+  :where(.vk-sidebar__toggle),
+  :where(.vk-sidebar__toggle-icon) {
+    transition: none;
+  }
+}

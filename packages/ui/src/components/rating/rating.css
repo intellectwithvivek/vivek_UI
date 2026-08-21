@@ -1,0 +1,162 @@
+/*
+ * Rating.
+ *
+ * Two stacked layers of identical icons — muted underneath, accent on top clipped to
+ * `--vk-rating-fill` — which is what lets any fraction render exactly. The gap between
+ * icons is padding *inside* each icon box rather than flex `gap`, so the fill percentage
+ * maps linearly onto the row: with a real gap, 50% of five stars would land in the void
+ * between the second and third.
+ */
+
+:where(.vk-rating) {
+  --vk-rating-icon: 1.25rem;
+  --vk-rating-gap: 0.15rem;
+  --vk-rating-accent: var(--vk-color-warning);
+  --vk-rating-empty: color-mix(in oklab, var(--vk-color-fg) 18%, transparent);
+  --vk-rating-fill: 0%;
+
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-rating[data-size="sm"]) {
+  --vk-rating-icon: 1rem;
+}
+:where(.vk-rating[data-size="lg"]) {
+  --vk-rating-icon: 1.75rem;
+}
+
+:where(.vk-rating__legend) {
+  padding: 0;
+  font-size: var(--vk-text-sm);
+  font-weight: 500;
+}
+
+:where(.vk-rating__control) {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  cursor: pointer;
+}
+
+:where(.vk-rating[data-readonly]) :where(.vk-rating__control),
+:where(.vk-rating:disabled) :where(.vk-rating__control) {
+  cursor: default;
+}
+
+:where(.vk-rating:disabled) {
+  opacity: 0.55;
+}
+
+:where(.vk-rating__layer) {
+  display: flex;
+  gap: 0;
+}
+
+:where(.vk-rating__layer[data-layer="base"]) {
+  color: var(--vk-rating-empty);
+}
+
+:where(.vk-rating__layer[data-layer="fill"]) {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: var(--vk-rating-fill);
+  overflow: hidden;
+  color: var(--vk-rating-accent);
+  transition: inline-size var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-rating__icon) {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  inline-size: calc(var(--vk-rating-icon) + var(--vk-rating-gap) * 2);
+  block-size: var(--vk-rating-icon);
+  font-size: var(--vk-rating-icon);
+  line-height: 1;
+}
+
+/* The default glyph: a five-pointed star, clipped out of a coloured box. */
+:where(.vk-rating__star) {
+  inline-size: var(--vk-rating-icon);
+  block-size: var(--vk-rating-icon);
+  background: currentcolor;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+}
+
+/* Hit zones, laid over the icons: one per selectable step. */
+:where(.vk-rating__item) {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: calc(var(--vk-rating-index) / var(--vk-rating-steps) * 100%);
+  inline-size: calc(100% / var(--vk-rating-steps));
+}
+
+/*
+ * Visually hidden, never display:none - these inputs are the control. Removing them from
+ * the box model would take the keyboard, the form value and single-selection with them.
+ */
+:where(.vk-rating__input),
+:where(.vk-rating__sr) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:where(.vk-rating__clear) {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/*
+ * Focus ring on the whole row rather than the invisible 20%-wide hit zone: the zone has
+ * no visual identity, so a ring around it looks like a rendering bug.
+ */
+:where(.vk-rating__control:has(:focus-visible)) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 3px;
+  border-radius: var(--vk-radius-sm);
+}
+
+:where(.vk-rating[data-invalid]) {
+  --vk-rating-accent: var(--vk-color-danger);
+  --vk-rating-empty: color-mix(in oklab, var(--vk-color-danger) 30%, transparent);
+}
+
+/* Hover preview, pure CSS: the accent layer grows to the hovered zone. */
+:where(.vk-rating:not(:disabled):not([data-readonly])) :where(.vk-rating__item:hover) {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-rating__layer[data-layer="fill"]) {
+    transition: none;
+  }
+}

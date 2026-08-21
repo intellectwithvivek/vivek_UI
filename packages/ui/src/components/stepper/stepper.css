@@ -1,0 +1,186 @@
+/*
+ * Stepper — an ordered list with a connector between markers.
+ *
+ * The connector is the item's `::before`, so it stops at the last marker instead of
+ * running off the end, and it is filled for completed steps: progress reads at a glance
+ * without a second element to keep in sync.
+ */
+
+:where(.vk-stepper) {
+  --vk-stepper-marker: 2rem;
+  --vk-stepper-rail: 2px;
+  --vk-stepper-gap: var(--vk-space-4);
+
+  display: block;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-stepper[data-size="sm"]) {
+  --vk-stepper-marker: 1.5rem;
+  --vk-stepper-gap: var(--vk-space-3);
+}
+
+:where(.vk-stepper[data-size="lg"]) {
+  --vk-stepper-marker: 2.5rem;
+  --vk-stepper-gap: var(--vk-space-6);
+}
+
+:where(.vk-stepper__list) {
+  display: flex;
+  gap: var(--vk-stepper-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.vk-stepper__item) {
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+
+:where(.vk-stepper__control) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-3);
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+}
+
+:where(button.vk-stepper__control) {
+  cursor: pointer;
+}
+
+:where(button.vk-stepper__control:disabled) {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+:where(button.vk-stepper__control:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 3px;
+  border-radius: var(--vk-radius-sm);
+}
+
+:where(.vk-stepper__marker) {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--vk-stepper-marker);
+  height: var(--vk-stepper-marker);
+  border: var(--vk-stepper-rail) solid var(--vk-color-border);
+  border-radius: var(--vk-radius-full);
+  background: var(--vk-color-bg);
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+  font-weight: 600;
+  line-height: 1;
+}
+
+:where(.vk-stepper__marker) > :where(svg, img) {
+  width: 1em;
+  height: 1em;
+}
+
+:where(.vk-stepper__text) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  min-width: 0;
+}
+
+:where(.vk-stepper__label) {
+  font-weight: 600;
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-stepper__description) {
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+/* The status word: announced, never shown. The third carrier, after fill and glyph. */
+:where(.vk-stepper__status) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+:where(.vk-stepper__item[data-status="complete"]) :where(.vk-stepper__marker) {
+  border-color: var(--vk-color-primary);
+  background: var(--vk-color-primary);
+  color: var(--vk-color-primary-fg);
+}
+
+:where(.vk-stepper__item[data-status="current"]) :where(.vk-stepper__marker) {
+  border-color: var(--vk-color-primary);
+  color: var(--vk-color-primary);
+  box-shadow: 0 0 0 var(--vk-stepper-rail)
+    color-mix(in oklab, var(--vk-color-primary) 28%, transparent);
+}
+
+:where(.vk-stepper__item[data-status="current"]) :where(.vk-stepper__label) {
+  color: var(--vk-color-primary);
+}
+
+:where(.vk-stepper__item[data-status="pending"]) :where(.vk-stepper__label) {
+  color: var(--vk-color-muted);
+}
+
+/* Horizontal: steps share the width, connector runs between markers. */
+:where(.vk-stepper[data-orientation="horizontal"]) > :where(.vk-stepper__list) {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+:where(.vk-stepper[data-orientation="horizontal"]) :where(.vk-stepper__item) {
+  flex: 1 1 0;
+  align-items: flex-start;
+}
+
+:where(.vk-stepper[data-orientation="horizontal"]) :where(.vk-stepper__item)::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(var(--vk-stepper-marker) + var(--vk-space-2));
+  inset-block-start: calc((var(--vk-stepper-marker) - var(--vk-stepper-rail)) / 2);
+  width: calc(100% - var(--vk-stepper-marker) - var(--vk-space-2) + var(--vk-stepper-gap));
+  height: var(--vk-stepper-rail);
+  background: var(--vk-color-border);
+}
+
+/* Vertical: one step per row, connector runs down. */
+:where(.vk-stepper[data-orientation="vertical"]) > :where(.vk-stepper__list) {
+  flex-direction: column;
+}
+
+:where(.vk-stepper[data-orientation="vertical"]) :where(.vk-stepper__item)::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc((var(--vk-stepper-marker) - var(--vk-stepper-rail)) / 2);
+  inset-block-start: calc(var(--vk-stepper-marker) + var(--vk-space-1));
+  width: var(--vk-stepper-rail);
+  height: calc(100% - var(--vk-stepper-marker) - var(--vk-space-1) + var(--vk-stepper-gap));
+  background: var(--vk-color-border);
+}
+
+:where(.vk-stepper__list) > :where(.vk-stepper__item:last-child)::before {
+  content: none;
+}
+
+:where(.vk-stepper__list) > :where(.vk-stepper__item[data-status="complete"])::before {
+  background: color-mix(in oklab, var(--vk-color-primary) 55%, var(--vk-color-border));
+}

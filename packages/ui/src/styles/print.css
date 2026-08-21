@@ -1,0 +1,126 @@
+/*
+ * Print stylesheet.
+ *
+ * Two jobs, both inside a single `@media print` block:
+ *
+ *   1. Make VivekUI tables print well by default — repeat the header on every page,
+ *      never split a row across a page break, drop the scroll box and the screen-only
+ *      chrome (search field, pagination, sort carets).
+ *   2. Support `printElement()` from `utils/export.ts`: while it is running,
+ *      `<html>` carries `data-vk-printing` and one element carries `data-vk-print-root`,
+ *      and the rules at the bottom hide everything except that element's subtree. That
+ *      is how "export to PDF" works here — the browser's own print-to-PDF, with no PDF
+ *      encoder in the bundle.
+ *
+ * Not imported by `styles/entry.css`: printing is opt-in, and it must load AFTER
+ * `styles.css` so that equal-specificity rules (everything here is `:where()`-wrapped
+ * to specificity 0, per ARCHITECTURE §3.2) resolve in its favour.
+ *
+ * Deliberately no `@page` rule: page margins are the document's business, not a
+ * component library's, and `@page` cannot be scoped away once shipped.
+ */
+
+@media print {
+  /* --- screen-only chrome ------------------------------------------------- */
+
+  :where([data-vk-print-hide]),
+  :where(.vk-data-table__toolbar),
+  :where(.vk-data-table__pagination),
+  :where(.vk-data-table__sort-icon) {
+    display: none;
+  }
+
+  /* A sort button prints as the heading text it always was. */
+  :where(.vk-data-table__sort) {
+    display: inline;
+    color: var(--vk-color-fg);
+  }
+
+  /* --- tables ------------------------------------------------------------- */
+
+  /* The scroll box is a screen affordance; on paper it would clip the columns. */
+  :where(.vk-table-wrap) {
+    overflow: visible;
+    max-block-size: none;
+    border: 0;
+    border-radius: 0;
+  }
+
+  :where(.vk-table) {
+    inline-size: 100%;
+    min-inline-size: 0;
+    /* auto layout lets the printer shrink columns to the paper width */
+    table-layout: auto;
+    font-size: var(--vk-text-sm);
+  }
+
+  /* Repeat the column headings at the top of every printed page. */
+  :where(.vk-table__head) {
+    display: table-header-group;
+  }
+
+  :where(.vk-table__foot) {
+    display: table-footer-group;
+  }
+
+  :where(.vk-table__row) {
+    break-inside: avoid;
+  }
+
+  :where(.vk-table__header-cell) {
+    color: var(--vk-color-fg);
+    /* Browsers drop backgrounds when printing, so a bottom rule is what survives. */
+    background: none;
+    border-block-end: 1px solid var(--vk-color-fg);
+  }
+
+  :where(.vk-table__cell) {
+    border-block-end: 1px solid var(--vk-color-border);
+  }
+
+  /* Sticky is meaningless on paper and can leave the header floating over row one. */
+  :where(.vk-table[data-sticky-header] .vk-table__head .vk-table__header-cell) {
+    position: static;
+  }
+
+  /* Zebra stripes and selection tints waste toner and rarely print at all. */
+  :where(.vk-table[data-striped] .vk-table__body .vk-table__row:nth-child(even)),
+  :where(.vk-table__row[data-selected]) {
+    background: none;
+  }
+
+  :where(.vk-table__caption) {
+    color: var(--vk-color-fg);
+  }
+
+  /* The stack layout is a narrow-screen affordance; paper gets the real grid. */
+  :where(.vk-data-table[data-responsive="stack"] .vk-table__cell)::before {
+    content: none;
+  }
+
+  /* --- printElement(): one element, nothing else -------------------------- */
+
+  /*
+   * `visibility` rather than `display`, on purpose: a hidden ancestor still lets a
+   * visible descendant paint, so this needs no knowledge of where in the tree the
+   * print root sits. The root is then pulled to the top of the page, because the
+   * hidden boxes above it still occupy space and would otherwise print as blank pages.
+   */
+  :where([data-vk-printing]) * {
+    visibility: hidden;
+  }
+
+  :where([data-vk-printing]) :where([data-vk-print-root]),
+  :where([data-vk-printing]) :where([data-vk-print-root]) * {
+    visibility: visible;
+  }
+
+  :where([data-vk-printing]) :where([data-vk-print-root]) {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inline-size: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}

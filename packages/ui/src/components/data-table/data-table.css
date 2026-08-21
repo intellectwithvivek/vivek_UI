@@ -1,0 +1,228 @@
+/*
+ * DataTable styles (ARCHITECTURE §3.2).
+ *
+ * Every selector is :where()-wrapped => specificity 0. Every value is a --vk-* token.
+ * The layout below is driven entirely by data-attributes the component already sets, and
+ * the narrow layout is a container query — there is no `mobile` prop and no breakpoint
+ * tied to the viewport, because a table in a 320px sidebar is narrow on a 4K monitor.
+ */
+
+:where(.vk-data-table) {
+  --vk-data-table-search-min-size: 14rem;
+  --vk-data-table-search-max-size: 22rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-3);
+  min-inline-size: 0;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+  /*
+   * Named inline-size container: the stack layout below asks how wide the TABLE is, not
+   * how wide the window is.
+   */
+  container: vk-data-table / inline-size;
+}
+
+/* toolbar */
+
+:where(.vk-data-table__toolbar) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vk-space-3);
+}
+
+:where(.vk-data-table__search) {
+  flex: 1 1 var(--vk-data-table-search-min-size);
+  max-inline-size: var(--vk-data-table-search-max-size);
+}
+
+:where(.vk-data-table__actions) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vk-space-2);
+}
+
+/* sortable headings */
+
+:where(.vk-data-table__sort) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+  /* Inherit, so the heading looks identical whether or not it is sortable. */
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+  background: none;
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  :where(.vk-data-table__sort:hover) {
+    color: var(--vk-color-fg);
+  }
+}
+
+:where(.vk-data-table__sort:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+:where(.vk-table__header-cell[data-numeric]) :where(.vk-data-table__sort) {
+  /* Keep the button hugging the right edge of a numeric column. */
+  flex-direction: row-reverse;
+}
+
+/* Caret drawn with borders: no SVG, no icon dependency. */
+:where(.vk-data-table__sort-icon) {
+  flex: none;
+  inline-size: 0;
+  block-size: 0;
+  border-inline: 0.3em solid transparent;
+  border-block-end: 0.35em solid currentColor;
+  opacity: 0.35;
+  transition:
+    transform var(--vk-duration) var(--vk-ease),
+    opacity var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-data-table__sort[data-direction] .vk-data-table__sort-icon) {
+  opacity: 1;
+}
+
+:where(.vk-data-table__sort[data-direction="desc"] .vk-data-table__sort-icon) {
+  transform: rotate(180deg);
+}
+
+/* body states */
+
+:where(.vk-data-table__select-cell) {
+  inline-size: 1px;
+  white-space: nowrap;
+}
+
+:where(.vk-data-table__empty) {
+  padding-block: var(--vk-space-8);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-data-table[data-loading] .vk-data-table__table) {
+  /* The skeletons animate; the real content underneath must not look interactive. */
+  pointer-events: none;
+}
+
+/* footer: live region + pagination */
+
+:where(.vk-data-table__footer) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vk-space-3);
+}
+
+:where(.vk-data-table__status) {
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-data-table__pagination) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-data-table__page-status) {
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Card layout.
+ *
+ * Only when the author opted in with responsive="stack", and only while the table's own
+ * container is narrow. The header row is visually hidden rather than display:none, so
+ * the column headers stay in the accessibility tree and each cell keeps its column
+ * association; sighted users get the label back through ::before.
+ */
+@container vk-data-table (max-width: 44rem) {
+  :where(.vk-data-table[data-responsive="stack"] .vk-table__head) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  :where(.vk-data-table[data-responsive="stack"] .vk-table),
+  :where(.vk-data-table[data-responsive="stack"] .vk-table__body),
+  :where(.vk-data-table[data-responsive="stack"] .vk-table__foot) {
+    display: block;
+    inline-size: 100%;
+  }
+
+  :where(.vk-data-table[data-responsive="stack"] .vk-table__row) {
+    display: block;
+    padding: var(--vk-space-3);
+    border: 1px solid var(--vk-color-border);
+    border-radius: var(--vk-radius-md);
+  }
+
+  :where(.vk-data-table[data-responsive="stack"] .vk-table__row + .vk-table__row) {
+    margin-block-start: var(--vk-space-3);
+  }
+
+  :where(.vk-data-table[data-responsive="stack"] .vk-table__cell),
+  :where(.vk-data-table[data-responsive="stack"] .vk-table__header-cell) {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--vk-space-4);
+    padding-inline: 0;
+    padding-block: var(--vk-space-1);
+    text-align: end;
+    border-block-end: 0;
+    white-space: normal;
+  }
+
+  :where(.vk-data-table[data-responsive="stack"] .vk-table__cell[data-label])::before {
+    content: attr(data-label);
+    flex: none;
+    font-size: var(--vk-text-sm);
+    font-weight: 500;
+    color: var(--vk-color-muted);
+    text-align: start;
+  }
+
+  :where(.vk-data-table[data-responsive="stack"] .vk-table__header-cell[scope="row"]) {
+    font-size: var(--vk-text-lg);
+    color: var(--vk-color-fg);
+  }
+
+  :where(.vk-data-table[data-responsive="stack"] .vk-data-table__select-cell) {
+    inline-size: auto;
+    justify-content: flex-start;
+  }
+
+  :where(.vk-data-table[data-responsive="stack"] .vk-data-table__empty) {
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-data-table__sort-icon) {
+    transition: none;
+  }
+}

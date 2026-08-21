@@ -1,7 +1,7 @@
 {
   "name": "@the_viveksingh/vivek-ui",
-  "version": "0.1.0",
-  "description": "A zero-runtime-dependency React component library. 20 accessible, server-safe components with CSS-variable theming. One install, one CSS import, no config. React 18/19 and Next.js.",
+  "version": "0.2.0",
+  "description": "A zero-runtime-dependency React component library. 100+ accessible, server-safe components: layout, forms, overlays, page sections, AI chat, DataTable and SVG charts. One install, one CSS import, no config. React 18/19 and Next.js.",
   "license": "MIT",
   "author": {
     "name": "Vivek Kumar Singh",
@@ -31,6 +31,13 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "charts": [
+        "./dist/charts/index.d.ts"
+      ]
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/intellectwithvivek/vivek_UI.git",
@@ -50,10 +57,19 @@
     "zero-dependency",
     "css-variables",
     "accessible",
-    "typescript"
+    "typescript",
+    "charts",
+    "datatable",
+    "chat-ui",
+    "ai-chat",
+    "tailwind-alternative",
+    "shadcn-alternative",
+    "headless",
+    "wcag",
+    "aria"
   ],
   "scripts": {
-    "build": "tsup && node ../../scripts/fix-dist-specifiers.mjs && pnpm build:css && node ../../scripts/check-directives.mjs",
+    "build": "node ../../scripts/gen-exports.mjs --check && node ../../scripts/build-js.mjs && node ../../scripts/fix-dist-specifiers.mjs && pnpm build:css && node ../../scripts/check-directives.mjs",
     "build:css": "lightningcss --bundle --minify src/styles/entry.css -o dist/styles.css && lightningcss --bundle --minify src/charts/styles.css -o dist/charts.css",
     "dev": "tsup --watch",
     "test": "vitest run",
@@ -118,7 +134,7 @@
       "name": "Whole core library",
       "path": "dist/index.js",
       "import": "*",
-      "limit": "30 kB",
+      "limit": "48 kB",
       "ignore": [
         "react",
         "react-dom",

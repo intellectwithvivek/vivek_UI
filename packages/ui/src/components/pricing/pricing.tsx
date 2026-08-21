@@ -14,6 +14,12 @@ import {
 import { Text } from '../text'
 
 export interface PricingPlan {
+  /**
+   * Stable React key. Supply it whenever the data is dynamic: the fallback key is a
+   * content field, which collides when two items share it (two reviews by the same
+   * author, two stats with the same label) and makes React mis-attach state on reorder.
+   */
+  id?: string | number
   name: string
   /** `"$29"`, or a node if you need to mark up the currency. */
   price: ReactNode
@@ -98,7 +104,7 @@ export const Pricing = forwardRef<HTMLElement, PricingProps>(function Pricing(
               className="vk-pricing__plans"
             >
               {plans.map((plan) => (
-                <li className="vk-pricing__plan" key={plan.name}>
+                <li className="vk-pricing__plan" key={plan.id ?? plan.name}>
                   <Card
                     variant={plan.highlighted ? 'elevated' : 'outline'}
                     padding="lg"

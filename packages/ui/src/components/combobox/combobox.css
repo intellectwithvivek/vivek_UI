@@ -1,0 +1,306 @@
+/*
+ * Combobox. The control impersonates `.vk-input` and grows to fit its chips; the listbox
+ * is portalled and fixed-positioned, matching the other floating layers in the library.
+ */
+
+:where(.vk-combobox) {
+  --vk-combobox-accent: var(--vk-color-primary);
+  --vk-combobox-chip-bg: color-mix(in oklab, var(--vk-color-fg) 7%, var(--vk-color-bg));
+  --vk-combobox-max-height: 16rem;
+
+  width: 100%;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-md);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-combobox[data-size="sm"]) {
+  font-size: var(--vk-text-sm);
+}
+:where(.vk-combobox[data-size="lg"]) {
+  font-size: var(--vk-text-lg);
+}
+
+:where(.vk-combobox__control) {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vk-space-2);
+  min-height: 2.5rem;
+  padding: var(--vk-space-2);
+  padding-inline-end: var(--vk-space-8);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  cursor: text;
+  transition:
+    border-color var(--vk-duration) var(--vk-ease),
+    box-shadow var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-combobox[data-size="sm"]) :where(.vk-combobox__control) {
+  min-height: 2rem;
+  padding: var(--vk-space-1) var(--vk-space-2);
+  padding-inline-end: var(--vk-space-8);
+}
+:where(.vk-combobox[data-size="lg"]) :where(.vk-combobox__control) {
+  min-height: 3rem;
+  padding: var(--vk-space-3);
+  padding-inline-end: var(--vk-space-8);
+}
+
+:where(.vk-combobox__control:has(.vk-combobox__input:focus-visible)) {
+  border-color: var(--vk-combobox-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-combobox-accent) 25%, transparent);
+}
+
+:where(.vk-combobox[data-invalid]) :where(.vk-combobox__control) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-combobox[data-invalid])
+  :where(.vk-combobox__control:has(.vk-combobox__input:focus-visible)) {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-danger) 25%, transparent);
+}
+
+:where(.vk-combobox[data-disabled]) :where(.vk-combobox__control) {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-bg));
+}
+
+:where(.vk-combobox__input) {
+  flex: 1 1 6rem;
+  min-width: 3rem;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  outline: none;
+}
+
+:where(.vk-combobox__input::placeholder) {
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-combobox__chips) {
+  display: contents;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.vk-combobox__chip) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-1);
+  max-width: 100%;
+  padding-block: 0.125rem;
+  padding-inline: var(--vk-space-2);
+  font-size: 0.875em;
+  line-height: 1.5;
+  background: var(--vk-combobox-chip-bg);
+  border-radius: var(--vk-radius-full);
+}
+
+:where(.vk-combobox__chip-text) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.vk-combobox__chip-remove),
+:where(.vk-combobox__clear) {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
+  color: var(--vk-color-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--vk-radius-full);
+  cursor: pointer;
+}
+
+:where(.vk-combobox__clear) {
+  position: absolute;
+  inset-inline-end: var(--vk-space-6);
+  width: 1.25em;
+  height: 1.25em;
+}
+
+:where(.vk-combobox__chip-remove:hover:not(:disabled)),
+:where(.vk-combobox__clear:hover) {
+  color: var(--vk-color-bg);
+  background: var(--vk-color-muted);
+}
+
+:where(.vk-combobox__chip-remove:focus-visible),
+:where(.vk-combobox__clear:focus-visible) {
+  outline: 2px solid var(--vk-combobox-accent);
+  outline-offset: 1px;
+}
+
+/* A cross from two rotated rules - no icon dependency. */
+:where(.vk-combobox__cross) {
+  position: relative;
+  width: 0.7em;
+  height: 0.7em;
+}
+
+:where(.vk-combobox__cross)::before,
+:where(.vk-combobox__cross)::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 15%;
+  width: 70%;
+  height: 1.5px;
+  background: currentcolor;
+}
+
+:where(.vk-combobox__cross)::before {
+  transform: rotate(45deg);
+}
+:where(.vk-combobox__cross)::after {
+  transform: rotate(-45deg);
+}
+
+:where(.vk-combobox__arrow) {
+  position: absolute;
+  inset-inline-end: var(--vk-space-3);
+  width: 0.4em;
+  height: 0.4em;
+  border-inline-end: 1.5px solid var(--vk-color-muted);
+  border-block-end: 1.5px solid var(--vk-color-muted);
+  transform: translateY(-25%) rotate(45deg);
+  transition: transform var(--vk-duration) var(--vk-ease);
+  pointer-events: none;
+}
+
+:where(.vk-combobox[data-open]) :where(.vk-combobox__arrow) {
+  transform: translateY(25%) rotate(225deg);
+}
+
+/*
+ * The listbox. `position: fixed`, because `useAnchoredPosition` reports viewport
+ * coordinates; transparent until measured, so it never flashes at 0,0.
+ */
+:where(.vk-combobox__listbox) {
+  position: fixed;
+  z-index: var(--vk-z-overlay);
+  max-height: var(--vk-combobox-max-height);
+  margin: 0;
+  padding: var(--vk-space-1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  list-style: none;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-md);
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  box-shadow: var(--vk-shadow-md);
+  opacity: 0;
+}
+
+:where(.vk-combobox__listbox[data-positioned]) {
+  opacity: 1;
+  animation: vk-combobox-in var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-combobox__option) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+  padding: var(--vk-space-2) var(--vk-space-3);
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+}
+
+/*
+ * Highlighted by `data-active`, not `:hover`. The active option is a keyboard concept and
+ * has to look highlighted whether or not a pointer is anywhere near it - and there must
+ * only ever be one, which two independent triggers cannot guarantee.
+ */
+:where(.vk-combobox__option[data-active]) {
+  background: color-mix(in oklab, var(--vk-combobox-accent) 12%, transparent);
+}
+
+:where(.vk-combobox__option[aria-selected="true"]) {
+  font-weight: 600;
+}
+
+:where(.vk-combobox__option[aria-disabled="true"]) {
+  color: var(--vk-color-muted);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+:where(.vk-combobox__option[data-create]) {
+  font-style: italic;
+}
+
+:where(.vk-combobox__option-text) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.vk-combobox__check) {
+  position: relative;
+  flex: none;
+  width: 1em;
+  height: 1em;
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+}
+
+:where(.vk-combobox__check[data-checked]) {
+  background: var(--vk-combobox-accent);
+  border-color: var(--vk-combobox-accent);
+}
+
+:where(.vk-combobox__check[data-checked])::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 46%;
+  width: 0.28em;
+  height: 0.5em;
+  border-inline-end: 2px solid var(--vk-color-primary-fg);
+  border-block-end: 2px solid var(--vk-color-primary-fg);
+  transform: translate(-50%, -55%) rotate(45deg);
+}
+
+:where(.vk-combobox__message) {
+  padding: var(--vk-space-3);
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+  text-align: center;
+}
+
+@keyframes vk-combobox-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-combobox__listbox[data-positioned]) {
+    animation: none;
+  }
+  :where(.vk-combobox__control),
+  :where(.vk-combobox__arrow) {
+    transition: none;
+  }
+}

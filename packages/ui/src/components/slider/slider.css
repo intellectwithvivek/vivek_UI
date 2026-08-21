@@ -1,0 +1,223 @@
+/*
+ * Slider.
+ *
+ * The rail and the fill are pseudo-elements on the wrapper, and each native input is
+ * `appearance: none` with a transparent track, so what you see is one bar no matter how
+ * many inputs are stacked on it. That is what makes `range` mode possible without
+ * abandoning the native control: two inputs, one visual track.
+ */
+
+:where(.vk-slider) {
+  --vk-slider-thumb: 1.125rem;
+  --vk-slider-rail: 0.375rem;
+  --vk-slider-accent: var(--vk-color-primary);
+  --vk-slider-rail-bg: color-mix(in oklab, var(--vk-color-fg) 12%, transparent);
+  --vk-slider-from: 0%;
+  --vk-slider-to: 0%;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--vk-space-3);
+  width: 100%;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-slider[data-size="sm"]) {
+  --vk-slider-thumb: 0.875rem;
+  --vk-slider-rail: 0.25rem;
+}
+:where(.vk-slider[data-size="lg"]) {
+  --vk-slider-thumb: 1.5rem;
+  --vk-slider-rail: 0.5rem;
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-slider[data-tone="success"]) {
+  --vk-slider-accent: var(--vk-color-success);
+}
+:where(.vk-slider[data-tone="warning"]) {
+  --vk-slider-accent: var(--vk-color-warning);
+}
+:where(.vk-slider[data-tone="danger"]) {
+  --vk-slider-accent: var(--vk-color-danger);
+}
+:where(.vk-slider[data-invalid]) {
+  --vk-slider-accent: var(--vk-color-danger);
+}
+
+:where(.vk-slider[data-disabled]) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+:where(.vk-slider__track) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--vk-slider-thumb);
+}
+
+/* The rail. */
+:where(.vk-slider__track)::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  height: var(--vk-slider-rail);
+  background: var(--vk-slider-rail-bg);
+  border-radius: var(--vk-radius-full);
+}
+
+/* The fill, from `--vk-slider-from` to `--vk-slider-to`. */
+:where(.vk-slider__track)::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: var(--vk-slider-from);
+  inline-size: calc(var(--vk-slider-to) - var(--vk-slider-from));
+  height: var(--vk-slider-rail);
+  background: var(--vk-slider-accent);
+  border-radius: var(--vk-radius-full);
+}
+
+:where(.vk-slider__input) {
+  appearance: none;
+  position: relative;
+  width: 100%;
+  height: var(--vk-slider-thumb);
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+:where(.vk-slider__input:disabled) {
+  cursor: not-allowed;
+}
+
+/*
+ * Range mode: the two inputs occupy the same box. `pointer-events: none` on the input
+ * with `auto` restored on the thumbs is what lets a press reach whichever thumb is under
+ * the cursor instead of always the input that happens to be painted last.
+ */
+:where(.vk-slider[data-range]) :where(.vk-slider__input) {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Track halves - drawn by the wrapper, so the native ones get out of the way. */
+:where(.vk-slider__input)::-webkit-slider-runnable-track {
+  height: var(--vk-slider-rail);
+  background: transparent;
+  border: 0;
+}
+
+:where(.vk-slider__input)::-moz-range-track {
+  height: var(--vk-slider-rail);
+  background: transparent;
+  border: 0;
+}
+
+:where(.vk-slider__input)::-webkit-slider-thumb {
+  appearance: none;
+  width: var(--vk-slider-thumb);
+  height: var(--vk-slider-thumb);
+  margin-block-start: calc((var(--vk-slider-rail) - var(--vk-slider-thumb)) / 2);
+  background: var(--vk-color-bg);
+  border: 2px solid var(--vk-slider-accent);
+  border-radius: var(--vk-radius-full);
+  box-shadow: var(--vk-shadow-sm);
+  cursor: inherit;
+  pointer-events: auto;
+  transition: transform var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-slider__input)::-moz-range-thumb {
+  width: var(--vk-slider-thumb);
+  height: var(--vk-slider-thumb);
+  background: var(--vk-color-bg);
+  border: 2px solid var(--vk-slider-accent);
+  border-radius: var(--vk-radius-full);
+  box-shadow: var(--vk-shadow-sm);
+  cursor: inherit;
+  pointer-events: auto;
+  transition: transform var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-slider__input:hover:not(:disabled))::-webkit-slider-thumb {
+  transform: scale(1.1);
+}
+:where(.vk-slider__input:hover:not(:disabled))::-moz-range-thumb {
+  transform: scale(1.1);
+}
+
+/*
+ * Focus goes on the thumb, not the whole input: a ring around the full-width input would
+ * be a rectangle across the page with no relationship to where the keyboard cursor is.
+ */
+:where(.vk-slider__input:focus-visible) {
+  outline: none;
+}
+:where(.vk-slider__input:focus-visible)::-webkit-slider-thumb {
+  outline: 2px solid var(--vk-slider-accent);
+  outline-offset: 2px;
+}
+:where(.vk-slider__input:focus-visible)::-moz-range-thumb {
+  outline: 2px solid var(--vk-slider-accent);
+  outline-offset: 2px;
+}
+
+:where(.vk-slider__value) {
+  min-width: 3ch;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  text-align: end;
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-slider__marks) {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 50%;
+  pointer-events: none;
+}
+
+:where(.vk-slider__mark) {
+  position: absolute;
+  inset-inline-start: var(--vk-slider-mark);
+  width: 2px;
+  height: 2px;
+  background: var(--vk-color-muted);
+  border-radius: var(--vk-radius-full);
+  transform: translate(-50%, -50%);
+}
+
+:where(.vk-slider__mark[data-active]) {
+  background: var(--vk-slider-accent);
+}
+
+:where(.vk-slider__mark-label) {
+  position: absolute;
+  inset-block-start: calc(var(--vk-slider-thumb) / 2 + var(--vk-space-1));
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--vk-color-muted);
+}
+
+/* Mark labels need room under the track, but only when there are any. */
+:where(.vk-slider:has(.vk-slider__mark-label)) {
+  padding-block-end: var(--vk-space-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-slider__input)::-webkit-slider-thumb {
+    transition: none;
+  }
+  :where(.vk-slider__input)::-moz-range-thumb {
+    transition: none;
+  }
+}

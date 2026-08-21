@@ -1,0 +1,25 @@
+/*
+ * ThemeToggle — an `IconButton`, so every variant, size and focus style already comes
+ * from icon-button.css. This file owns the glyph.
+ *
+ * The glyph rotates slightly as it swaps, which reads as the button responding rather
+ * than the icon teleporting. Under reduced motion it simply changes.
+ */
+
+:where(.vk-theme-toggle__glyph) {
+  display: block;
+  width: 1.15em;
+  height: 1.15em;
+  transition: transform var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-theme-toggle[data-theme-choice="dark"]) > :where(.vk-theme-toggle__glyph) {
+  transform: rotate(-12deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-theme-toggle__glyph) {
+    transition: none;
+    transform: none;
+  }
+}

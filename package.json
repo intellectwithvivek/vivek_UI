@@ -16,7 +16,8 @@
     "size": "pnpm --filter @the_viveksingh/vivek-ui size",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "pnpm -r build && changeset publish"
+    "release": "pnpm -r build && changeset publish",
+    "gen:exports": "node scripts/gen-exports.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.9",

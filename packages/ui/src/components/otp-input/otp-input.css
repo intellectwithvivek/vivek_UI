@@ -1,0 +1,93 @@
+/*
+ * OTPInput. Real inputs, sized by a token so the boxes stay square, and wrapping allowed
+ * so an 8-character code does not force a horizontal scrollbar on a narrow screen.
+ */
+
+:where(.vk-otp) {
+  --vk-otp-box: 2.75rem;
+  --vk-otp-accent: var(--vk-color-primary);
+
+  container-type: inline-size;
+  container-name: vk-otp;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vk-space-2);
+  font-family: var(--vk-font-sans);
+}
+
+:where(.vk-otp[data-size="sm"]) {
+  --vk-otp-box: 2.25rem;
+}
+:where(.vk-otp[data-size="lg"]) {
+  --vk-otp-box: 3.25rem;
+}
+
+/*
+ * Narrow container: shrink the boxes rather than wrap them, because a code split across
+ * two lines reads as two codes. Container-based, so the same field is compact in a modal
+ * and full-size on a page at the identical viewport width.
+ */
+@container vk-otp (max-width: 20rem) {
+  :where(.vk-otp) {
+    --vk-otp-box: 2.125rem;
+    gap: var(--vk-space-1);
+  }
+}
+
+:where(.vk-otp__box) {
+  width: var(--vk-otp-box);
+  height: var(--vk-otp-box);
+  padding: 0;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-lg);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  transition:
+    border-color var(--vk-duration) var(--vk-ease),
+    box-shadow var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-otp__box[data-filled]) {
+  border-color: color-mix(in oklab, var(--vk-otp-accent) 50%, var(--vk-color-border));
+}
+
+:where(.vk-otp__box:focus-visible) {
+  outline: none;
+  border-color: var(--vk-otp-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-otp-accent) 25%, transparent);
+}
+
+:where(.vk-otp[data-invalid]) :where(.vk-otp__box) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-otp[data-invalid]) :where(.vk-otp__box:focus-visible) {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-danger) 25%, transparent);
+}
+
+:where(.vk-otp__box:disabled) {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-bg));
+}
+
+:where(.vk-otp__box:read-only:not(:disabled)) {
+  background: color-mix(in oklab, var(--vk-color-fg) 3%, var(--vk-color-bg));
+}
+
+/* The masked box shows a dot, not a tiny asterisk in a proportional font. */
+:where(.vk-otp__box[type="password"]) {
+  font-size: var(--vk-text-xl);
+  letter-spacing: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-otp__box) {
+    transition: none;
+  }
+}

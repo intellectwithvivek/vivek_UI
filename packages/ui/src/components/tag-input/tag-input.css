@@ -1,0 +1,182 @@
+/*
+ * TagInput. The outer box impersonates `.vk-input` — same border, radius and focus ring —
+ * but grows to fit its tags, which a fixed-height input cannot.
+ */
+
+:where(.vk-tag-input) {
+  --vk-tag-input-accent: var(--vk-color-primary);
+  --vk-tag-bg: color-mix(in oklab, var(--vk-color-fg) 7%, var(--vk-color-bg));
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vk-space-2);
+  width: 100%;
+  min-height: 2.5rem;
+  padding: var(--vk-space-2);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-md);
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  cursor: text;
+  transition:
+    border-color var(--vk-duration) var(--vk-ease),
+    box-shadow var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-tag-input[data-size="sm"]) {
+  min-height: 2rem;
+  padding: var(--vk-space-1);
+  font-size: var(--vk-text-sm);
+}
+:where(.vk-tag-input[data-size="lg"]) {
+  min-height: 3rem;
+  padding: var(--vk-space-3);
+  font-size: var(--vk-text-lg);
+}
+
+/* The ring lives on the wrapper, because the wrapper is what reads as the field. */
+:where(.vk-tag-input:has(.vk-tag-input__field:focus-visible)) {
+  border-color: var(--vk-tag-input-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-tag-input-accent) 25%, transparent);
+}
+
+:where(.vk-tag-input[data-invalid]) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-tag-input[data-invalid]:has(.vk-tag-input__field:focus-visible)) {
+  border-color: var(--vk-color-danger);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-danger) 25%, transparent);
+}
+
+:where(.vk-tag-input[data-disabled]) {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-bg));
+}
+
+:where(.vk-tag-input__tags) {
+  display: contents;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.vk-tag-input__tag) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-1);
+  max-width: 100%;
+  padding-block: 0.125rem;
+  padding-inline: var(--vk-space-2);
+  font-size: 0.875em;
+  line-height: 1.5;
+  background: var(--vk-tag-bg);
+  border-radius: var(--vk-radius-full);
+}
+
+:where(.vk-tag-input__text) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.vk-tag-input__remove) {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
+  color: var(--vk-color-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--vk-radius-full);
+  cursor: pointer;
+}
+
+:where(.vk-tag-input__remove:hover:not(:disabled)) {
+  color: var(--vk-color-bg);
+  background: var(--vk-color-muted);
+}
+
+:where(.vk-tag-input__remove:focus-visible) {
+  outline: 2px solid var(--vk-tag-input-accent);
+  outline-offset: 1px;
+}
+
+:where(.vk-tag-input__remove:disabled) {
+  cursor: not-allowed;
+}
+
+/* A cross from two rotated rules - no icon dependency. */
+:where(.vk-tag-input__cross) {
+  position: relative;
+  width: 0.7em;
+  height: 0.7em;
+}
+
+:where(.vk-tag-input__cross)::before,
+:where(.vk-tag-input__cross)::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 15%;
+  width: 70%;
+  height: 1.5px;
+  background: currentcolor;
+}
+
+:where(.vk-tag-input__cross)::before {
+  transform: rotate(45deg);
+}
+:where(.vk-tag-input__cross)::after {
+  transform: rotate(-45deg);
+}
+
+/*
+ * The field takes the remaining width but never shrinks below a usable size, so typing a
+ * long tag next to a full row of chips still has somewhere to go.
+ */
+:where(.vk-tag-input__field) {
+  flex: 1 1 6rem;
+  min-width: 4rem;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  outline: none;
+}
+
+:where(.vk-tag-input__field::placeholder) {
+  color: var(--vk-color-muted);
+}
+
+/* Full-width, so a message never squeezes in beside the last chip. */
+:where(.vk-tag-input__error) {
+  flex: 1 0 100%;
+  margin: 0;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-danger);
+}
+
+/* Visually hidden, never display:none - a hidden live region is never announced. */
+:where(.vk-tag-input__sr) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-tag-input) {
+    transition: none;
+  }
+}

@@ -1,0 +1,267 @@
+/*
+ * Carousel — CSS scroll-snap doing the work.
+ *
+ * The root is a two-row grid ("track" then "bar") and a named inline-size container. The
+ * controls wrapper is `display: contents`, so the arrows become grid items in the track's
+ * own row and centre against the TRACK rather than against the whole component — no magic
+ * offsets to keep in sync with the height of the dots.
+ *
+ * Slide width is resolved on the slide, not the root, because an element cannot query its
+ * own container. `--vk-carousel-n` is the visible-slide count in force at this width; the
+ * caller's inline `--vk-carousel-slides*` chain feeds it inside each container query.
+ */
+
+:where(.vk-carousel) {
+  --vk-carousel-gap: var(--vk-space-4);
+  --vk-carousel-dot: var(--vk-space-2);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  /*
+   * One DECLARED row. The dots row is placed into an implicit second row instead of being
+   * declared here, because a declared-but-empty row would still collect `row-gap` and
+   * leave a strip of dead space under every carousel that has no controls.
+   */
+  grid-template-areas: "track";
+  row-gap: var(--vk-space-4);
+  container: vk-carousel / inline-size;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-carousel[data-gap="1"]) {
+  --vk-carousel-gap: var(--vk-space-1);
+}
+:where(.vk-carousel[data-gap="2"]) {
+  --vk-carousel-gap: var(--vk-space-2);
+}
+:where(.vk-carousel[data-gap="3"]) {
+  --vk-carousel-gap: var(--vk-space-3);
+}
+:where(.vk-carousel[data-gap="4"]) {
+  --vk-carousel-gap: var(--vk-space-4);
+}
+:where(.vk-carousel[data-gap="6"]) {
+  --vk-carousel-gap: var(--vk-space-6);
+}
+:where(.vk-carousel[data-gap="8"]) {
+  --vk-carousel-gap: var(--vk-space-8);
+}
+:where(.vk-carousel[data-gap="12"]) {
+  --vk-carousel-gap: var(--vk-space-12);
+}
+:where(.vk-carousel[data-gap="16"]) {
+  --vk-carousel-gap: var(--vk-space-16);
+}
+
+:where(.vk-carousel__track) {
+  grid-area: track;
+  display: flex;
+  gap: var(--vk-carousel-gap);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: inline mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-inline: contain;
+  /*
+   * The scrollbar is suppressed because the snap points, the arrows and the dots are the
+   * affordance here. The track keeps its tab stop and a visible focus ring, so it is
+   * still discoverable and operable by keyboard.
+   */
+  scrollbar-width: none;
+}
+
+:where(.vk-carousel__track)::-webkit-scrollbar {
+  display: none;
+}
+
+:where(.vk-carousel__track:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+  border-radius: var(--vk-radius-md);
+}
+
+:where(.vk-carousel__slide) {
+  --vk-carousel-n: var(--vk-carousel-slides, 1);
+
+  flex: 0 0
+    calc((100% - (var(--vk-carousel-n) - 1) * var(--vk-carousel-gap)) / var(--vk-carousel-n));
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* A single child fills the slide, so a row of Cards has a flat bottom edge. */
+:where(.vk-carousel__slide) > :where(*:only-child) {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+:where(.vk-carousel[data-align="center"])
+  > :where(.vk-carousel__track)
+  > :where(.vk-carousel__slide) {
+  scroll-snap-align: center;
+}
+
+:where(.vk-carousel[data-align="end"]) > :where(.vk-carousel__track) > :where(.vk-carousel__slide) {
+  scroll-snap-align: end;
+}
+
+/*
+ * No `slidesPerView`: one, then two, then three — against the carousel's own width, so a
+ * carousel in a sidebar shows one slide while the same component in a page shows three,
+ * with no props and no media queries.
+ */
+:where(.vk-carousel[data-mode="auto"]) > :where(.vk-carousel__track) > :where(.vk-carousel__slide) {
+  --vk-carousel-n: 1;
+}
+
+@container vk-carousel (min-width: 640px) {
+  :where(.vk-carousel[data-mode="auto"])
+    > :where(.vk-carousel__track)
+    > :where(.vk-carousel__slide) {
+    --vk-carousel-n: 2;
+  }
+  :where(.vk-carousel[data-mode="fixed"])
+    > :where(.vk-carousel__track)
+    > :where(.vk-carousel__slide) {
+    --vk-carousel-n: var(--vk-carousel-slides-sm, var(--vk-carousel-slides, 1));
+  }
+}
+
+@container vk-carousel (min-width: 768px) {
+  :where(.vk-carousel[data-mode="fixed"])
+    > :where(.vk-carousel__track)
+    > :where(.vk-carousel__slide) {
+    --vk-carousel-n: var(
+      --vk-carousel-slides-md,
+      var(--vk-carousel-slides-sm, var(--vk-carousel-slides, 1))
+    );
+  }
+}
+
+@container vk-carousel (min-width: 1024px) {
+  :where(.vk-carousel[data-mode="auto"])
+    > :where(.vk-carousel__track)
+    > :where(.vk-carousel__slide) {
+    --vk-carousel-n: 3;
+  }
+  :where(.vk-carousel[data-mode="fixed"])
+    > :where(.vk-carousel__track)
+    > :where(.vk-carousel__slide) {
+    --vk-carousel-n: var(
+      --vk-carousel-slides-lg,
+      var(--vk-carousel-slides-md, var(--vk-carousel-slides-sm, var(--vk-carousel-slides, 1)))
+    );
+  }
+}
+
+@container vk-carousel (min-width: 1280px) {
+  :where(.vk-carousel[data-mode="fixed"])
+    > :where(.vk-carousel__track)
+    > :where(.vk-carousel__slide) {
+    --vk-carousel-n: var(
+      --vk-carousel-slides-xl,
+      var(
+        --vk-carousel-slides-lg,
+        var(--vk-carousel-slides-md, var(--vk-carousel-slides-sm, var(--vk-carousel-slides, 1)))
+      )
+    );
+  }
+}
+
+/* `display: contents` is what lets the arrows share the track's grid cell. */
+:where(.vk-carousel__controls) {
+  display: contents;
+}
+
+:where(.vk-carousel__arrow) {
+  grid-area: track;
+  z-index: 1;
+  align-self: center;
+  background: var(--vk-color-bg);
+  box-shadow: var(--vk-shadow-sm);
+}
+
+:where(.vk-carousel__arrow[data-direction="prev"]) {
+  justify-self: start;
+  margin-inline-start: var(--vk-space-2);
+}
+
+:where(.vk-carousel__arrow[data-direction="next"]) {
+  justify-self: end;
+  margin-inline-end: var(--vk-space-2);
+}
+
+:where(.vk-carousel__bar) {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-carousel__dots) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+ * The visible dot is the `::after`; the button itself is a 24px target, which is the
+ * WCAG 2.5.8 minimum. An 8px button would be a 1.4.11-and-2.5.8 failure at once.
+ */
+:where(.vk-carousel__dot) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--vk-space-6);
+  height: var(--vk-space-6);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+:where(.vk-carousel__dot)::after {
+  content: "";
+  width: var(--vk-carousel-dot);
+  height: var(--vk-carousel-dot);
+  border-radius: var(--vk-radius-full);
+  background: color-mix(in oklab, var(--vk-color-fg) 28%, transparent);
+  transition:
+    background var(--vk-duration) var(--vk-ease),
+    width var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-carousel__dot[data-active])::after {
+  width: calc(var(--vk-carousel-dot) * 2.5);
+  background: var(--vk-color-primary);
+}
+
+:where(.vk-carousel__dot:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 0;
+  border-radius: var(--vk-radius-full);
+}
+
+/*
+ * Reduced motion: jump, never glide. Smooth scrolling is the one piece of motion this
+ * component owns that a data attribute cannot switch off, and autoplay is already
+ * suppressed in JavaScript by the same media query.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-carousel__track) {
+    scroll-behavior: auto;
+  }
+
+  :where(.vk-carousel__dot)::after {
+    transition: none;
+  }
+}

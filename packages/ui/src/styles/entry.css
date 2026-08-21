@@ -37,3 +37,13 @@
 @import "../components/skeleton/skeleton.css";
 @import "../components/alert/alert.css";
 @import "../components/progress/progress.css";
+
+/* forms */
+@import "../components/label/label.css";
+@import "../components/field/field.css";
+@import "../components/input/input.css";
+@import "../components/textarea/textarea.css";
+@import "../components/select/select.css";
+@import "../components/checkbox/checkbox.css";
+@import "../components/switch/switch.css";
+@import "../components/radio-group/radio-group.css";

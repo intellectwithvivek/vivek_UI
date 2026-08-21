@@ -1,0 +1,29 @@
+:where(.vk-sparkline) {
+  display: inline-block;
+  vertical-align: middle;
+  inline-size: var(--vk-sparkline-width, 7rem);
+  --vk-sparkline-stroke: var(--vk-chart-1);
+}
+
+:where(.vk-sparkline__svg) {
+  display: block;
+  inline-size: 100%;
+}
+
+:where(.vk-sparkline__line) {
+  fill: none;
+  stroke: var(--vk-sparkline-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+:where(.vk-sparkline__area) {
+  stroke: none;
+  fill: var(--vk-sparkline-area, color-mix(in oklab, var(--vk-sparkline-stroke) 22%, transparent));
+}
+
+:where(.vk-sparkline__point) {
+  fill: var(--vk-sparkline-stroke);
+  stroke: var(--vk-chart-surface);
+  stroke-width: 1;
+}

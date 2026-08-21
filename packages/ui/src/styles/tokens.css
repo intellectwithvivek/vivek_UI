@@ -16,6 +16,9 @@
   --vk-color-muted: #6b7280;
   --vk-color-border: #e5e7eb;
   --vk-color-danger: #dc2626;
+  --vk-color-success: #16a34a;
+  --vk-color-warning: #ca8a04;
+  --vk-color-overlay: rgb(9 9 11 / 0.6);
 
   /* spacing - 4px scale */
   --vk-space-1: 0.25rem;
@@ -44,6 +47,23 @@
   --vk-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
   --vk-shadow-md: 0 4px 12px rgb(0 0 0 / 0.08);
 
+  /* layering */
+  --vk-z-overlay: 1000;
+  --vk-toast-z: 1100;
+
+  /* overlay sizing */
+  --vk-modal-width-sm: 24rem;
+  --vk-modal-width-md: 32rem;
+  --vk-modal-width-lg: 42rem;
+  --vk-modal-width-xl: 56rem;
+  --vk-drawer-size-sm: 18rem;
+  --vk-drawer-size-md: 24rem;
+  --vk-drawer-size-lg: 32rem;
+  --vk-drawer-size-xl: 42rem;
+  --vk-toast-width: 22rem;
+  --vk-toast-gap: 0.75rem;
+  --vk-toast-inset: 1rem;
+
   /* motion */
   --vk-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --vk-duration: 180ms;
@@ -54,4 +74,7 @@
   --vk-color-fg: #f3f4f6;
   --vk-color-border: #1f2937;
   --vk-color-muted: #9ca3af;
+  --vk-color-success: #4ade80;
+  --vk-color-warning: #fbbf24;
+  --vk-color-overlay: rgb(0 0 0 / 0.72);
 }

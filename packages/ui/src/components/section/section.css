@@ -1,0 +1,98 @@
+/*
+ * The shared section surface. Everything here is either a token lookup or a
+ * container-query hook — no section owns bespoke colour or type values.
+ */
+
+:where(.vk-section) {
+  display: block;
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  /*
+   * Named inline-size container. Every section lays itself out against its OWN
+   * width rather than the viewport, so a Hero dropped into a narrow sidebar
+   * collapses correctly with no props and no JavaScript.
+   */
+  container: vk-section / inline-size;
+}
+
+:where(.vk-section[data-padding="none"]) {
+  padding-block: 0;
+}
+:where(.vk-section[data-padding="sm"]) {
+  padding-block: var(--vk-space-6);
+}
+:where(.vk-section[data-padding="md"]) {
+  padding-block: var(--vk-space-8);
+}
+:where(.vk-section[data-padding="lg"]) {
+  padding-block: var(--vk-space-12);
+}
+:where(.vk-section[data-padding="xl"]) {
+  padding-block: var(--vk-space-16);
+}
+
+/* A tinted surface, derived from the theme rather than hard-coded, so it follows
+   both light and dark themes automatically. Cards stay on --vk-color-bg and lift
+   off it, which is exactly the intended contrast. */
+:where(.vk-section[data-background="muted"]) {
+  --vk-section-surface: color-mix(in oklab, var(--vk-color-bg) 94%, var(--vk-color-fg));
+  background: var(--vk-section-surface);
+}
+
+/* Re-point the palette for the subtree. Nested Text/Card/Divider/Badge then
+   inherit legible values instead of grey-on-indigo. */
+:where(.vk-section[data-background="primary"]) {
+  --vk-color-bg: var(--vk-color-primary);
+  --vk-color-fg: var(--vk-color-primary-fg);
+  --vk-color-muted: color-mix(in oklab, var(--vk-color-primary-fg) 78%, var(--vk-color-primary));
+  --vk-color-border: color-mix(in oklab, var(--vk-color-primary-fg) 28%, transparent);
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-section[data-align="center"]) {
+  text-align: center;
+}
+:where(.vk-section[data-align="end"]) {
+  text-align: end;
+}
+
+:where(.vk-section__header) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-3);
+  margin-block-end: var(--vk-space-8);
+}
+
+:where(.vk-section__header[data-align="start"]) {
+  align-items: flex-start;
+  text-align: start;
+}
+:where(.vk-section__header[data-align="center"]) {
+  align-items: center;
+  text-align: center;
+}
+:where(.vk-section__header[data-align="end"]) {
+  align-items: flex-end;
+  text-align: end;
+}
+
+/* No explicit header alignment: follow the section. */
+:where(.vk-section[data-align="center"]) :where(.vk-section__header:not([data-align])) {
+  align-items: center;
+}
+:where(.vk-section[data-align="end"]) :where(.vk-section__header:not([data-align])) {
+  align-items: flex-end;
+}
+
+:where(.vk-section__eyebrow) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-section__description) {
+  max-width: 60ch;
+}

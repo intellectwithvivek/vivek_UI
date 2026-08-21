@@ -1,0 +1,62 @@
+:where(.vk-faq__list) {
+  display: flex;
+  flex-direction: column;
+  border-block-start: 1px solid var(--vk-color-border);
+  text-align: start;
+}
+
+:where(.vk-faq__item) {
+  border-block-end: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-faq__question) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vk-space-4);
+  padding-block: var(--vk-space-4);
+  cursor: pointer;
+  /* display:flex already suppresses the marker; these cover Safari and older WebKit. */
+  list-style: none;
+}
+
+:where(.vk-faq__question)::-webkit-details-marker {
+  display: none;
+}
+
+:where(.vk-faq__question-text) {
+  min-width: 0;
+}
+
+/*
+ * A chevron drawn from two borders — no icon dependency, no extra DOM, and
+ * pseudo-element content that assistive technology has nothing to announce.
+ */
+:where(.vk-faq__question)::after {
+  content: "";
+  flex: none;
+  inline-size: 0.5em;
+  block-size: 0.5em;
+  border-inline-end: 2px solid var(--vk-color-muted);
+  border-block-end: 2px solid var(--vk-color-muted);
+  rotate: 45deg;
+  translate: 0 -0.15em;
+  transition: rotate var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-faq__item[open]) > :where(.vk-faq__question)::after {
+  rotate: -135deg;
+  translate: 0 0.15em;
+}
+
+:where(.vk-faq__answer) {
+  padding-block-end: var(--vk-space-4);
+  padding-inline-end: var(--vk-space-8);
+  max-width: 70ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-faq__question)::after {
+    transition: none;
+  }
+}

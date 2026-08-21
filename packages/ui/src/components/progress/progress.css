@@ -11,10 +11,10 @@
   --vk-progress-color: var(--vk-color-primary);
 }
 :where(.vk-progress[data-tone="success"]) {
-  --vk-progress-color: #16a34a;
+  --vk-progress-color: var(--vk-color-success);
 }
 :where(.vk-progress[data-tone="warning"]) {
-  --vk-progress-color: #ca8a04;
+  --vk-progress-color: var(--vk-color-warning);
 }
 :where(.vk-progress[data-tone="danger"]) {
   --vk-progress-color: var(--vk-color-danger);

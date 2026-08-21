@@ -1,0 +1,54 @@
+:where(.vk-pie-chart) {
+  display: block;
+  inline-size: 100%;
+}
+
+:where(.vk-pie-chart__svg) {
+  margin-inline: auto;
+}
+
+/* The gap between slices comes from the page background, so slices stay separable even
+   when two neighbouring hues are close. */
+:where(.vk-pie-chart__slice) {
+  stroke: var(--vk-chart-surface);
+  stroke-width: 1.5;
+}
+
+:where(.vk-pie-chart__track) {
+  stroke: var(--vk-chart-grid);
+}
+
+:where(.vk-pie-chart__label) {
+  fill: var(--vk-chart-surface);
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: color-mix(in oklab, var(--vk-color-fg) 45%, transparent);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+:where(.vk-pie-chart__center) {
+  fill: var(--vk-color-fg);
+  font-size: var(--vk-text-xl);
+  font-weight: 700;
+}
+
+:where(.vk-pie-chart__center-sub) {
+  fill: var(--vk-color-muted);
+}
+
+:where(.vk-pie-chart__slice) {
+  animation: vk-pie-in 320ms var(--vk-ease) both;
+}
+
+@keyframes vk-pie-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-pie-chart__slice) {
+    animation: none;
+  }
+}

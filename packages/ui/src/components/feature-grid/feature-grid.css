@@ -1,0 +1,41 @@
+/* A real <ul> for the semantics; none of the list chrome. */
+:where(.vk-feature-grid__list) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.vk-feature-grid__item) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-2);
+  min-width: 0;
+}
+
+:where(.vk-section[data-align="center"]) :where(.vk-feature-grid__item) {
+  align-items: center;
+}
+
+:where(.vk-feature-grid__icon) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--vk-space-12);
+  block-size: var(--vk-space-12);
+  margin-block-end: var(--vk-space-1);
+  color: var(--vk-color-primary);
+  background: color-mix(in oklab, var(--vk-color-primary) 12%, transparent);
+  border-radius: var(--vk-radius-md);
+}
+
+:where(.vk-feature-grid__icon) > :where(svg) {
+  inline-size: var(--vk-space-6);
+  block-size: var(--vk-space-6);
+}
+
+/* On a primary surface the tinted chip disappears into the background, so borrow
+   the foreground colour instead of the brand colour. */
+:where(.vk-section[data-background="primary"]) :where(.vk-feature-grid__icon) {
+  color: var(--vk-color-primary-fg);
+  background: color-mix(in oklab, var(--vk-color-primary-fg) 16%, transparent);
+}

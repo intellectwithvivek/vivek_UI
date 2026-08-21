@@ -20,7 +20,13 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./styles.css": "./dist/styles.css"
+    "./charts": {
+      "types": "./dist/charts/index.d.ts",
+      "import": "./dist/charts/index.js",
+      "require": "./dist/charts/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./charts.css": "./dist/charts.css"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -48,7 +54,7 @@
   ],
   "scripts": {
     "build": "tsup && node ../../scripts/fix-dist-specifiers.mjs && pnpm build:css && node ../../scripts/check-directives.mjs",
-    "build:css": "lightningcss --bundle --minify src/styles/entry.css -o dist/styles.css",
+    "build:css": "lightningcss --bundle --minify src/styles/entry.css -o dist/styles.css && lightningcss --bundle --minify src/charts/styles.css -o dist/charts.css",
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -65,7 +71,7 @@
   },
   "size-limit": [
     {
-      "name": "Button only (tree-shaken)",
+      "name": "Button only",
       "path": "dist/index.js",
       "import": "{ Button }",
       "limit": "3 kB",
@@ -76,10 +82,10 @@
       ]
     },
     {
-      "name": "Card + Badge + Alert",
+      "name": "Modal (focus trap + scroll lock + portal)",
       "path": "dist/index.js",
-      "import": "{ Card, Badge, Alert }",
-      "limit": "4 kB",
+      "import": "{ Modal }",
+      "limit": "6 kB",
       "ignore": [
         "react",
         "react-dom",
@@ -87,10 +93,32 @@
       ]
     },
     {
-      "name": "Whole library",
+      "name": "A landing page (Hero+Features+Pricing+FAQ+CTA+Footer)",
       "path": "dist/index.js",
+      "import": "{ Hero, FeatureGrid, Pricing, FAQ, CTA, Footer }",
+      "limit": "8 kB",
+      "ignore": [
+        "react",
+        "react-dom",
+        "react/jsx-runtime"
+      ]
+    },
+    {
+      "name": "All charts",
+      "path": "dist/charts/index.js",
       "import": "*",
       "limit": "12 kB",
+      "ignore": [
+        "react",
+        "react-dom",
+        "react/jsx-runtime"
+      ]
+    },
+    {
+      "name": "Whole core library",
+      "path": "dist/index.js",
+      "import": "*",
+      "limit": "30 kB",
       "ignore": [
         "react",
         "react-dom",

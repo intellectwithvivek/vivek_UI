@@ -1,0 +1,42 @@
+:where(.vk-progress-ring) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:where(.vk-progress-ring__svg) {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+:where(.vk-progress-ring__track) {
+  stroke: var(--vk-progress-ring-track, color-mix(in oklab, var(--vk-color-fg) 12%, transparent));
+}
+
+:where(.vk-progress-ring__arc) {
+  stroke: var(--vk-progress-ring-color, var(--vk-chart-1));
+  transition: stroke-dashoffset var(--vk-duration) var(--vk-ease);
+}
+
+/* Centred over the ring rather than inside the SVG, so it can hold real markup. */
+:where(.vk-progress-ring__center) {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: var(--vk-text-md);
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-progress-ring__arc) {
+    transition: none;
+  }
+}

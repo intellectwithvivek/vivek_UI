@@ -1,0 +1,92 @@
+:where(.vk-pricing__plans) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: stretch;
+}
+
+/* The <li> exists only to keep the list semantics; the Card is the real surface,
+   and it stretches so every plan in a row is the same height. */
+:where(.vk-pricing__plan) {
+  display: flex;
+  min-width: 0;
+}
+
+:where(.vk-pricing__card) {
+  flex: 1;
+}
+
+:where(.vk-pricing__card[data-highlighted]) {
+  border-color: var(--vk-color-primary);
+  outline: 1px solid var(--vk-color-primary);
+}
+
+:where(.vk-pricing__head) {
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-pricing__name-row) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-pricing__price) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--vk-space-1);
+}
+
+:where(.vk-pricing__amount) {
+  font-size: var(--vk-text-2xl);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+:where(.vk-pricing__period) {
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-pricing__features) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-pricing__feature) {
+  display: flex;
+  align-items: start;
+  gap: var(--vk-space-2);
+}
+
+/*
+ * The tick is a rotated pair of borders on an empty pseudo-element: no icon
+ * dependency, no extra DOM, and nothing for a screen reader to announce.
+ */
+:where(.vk-pricing__feature)::before {
+  content: "";
+  flex: none;
+  inline-size: 0.4em;
+  block-size: 0.7em;
+  margin-block-start: 0.25em;
+  margin-inline-end: 0.15em;
+  border-inline-end: 2px solid var(--vk-color-primary);
+  border-block-end: 2px solid var(--vk-color-primary);
+  rotate: 45deg;
+}
+
+:where(.vk-section[data-background="primary"]) :where(.vk-pricing__feature)::before {
+  border-color: var(--vk-color-primary-fg);
+}
+
+:where(.vk-pricing__cta) > :where(*) {
+  flex: 1;
+}

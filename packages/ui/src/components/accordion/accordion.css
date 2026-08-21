@@ -1,0 +1,180 @@
+/*
+ * Accordion styles (ARCHITECTURE §3.2).
+ *
+ * :where()-wrapped selectors (specificity 0) and --vk-* tokens only. The chevron is a
+ * ::after pseudo-element, so the component adds no decorative DOM a consumer has to
+ * work around, and hiding it is one line of their own CSS.
+ */
+
+:where(.vk-accordion) {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-accordion[data-variant="separated"]) {
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-accordion[data-variant="contained"]) {
+  gap: 0;
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-lg);
+  overflow: hidden;
+}
+
+:where(.vk-accordion[data-variant="plain"]) {
+  gap: 0;
+}
+
+/* ---------------------------------------------------------------- item */
+
+:where(.vk-accordion__item) {
+  min-width: 0;
+}
+
+:where(.vk-accordion[data-variant="separated"]) :where(.vk-accordion__item) {
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  overflow: hidden;
+}
+
+:where(.vk-accordion[data-variant="contained"]) :where(.vk-accordion__item + .vk-accordion__item),
+:where(.vk-accordion[data-variant="plain"]) :where(.vk-accordion__item + .vk-accordion__item) {
+  border-top: 1px solid var(--vk-color-border);
+}
+
+/* ---------------------------------------------------------------- trigger */
+
+/* The heading carries no type scale of its own: its level is semantics, not size. */
+:where(.vk-accordion__heading) {
+  margin: 0;
+  font: inherit;
+}
+
+:where(.vk-accordion__trigger) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vk-space-3);
+  width: 100%;
+  font-family: inherit;
+  font-weight: 500;
+  text-align: start;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-accordion[data-size="sm"]) :where(.vk-accordion__trigger) {
+  padding: var(--vk-space-2) var(--vk-space-3);
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-accordion[data-size="md"]) :where(.vk-accordion__trigger) {
+  padding: var(--vk-space-3) var(--vk-space-4);
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-accordion[data-size="lg"]) :where(.vk-accordion__trigger) {
+  padding: var(--vk-space-4) var(--vk-space-6);
+  font-size: var(--vk-text-lg);
+}
+
+@media (hover: hover) {
+  :where(.vk-accordion__trigger:hover:not([data-disabled])) {
+    background: color-mix(in oklab, var(--vk-color-fg) 5%, transparent);
+  }
+}
+
+:where(.vk-accordion__trigger:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: -2px;
+}
+
+:where(.vk-accordion__trigger[data-disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* chevron: two borders rotated, so it needs no icon font, no SVG and no extra element */
+:where(.vk-accordion__trigger)::after {
+  content: "";
+  flex: none;
+  width: 0.45em;
+  height: 0.45em;
+  margin-inline-start: auto;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  border-radius: 1px;
+  transform: translateY(-0.12em) rotate(45deg);
+  transform-origin: center;
+  opacity: 0.7;
+  transition: transform var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-accordion__trigger[data-state="open"])::after {
+  transform: translateY(0.1em) rotate(225deg);
+}
+
+/* ---------------------------------------------------------------- content */
+
+:where(.vk-accordion__content) {
+  min-width: 0;
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-accordion[data-size="sm"]) :where(.vk-accordion__content) {
+  padding: 0 var(--vk-space-3) var(--vk-space-3);
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-accordion[data-size="md"]) :where(.vk-accordion__content) {
+  padding: 0 var(--vk-space-4) var(--vk-space-4);
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-accordion[data-size="lg"]) :where(.vk-accordion__content) {
+  padding: 0 var(--vk-space-6) var(--vk-space-6);
+  font-size: var(--vk-text-md);
+}
+
+/*
+ * The UA sheet's `[hidden] { display: none }` loses to any author `display`, so state it
+ * here: a closed panel must really be gone, not just invisible.
+ */
+:where(.vk-accordion__content[hidden]) {
+  display: none;
+}
+
+/*
+ * Opening animation only. A closing panel goes to `display: none` in the same frame —
+ * no transition outruns that. Faking it would mean either delaying the `hidden`
+ * attribute (leaving stale content exposed to assistive tech) or animating an element
+ * that is still in the accessibility tree. Neither is worth 180ms of fade.
+ */
+:where(.vk-accordion__content[data-state="open"]) {
+  animation: vk-accordion-in var(--vk-duration) var(--vk-ease);
+}
+
+@keyframes vk-accordion-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-accordion__trigger),
+  :where(.vk-accordion__trigger)::after {
+    transition: none;
+  }
+
+  :where(.vk-accordion__content[data-state="open"]) {
+    animation: none;
+  }
+}

@@ -1,0 +1,34 @@
+:where(.vk-cta__inner) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-6);
+}
+
+:where(.vk-cta__content) {
+  margin-block-end: 0;
+}
+
+:where(.vk-section[data-align="center"]) :where(.vk-cta__inner) {
+  align-items: center;
+}
+
+:where(.vk-cta__content) > :where(.vk-section__description) {
+  max-width: 52ch;
+}
+
+/*
+ * Once the section is wide enough, a start-aligned CTA puts the actions on the
+ * end edge, beside the copy. Centred CTAs keep stacking on purpose.
+ */
+@container vk-section (min-width: 44rem) {
+  :where(.vk-cta[data-align="start"]) :where(.vk-cta__inner) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--vk-space-8);
+  }
+
+  :where(.vk-cta[data-align="start"]) :where(.vk-cta__actions) {
+    flex: none;
+  }
+}

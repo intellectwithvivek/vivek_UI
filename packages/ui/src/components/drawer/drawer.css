@@ -1,0 +1,243 @@
+/*
+ * Drawer — a modal dialog attached to an edge of the viewport.
+ *
+ * Every selector is wrapped in :where() for zero specificity (ARCHITECTURE §3.2), and
+ * every value is a --vk-* custom property. The ones not yet in styles/tokens.css are
+ * written as var(<token>, <fallback>), so adding them to :root later Just Works:
+ *
+ *   --vk-z-overlay      stacking level for portalled overlays  (fallback 1000)
+ *   --vk-color-overlay  backdrop colour                        (fallback black 55%)
+ *   --vk-drawer-size-*  panel thickness per data-size
+ *
+ * Placement is logical, not physical. `data-side="start"` uses flex alignment on the
+ * inline axis, so it lands on the left in LTR and on the right in RTL with no extra
+ * props; the slide-in direction is flipped for RTL below.
+ */
+
+:where(.vk-drawer) {
+  position: fixed;
+  inset: 0;
+  z-index: var(--vk-z-overlay, 1000);
+  display: flex;
+  background: var(--vk-color-overlay, rgb(0 0 0 / 0.55));
+  animation: vk-drawer-overlay-in var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-drawer__panel) {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--vk-space-6);
+  gap: var(--vk-space-4);
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-md);
+  border: 0 solid var(--vk-color-border);
+  box-shadow: var(--vk-shadow-md);
+  animation: vk-drawer-panel-in var(--vk-duration) var(--vk-ease);
+  container-type: inline-size;
+}
+
+:where(.vk-drawer__panel:focus) {
+  outline: none;
+}
+:where(.vk-drawer__panel:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: -2px;
+}
+
+/* --- edges ------------------------------------------------------- */
+
+/* Placement is the panel's own business — an auto logical margin, so no attribute has to
+   be mirrored onto the backdrop and no `:has()` is needed to reach it from there. A
+   `start` drawer needs nothing at all: it is already at the start of the inline axis,
+   which is the left in LTR and the right in RTL. */
+:where(.vk-drawer__panel[data-side="end"]) {
+  margin-inline-start: auto;
+}
+:where(.vk-drawer__panel[data-side="top"]) {
+  align-self: flex-start;
+}
+:where(.vk-drawer__panel[data-side="bottom"]) {
+  align-self: flex-end;
+}
+
+:where(.vk-drawer__panel[data-side="start"]),
+:where(.vk-drawer__panel[data-side="end"]) {
+  block-size: 100%;
+  max-inline-size: 100%;
+  inline-size: var(--vk-drawer-size-md, 24rem);
+}
+:where(.vk-drawer__panel[data-side="start"]) {
+  border-inline-end-width: 1px;
+  --vk-drawer-from: -100% 0;
+}
+:where(.vk-drawer__panel[data-side="end"]) {
+  border-inline-start-width: 1px;
+  --vk-drawer-from: 100% 0;
+}
+
+:where(.vk-drawer__panel[data-side="top"]),
+:where(.vk-drawer__panel[data-side="bottom"]) {
+  inline-size: 100%;
+  max-block-size: 100%;
+  block-size: var(--vk-drawer-size-md, 24rem);
+}
+:where(.vk-drawer__panel[data-side="top"]) {
+  border-block-end-width: 1px;
+  --vk-drawer-from: 0 -100%;
+}
+:where(.vk-drawer__panel[data-side="bottom"]) {
+  border-block-start-width: 1px;
+  --vk-drawer-from: 0 100%;
+}
+
+/* In RTL the inline axis runs the other way, and `translate` is physical. Both forms are
+   here on purpose: `:dir()` is the correct one, `[dir="rtl"]` covers browsers that do not
+   have it yet. */
+:where(.vk-drawer__panel[data-side="start"]:dir(rtl)),
+:where([dir="rtl"]) :where(.vk-drawer__panel[data-side="start"]) {
+  --vk-drawer-from: 100% 0;
+}
+:where(.vk-drawer__panel[data-side="end"]:dir(rtl)),
+:where([dir="rtl"]) :where(.vk-drawer__panel[data-side="end"]) {
+  --vk-drawer-from: -100% 0;
+}
+
+/* --- sizes ------------------------------------------------------- */
+
+:where(.vk-drawer__panel[data-side="start"][data-size="sm"]),
+:where(.vk-drawer__panel[data-side="end"][data-size="sm"]) {
+  inline-size: var(--vk-drawer-size-sm, 18rem);
+}
+:where(.vk-drawer__panel[data-side="start"][data-size="md"]),
+:where(.vk-drawer__panel[data-side="end"][data-size="md"]) {
+  inline-size: var(--vk-drawer-size-md, 24rem);
+}
+:where(.vk-drawer__panel[data-side="start"][data-size="lg"]),
+:where(.vk-drawer__panel[data-side="end"][data-size="lg"]) {
+  inline-size: var(--vk-drawer-size-lg, 32rem);
+}
+:where(.vk-drawer__panel[data-side="start"][data-size="xl"]),
+:where(.vk-drawer__panel[data-side="end"][data-size="xl"]) {
+  inline-size: var(--vk-drawer-size-xl, 40rem);
+}
+:where(.vk-drawer__panel[data-side="start"][data-size="full"]),
+:where(.vk-drawer__panel[data-side="end"][data-size="full"]) {
+  inline-size: 100%;
+  border-inline-width: 0;
+}
+
+:where(.vk-drawer__panel[data-side="top"][data-size="sm"]),
+:where(.vk-drawer__panel[data-side="bottom"][data-size="sm"]) {
+  block-size: var(--vk-drawer-size-sm, 18rem);
+}
+:where(.vk-drawer__panel[data-side="top"][data-size="md"]),
+:where(.vk-drawer__panel[data-side="bottom"][data-size="md"]) {
+  block-size: var(--vk-drawer-size-md, 24rem);
+}
+:where(.vk-drawer__panel[data-side="top"][data-size="lg"]),
+:where(.vk-drawer__panel[data-side="bottom"][data-size="lg"]) {
+  block-size: var(--vk-drawer-size-lg, 32rem);
+}
+:where(.vk-drawer__panel[data-side="top"][data-size="xl"]),
+:where(.vk-drawer__panel[data-side="bottom"][data-size="xl"]) {
+  block-size: var(--vk-drawer-size-xl, 40rem);
+}
+:where(.vk-drawer__panel[data-side="top"][data-size="full"]),
+:where(.vk-drawer__panel[data-side="bottom"][data-size="full"]) {
+  block-size: 100%;
+  border-block-width: 0;
+}
+
+/* --- slots ------------------------------------------------------- */
+
+:where(.vk-drawer__header) {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--vk-space-4);
+  flex: 0 0 auto;
+}
+
+:where(.vk-drawer__title) {
+  margin: 0;
+  font-size: var(--vk-text-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-drawer__body) {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-drawer__footer) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--vk-space-2);
+  flex: 0 0 auto;
+}
+
+:where(.vk-drawer__close) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: calc(var(--vk-space-2) * -1);
+  padding: var(--vk-space-2);
+  background: none;
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  color: var(--vk-color-muted);
+  cursor: pointer;
+  transition:
+    background var(--vk-duration) var(--vk-ease),
+    color var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-drawer__close:hover) {
+    background: color-mix(in oklab, var(--vk-color-fg) 8%, transparent);
+    color: var(--vk-color-fg);
+  }
+}
+
+:where(.vk-drawer__close:focus-visible) {
+  outline: 2px solid var(--vk-color-primary);
+  outline-offset: 2px;
+}
+
+:where(.vk-drawer__close-icon) {
+  width: var(--vk-space-4);
+  height: var(--vk-space-4);
+}
+
+@keyframes vk-drawer-overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes vk-drawer-panel-in {
+  from {
+    translate: var(--vk-drawer-from, 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-drawer),
+  :where(.vk-drawer__panel) {
+    animation: none;
+  }
+  :where(.vk-drawer__close) {
+    transition: none;
+  }
+}

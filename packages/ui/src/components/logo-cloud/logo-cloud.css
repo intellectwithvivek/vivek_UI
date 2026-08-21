@@ -1,0 +1,70 @@
+:where(.vk-logo-cloud__inner) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-6);
+  align-items: inherit;
+}
+
+:where(.vk-logo-cloud__title) {
+  color: var(--vk-color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+:where(.vk-logo-cloud__list) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vk-space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.vk-section[data-align="center"]) :where(.vk-logo-cloud__list) {
+  justify-content: center;
+}
+
+:where(.vk-section[data-align="end"]) :where(.vk-logo-cloud__list) {
+  justify-content: flex-end;
+}
+
+:where(.vk-logo-cloud__item) {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Logos arrive in every colour and weight; a single opacity/greyscale treatment is
+   what stops the row looking like a ransom note. */
+:where(.vk-logo-cloud__mark) {
+  display: flex;
+  align-items: center;
+  block-size: var(--vk-space-8);
+  inline-size: auto;
+  max-inline-size: 100%;
+  color: var(--vk-color-muted);
+  font-weight: 600;
+  object-fit: contain;
+  opacity: 0.75;
+  filter: grayscale(1);
+  transition: opacity var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-logo-cloud__mark) > :where(svg, img) {
+  block-size: 100%;
+  inline-size: auto;
+}
+
+@media (hover: hover) {
+  :where(.vk-logo-cloud__item:hover) > :where(.vk-logo-cloud__mark) {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-logo-cloud__mark) {
+    transition: none;
+  }
+}

@@ -15,10 +15,10 @@
   --vk-alert-color: var(--vk-color-primary);
 }
 :where(.vk-alert[data-tone="success"]) {
-  --vk-alert-color: #16a34a;
+  --vk-alert-color: var(--vk-color-success);
 }
 :where(.vk-alert[data-tone="warning"]) {
-  --vk-alert-color: #ca8a04;
+  --vk-alert-color: var(--vk-color-warning);
 }
 :where(.vk-alert[data-tone="danger"]) {
   --vk-alert-color: var(--vk-color-danger);

@@ -1,0 +1,49 @@
+:where(.vk-testimonials__list) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: stretch;
+}
+
+:where(.vk-testimonials__item) {
+  display: flex;
+  min-width: 0;
+}
+
+:where(.vk-testimonials__card) {
+  flex: 1;
+}
+
+:where(.vk-testimonials__figure) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--vk-space-4);
+  margin: 0;
+}
+
+/* The quote fills the card so every attribution in a row lines up at the bottom. */
+:where(.vk-testimonials__quote) {
+  flex: 1;
+  margin: 0;
+  font-size: var(--vk-text-lg);
+  line-height: 1.6;
+}
+
+:where(.vk-testimonials__attribution) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-3);
+  text-align: start;
+}
+
+:where(.vk-testimonials__source) {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+:where(.vk-testimonials__author) {
+  font-style: normal;
+  font-weight: 600;
+}

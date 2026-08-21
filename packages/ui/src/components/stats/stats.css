@@ -1,0 +1,40 @@
+/*
+ * The label is first in the DOM (so it is read first) and second visually.
+ * `order` is the whole trick; there is nothing focusable in here, so visual and
+ * focus order cannot disagree.
+ */
+:where(.vk-stats__item) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  min-width: 0;
+}
+
+:where(.vk-stats__value) {
+  order: 1;
+  margin: 0;
+  font-size: var(--vk-text-2xl);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--vk-color-primary);
+}
+
+:where(.vk-section[data-background="primary"]) :where(.vk-stats__value) {
+  color: var(--vk-color-primary-fg);
+}
+
+:where(.vk-stats__label) {
+  order: 2;
+  font-weight: 600;
+}
+
+:where(.vk-stats__description) {
+  order: 3;
+  margin: 0;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-section[data-align="center"]) :where(.vk-stats__item) {
+  align-items: center;
+}

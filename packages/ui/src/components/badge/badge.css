@@ -19,10 +19,10 @@
   --vk-badge-color: var(--vk-color-muted);
 }
 :where(.vk-badge[data-tone="success"]) {
-  --vk-badge-color: #16a34a;
+  --vk-badge-color: var(--vk-color-success);
 }
 :where(.vk-badge[data-tone="warning"]) {
-  --vk-badge-color: #ca8a04;
+  --vk-badge-color: var(--vk-color-warning);
 }
 :where(.vk-badge[data-tone="danger"]) {
   --vk-badge-color: var(--vk-color-danger);

@@ -1,0 +1,23 @@
+:where(.vk-line-chart) {
+  display: block;
+  inline-size: 100%;
+}
+
+/* Draw the line on first paint. The dash animation is purely decorative, so it is
+   fully removed - not merely shortened - when the user asks for less motion. */
+:where(.vk-line-chart .vk-chart__line) {
+  stroke-dashoffset: 0;
+  animation: vk-line-draw 600ms var(--vk-ease) both;
+}
+
+@keyframes vk-line-draw {
+  from {
+    opacity: 0.2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-line-chart .vk-chart__line) {
+    animation: none;
+  }
+}

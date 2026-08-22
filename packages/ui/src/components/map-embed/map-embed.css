@@ -1,0 +1,71 @@
+:where(.vk-map-embed) {
+  position: relative;
+  display: block;
+  inline-size: 100%;
+  overflow: hidden;
+  background: var(--vk-color-surface-subtle);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  font-family: var(--vk-font-sans);
+}
+
+:where(.vk-map-embed__frame) {
+  inline-size: 100%;
+  block-size: 100%;
+  border: 0;
+  display: block;
+}
+
+/* The consent gate stands in for the map until the visitor asks for it. */
+:where(.vk-map-embed__consent) {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vk-space-3);
+  padding: var(--vk-space-6);
+  text-align: center;
+}
+
+:where(.vk-map-embed__consent-text) {
+  margin: 0;
+  max-inline-size: 36ch;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+  line-height: var(--vk-leading-normal);
+}
+
+:where(.vk-map-embed__consent-button) {
+  height: 2.5rem;
+  padding-inline: var(--vk-space-4);
+  font: inherit;
+  font-weight: var(--vk-weight-medium);
+  color: var(--vk-color-primary-fg);
+  background: var(--vk-color-primary);
+  border: 1px solid transparent;
+  border-radius: var(--vk-radius-md);
+  cursor: pointer;
+  transition: background-color var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-map-embed__consent-button:hover) {
+    background: var(--vk-color-primary-hover);
+  }
+}
+
+:where(.vk-map-embed__consent-button:focus-visible),
+:where(.vk-map-embed__fallback-link:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
+}
+
+:where(.vk-map-embed__fallback-link) {
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  border-radius: var(--vk-radius-sm);
+}

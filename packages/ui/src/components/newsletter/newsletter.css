@@ -1,0 +1,134 @@
+:where(.vk-newsletter) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-3);
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-newsletter__title) {
+  font-size: var(--vk-text-lg);
+  font-weight: var(--vk-weight-semibold);
+  letter-spacing: var(--vk-tracking-snug);
+}
+
+:where(.vk-newsletter__description),
+:where(.vk-newsletter__note) {
+  margin: 0;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+  line-height: var(--vk-leading-normal);
+}
+
+:where(.vk-newsletter__note) {
+  font-size: var(--vk-text-xs);
+}
+
+:where(.vk-newsletter__row) {
+  display: flex;
+  gap: var(--vk-space-2);
+}
+
+/*
+ * Stacked below 30rem regardless of `layout`. An inline email field and button do not fit
+ * side by side on a phone, and a container query means it reflows to its own width rather
+ * than to the viewport - correct inside a narrow footer column on a wide screen.
+ */
+@container (max-width: 30rem) {
+  :where(.vk-newsletter__row) {
+    flex-direction: column;
+  }
+}
+
+:where(.vk-newsletter[data-layout="stacked"]) > :where(.vk-newsletter__row) {
+  flex-direction: column;
+}
+
+:where(.vk-newsletter__input) {
+  flex: 1;
+  min-inline-size: 0;
+  height: 2.5rem;
+  padding-inline: var(--vk-space-3);
+  font: inherit;
+  font-size: var(--vk-text-md);
+  color: var(--vk-color-fg);
+  background: var(--vk-color-surface-subtle);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  transition:
+    border-color var(--vk-duration) var(--vk-ease),
+    box-shadow var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-newsletter__input::placeholder) {
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-newsletter__input:focus-visible) {
+  outline: none;
+  border-color: var(--vk-color-ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-ring) 32%, transparent);
+}
+
+:where(.vk-newsletter__input:disabled) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+:where(.vk-newsletter__button) {
+  flex: none;
+  height: 2.5rem;
+  padding-inline: var(--vk-space-4);
+  font: inherit;
+  font-size: var(--vk-text-md);
+  font-weight: var(--vk-weight-medium);
+  color: var(--vk-color-primary-fg);
+  background: var(--vk-color-primary);
+  border: 1px solid transparent;
+  border-radius: var(--vk-radius-md);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-newsletter__button:hover:not(:disabled)) {
+    background: var(--vk-color-primary-hover);
+  }
+}
+
+:where(.vk-newsletter__button:active:not(:disabled)) {
+  background: var(--vk-color-primary-active);
+}
+
+:where(.vk-newsletter__button:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
+}
+
+:where(.vk-newsletter__button:disabled) {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/*
+ * The status line is always in the DOM so the live region is observed before it gains text.
+ * It collapses to nothing when empty rather than reserving a gap.
+ */
+:where(.vk-newsletter__status) {
+  margin: 0;
+  font-size: var(--vk-text-sm);
+  line-height: var(--vk-leading-normal);
+}
+
+:where(.vk-newsletter__status:empty) {
+  display: none;
+}
+
+:where(.vk-newsletter[data-status="success"]) > :where(.vk-newsletter__status) {
+  color: var(--vk-color-success);
+}
+
+:where(.vk-newsletter[data-status="error"]) > :where(.vk-newsletter__status) {
+  color: var(--vk-color-danger);
+}

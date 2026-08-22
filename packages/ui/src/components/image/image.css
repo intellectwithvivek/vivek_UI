@@ -1,0 +1,127 @@
+/*
+ * Image.
+ *
+ * The frame is what reserves layout before the file arrives; the <img> fills it. Splitting
+ * them is what makes an aspect ratio, a loading state and a failure state all possible on
+ * the same element.
+ */
+
+:where(.vk-image) {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  inline-size: 100%;
+  background: var(--vk-color-surface-subtle);
+}
+
+:where(.vk-image__img) {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  /* Fades in once decoded, so a slow image arrives rather than snapping into place. */
+  opacity: 0;
+  transition: opacity var(--vk-duration-slow) var(--vk-ease-out);
+}
+
+:where(.vk-image[data-status="loaded"]) > :where(.vk-image__img) {
+  opacity: 1;
+}
+
+:where(.vk-image__img[data-fit="cover"]) {
+  object-fit: cover;
+}
+:where(.vk-image__img[data-fit="contain"]) {
+  object-fit: contain;
+}
+:where(.vk-image__img[data-fit="fill"]) {
+  object-fit: fill;
+}
+:where(.vk-image__img[data-fit="none"]) {
+  object-fit: none;
+}
+
+/*
+ * The placeholder sits behind the image rather than being swapped for it, so there is no
+ * frame where the box is empty between the two.
+ */
+:where(.vk-image__placeholder) {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+  background: var(--vk-color-surface-subtle);
+}
+
+/*
+ * A slow load shimmers; a failed one does not. Animating a permanent failure suggests
+ * something is still happening, which is a lie the user waits on.
+ */
+:where(.vk-image__placeholder:not([data-error])) {
+  background: linear-gradient(
+    90deg,
+    var(--vk-color-surface-subtle) 25%,
+    color-mix(in oklab, var(--vk-color-fg) 7%, var(--vk-color-surface-subtle)) 37%,
+    var(--vk-color-surface-subtle) 63%
+  );
+  background-size: 400% 100%;
+  animation: vk-image-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes vk-image-shimmer {
+  from {
+    background-position: 100% 50%;
+  }
+  to {
+    background-position: 0 50%;
+  }
+}
+
+:where(.vk-image__placeholder[data-error]) {
+  background: var(--vk-color-surface-sunken);
+}
+
+/* --- shape ------------------------------------------------------------------------ */
+
+:where(.vk-image[data-rounded="none"]) {
+  border-radius: 0;
+}
+:where(.vk-image[data-rounded="sm"]) {
+  border-radius: var(--vk-radius-sm);
+}
+:where(.vk-image[data-rounded="md"]) {
+  border-radius: var(--vk-radius-md);
+}
+:where(.vk-image[data-rounded="lg"]) {
+  border-radius: var(--vk-radius-lg);
+}
+:where(.vk-image[data-rounded="full"]) {
+  border-radius: var(--vk-radius-full);
+}
+
+/* --- figure ------------------------------------------------------------------------ */
+
+:where(.vk-image__figure) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-2);
+  margin: 0;
+}
+
+:where(.vk-image__caption) {
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+  line-height: var(--vk-leading-normal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-image__img) {
+    transition: none;
+  }
+  :where(.vk-image__placeholder:not([data-error])) {
+    animation: none;
+  }
+}

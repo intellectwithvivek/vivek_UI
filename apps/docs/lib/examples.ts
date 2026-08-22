@@ -176,6 +176,133 @@ const CORE_EXAMPLES: ExampleSet = {
     },
   ],
 
+  'editable-grid': [
+    {
+      title: 'An editable order table',
+      description:
+        'Click a cell and use the arrow keys. Enter or F2 edits, typing replaces, Escape cancels. The whole grid is one tab stop, not one per cell.',
+      name: 'default',
+      code: `const [rows, setRows] = useState(lines)
+
+<EditableGrid
+  rows={rows}
+  label="Order lines"
+  getRowKey={(row) => row.id}
+  columns={[
+    { key: 'sku', header: 'SKU', width: '7rem' },
+    { key: 'product', header: 'Product', editable: true },
+    {
+      key: 'qty',
+      header: 'Qty',
+      editable: true,
+      numeric: true,
+      // Returning undefined rejects the edit - that is the whole validation API.
+      parse: (input) => (Number(input) >= 0 ? Number(input) : undefined),
+    },
+    {
+      key: 'price',
+      header: 'Unit price',
+      editable: true,
+      numeric: true,
+      // Displays formatted, edits raw. Conflating the two corrupts the value.
+      render: (row) => money(row.price),
+      format: (row) => String(row.price),
+      parse: (input) => Number(input.replace(/[^0-9.]/g, '')),
+    },
+  ]}
+  // Nothing is mutated for you: the grid reports, your state decides.
+  onCellChange={({ rowIndex, columnKey, value }) =>
+    setRows((rows) =>
+      rows.map((row, i) => (i === rowIndex ? { ...row, [columnKey]: value } : row)),
+    )
+  }
+/>\``,
+    },
+    {
+      title: 'Read only',
+      description: 'readOnly overrides the columns, for a permissions-gated view.',
+      name: 'readOnly',
+      code: `<EditableGrid rows={rows} columns={columns} label="Order lines" readOnly />`,
+    },
+  ],
+
+  image: [
+    {
+      title: 'Ratios and shapes',
+      description:
+        'ratio reserves the box before the file arrives, which is what stops the page jumping as images load.',
+      name: 'default',
+      code: `<Image src="/hero.jpg" alt="A wide landscape" ratio={16 / 9} />
+<Image src="/team.jpg" alt="The team" ratio={1} />
+<Image src="/avatar.jpg" alt="Vivek" ratio={1} rounded="full" />`,
+    },
+    {
+      title: 'When the image fails',
+      description:
+        'A dead URL renders the fallback rather than the browser broken-image icon, and the alt text stays reachable.',
+      name: 'failure',
+      code: `<Image
+  src="/missing.jpg"
+  alt="A photograph of the Bengaluru office"
+  ratio={4 / 3}
+  fallback="Image unavailable"
+/>`,
+    },
+    {
+      title: 'With a caption',
+      description: 'A caption renders a real figure and figcaption.',
+      name: 'caption',
+      code: `<Image
+  src="/artwork.jpg"
+  alt="Abstract gradient artwork"
+  ratio={16 / 9}
+  caption="Photo: Vivek Kumar Singh"
+/>`,
+    },
+  ],
+
+  newsletter: [
+    {
+      title: 'Inline signup',
+      description:
+        'Return a promise and the button stays busy until it settles, so a slow signup cannot be submitted twice. The result is announced in a live region.',
+      name: 'default',
+      code: `<Newsletter
+  title="Stay in the loop"
+  description="New components, release notes, and the occasional deep dive."
+  note="No spam. Unsubscribe any time."
+  onSubscribe={async (email) => {
+    await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) })
+  }}
+/>`,
+    },
+    {
+      title: 'Stacked, for a sidebar',
+      name: 'stacked',
+      code: `<Newsletter layout="stacked" title="Product updates" onSubscribe={subscribe} />`,
+    },
+  ],
+
+  'map-embed': [
+    {
+      title: 'OpenStreetMap',
+      description:
+        'The default provider. It sets no cookies and runs no analytics, so it loads immediately with nothing to consent to.',
+      name: 'default',
+      code: `<MapEmbed lat={12.9716} lon={77.5946} zoom={13} title="Our Bengaluru office" />`,
+    },
+    {
+      title: 'Google, behind a consent gate',
+      description:
+        'A Google Maps iframe contacts Google and sets cookies the moment it renders — before the visitor has agreed to anything. It is gated by default.',
+      name: 'google',
+      code: `<MapEmbed provider="google" query="Bengaluru, India" title="Our Bengaluru office" />
+
+// Once your consent banner has already handled it:
+<MapEmbed provider="google" query="Bengaluru, India" title="Office" requireConsent={false} />`,
+    },
+  ],
+
   'virtual-list': [
     {
       title: 'Fifty thousand rows',

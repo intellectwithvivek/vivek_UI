@@ -8870,6 +8870,94 @@
       "compound": true
     },
     {
+      "slug": "editable-grid",
+      "title": "Editable grid",
+      "kind": "component",
+      "category": "Other",
+      "exports": [
+        "EditableGrid"
+      ],
+      "typeExports": [
+        "CellChange",
+        "EditableColumn",
+        "EditableColumnKey",
+        "EditableGridProps"
+      ],
+      "primary": "EditableGrid",
+      "description": "A spreadsheet-style editable grid.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "rows",
+            "type": "readonly Row[]",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "columns",
+            "type": "readonly EditableColumn<Row>[]",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": true,
+            "description": "Required. A grid with no accessible name is unusable with a screen reader.",
+            "default": ""
+          },
+          {
+            "name": "onCellChange",
+            "type": "(change: CellChange<Row>) => void",
+            "required": false,
+            "description": "Fired when an edit is committed. Nothing is mutated for you — apply it to your state.",
+            "default": ""
+          },
+          {
+            "name": "getRowKey",
+            "type": "(row: Row, index: number) => string | number",
+            "required": false,
+            "description": "Stable row identity. Defaults to the index, which breaks if rows reorder.",
+            "default": ""
+          },
+          {
+            "name": "readOnly",
+            "type": "boolean",
+            "required": false,
+            "description": "Blocks editing everywhere, whatever the columns say.",
+            "default": ""
+          },
+          {
+            "name": "height",
+            "type": "string | number",
+            "required": false,
+            "description": "Fixed height turns on scrolling with a sticky header.",
+            "default": ""
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": false,
+        "extends": []
+      },
+      "compound": false
+    },
+    {
       "slug": "empty-state",
       "title": "Empty state",
       "kind": "component",
@@ -9610,6 +9698,93 @@
       "compound": false
     },
     {
+      "slug": "image",
+      "title": "Image",
+      "kind": "component",
+      "category": "Other",
+      "exports": [
+        "Image"
+      ],
+      "typeExports": [
+        "ImageProps"
+      ],
+      "primary": "Image",
+      "description": "An image with the box reserved, a loading state, and a failure state.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "src",
+            "type": "string",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "alt",
+            "type": "string",
+            "required": true,
+            "description": "Required, and deliberately not optional. An image with no `alt` is announced by reading out its filename, which is worse than silence. Pass `alt=\"\"` for a decorative image — that is an explicit statement that it carries no information, and it is the right answer surprisingly often. Making the decision impossible to skip is the point; it is the same reason `IconButton` requires `aria-label`.",
+            "default": ""
+          },
+          {
+            "name": "ratio",
+            "type": "number",
+            "required": false,
+            "description": "Aspect ratio as width / height, e.g. `16 / 9`. Reserving the box before the image loads is what prevents the page jumping as images arrive — the single largest contributor to a poor Cumulative Layout Shift score.",
+            "default": ""
+          },
+          {
+            "name": "fit",
+            "type": "'cover' | 'contain' | 'fill' | 'none'",
+            "required": false,
+            "description": "How the image fills its box once a `ratio` is set. Default `cover`.",
+            "default": ""
+          },
+          {
+            "name": "position",
+            "type": "string",
+            "required": false,
+            "description": "Focal point for `cover`, e.g. `'top'` so faces are not cropped out.",
+            "default": ""
+          },
+          {
+            "name": "rounded",
+            "type": "'none' | 'sm' | 'md' | 'lg' | 'full'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "fallback",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Shown while loading, and instead of the image if it fails. A broken image icon is the worst possible outcome on a marketing page, and images fail for reasons the author cannot control — a dead CDN, an ad blocker, a corporate proxy.",
+            "default": ""
+          },
+          {
+            "name": "caption",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Renders `<figure>` with a `<figcaption>` rather than a bare `<img>`.",
+            "default": ""
+          },
+          {
+            "name": "loading",
+            "type": "'lazy' | 'eager'",
+            "required": false,
+            "description": "Default `lazy`. Set `eager` for anything above the fold — a lazily-loaded hero image is slower, because the browser will not start fetching it until layout says it is visible.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<ImgHTMLAttributes<HTMLImageElement>, 'alt' | 'width' | 'height' | 'children'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "input",
       "title": "Input",
       "kind": "component",
@@ -9758,6 +9933,108 @@
         "spreadsHostProps": false,
         "extends": [
           "Omit<SectionProps, 'title'>"
+        ]
+      },
+      "compound": false
+    },
+    {
+      "slug": "map-embed",
+      "title": "Map embed",
+      "kind": "component",
+      "category": "Other",
+      "exports": [
+        "MapEmbed"
+      ],
+      "typeExports": [
+        "MapEmbedProps",
+        "MapProvider"
+      ],
+      "primary": "MapEmbed",
+      "description": "An embedded map, without the privacy footgun.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "query",
+            "type": "string",
+            "required": false,
+            "description": "A place name or address, e.g. `\"Bengaluru, India\"`. Ignored if `lat`/`lon` are given.",
+            "default": ""
+          },
+          {
+            "name": "lat",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "lon",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "zoom",
+            "type": "number",
+            "required": false,
+            "description": "1 is the whole world, 20 is a building. Default `14`.",
+            "default": ""
+          },
+          {
+            "name": "provider",
+            "type": "MapProvider",
+            "required": false,
+            "description": "Default `openstreetmap`, and that default is a privacy decision — see the note on `requireConsent`.",
+            "default": ""
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "required": true,
+            "description": "Required. An `<iframe>` with no title is announced as \"frame\", and a page with several is unnavigable.",
+            "default": ""
+          },
+          {
+            "name": "ratio",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "requireConsent",
+            "type": "boolean",
+            "required": false,
+            "description": "Gate loading behind a click. Defaults to `true` for Google and `false` for OpenStreetMap, because that is where the difference actually lies: a Google Maps iframe contacts Google and sets cookies the moment it renders, before the visitor has agreed to anything. Under GDPR that is the embedding site's problem, and it is the reason cookie banners exist on pages whose only third party is a map. OpenStreetMap sets no cookies and runs no analytics, so it loads directly.",
+            "default": ""
+          },
+          {
+            "name": "consentLabel",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Copy for the consent gate.",
+            "default": ""
+          },
+          {
+            "name": "consentButtonLabel",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "apiKey",
+            "type": "string",
+            "required": false,
+            "description": "Google Maps Embed API key. Without one, the keyless `maps.google.com` embed is used.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
         ]
       },
       "compound": false
@@ -9959,6 +10236,108 @@
         ]
       },
       "compound": true
+    },
+    {
+      "slug": "newsletter",
+      "title": "Newsletter",
+      "kind": "component",
+      "category": "Other",
+      "exports": [
+        "Newsletter"
+      ],
+      "typeExports": [
+        "NewsletterProps",
+        "NewsletterStatus"
+      ],
+      "primary": "Newsletter",
+      "description": "An email capture form.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "title",
+            "type": "ReactNode",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "description",
+            "type": "ReactNode",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "required": false,
+            "description": "Placeholder for the email field. Never a substitute for the label — see `label`.",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "The field's accessible name. Default `\"Email address\"`. Visually hidden by default because the layout reads as a single control, but present: a placeholder disappears the moment you type, so it cannot be the only label.",
+            "default": ""
+          },
+          {
+            "name": "buttonLabel",
+            "type": "ReactNode",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onSubscribe",
+            "type": "(email: string) => void | Promise<void>",
+            "required": false,
+            "description": "Called with the email. Return a promise and the button shows a busy state until it settles, so a slow signup cannot be double-submitted.",
+            "default": ""
+          },
+          {
+            "name": "status",
+            "type": "NewsletterStatus",
+            "required": false,
+            "description": "Drive the state yourself instead of letting the promise drive it.",
+            "default": ""
+          },
+          {
+            "name": "successMessage",
+            "type": "ReactNode",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "errorMessage",
+            "type": "ReactNode",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "note",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Small print under the field — the GDPR line, usually.",
+            "default": ""
+          },
+          {
+            "name": "layout",
+            "type": "'inline' | 'stacked'",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit' | 'title'>"
+        ]
+      },
+      "compound": false
     },
     {
       "slug": "otp-input",

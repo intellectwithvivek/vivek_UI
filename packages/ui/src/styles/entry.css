@@ -62,12 +62,15 @@
 @import "../components/heading/heading.css";
 @import "../components/hero/hero.css";
 @import "../components/icon-button/icon-button.css";
+@import "../components/image/image.css";
 @import "../components/input/input.css";
 @import "../components/kbd/kbd.css";
 @import "../components/label/label.css";
 @import "../components/logo-cloud/logo-cloud.css";
+@import "../components/map-embed/map-embed.css";
 @import "../components/marquee/marquee.css";
 @import "../components/navbar/navbar.css";
+@import "../components/newsletter/newsletter.css";
 @import "../components/otp-input/otp-input.css";
 @import "../components/pagination/pagination.css";
 @import "../components/password-input/password-input.css";

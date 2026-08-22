@@ -188,10 +188,12 @@ export { Grid, type GridProps, type ResponsiveCols } from './components/grid'
 export { Heading, type HeadingProps } from './components/heading'
 export { Hero, type HeroProps } from './components/hero'
 export { IconButton, type IconButtonProps } from './components/icon-button'
+export { Image, type ImageProps } from './components/image'
 export { Input, type InputProps } from './components/input'
 export { Kbd, type KbdProps } from './components/kbd'
 export { Label, type LabelProps } from './components/label'
 export { type Logo, LogoCloud, type LogoCloudProps } from './components/logo-cloud'
+export { MapEmbed, type MapEmbedProps, type MapProvider } from './components/map-embed'
 export { Marquee, type MarqueeDirection, type MarqueeProps } from './components/marquee'
 export {
   Modal,
@@ -221,6 +223,11 @@ export {
   NavbarToggle,
   type NavbarToggleProps,
 } from './components/navbar'
+export {
+  Newsletter,
+  type NewsletterProps,
+  type NewsletterStatus,
+} from './components/newsletter'
 export { OTPInput, type OTPInputProps } from './components/otp-input'
 export {
   Pagination,

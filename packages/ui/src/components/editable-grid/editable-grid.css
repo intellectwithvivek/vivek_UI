@@ -1,0 +1,119 @@
+/*
+ * EditableGrid.
+ *
+ * Flexbox rather than `display: table`, because a table cannot have a sticky header and a
+ * scrolling body without absolute positioning hacks, and the ARIA grid roles carry the
+ * semantics anyway - the visual layout is free to be whatever works.
+ */
+
+:where(.vk-editable-grid) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-fg);
+  background: var(--vk-color-surface);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  overflow: hidden;
+}
+
+:where(.vk-editable-grid__row) {
+  display: flex;
+  min-width: 0;
+}
+
+:where(.vk-editable-grid__head) {
+  /* Sticky only matters when the body scrolls, but it is harmless otherwise. */
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  background: var(--vk-color-surface-subtle);
+  border-block-end: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-editable-grid__header) {
+  flex: 1;
+  min-width: 0;
+  padding: var(--vk-space-2) var(--vk-space-3);
+  font-weight: var(--vk-weight-semibold);
+  color: var(--vk-color-fg-subtle);
+  text-align: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:where(.vk-editable-grid__cell) {
+  flex: 1;
+  min-width: 0;
+  padding: var(--vk-space-2) var(--vk-space-3);
+  border-block-end: 1px solid var(--vk-color-border-subtle);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* The cell is the focus target, so it needs a caret-free but obvious focus state. */
+  cursor: default;
+}
+
+:where(.vk-editable-grid__cell[data-editable]) {
+  cursor: text;
+}
+
+/*
+ * The focused cell, not a hover state. In a grid the keyboard position IS the selection, so
+ * it has to be visible without the pointer anywhere near it.
+ */
+:where(.vk-editable-grid__cell:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  /* Inset: an outset ring on a cell is clipped by the scroll container. */
+  outline-offset: -2px;
+  background: var(--vk-color-primary-subtle);
+}
+
+@media (hover: hover) {
+  :where(.vk-editable-grid__cell[data-editable]:hover) {
+    background: var(--vk-color-surface-hover);
+  }
+}
+
+:where(.vk-editable-grid__cell[data-editing]) {
+  padding: 0;
+}
+
+:where(.vk-editable-grid__input) {
+  inline-size: 100%;
+  block-size: 100%;
+  padding: var(--vk-space-2) var(--vk-space-3);
+  font: inherit;
+  color: inherit;
+  background: var(--vk-color-bg);
+  border: 0;
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: -2px;
+}
+
+/* --- alignment ------------------------------------------------------------------- */
+
+:where(.vk-editable-grid__header[data-align="center"]),
+:where(.vk-editable-grid__cell[data-align="center"]) {
+  text-align: center;
+}
+
+:where(.vk-editable-grid__header[data-align="end"]),
+:where(.vk-editable-grid__cell[data-align="end"]),
+:where(.vk-editable-grid__header[data-numeric]),
+:where(.vk-editable-grid__cell[data-numeric]) {
+  text-align: end;
+}
+
+/* Tabular figures so digits line up down the column - the whole point of a numeric column. */
+:where(.vk-editable-grid__cell[data-numeric]) {
+  font-variant-numeric: tabular-nums;
+}
+
+:where(.vk-editable-grid__row:last-child) > :where(.vk-editable-grid__cell) {
+  border-block-end: 0;
+}

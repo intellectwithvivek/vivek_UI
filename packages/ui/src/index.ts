@@ -159,6 +159,13 @@ export {
   DropdownMenuTrigger,
   type DropdownMenuTriggerProps,
 } from './components/dropdown-menu'
+export {
+  type CellChange,
+  type EditableColumn,
+  type EditableColumnKey,
+  EditableGrid,
+  type EditableGridProps,
+} from './components/editable-grid'
 export { EmptyState, type EmptyStateProps, type EmptyStateSize } from './components/empty-state'
 export { FAQ, type FaqItem, type FAQProps } from './components/faq'
 export { type Feature, FeatureGrid, type FeatureGridProps } from './components/feature-grid'

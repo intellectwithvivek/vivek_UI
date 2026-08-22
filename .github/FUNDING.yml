@@ -1,0 +1,19 @@
+# Puts the "Sponsor" button on the repository page, next to Watch and Fork.
+#
+# GitHub reads this file from the default branch only, and it must be at
+# .github/FUNDING.yml exactly — a copy anywhere else is ignored silently.
+#
+# Keep this in step with the `funding` field in packages/ui/package.json, which is what
+# `npm fund` reports and what the npm package page links. Two places, unavoidably: GitHub
+# will not read package.json, and npm will not read this file.
+#
+# VERIFY BOTH HANDLES BEFORE RELYING ON THEM. A funding button that 404s is worse than no
+# button — it reads as an abandoned project. Open each URL below in a browser once:
+#   https://github.com/sponsors/intellectwithvivek
+#   https://www.buymeacoffee.com/theviveksingh
+# GitHub Sponsors also has to be enabled on the account before the first link resolves.
+
+github: [intellectwithvivek]
+
+custom:
+  - https://www.buymeacoffee.com/theviveksingh

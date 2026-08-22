@@ -48,12 +48,17 @@ export const metadata: Metadata = {
     title: `${SITE_NAME} — a free, zero-dependency React component library`,
     description: SITE_DESCRIPTION,
   },
+  /*
+   * Preview deployments must not be indexed. Vercel gives every branch a public URL serving
+   * identical content, and an indexed preview competes with production for it.
+   * VERCEL_ENV is 'production' | 'preview' | 'development'.
+   */
   robots: {
-    index: true,
-    follow: true,
+    index: process.env.VERCEL_ENV !== 'preview',
+    follow: process.env.VERCEL_ENV !== 'preview',
     googleBot: {
-      index: true,
-      follow: true,
+      index: process.env.VERCEL_ENV !== 'preview',
+      follow: process.env.VERCEL_ENV !== 'preview',
       // Let Google use the full snippet and a large image preview. The default caps the
       // snippet, which is the opposite of what a docs site wants.
       'max-snippet': -1,

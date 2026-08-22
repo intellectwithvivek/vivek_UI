@@ -1,24 +1,29 @@
 # Deploying the docs site
 
-## One thing to set before the first deploy
+## Do NOT set NEXT_PUBLIC_SITE_URL
 
-The base URL is baked into every canonical link, Open Graph tag, sitemap entry and JSON-LD
-block at build time. It has to be right, or search engines index URLs that do not resolve.
+The canonical host lives in `lib/site.ts` as `CANONICAL_SITE_URL`. Nothing needs configuring.
 
-Set this in **Vercel → Project → Settings → Environment Variables**, for Production
-(and Preview, if you want preview links to be self-consistent):
+**If `NEXT_PUBLIC_SITE_URL` is set in the Vercel dashboard, delete it.** An earlier version of
+this file told you to set it, to a subdomain that was guessed before the real one existed, and
+the result was live for a while: every canonical tag, all 106 sitemap URLs and the `robots.txt`
+Sitemap directive pointed at `ui.vivekkumarsingh.in`, which does not resolve. The site
+looked perfect in a browser, because the dead host only appears in the machine-readable tags -
+and a crawler following that sitemap gets 106 connection failures while the canonical tags tell
+it the real page lives at a host that is not there. That is enough to keep a site out of the
+index entirely.
 
-```
-NEXT_PUBLIC_SITE_URL = https://ui.vivekkumarsingh.in
-```
+An explicitly-set environment variable beats the source, so correcting the code did not fix it.
+The variable is still supported for a fork or a rename, and `assertSiteUrl()` now prints a loud
+warning in the build log whenever it disagrees with the constant - but for this deployment it
+should simply not exist.
 
-This is the host the site is actually served from. If it ever moves, this variable is the only
-thing to change — the value flows from `lib/site.ts` into every canonical link, Open Graph
-tag, sitemap entry, JSON-LD block and `llms.txt` line.
+If the host ever changes, edit `CANONICAL_SITE_URL` in `lib/site.ts` and redeploy. One line,
+one place, and it flows into every canonical link, Open Graph URL, sitemap entry, JSON-LD block
+and `llms.txt` line.
 
-The build falls back to the same value when the variable is unset, so a local build still
-produces absolute URLs. Setting it explicitly in Vercel is still worth doing: it is what makes
-the deployment independent of a default committed in source.
+Preview deployments are automatically `noindex` (`VERCEL_ENV === 'preview'`), so a branch
+preview cannot compete with production for the same content.
 
 ## Vercel project settings
 

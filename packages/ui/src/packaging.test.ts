@@ -8,7 +8,7 @@
  *
  * Nothing about that is visible from inside the repo, which is why it is asserted here.
  */
-import { readFileSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
@@ -79,5 +79,44 @@ describe('the README npm renders', () => {
     expect(stated, `README says ${stated} B, budget is ${budget?.limit}`).toBeLessThanOrEqual(
       limitBytes,
     )
+  })
+})
+
+describe('the description npm shows in search results', () => {
+  /*
+   * The description claimed "100+ components" while the README and the documentation site
+   * both said 83. Whichever number is right, an evaluator who reads the npm page and then
+   * the site sees a contradiction - and that is worse than either figure being slightly off.
+   *
+   * The counts are derived from the source tree here, so the description cannot drift away
+   * from the library as components are added. It is a static string in package.json, so this
+   * fails and tells you to update it rather than fixing it silently.
+   */
+  const componentDirs = readdirSync(join(ROOT, 'src', 'components'), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && entry.name !== 'internal')
+    .map((entry) => entry.name)
+
+  const chartDirs = readdirSync(join(ROOT, 'src', 'charts'), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && entry.name !== 'internal')
+    .map((entry) => entry.name)
+
+  it('states the real number of components', () => {
+    expect(
+      PKG.description,
+      `there are ${componentDirs.length} component directories; update the description in package.json`,
+    ).toContain(`${componentDirs.length} accessible`)
+  })
+
+  it('states the real number of charts', () => {
+    expect(
+      PKG.description,
+      `there are ${chartDirs.length} chart directories; update the description in package.json`,
+    ).toContain(`${chartDirs.length} SVG charts`)
+  })
+
+  it('stays inside the length npm renders without truncating', () => {
+    // npm truncates around 250 characters in search listings; the whole point of the
+    // description is the part a stranger reads before deciding to click.
+    expect(PKG.description.length).toBeLessThanOrEqual(300)
   })
 })

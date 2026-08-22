@@ -88,8 +88,16 @@ describe('Tabs · ARIA contract', () => {
     for (const tab of tabs()) {
       const id = tab.getAttribute('aria-controls')
       expect(id).toBeTruthy()
-      // Panels stay mounted precisely so this never dangles.
-      expect(container.querySelector(`#${id}`)).not.toBeNull()
+      /*
+       * `getElementById`, not `querySelector('#' + id)`.
+       *
+       * `aria-controls` is an IDREF: the browser and every screen reader resolve it by ID
+       * lookup, so that is what this should assert. A CSS selector is a different thing that
+       * merely looks equivalent - and it breaks, because React 18's `useId` produces ids like
+       * `:r1:` and a colon is a CSS metacharacter. That failed only on the React 18 leg of CI,
+       * against a library that was behaving correctly the whole time.
+       */
+      expect(container.ownerDocument.getElementById(id ?? '')).not.toBeNull()
     }
   })
 
@@ -525,7 +533,8 @@ describe('Accordion · ARIA contract', () => {
     for (const trigger of triggers()) {
       const id = trigger.getAttribute('aria-controls')
       expect(id).toBeTruthy()
-      expect(container.querySelector(`#${id}`)).not.toBeNull()
+      // IDREF lookup, for the same reason as the Tabs case above.
+      expect(container.ownerDocument.getElementById(id ?? '')).not.toBeNull()
     }
   })
 

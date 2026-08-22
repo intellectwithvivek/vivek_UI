@@ -32,7 +32,7 @@ Use one of these instead:
    [open a draft advisory](https://github.com/intellectwithvivek/vivek_UI/security/advisories/new).
    This is private to the maintainers and gives us a place to work with you on a fix and a
    CVE.
-2. **Email** — `s-vivek@funaiconsulting.in`, with `SECURITY` in the subject line.
+2. **Email** — `intellectwithvivek@gmail.com`, with `SECURITY` in the subject line.
 
 You do not need to have a fix, a CVE, or a proof-of-concept exploit. A clear description
 of the problem is enough to start.

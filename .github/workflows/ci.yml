@@ -18,12 +18,18 @@ jobs:
   verify:
     name: typecheck / lint / test / build
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      # CI never pushes, and it executes fork-PR code. Unlike release.yml - where the
+      # changesets action needs these credentials to push the version branch - dropping
+      # them here costs nothing.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
+        with:
+          persist-credentials: false
 
-      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.1.0
         with:
           node-version-file: .nvmrc
           cache: pnpm
@@ -40,9 +46,26 @@ jobs:
       - name: No references to internal documents
         run: node scripts/strip-internal-refs.mjs --check
 
+      # The library MUST be built before the tests run.
+      #
+      # apps/docs imports @the_viveksingh/vivek-ui by package NAME, not by a relative path
+      # into src - deliberately, because that is what exercises the exports map, and it has
+      # caught five real packaging bugs. The consequence is that its tests resolve through
+      # `exports` to ./dist/index.js, so with no dist they fail with:
+      #
+      #   Failed to resolve entry for package "@the_viveksingh/vivek-ui"
+      #
+      # Test used to run before Build here, which broke main for six consecutive commits.
+      # Every local run passed, because dist already existed on a dev machine. The
+      # `react 18 compatibility` job below never hit it, because it happens to build first.
+      - name: Build the library
+        run: pnpm --filter @the_viveksingh/vivek-ui build
+
       - name: Test
         run: pnpm -r test
 
+      # Everything else: the docs site, which regenerates the props registry and fails if a
+      # component is missing a preview or an example.
       - name: Build
         run: pnpm -r build
 
@@ -51,6 +74,25 @@ jobs:
 
       - name: Size limit
         run: pnpm --filter @the_viveksingh/vivek-ui size
+
+      # Packaging correctness, from the two tools the ecosystem actually uses.
+      #
+      # These caught a real defect that every other gate was blind to: the exports map
+      # pointed both the `import` and `require` conditions at the same .d.ts, and because
+      # the package is "type": "module" that declaration is ESM-flavoured. TypeScript under
+      # `require` therefore resolved ESM types for a file Node loads as CommonJS - attw
+      # calls it FalseESM, "Masquerading as ESM". Every test passed; CJS consumers got
+      # wrong types.
+      #
+      # The CSS subpaths are excluded because attw only models JS/type resolution and
+      # reports NoResolution for any stylesheet - a tool limitation, not a package defect.
+      - name: Packaging lint (publint)
+        working-directory: packages/ui
+        run: npx --yes publint@0.3.24
+
+      - name: Type resolution across module systems (are-the-types-wrong)
+        working-directory: packages/ui
+        run: npx --yes @arethetypeswrong/cli@0.18.5 --pack . --exclude-entrypoints ./styles.css ./charts.css
 
       - name: Assert the published package has no runtime dependencies
         run: |
@@ -67,12 +109,18 @@ jobs:
   react18:
     name: react 18 compatibility
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      # CI never pushes, and it executes fork-PR code. Unlike release.yml - where the
+      # changesets action needs these credentials to push the version branch - dropping
+      # them here costs nothing.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
+        with:
+          persist-credentials: false
 
-      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.1.0
         with:
           node-version-file: .nvmrc
           cache: pnpm

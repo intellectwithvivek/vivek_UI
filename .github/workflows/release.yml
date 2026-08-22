@@ -9,52 +9,82 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
+  # Pushing the "Version Packages" branch and the release tags.
   contents: write
+  # Opening and updating the "Version Packages" PR.
   pull-requests: write
+  # The OIDC token npm exchanges for a short-lived publish credential. Without this the
+  # trusted-publishing handshake cannot happen and npm falls back to looking for a token,
+  # which this package no longer accepts.
   id-token: write
 
 jobs:
   release:
     name: Version or publish
     runs-on: ubuntu-latest
+    # npm trusted publishing does not support self-hosted runners. Keep this on a
+    # GitHub-hosted runner or the OIDC exchange is rejected.
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      # persist-credentials must stay at its default (true). The changesets action pushes
+      # the version branch and the release tags with the plain git CLI, using the
+      # credentials checkout writes into .git/config - GITHUB_TOKEN below is only used for
+      # the GitHub API. Setting persist-credentials: false is a common hardening step and
+      # it would break this workflow with "could not read Username".
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      # Deliberately NO `registry-url:` here.
+      #
+      # setup-node's registry-url writes an .npmrc containing
+      # `//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}` and points npm at it. With
+      # trusted publishing there is no NODE_AUTH_TOKEN, so that file is at best dead weight
+      # and at worst shadows the OIDC credential.
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.1.0
         with:
           node-version-file: .nvmrc
           cache: pnpm
-          registry-url: https://registry.npmjs.org
+
+      # THE step that makes trusted publishing work, and the least obvious one.
+      #
+      # npm requires CLI >= 11.5.1 for the OIDC exchange. Node 22 LTS still bundles npm
+      # 10.9.x, so the runner's default npm is too old and publishing fails with ENEEDAUTH
+      # that looks like a misconfigured trusted publisher.
+      #
+      # Why upgrading *npm* fixes a *pnpm* repo: `changeset publish` resolves the publish
+      # tool from the workspace and picks pnpm here, but pnpm 9's publish is a thin wrapper -
+      # `runNpm(opts.npmPath, ["publish", ...])` in pnpm 9.15.9 - so the actual publish is
+      # performed by whichever npm is on PATH. That means the repo does NOT need pnpm 10/11
+      # (which would block dependency postinstall scripts by default and break esbuild).
+      - name: Upgrade npm for trusted publishing
+        run: |
+          npm install -g npm@^11.5.1
+          echo "npm $(npm --version) / node $(node --version)"
 
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      # The library has to exist before the tests run: apps/docs imports it by package name,
+      # so its tests resolve through the exports map to dist/. See the same note in ci.yml.
+      - name: Build the library
+        run: pnpm --filter @the_viveksingh/vivek-ui build
+
       - name: Test
         run: pnpm -r test
 
-      # Without the secret the release step cannot do anything useful, and failing
-      # red on every push is noise. Skip with a notice instead.
-      - name: Check for npm credentials
-        id: npm
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          if [ -n "$NPM_TOKEN" ]; then
-            echo "configured=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "configured=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::NPM_TOKEN is not set - skipping release. Add it under Settings > Secrets and variables > Actions."
-          fi
-
-      # With pending changesets this opens/updates the "Version Packages" PR.
-      # Once that PR is merged there are no changesets left, so `publish` runs instead.
+      # With pending changesets this opens or updates the "Version Packages" PR. Once that
+      # PR is merged there are no changesets left, so `publish` runs instead.
+      #
+      # No NPM_TOKEN, and no credential-gate step: the package is configured on npm to
+      # require 2FA and disallow tokens, so token auth would be rejected outright.
+      # Authentication is the OIDC exchange enabled by `id-token: write` above, and npm
+      # generates the provenance attestation automatically for a trusted-publisher publish -
+      # NPM_CONFIG_PROVENANCE is no longer needed.
       - name: Create release PR or publish
-        if: steps.npm.outputs.configured == 'true'
-        uses: changesets/action@ce079ea084e08a340947ed4d6ecedb2433c8f293 # v1
+        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
         with:
           version: pnpm changeset version
           publish: pnpm release
@@ -62,9 +92,3 @@ jobs:
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          # changesets shells out to `pnpm publish`, which ignores
-          # publishConfig.provenance - that is npm-CLI-only. This env var is what
-          # actually produces the attestation. Verify with `npm audit signatures`.
-          NPM_CONFIG_PROVENANCE: 'true'

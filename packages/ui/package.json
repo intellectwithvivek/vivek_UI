@@ -20,19 +20,32 @@
   ],
   "type": "module",
   "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./charts": {
-      "types": "./dist/charts/index.d.ts",
-      "import": "./dist/charts/index.js",
-      "require": "./dist/charts/index.cjs"
+      "import": {
+        "types": "./dist/charts/index.d.ts",
+        "default": "./dist/charts/index.js"
+      },
+      "require": {
+        "types": "./dist/charts/index.d.cts",
+        "default": "./dist/charts/index.cjs"
+      }
     },
     "./styles.css": "./dist/styles.css",
     "./charts.css": "./dist/charts.css",

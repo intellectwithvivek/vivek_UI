@@ -14551,6 +14551,86 @@
         ]
       },
       "compound": false
+    },
+    {
+      "slug": "virtual-list",
+      "title": "Virtual list",
+      "kind": "component",
+      "category": "Other",
+      "exports": [
+        "VirtualList"
+      ],
+      "typeExports": [
+        "VirtualListProps"
+      ],
+      "primary": "VirtualList",
+      "description": "Windowed list: renders only the rows on screen.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "items",
+            "type": "readonly T[]",
+            "required": true,
+            "description": "The full dataset. Only the visible slice is ever rendered.",
+            "default": ""
+          },
+          {
+            "name": "itemHeight",
+            "type": "number | ((index: number, item: T) => number)",
+            "required": true,
+            "description": "Row height in pixels. A number means every row is that tall, which is the fast path: the scroll position maps to an index with one division and nothing needs measuring. A function is the estimate for a row whose real height is not known yet. Rows are measured as they render and the estimate is replaced, so a wrong estimate costs accuracy in the scrollbar early on, not correctness.",
+            "default": ""
+          },
+          {
+            "name": "children",
+            "type": "(item: T, index: number) => ReactNode",
+            "required": true,
+            "description": "Renders one row. Must not itself be tall enough to scroll.",
+            "default": ""
+          },
+          {
+            "name": "overscan",
+            "type": "number",
+            "required": false,
+            "description": "Extra rows rendered above and below the viewport. Default `4`. Zero is tempting and wrong: the browser paints scrolled-in rows a frame late, which reads as a flicker of blank space at speed.",
+            "default": ""
+          },
+          {
+            "name": "getKey",
+            "type": "(item: T, index: number) => string | number",
+            "required": false,
+            "description": "Stable key for a row. Strongly recommended — see the note on the default below.",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Accessible name for the scrollable region.",
+            "default": ""
+          },
+          {
+            "name": "scrollToIndex",
+            "type": "number",
+            "required": false,
+            "description": "Scroll this index into view whenever it changes.",
+            "default": ""
+          },
+          {
+            "name": "onRangeChange",
+            "type": "(range: { start: number; end: number; }) => void",
+            "required": false,
+            "description": "Fired with the visible range whenever it changes. Useful for infinite loading.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'children'>"
+        ]
+      },
+      "compound": false
     }
   ],
   "charts": [

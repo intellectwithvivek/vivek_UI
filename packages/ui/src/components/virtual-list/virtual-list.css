@@ -1,0 +1,43 @@
+/*
+ * VirtualList.
+ *
+ * Rows are absolutely positioned inside a sizer whose height is the whole dataset, so the
+ * scrollbar reflects the real length while only the visible slice exists in the DOM.
+ */
+
+:where(.vk-virtual-list) {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  /*
+   * `contain` is what keeps a long list cheap: it tells the browser nothing inside can
+   * affect layout outside, so scrolling does not invalidate the rest of the page.
+   */
+  contain: strict;
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+  border-radius: var(--vk-radius-md);
+}
+
+/* A scroll container is focusable so it can be operated by keyboard, and anything
+   focusable has to show focus. */
+:where(.vk-virtual-list:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
+}
+
+:where(.vk-virtual-list__sizer) {
+  position: relative;
+  inline-size: 100%;
+}
+
+/*
+ * `transform` rather than `top`: a transform is composited, so scrolling does not force
+ * layout for every row. `will-change` is deliberately NOT set - with hundreds of rows it
+ * creates hundreds of compositor layers and makes scrolling slower, not faster.
+ */
+:where(.vk-virtual-list__row) {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+}

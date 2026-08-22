@@ -370,3 +370,4 @@ export {
 } from './components/toast'
 export { Tooltip, type TooltipProps, type TooltipTriggerProps } from './components/tooltip'
 export { TypingIndicator, type TypingIndicatorProps } from './components/typing-indicator'
+export { VirtualList, type VirtualListProps } from './components/virtual-list'

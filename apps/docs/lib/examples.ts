@@ -176,6 +176,51 @@ const CORE_EXAMPLES: ExampleSet = {
     },
   ],
 
+  'virtual-list': [
+    {
+      title: 'Fifty thousand rows',
+      description:
+        'Only the visible rows exist in the DOM. onRangeChange reports the window, which is also the hook for loading more data as the user scrolls.',
+      name: 'default',
+      code: `const rows = useMemo(
+  () => Array.from({ length: 50_000 }, (_, i) => ({ id: i, name: \`Customer \${i}\` })),
+  [],
+)
+
+<VirtualList
+  items={rows}
+  itemHeight={56}
+  getKey={(row) => row.id}
+  label="All customers"
+  onRangeChange={({ start, end }) => console.log(start, end)}
+  style={{ height: '20rem' }}
+>
+  {(row) => <div>{row.name}</div>}
+</VirtualList>`,
+    },
+    {
+      title: 'Variable row heights',
+      description:
+        'Pass a function instead of a number and it becomes an estimate. Rows are measured as they render and the estimate is replaced, so nothing has to be computed up front.',
+      name: 'variable',
+      code: `<VirtualList
+  items={rows}
+  // An estimate, corrected by measurement once the row renders.
+  itemHeight={(index) => (index % 3 === 0 ? 88 : 52)}
+  getKey={(row) => row.id}
+  label="Customers"
+  style={{ height: '20rem' }}
+>
+  {(row, index) => (
+    <div>
+      <Text weight="medium">{row.name}</Text>
+      {index % 3 === 0 ? <Text size="sm" tone="muted">{row.email}</Text> : null}
+    </div>
+  )}
+</VirtualList>`,
+    },
+  ],
+
   tabs: [
     {
       title: 'Automatic vs manual activation',

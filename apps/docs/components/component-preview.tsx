@@ -89,6 +89,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   switch: dynamic(() => import('../previews/switch')),
   table: dynamic(() => import('../previews/table')),
   tabs: dynamic(() => import('../previews/tabs')),
+  'virtual-list': dynamic(() => import('../previews/virtual-list')),
   'tag-input': dynamic(() => import('../previews/tag-input')),
   testimonials: dynamic(() => import('../previews/testimonials')),
   text: dynamic(() => import('../previews/text')),

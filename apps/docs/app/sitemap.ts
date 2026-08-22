@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { allRoutes } from '../lib/routes'
-import { url } from '../lib/site'
+import { assertSiteUrl, url } from '../lib/site'
 
 /**
  * Generated from the registry, so it lists exactly the routes that exist. A sitemap with
@@ -11,6 +11,10 @@ import { url } from '../lib/site'
  * recrawls, which is the only thing the field is for.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Runs once, at build. Warns in the build log if NEXT_PUBLIC_SITE_URL is overriding the
+  // canonical host - the failure that put 106 dead URLs in this file once already.
+  assertSiteUrl()
+
   const lastModified = new Date()
   return allRoutes().map((route) => ({
     url: url(route.path),

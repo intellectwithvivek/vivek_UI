@@ -129,7 +129,13 @@ Not vulnerabilities, but worth knowing:
 
 ## Verifying what you installed
 
-Releases are published from GitHub Actions with npm provenance enabled:
+Releases are published from GitHub Actions using **npm Trusted Publishing (OIDC)**. There is
+no long-lived publish token anywhere: the package is configured to require two-factor
+authentication and to disallow tokens outright, so even a compromised repository secret could
+not publish. CI authenticates by exchanging a short-lived GitHub OIDC token, and npm attaches
+a provenance attestation automatically.
+
+You can verify any published version yourself:
 
 ```bash
 npm view @the_viveksingh/vivek-ui --json | grep -i provenance

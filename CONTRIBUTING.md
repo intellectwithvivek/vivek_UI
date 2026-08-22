@@ -110,7 +110,7 @@ A component is not finished until all of these are true:
 5. Open a PR. CI runs the same gates and blocks merge on red.
 
 Maintainers do the rest: merging to `main` opens a **"Version Packages"** PR, and merging that
-publishes to npm with provenance.
+publishes to npm via Trusted Publishing (OIDC), with provenance attached automatically.
 
 ## SemVer policy
 

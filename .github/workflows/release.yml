@@ -75,20 +75,54 @@ jobs:
       - name: Test
         run: pnpm -r test
 
-      # With pending changesets this opens or updates the "Version Packages" PR. Once that
-      # PR is merged there are no changesets left, so `publish` runs instead.
+      # Versioning only. The `publish` input is deliberately NOT passed.
       #
-      # No NPM_TOKEN, and no credential-gate step: the package is configured on npm to
-      # require 2FA and disallow tokens, so token auth would be rejected outright.
-      # Authentication is the OIDC exchange enabled by `id-token: write` above, and npm
-      # generates the provenance attestation automatically for a trusted-publisher publish -
-      # NPM_CONFIG_PROVENANCE is no longer needed.
-      - name: Create release PR or publish
+      # Given a publish script, this action writes $HOME/.npmrc before publishing:
+      #
+      #   `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`
+      #
+      # That is a JS template literal evaluated at runtime, so with no NPM_TOKEN it writes
+      # the LITERAL text `_authToken=undefined` - not an inert placeholder, but a credential
+      # npm will find and try to use. There is no input to turn that off. The action's own
+      # `hasChangesets` output is documented for exactly this case ("useful if you want to
+      # create your own publishing functionality"), so the publish is a separate step below.
+      #
+      # With changesets present this opens or updates the "Version Packages" PR. Note the PR
+      # body will say to "publish to npm yourself" - a side effect of omitting the publish
+      # input. Merging it does publish, via the step after this one.
+      - name: Create or update the version PR
+        id: changesets
         uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
         with:
           version: pnpm changeset version
-          publish: pnpm release
           commit: 'chore: version packages'
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # No changesets left means the version PR has just been merged: publish.
+      #
+      # No NPM_TOKEN anywhere. The package is configured on npm to require 2FA and disallow
+      # tokens, so token auth would be rejected outright. Authentication is the OIDC exchange
+      # that `id-token: write` enables, and npm attaches the provenance attestation
+      # automatically for a trusted-publisher publish - NPM_CONFIG_PROVENANCE is redundant.
+      - name: Publish to npm via Trusted Publishing
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        run: pnpm release
+
+      # `changeset publish` creates the git tags locally (--git-tag defaults to true) but
+      # does not push them, and the GitHub Releases the action would have made are gone with
+      # the publish input. Both are recreated here.
+      #
+      # `|| true` on the release: a re-run after a partial failure would otherwise fail on a
+      # tag that already has a release, turning a successful publish into a red run.
+      - name: Push tags and create GitHub Releases
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin --tags
+          for tag in $(git tag --points-at HEAD); do
+            echo "Creating release for $tag"
+            gh release create "$tag" --title "$tag" --generate-notes               || echo "  release for $tag already exists, skipping"
+          done

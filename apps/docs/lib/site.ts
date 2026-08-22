@@ -57,7 +57,7 @@ export const SITE_TAGLINE =
   'VivekUI is a free, MIT-licensed React component library with 83 accessible components and 6 SVG charts, and zero runtime dependencies.'
 
 export const SITE_DESCRIPTION =
-  'VivekUI is a free React component library: 83 accessible, server-safe components and 6 dependency-free SVG charts. One npm install, one CSS import, no build configuration, no Tailwind required. MIT licensed.'
+  'A free React component library with zero dependencies: 83 accessible, server-safe components and 6 SVG charts. One install, one CSS import, no Tailwind. MIT.'
 
 export const PACKAGE_NAME = '@the_viveksingh/vivek-ui'
 export const NPM_URL = `https://www.npmjs.com/package/${PACKAGE_NAME}`

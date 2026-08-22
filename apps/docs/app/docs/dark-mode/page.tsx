@@ -1,12 +1,16 @@
 import { Alert, Heading, Text, ThemeToggle } from '@the_viveksingh/vivek-ui'
 import type { Metadata } from 'next'
 import { CodeBlock } from '../../../components/code-block'
+import { pageMeta } from '../../../lib/page-meta'
 import { PACKAGE_NAME } from '../../../lib/registry'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: 'Dark mode',
-  description: 'One attribute on <html>, plus a script that prevents the flash.',
-}
+  description:
+    'Add dark mode to a React app with one attribute on <html> and a script that prevents the flash of the wrong theme on first paint. Works with SSR and Next.js.',
+  path: '/docs/dark-mode',
+  keywords: ['react dark mode', 'nextjs dark mode no flash', 'dark mode css variables'],
+})
 
 export default function DarkModePage() {
   return (

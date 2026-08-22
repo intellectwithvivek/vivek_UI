@@ -1,12 +1,16 @@
 import { Badge, Card, Grid, Heading, Stack, Text } from '@the_viveksingh/vivek-ui'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { pageMeta } from '../../../lib/page-meta'
 import { byCategory, registry } from '../../../lib/registry'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: 'All components',
-  description: `Every component in the library, grouped by category, with its rendering mode.`,
-}
+  description:
+    'Browse all 83 VivekUI React components by category - layout, forms, overlays, navigation, data, charts and AI chat - each with a live preview and props table.',
+  path: '/docs/components',
+  keywords: ['react component list', 'react ui components', 'accessible react component library'],
+})
 
 export default function ComponentsIndexPage() {
   const groups = byCategory(registry.components)

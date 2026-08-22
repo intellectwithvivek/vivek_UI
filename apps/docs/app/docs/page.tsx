@@ -3,13 +3,16 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CodeBlock } from '../../components/code-block'
 import { SupportCta } from '../../components/support-cta'
+import { pageMeta } from '../../lib/page-meta'
 import { PACKAGE_NAME, registry } from '../../lib/registry'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: 'Introduction',
   description:
-    'A zero-runtime-dependency React component library: 83 components, 6 charts, one install and one CSS import.',
-}
+    'VivekUI is a free React component library with zero runtime dependencies: 83 accessible components and 6 SVG charts, one install, one CSS import, no config.',
+  path: '/docs',
+  keywords: ['react component library', 'zero dependency react ui', 'free react components'],
+})
 
 const serverSafe = registry.components.filter((entry) => !entry.isClient).length
 

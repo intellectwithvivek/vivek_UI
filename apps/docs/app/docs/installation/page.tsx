@@ -15,7 +15,7 @@ import { pageMeta } from '../../../lib/page-meta'
 import { PACKAGE_NAME } from '../../../lib/registry'
 import { breadcrumbs, howTo, techArticle } from '../../../lib/structured-data'
 
-const DESCRIPTION = `Install ${PACKAGE_NAME} with npm, pnpm or yarn, import the stylesheet once at the root of your app, and start using components. No build plugin, no Tailwind, no configuration.`
+const DESCRIPTION = `Install ${PACKAGE_NAME} with npm, pnpm or yarn, import one stylesheet at your app root, and start building. No build plugin, no Tailwind, no config.`
 
 export const metadata: Metadata = pageMeta({
   title: 'Installation',

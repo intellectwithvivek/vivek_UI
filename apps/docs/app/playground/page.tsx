@@ -1,11 +1,15 @@
 import { Container, Heading, Text } from '@the_viveksingh/vivek-ui'
 import type { Metadata } from 'next'
+import { pageMeta } from '../../lib/page-meta'
 import { PlaygroundEditor } from './playground-editor'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: 'Playground',
-  description: 'Edit and run any example, with every export already in scope.',
-}
+  description:
+    'Edit and run VivekUI React components live in your browser. Every component and chart export is already in scope - no setup, no install, TypeScript supported.',
+  path: '/playground',
+  keywords: ['react component playground', 'try react components online', 'react ui sandbox'],
+})
 
 export default function PlaygroundPage() {
   return (

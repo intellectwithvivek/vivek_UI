@@ -12,6 +12,18 @@ import { CodeBlock } from './code-block'
 export interface Guide {
   title: string
   summary: ReactNode
+  /**
+   * The meta description for this page. Required, and deliberately a plain string.
+   *
+   * `summary` is a ReactNode for rendering and cannot be used here, which is how these
+   * pages ended up with `description: undefined` - and, because the root layout declares a
+   * canonical, they also inherited a canonical pointing at the HOMEPAGE. Fourteen pages were
+   * telling Google they were duplicates of `/`, which is an instruction not to index them.
+   *
+   * Aim for 140-158 characters: Google truncates a search snippet around 160, and a
+   * description that gets cut mid-sentence wastes the only copy you control in the result.
+   */
+  description: string
   body: ReactNode
 }
 
@@ -25,6 +37,8 @@ const P = '@the_viveksingh/vivek-ui'
 export const GUIDES = {
   'quick-start': {
     title: 'Quick start',
+    description:
+      'Build a real React landing page from imports alone - Hero, FeatureGrid, Pricing, CTA and Footer - with one npm install, one CSS import and no configuration.',
     summary: 'A real page, from imports alone.',
     body: (
       <>
@@ -96,6 +110,8 @@ export default function Page() {
 
   styling: {
     title: 'Overriding styles',
+    description:
+      'Override any VivekUI style with a single plain CSS class. Every selector is wrapped in :where(), so it has zero specificity and never needs !important.',
     summary: 'Why your CSS always wins, without !important.',
     body: (
       <>
@@ -158,6 +174,8 @@ export default function Page() {
 
   responsive: {
     title: 'Responsive',
+    description:
+      'Build responsive React layouts with container queries, not viewport breakpoints, so each component adapts to the space it is given rather than the screen.',
     summary: 'Container queries, so components respond to their own width.',
     body: (
       <>
@@ -203,6 +221,8 @@ export default function Page() {
 
   'data-mapping': {
     title: 'Feeding it your data',
+    description:
+      'Map API responses straight into VivekUI tables, charts and lists. Render props, accessors and typed columns mean raw JSON goes in without a transform step.',
     summary: 'Every data-driven component takes plain objects.',
     body: (
       <>
@@ -267,6 +287,8 @@ export default function Page() {
 
   'server-components': {
     title: 'Server Components',
+    description:
+      'Use React Server Components with VivekUI: 49 of 83 components render on the server with no client boundary, and the rest carry their own use client directive.',
     summary: 'Most of the library needs no client boundary.',
     body: (
       <>
@@ -315,6 +337,8 @@ export default function Page() {
 
   accessibility: {
     title: 'Accessibility',
+    description:
+      'How VivekUI meets WCAG 2.1 AA: automated axe assertions on every component, WAI-ARIA keyboard maps, and a colour palette verified by measurement, not by eye.',
     summary: 'What is guaranteed, and what is not.',
     body: (
       <>
@@ -369,6 +393,8 @@ export default function Page() {
 
   security: {
     title: 'Security',
+    description:
+      'Security in VivekUI: unsafe href blocking, no dangerouslySetInnerHTML, zero runtime dependencies to audit, and provenance-attested npm releases via OIDC.',
     summary: 'What the library refuses to do, and what it checks.',
     body: (
       <>
@@ -424,6 +450,8 @@ export default function Page() {
 
   typescript: {
     title: 'TypeScript',
+    description:
+      'Full TypeScript support: every component exports its Props interface, discriminated unions reject invalid prop combos, and types resolve in all four modes.',
     summary: 'Generics, discriminated unions, and module resolution.',
     body: (
       <>

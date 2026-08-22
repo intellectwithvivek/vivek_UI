@@ -2,11 +2,19 @@ import { Alert, Heading, Table, Text } from '@the_viveksingh/vivek-ui'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CodeBlock } from '../../../components/code-block'
+import { pageMeta } from '../../../lib/page-meta'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: 'Theming',
-  description: 'Rebrand the whole library with plain CSS custom properties.',
-}
+  description:
+    'Rebrand every VivekUI component by redefining a few --vk-* CSS custom properties. No theme object, no provider, no build step - just plain CSS.',
+  path: '/docs/theming',
+  keywords: [
+    'react theming css variables',
+    'customise react component library',
+    'design tokens react',
+  ],
+})
 
 const TOKENS: [string, string, string][] = [
   ['--vk-color-primary', '#4f46e5', 'Brand colour. Buttons, links, focus rings.'],

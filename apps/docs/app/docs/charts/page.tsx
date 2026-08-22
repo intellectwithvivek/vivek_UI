@@ -2,12 +2,16 @@ import { Alert, Card, Grid, Heading, Text } from '@the_viveksingh/vivek-ui'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CodeBlock } from '../../../components/code-block'
+import { pageMeta } from '../../../lib/page-meta'
 import { PACKAGE_NAME, registry } from '../../../lib/registry'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: 'Charts',
-  description: 'Six chart types in pure SVG, with no charting dependency.',
-}
+  description:
+    'Six React chart components in pure SVG with no charting dependency: line, area, bar, pie and donut, sparkline and progress ring. Server-rendered and accessible.',
+  path: '/docs/charts',
+  keywords: ['react charts no dependencies', 'react svg charts', 'lightweight react chart library'],
+})
 
 export default function ChartsIndexPage() {
   return (

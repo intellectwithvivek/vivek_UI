@@ -60,9 +60,54 @@ export function apiDescription(input: {
   description: string
   exports: string[]
 }): string {
-  const lead = input.description
-    ? input.description.replace(/\s+/g, ' ').trim()
-    : `The ${input.title} ${input.kind}.`
-  const importable = input.exports.slice(0, 4).join(', ')
-  return `${input.title} — a React ${input.kind} from ${SITE_NAME}. ${lead} Props, live examples and usage. Import { ${importable} } from '${PACKAGE_NAME}'.`
+  const lead = (input.description || `The ${input.title} ${input.kind}.`)
+    // JSDoc arrives with newlines, backticks and markdown links. A snippet renders none of
+    // those, so they are stripped rather than shown to a searcher as literal punctuation.
+    .replace(/\s+/g, ' ')
+    .replace(/`/g, '')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .trim()
+
+  const opener = `${input.title} — a React ${input.kind} for ${SITE_NAME}.`
+  const closer = ' Live example, props table and code.'
+
+  /*
+   * Google renders roughly 160 characters of a description and cuts the rest mid-word, so
+   * anything past that is wasted - and 83 of these were running to 350. The lead is trimmed
+   * at a SENTENCE boundary where one fits, and at a word boundary otherwise, because a
+   * snippet ending mid-clause reads as broken rather than as truncated.
+   */
+  const BUDGET = 158
+  const room = BUDGET - opener.length - closer.length - 1
+
+  let body = lead
+  if (body.length > room) {
+    const sentences = body.match(/[^.!?]+[.!?]+/g) ?? []
+    let kept = ''
+    for (const sentence of sentences) {
+      if ((kept + sentence).trim().length > room) break
+      kept += sentence
+    }
+    body = kept.trim()
+    if (!body) {
+      // No whole sentence fits. Cut at the last space inside the budget instead.
+      const cut = lead.slice(0, room - 1)
+      body = `${cut.slice(0, cut.lastIndexOf(' '))}…`
+    }
+  }
+
+  const full = `${opener} ${body}${closer}`.replace(/\s+/g, ' ').trim()
+
+  /*
+   * A description under ~70 characters wastes the one piece of copy on the page that you
+   * control in a search result, so a short lead gets the import line appended to earn its
+   * space rather than being padded with filler.
+   */
+  if (full.length < 70) {
+    const importable = input.exports.slice(0, 3).join(', ')
+    const withImport = `${full} Import { ${importable} } from '${PACKAGE_NAME}'.`
+    return withImport.length <= BUDGET ? withImport : full
+  }
+
+  return full
 }

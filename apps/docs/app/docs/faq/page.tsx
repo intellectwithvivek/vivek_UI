@@ -14,7 +14,7 @@ import { pageMeta } from '../../../lib/page-meta'
 import { breadcrumbs, faqPage, techArticle } from '../../../lib/structured-data'
 
 const DESCRIPTION =
-  'Answers to the common questions about VivekUI: what it is, whether it is free, how it compares to shadcn/ui, whether it needs Tailwind, and how it works with React Server Components.'
+  'Common questions about VivekUI: is it free, does it need Tailwind, how does it compare to shadcn/ui, and does it work with React Server Components?'
 
 export const metadata: Metadata = pageMeta({
   title: 'FAQ',

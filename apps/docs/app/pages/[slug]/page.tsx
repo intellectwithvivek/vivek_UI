@@ -1,6 +1,7 @@
 import {
   Alert,
   Badge,
+  Breadcrumb,
   Button,
   Code,
   Container,
@@ -92,6 +93,20 @@ export default async function TemplatePage({ params }: { params: Promise<{ slug:
             { name: template.title, path },
           ]),
         ]}
+      />
+
+      {/*
+        A trail, not just a category label. These pages sit outside the docs shell, so
+        without this the only way back to the gallery was the browser's back button - and
+        for anyone arriving from a search result there was no way back at all.
+      */}
+      <Breadcrumb
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Page templates', href: '/pages' },
+          { label: template.title },
+        ]}
+        label="Breadcrumb"
       />
 
       <header className="doc-header">
@@ -207,6 +222,12 @@ export default async function TemplatePage({ params }: { params: Promise<{ slug:
           </Button>
         ) : null}
       </nav>
+
+      <Stack align="center" gap={2}>
+        <Button asChild variant="ghost">
+          <Link href="/pages">← All {templates.length} page templates</Link>
+        </Button>
+      </Stack>
     </Container>
   )
 }

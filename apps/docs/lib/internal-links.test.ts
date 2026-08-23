@@ -38,6 +38,7 @@ function routeOf(file: string): string {
 const built = existsSync(BUILD)
 const files = built ? htmlFiles(BUILD).filter((f) => !/_global-error/.test(f)) : []
 const routes = new Set(files.map(routeOf))
+const pages = files.map((file) => ({ route: routeOf(file), html: readFileSync(file, 'utf8') }))
 
 /**
  * Routes that exist but are not pre-rendered as HTML, so they never appear in the scan.
@@ -100,6 +101,25 @@ describe.skipIf(!built)('internal links in the built site', () => {
       .map((route) => route.path)
       .filter((path) => !routes.has(path))
     expect(missing, 'the sitemap advertises these; nothing was built for them').toEqual([])
+  })
+
+  it('gives every page-template page a way back to the gallery', () => {
+    // These pages sit outside the docs shell, so they have no sidebar. Shipped without a
+    // single link back: from a search result the only way out was the browser's back
+    // button, and there is no back button when the page is the entry point.
+    const stranded = pages
+      .filter(({ route }) => /^\/pages\/[^/]+$/.test(route))
+      .filter(({ html }) => !/href="\/pages"/.test(html))
+      .map(({ route }) => route)
+    expect(stranded, 'no link back to /pages').toEqual([])
+  })
+
+  it('gives every page-template page a breadcrumb trail', () => {
+    const missing = pages
+      .filter(({ route }) => /^\/pages(\/[^/]+)?$/.test(route))
+      .filter(({ html }) => !/aria-label="Breadcrumb"/.test(html))
+      .map(({ route }) => route)
+    expect(missing).toEqual([])
   })
 
   it('links to an external site open safely', () => {

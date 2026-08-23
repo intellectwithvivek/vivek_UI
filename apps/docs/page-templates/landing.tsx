@@ -187,12 +187,17 @@ export default function LandingPage() {
         />
       </div>
 
+      {/*
+        Figures a demo can state without going stale. The first version quoted a bundle size
+        and a test count, and both were wrong within a release - in a template people copy,
+        which would have propagated the wrong numbers into their pages too.
+      */}
       <Stats
         items={[
           { id: 'components', value: '91', label: 'Components', description: 'All MIT licensed' },
           { id: 'deps', value: '0', label: 'Runtime dependencies' },
-          { id: 'size', value: '14 kB', label: 'Core bundle', description: 'Minified and gzipped' },
-          { id: 'tests', value: '1,588', label: 'Tests', description: 'Including axe assertions' },
+          { id: 'licence', value: 'MIT', label: 'Licence', description: 'Commercial use included' },
+          { id: 'a11y', value: 'AA', label: 'WCAG 2.1', description: 'Every component axe-tested' },
         ]}
       />
 

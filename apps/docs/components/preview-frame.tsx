@@ -33,9 +33,6 @@ type WidthId = (typeof WIDTHS)[number]['id']
 
 const MIRRORED = ['data-theme', 'data-accent', 'class', 'style'] as const
 
-/** A blank same-origin document. `about:blank` load timing differs between browsers. */
-const BLANK = '<!doctype html><html><head></head><body></body></html>'
-
 export interface PreviewFrameProps {
   children: ReactNode
   /** Accessible name of the frame. Say which page it is showing. */
@@ -43,6 +40,9 @@ export interface PreviewFrameProps {
   /** Frame height in pixels. The page inside scrolls. */
   height?: number
 }
+
+/** Set on a document once its stylesheets have been cloned in, so `attach` is idempotent. */
+const WIRED = 'data-vk-preview-wired'
 
 export function PreviewFrame({ children, title, height = 680 }: PreviewFrameProps) {
   const [frame, setFrame] = useState<HTMLIFrameElement | null>(null)
@@ -53,12 +53,14 @@ export function PreviewFrame({ children, title, height = 680 }: PreviewFrameProp
   // and keep mirroring it.
   useEffect(() => {
     if (!frame) return
-    const inner = frame.contentDocument
-    if (!inner) return
 
     const attach = () => {
       const target = frame.contentDocument
-      if (!target) return
+      if (!target?.body) return
+      // Already wired. `load` can fire after the synchronous attach below, and cloning the
+      // stylesheets twice would double every rule.
+      if (target.documentElement.hasAttribute(WIRED)) return
+      target.documentElement.setAttribute(WIRED, '')
 
       for (const node of Array.from(
         document.head.querySelectorAll('style, link[rel=stylesheet]'),
@@ -76,10 +78,22 @@ export function PreviewFrame({ children, title, height = 680 }: PreviewFrameProp
       setDoc(target)
     }
 
-    // srcDoc documents are usually ready synchronously, but not in every browser.
-    if (inner.readyState === 'complete') attach()
-    else frame.addEventListener('load', attach)
-
+    /*
+     * Attach now if the document is usable, and on `load` either way.
+     *
+     * The first version of this used `srcDoc`, and it never rendered anything. At the moment
+     * the ref fires, `contentDocument` is the iframe's *initial* `about:blank` — whose
+     * `readyState` is already `complete` — so it attached to that, and the browser then
+     * threw that document away and replaced it with the parsed `srcdoc` one. The portal was
+     * left rendering into the body of a discarded document: no error, no warning, an empty
+     * frame in every viewport.
+     *
+     * With no `src` and no `srcDoc` the `about:blank` document is the real one and is never
+     * replaced. The `load` listener stays because a few browsers do not have the body ready
+     * synchronously; `attach` is idempotent so running twice is harmless.
+     */
+    attach()
+    frame.addEventListener('load', attach)
     return () => frame.removeEventListener('load', attach)
   }, [frame])
 
@@ -139,8 +153,9 @@ export function PreviewFrame({ children, title, height = 680 }: PreviewFrameProp
         }}
       >
         <iframe
+          // Deliberately no `src` and no `srcDoc` — see the effect above. The iframe gets
+          // `about:blank`, which is same-origin and never replaced out from under the portal.
           ref={setFrame}
-          srcDoc={BLANK}
           style={{
             width: chosen.width > 0 ? `${chosen.width}px` : '100%',
             maxWidth: '100%',

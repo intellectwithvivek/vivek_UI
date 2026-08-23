@@ -18,6 +18,13 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    include: ['lib/**/*.test.ts', 'lib/**/*.test.tsx'],
+    // `components/` is in scope too: the preview frame shipped broken precisely because
+    // nothing in this app could render a component and look at the result.
+    include: [
+      'lib/**/*.test.ts',
+      'lib/**/*.test.tsx',
+      'components/**/*.test.ts',
+      'components/**/*.test.tsx',
+    ],
   },
 })

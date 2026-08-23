@@ -1,4 +1,13 @@
-import { Badge, Card, Container, Grid, Heading, Stack, Text } from '@the_viveksingh/vivek-ui'
+import {
+  Badge,
+  Breadcrumb,
+  Card,
+  Container,
+  Grid,
+  Heading,
+  Stack,
+  Text,
+} from '@the_viveksingh/vivek-ui'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { JsonLd } from '../../components/json-ld'
@@ -42,6 +51,11 @@ export default function PagesIndex() {
           }),
           breadcrumbs([{ name: 'Page templates', path: '/pages' }]),
         ]}
+      />
+
+      <Breadcrumb
+        items={[{ label: 'Home', href: '/' }, { label: 'Page templates' }]}
+        label="Breadcrumb"
       />
 
       <header className="doc-header">

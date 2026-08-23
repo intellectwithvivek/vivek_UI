@@ -69,7 +69,20 @@ const CATEGORIES = {
     'portal',
   ],
   Navigation: ['navbar', 'sidebar', 'breadcrumb', 'pagination', 'command-palette'],
-  'Data display': ['table', 'data-table', 'card', 'badge', 'avatar', 'timeline', 'stepper'],
+  'Data display': [
+    'table',
+    'data-table',
+    'editable-grid',
+    'virtual-list',
+    'file-tree',
+    'kanban-board',
+    'scheduler',
+    'card',
+    'badge',
+    'avatar',
+    'timeline',
+    'stepper',
+  ],
   'AI chat': ['chat-thread', 'chat-message', 'chat-input', 'typing-indicator', 'chat-code-block'],
   Feedback: ['alert', 'spinner', 'skeleton', 'progress', 'empty-state'],
   Sections: [
@@ -82,6 +95,7 @@ const CATEGORIES = {
     'stats',
     'footer',
     'logo-cloud',
+    'newsletter',
   ],
   'Media & time': [
     'carousel',
@@ -90,12 +104,28 @@ const CATEGORIES = {
     'countdown',
     'clock',
     'relative-time',
+    'image',
+    'map-embed',
   ],
   Theming: ['theme-provider', 'theme-toggle'],
 }
 
-const categoryOf = (slug) =>
-  Object.entries(CATEGORIES).find(([, slugs]) => slugs.includes(slug))?.[0] ?? 'Other'
+/**
+ * A component with no category lands in a group the sidebar does not render, so it ships
+ * invisible - which is how seven of them once did. Failing here is the only way that gets
+ * noticed.
+ */
+const categoryOf = (slug) => {
+  const found = Object.entries(CATEGORIES).find(([, slugs]) => slugs.includes(slug))?.[0]
+  if (!found) {
+    console.error(
+      `gen-registry: "${slug}" is in no category, so it would not appear in the sidebar. ` +
+        'Add it to CATEGORIES in scripts/gen-registry.mjs.',
+    )
+    process.exit(1)
+  }
+  return found
+}
 
 /** Title-case a slug: `data-table` -> `Data table`. */
 const titleOf = (slug) => {

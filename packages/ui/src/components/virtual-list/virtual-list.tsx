@@ -105,6 +105,7 @@ function VirtualListInner<T>(
    * `measureVersion` is the dependency that makes that happen - the Map is mutated in place
    * so it cannot be one itself.
    */
+  // biome-ignore lint/correctness/useExhaustiveDependencies: measureVersion is the signal that the mutable measurement Map changed - it is deliberately extra.
   const { offsets, total }: Measured = useMemo(() => {
     if (fixedHeight !== null) {
       return { offsets: [], total: items.length * fixedHeight }
@@ -117,7 +118,6 @@ function VirtualListInner<T>(
       next[i + 1] = running
     }
     return { offsets: next, total: running }
-    // biome-ignore lint/correctness/useExhaustiveDependencies: measureVersion is the signal that the mutable measurement Map changed
   }, [fixedHeight, items, estimate, measureVersion])
 
   /** First index at or after `offset`. Binary search in the variable-height mode. */
@@ -229,6 +229,7 @@ function VirtualListInner<T>(
       }}
       role="list"
       style={style}
+      // biome-ignore lint/a11y/noNoninteractiveTabindex: WCAG 2.1.1 - a scrollable region has to be focusable or a keyboard user cannot scroll it.
       tabIndex={0}
       {...rest}
     >

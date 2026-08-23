@@ -1,0 +1,301 @@
+/*
+ * Scheduler.
+ *
+ * Two axes with different rules: the vertical one is ordinary flow (a row per resource,
+ * grown by however many lanes its bookings needed), and the horizontal one is percentage
+ * positioning inside each track, because a booking's position *is* its time. The track is
+ * the containing block for every booking in it, so the percentages need no arithmetic.
+ */
+
+:where(.vk-scheduler) {
+  /* Consumed by the gutter and by the now-marker's offset, so it has to be a variable. */
+  --vk-scheduler-gutter: 10rem;
+  --vk-scheduler-lane-height: 2.25rem;
+  --vk-scheduler-lane-gap: var(--vk-space-1);
+
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-fg);
+  background: var(--vk-color-surface);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  overflow: hidden;
+}
+
+:where(.vk-scheduler__scroll) {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+:where(.vk-scheduler__canvas) {
+  position: relative;
+  /* Set from `minTickWidth` × tick count: below this the timeline scrolls rather than
+     squeezing every booking into an unreadable sliver. */
+  min-inline-size: calc(var(--vk-scheduler-gutter) + var(--vk-scheduler-min-width, 40rem));
+}
+
+/* --- axis ------------------------------------------------------------------------- */
+
+:where(.vk-scheduler__axis) {
+  display: flex;
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  block-size: 2.25rem;
+  background: var(--vk-color-surface-subtle);
+  border-block-end: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-scheduler__ticks) {
+  position: relative;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+:where(.vk-scheduler__tick) {
+  position: absolute;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  padding-inline-start: var(--vk-space-2);
+  font-size: var(--vk-text-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--vk-color-muted);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* --- rows ------------------------------------------------------------------------- */
+
+:where(.vk-scheduler__row) {
+  display: flex;
+  border-block-end: 1px solid var(--vk-color-border-subtle);
+}
+
+:where(.vk-scheduler__row:last-of-type) {
+  border-block-end: 0;
+}
+
+:where(.vk-scheduler__gutter) {
+  /* Sticky, so the resource names stay readable once the timeline is scrolled sideways —
+     otherwise a wide board scrolls the labels out of sight and every row looks the same. */
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  flex: 0 0 var(--vk-scheduler-gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--vk-space-2) var(--vk-space-3);
+  background: var(--vk-color-surface);
+  border-inline-end: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-scheduler__axis) > :where(.vk-scheduler__gutter) {
+  background: var(--vk-color-surface-subtle);
+}
+
+:where(.vk-scheduler__resource) {
+  font-weight: var(--vk-weight-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.vk-scheduler__sublabel) {
+  font-size: var(--vk-text-xs);
+  color: var(--vk-color-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.vk-scheduler__track) {
+  position: relative;
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--vk-space-1) 0;
+  list-style: none;
+  /* Grown by the lane packing, so a double-booking makes the row taller instead of hiding
+     one of the two bookings. */
+  block-size: calc(
+    var(--vk-scheduler-lanes, 1) *
+    var(--vk-scheduler-lane-height) +
+    (var(--vk-scheduler-lanes, 1) - 1) *
+    var(--vk-scheduler-lane-gap) +
+    var(--vk-space-2)
+  );
+}
+
+/*
+ * The list items carry no size: each holds one absolutely-positioned booking, so the item
+ * itself collapses to nothing and the track's own height governs the row. `display: contents`
+ * would be the obvious way to do this, but it drops list semantics in some browsers.
+ */
+:where(.vk-scheduler__slot) {
+  list-style: none;
+}
+
+:where(.vk-scheduler__lines) {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+:where(.vk-scheduler__line) {
+  position: absolute;
+  inset-block: 0;
+  inline-size: 1px;
+  background: var(--vk-color-border-subtle);
+}
+
+:where(.vk-scheduler__free) {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: var(--vk-space-3);
+  transform: translateY(-50%);
+  font-size: var(--vk-text-xs);
+  color: var(--vk-color-muted);
+}
+
+/* --- bookings --------------------------------------------------------------------- */
+
+:where(.vk-scheduler__event) {
+  position: absolute;
+  inset-block-start: calc(
+    var(--vk-space-1) +
+    var(--vk-scheduler-lane, 0) *
+    (var(--vk-scheduler-lane-height) + var(--vk-scheduler-lane-gap))
+  );
+  block-size: var(--vk-scheduler-lane-height);
+  /* A one-minute booking on a twelve-hour board is a hairline; this keeps it clickable. */
+  min-inline-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  padding: 0 var(--vk-space-2);
+  font: inherit;
+  font-size: var(--vk-text-xs);
+  text-align: start;
+  color: var(--vk-color-fg);
+  background: var(--vk-color-surface-subtle);
+  border: 1px solid var(--vk-color-border);
+  border-inline-start: 3px solid var(--vk-color-border-strong);
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    background var(--vk-duration-fast) var(--vk-ease),
+    box-shadow var(--vk-duration-fast) var(--vk-ease),
+    transform var(--vk-duration-fast) var(--vk-ease);
+}
+
+:where(.vk-scheduler__event:hover) {
+  background: var(--vk-color-surface-sunken);
+  box-shadow: var(--vk-shadow-sm);
+}
+
+:where(.vk-scheduler__event:active) {
+  transform: translateY(1px);
+}
+
+:where(.vk-scheduler__event:focus-visible) {
+  outline: 2px solid var(--vk-color-ring);
+  outline-offset: 2px;
+  /* Above its neighbours, or an adjacent booking clips the ring. */
+  z-index: 1;
+}
+
+/* A booking running past the edge of the window is cut, not shrunk — squaring the cut edge
+   says "continues" in a way a rounded corner does not. */
+:where(.vk-scheduler__event[data-clipped]) {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  border-inline-end-style: dashed;
+}
+
+:where(.vk-scheduler__title) {
+  font-weight: var(--vk-weight-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.vk-scheduler__time) {
+  font-variant-numeric: tabular-nums;
+  color: var(--vk-color-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*
+ * Tones use the subtle pair, so the text stays at AA against its own background rather than
+ * relying on white-on-saturated, which fails for warning at any usable weight.
+ */
+:where(.vk-scheduler__event[data-tone="accent"]) {
+  color: var(--vk-color-primary-subtle-fg);
+  background: var(--vk-color-primary-subtle);
+  border-color: var(--vk-color-primary-subtle-fg);
+  border-inline-start-color: var(--vk-color-primary);
+}
+
+:where(.vk-scheduler__event[data-tone="success"]) {
+  color: var(--vk-color-success-subtle-fg);
+  background: var(--vk-color-success-subtle);
+  border-color: var(--vk-color-success-subtle-fg);
+  border-inline-start-color: var(--vk-color-success);
+}
+
+:where(.vk-scheduler__event[data-tone="warning"]) {
+  color: var(--vk-color-warning-subtle-fg);
+  background: var(--vk-color-warning-subtle);
+  border-color: var(--vk-color-warning-subtle-fg);
+  border-inline-start-color: var(--vk-color-warning);
+}
+
+:where(.vk-scheduler__event[data-tone="danger"]) {
+  color: var(--vk-color-danger-subtle-fg);
+  background: var(--vk-color-danger-subtle);
+  border-color: var(--vk-color-danger-subtle-fg);
+  border-inline-start-color: var(--vk-color-danger);
+}
+
+:where(.vk-scheduler__event[data-tone]:not([data-tone="default"])) :where(.vk-scheduler__time) {
+  color: inherit;
+  opacity: 0.75;
+}
+
+/* --- now marker ------------------------------------------------------------------- */
+
+:where(.vk-scheduler__now) {
+  position: absolute;
+  inset-block: 0;
+  z-index: 1;
+  inline-size: 2px;
+  background: var(--vk-color-danger);
+  pointer-events: none;
+}
+
+:where(.vk-scheduler__now)::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 1.5rem;
+  inset-inline-start: -3px;
+  inline-size: 8px;
+  block-size: 8px;
+  background: var(--vk-color-danger);
+  border-radius: 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-scheduler__event) {
+    transition: none;
+  }
+
+  :where(.vk-scheduler__event:active) {
+    transform: none;
+  }
+}

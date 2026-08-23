@@ -92,13 +92,13 @@ drifted. VivekUI is a normal dependency: `npm update` and you have the fixes.
 | Runtime dependencies | **0** | Tailwind + Radix + CVA + clsx | Emotion or styled-components |
 | Updates | `npm update` | Re-copy each file by hand | `npm update` |
 | Overrides | One flat class wins (zero specificity) | Edit the source you own | `sx`, `!important`, specificity fights |
-| Server Components | 49 of 90 need no client boundary | Depends what you copied | Often needs a client boundary |
+| Server Components | 49 of 91 need no client boundary | Depends what you copied | Often needs a client boundary |
 | Charts | Built in, pure SVG, 0 deps | Wraps Recharts (~100 kB) | Separate package |
 | Theming | Plain CSS custom properties | Tailwind config | Theme object / JS API |
 
 ## Components
 
-**90 components. 138 runtime exports.** Every one is covered by tests including
+**91 components. 138 runtime exports.** Every one is covered by tests including
 automated `axe` assertions, and **44 need no `'use client'`** — they render directly in React Server
 Components.
 
@@ -251,7 +251,7 @@ Measured with `size-limit`, minified and brotlied, React excluded:
 | `{ Modal }` (focus trap + scroll lock + portal) | **2.91 kB** |
 | A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **2.66 kB** |
 | All six charts | **8.14 kB** |
-| Every one of the 90 components | **41.6 kB** |
+| Every one of the 91 components | **41.6 kB** |
 | `styles.css` | 166 kB raw, **23 kB gzipped** |
 | `charts.css` | 6 kB raw, **1.5 kB gzipped** |
 
@@ -357,7 +357,7 @@ without a browser. A Playwright pass is on the roadmap.
 
 ## Server Components
 
-**49 of the 90 components carry no `'use client'`** and render directly in React Server Components.
+**49 of the 91 components carry no `'use client'`** and render directly in React Server Components.
 Only genuinely interactive ones declare it, per file.
 
 The build is unbundled precisely so each file keeps its own directive, and CI asserts on every build

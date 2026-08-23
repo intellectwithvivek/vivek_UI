@@ -1,7 +1,7 @@
 {
   "name": "@the_viveksingh/vivek-ui",
   "version": "0.4.0",
-  "description": "A free React component library with zero runtime dependencies: 90 accessible, server-safe components and 6 SVG charts. Layout, forms, overlays, page sections, AI chat, DataTable. One install, one CSS import, no Tailwind, no config. React 18/19 and Next.js.",
+  "description": "A free React component library with zero runtime dependencies: 91 accessible, server-safe components and 6 SVG charts. Layout, forms, overlays, page sections, AI chat, DataTable. One install, one CSS import, no Tailwind, no config. React 18/19 and Next.js.",
   "license": "MIT",
   "author": {
     "name": "Vivek Kumar Singh",

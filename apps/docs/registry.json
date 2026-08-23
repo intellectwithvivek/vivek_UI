@@ -8873,7 +8873,7 @@
       "slug": "editable-grid",
       "title": "Editable grid",
       "kind": "component",
-      "category": "Other",
+      "category": "Data display",
       "exports": [
         "EditableGrid"
       ],
@@ -9249,7 +9249,7 @@
       "slug": "file-tree",
       "title": "File tree",
       "kind": "component",
-      "category": "Other",
+      "category": "Data display",
       "exports": [
         "FileTree"
       ],
@@ -9794,7 +9794,7 @@
       "slug": "image",
       "title": "Image",
       "kind": "component",
-      "category": "Other",
+      "category": "Media & time",
       "exports": [
         "Image"
       ],
@@ -9919,7 +9919,7 @@
       "slug": "kanban-board",
       "title": "Kanban board",
       "kind": "component",
-      "category": "Other",
+      "category": "Data display",
       "exports": [
         "KanbanBoard"
       ],
@@ -10094,7 +10094,7 @@
       "slug": "map-embed",
       "title": "Map embed",
       "kind": "component",
-      "category": "Other",
+      "category": "Media & time",
       "exports": [
         "MapEmbed"
       ],
@@ -10394,7 +10394,7 @@
       "slug": "newsletter",
       "title": "Newsletter",
       "kind": "component",
-      "category": "Other",
+      "category": "Sections",
       "exports": [
         "Newsletter"
       ],
@@ -11411,6 +11411,121 @@
         "extends": [
           "Omit<TimeHTMLAttributes<HTMLTimeElement>, 'dateTime' | 'children'>"
         ]
+      },
+      "compound": false
+    },
+    {
+      "slug": "scheduler",
+      "title": "Scheduler",
+      "kind": "component",
+      "category": "Data display",
+      "exports": [
+        "Scheduler"
+      ],
+      "typeExports": [
+        "SchedulerEvent",
+        "SchedulerProps",
+        "SchedulerResource"
+      ],
+      "primary": "Scheduler",
+      "description": "A resource scheduler — people, rooms or machines down the side, time across the top.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "resources",
+            "type": "readonly SchedulerResource[]",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "events",
+            "type": "readonly SchedulerEvent[]",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": true,
+            "description": "Required. A timeline with no accessible name is one more unlabelled region.",
+            "default": ""
+          },
+          {
+            "name": "start",
+            "type": "Date | number",
+            "required": false,
+            "description": "Window start. Defaults to the earliest event, floored to the step.",
+            "default": ""
+          },
+          {
+            "name": "end",
+            "type": "Date | number",
+            "required": false,
+            "description": "Window end. Defaults to the latest event, ceiled to the step.",
+            "default": ""
+          },
+          {
+            "name": "step",
+            "type": "number",
+            "required": false,
+            "description": "Minutes between axis ticks. Default 60.",
+            "default": ""
+          },
+          {
+            "name": "minTickWidth",
+            "type": "number",
+            "required": false,
+            "description": "Minimum pixels per tick. Below this the timeline scrolls rather than crushing.",
+            "default": ""
+          },
+          {
+            "name": "showNow",
+            "type": "boolean",
+            "required": false,
+            "description": "Draw the current-time marker. Left to itself this component never reads the clock during render — that would produce a different marker on the server and the client, which React reports as a hydration mismatch. The clock is read in an effect, after mount.",
+            "default": ""
+          },
+          {
+            "name": "now",
+            "type": "Date | number",
+            "required": false,
+            "description": "An explicit \"now\", which overrides {@link showNow}'s clock. Useful in tests and demos.",
+            "default": ""
+          },
+          {
+            "name": "onEventSelect",
+            "type": "(event: SchedulerEvent) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "renderEvent",
+            "type": "(event: SchedulerEvent, resource: SchedulerResource) => ReactNode",
+            "required": false,
+            "description": "Rendered instead of the default title + time. The wrapper button stays ours.",
+            "default": ""
+          },
+          {
+            "name": "formatTime",
+            "type": "(value: Date) => string",
+            "required": false,
+            "description": "How a time is written, in the axis and in every accessible name. The default is a deterministic 24-hour `HH:MM` rather than `Intl.DateTimeFormat`, because ICU output varies between Node builds and browsers — the same code would render differently for two of your users. Pass your own for 12-hour clocks or other locales.",
+            "default": ""
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": false,
+        "extends": []
       },
       "compound": false
     },
@@ -15088,7 +15203,7 @@
       "slug": "virtual-list",
       "title": "Virtual list",
       "kind": "component",
-      "category": "Other",
+      "category": "Data display",
       "exports": [
         "VirtualList"
       ],

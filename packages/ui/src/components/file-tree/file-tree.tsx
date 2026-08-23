@@ -242,6 +242,7 @@ export function FileTree({
   }
 
   return (
+    // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: role="tree" on a ul is the WAI-ARIA treeview pattern itself.
     <ul aria-label={label} className={cx('vk-file-tree', className)} ref={treeRef} role="tree">
       {visible.map((entry, index) => {
         const { node, level, isFolder, expanded: isExpanded } = entry

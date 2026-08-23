@@ -271,6 +271,12 @@ export {
 } from './components/radio-group'
 export { Rating, type RatingProps } from './components/rating'
 export { RelativeTime, type RelativeTimeProps } from './components/relative-time'
+export {
+  Scheduler,
+  type SchedulerEvent,
+  type SchedulerProps,
+  type SchedulerResource,
+} from './components/scheduler'
 export { ScrollArea, type ScrollAreaProps } from './components/scroll-area'
 export {
   type HeadingLevel,

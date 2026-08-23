@@ -263,6 +263,7 @@ export function KanbanBoard({ columns, label, onMove, renderCard, className }: K
                 </span>
               </header>
 
+              {/* biome-ignore lint/a11y/noRedundantRoles: Safari drops list semantics from a list-style:none list; the role restores them. */}
               <ul className="vk-kanban__list" role="list">
                 {column.cards.map((card, cardIndex) => {
                   const holding = grabbed?.cardId === card.id
@@ -283,6 +284,7 @@ export function KanbanBoard({ columns, label, onMove, renderCard, className }: K
                         onKeyDown={(event) =>
                           onCardKeyDown(event, card, column, columnIndex, cardIndex)
                         }
+                        // biome-ignore lint/a11y/noNoninteractiveTabindex: the card is the drag source and the keyboard pick-up target; role="button" would flatten the title/description structure it needs.
                         tabIndex={0}
                       >
                         {renderCard ? (

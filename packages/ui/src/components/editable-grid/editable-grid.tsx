@@ -156,11 +156,9 @@ export function EditableGrid<Row>({
     if (editing) inputRef.current?.select()
   }, [editing])
 
-  const columnAt = (index: number) => columns[index]
-
   const beginEdit = useCallback(
     (pos: CellPosition, initial?: string) => {
-      const column = columnAt(pos.col)
+      const column = columns[pos.col]
       const row = rows[pos.row]
       if (!column || row === undefined) return
       if (readOnly || !column.editable) return
@@ -170,14 +168,13 @@ export function EditableGrid<Row>({
       setDraft(current)
       setEditing(pos)
     },
-    // biome-ignore lint/correctness/useExhaustiveDependencies: columnAt is derived from columns
     [columns, rows, readOnly],
   )
 
   const commit = useCallback(
     (then?: CellPosition) => {
       if (!editing) return
-      const column = columnAt(editing.col)
+      const column = columns[editing.col]
       const row = rows[editing.row]
       if (column && row !== undefined) {
         // `parse` returning undefined is the documented way to reject an edit, so an invalid
@@ -196,7 +193,6 @@ export function EditableGrid<Row>({
       shouldRefocus.current = true
       if (then) setFocused(clamp(then))
     },
-    // biome-ignore lint/correctness/useExhaustiveDependencies: columnAt is derived from columns
     [editing, columns, rows, draft, onCellChange, clamp],
   )
 
@@ -279,8 +275,10 @@ export function EditableGrid<Row>({
       style={scrolls ? { height, overflow: 'auto' } : undefined}
     >
       <div className="vk-editable-grid__head" role="rowgroup">
+        {/* biome-ignore lint/a11y/useFocusableInteractive: the ARIA grid pattern puts the single tab stop on the active cell - a focusable row would add a second. */}
         <div aria-rowindex={1} className="vk-editable-grid__row" role="row">
           {columns.map((column, col) => (
+            // biome-ignore lint/a11y/useFocusableInteractive: headers are reached with Ctrl+Home inside the grid, not by Tab.
             <div
               aria-colindex={col + 1}
               className="vk-editable-grid__header"
@@ -298,6 +296,7 @@ export function EditableGrid<Row>({
 
       <div className="vk-editable-grid__body" role="rowgroup">
         {rows.map((row, rowIndex) => (
+          // biome-ignore lint/a11y/useFocusableInteractive: as above - focus belongs to the active cell, not the row.
           <div
             aria-rowindex={rowIndex + 2}
             className="vk-editable-grid__row"

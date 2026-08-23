@@ -202,6 +202,73 @@ const initial = [
     },
   ],
 
+  scheduler: [
+    {
+      title: 'A resource timeline nobody else gives you for free',
+      description:
+        'Rooms, people or machines down the side and time across the top. shadcn/ui, Mantine and Radix ship nothing like it, and MUI puts theirs behind a paid licence. Overlapping bookings stack into lanes so a double-booking is visible rather than hidden underneath.',
+      name: 'default',
+      code: `const resources = [
+  { id: 'studio-a', label: 'Studio A', sublabel: 'Ground floor - 12 seats' },
+  { id: 'studio-b', label: 'Studio B' },
+]
+
+const events = [
+  { id: '1', resourceId: 'studio-a', title: 'Standup', start: at(9), end: at(9, 30) },
+  { id: '2', resourceId: 'studio-a', title: 'Podcast', start: at(10), end: at(12, 30), tone: 'accent' },
+  // Overlaps the podcast, so it is packed into a second lane instead of being hidden.
+  { id: '3', resourceId: 'studio-a', title: 'Mic check', start: at(11, 30), end: at(12) },
+  { id: '4', resourceId: 'studio-b', title: 'Maintenance', start: at(13), end: at(16), tone: 'warning' },
+]
+
+<Scheduler
+  resources={resources}
+  events={events}
+  label="Studio bookings, 12 March"
+  start={at(9)}
+  end={at(18)}
+  // Nothing is mutated for you - the board reports, your state decides.
+  onEventSelect={(event) => setSelected(event)}
+/>`,
+    },
+    {
+      title: 'The keyboard model, which is the whole point',
+      description:
+        'A timeline conveys everything through position, and position is invisible to a screen reader. So the board is one tab stop with a roving focus, and every booking carries its resource, its times and its duration in its accessible name: "Podcast. Studio A, 10:00 to 12:30, 2 hours 30 minutes."',
+      name: 'keyboard',
+      code: `// Left / Right  - previous / next booking for this resource, in time order
+// Up / Down     - the nearest booking in time on the resource above / below
+// Home / End    - first / last booking for this resource
+// Enter, Space  - select
+
+// Empty resources are skipped by Up and Down: stopping on a row with nothing
+// in it reads as a dead key.
+
+<Scheduler resources={resources} events={events} label="Bookings" />`,
+    },
+    {
+      title: 'The current-time marker, and why it is opt-in',
+      description:
+        'Reading the clock during render gives the server one marker position and the browser another, which React reports as a hydration mismatch. So the component never does it: showNow reads the clock in an effect after mount, and now takes an explicit time for tests and demos.',
+      name: 'now',
+      code: `// Reads the clock after mount, then ticks once a minute.
+<Scheduler resources={resources} events={events} label="Today" showNow />
+
+// Or pin it, which is what the demo above does so the docs never shift.
+<Scheduler resources={resources} events={events} label="Today" now={at(13, 20)} />
+
+// Times are written by a deterministic HH:MM formatter rather than
+// Intl.DateTimeFormat, whose output varies between Node builds and browsers.
+// Pass your own for a 12-hour clock:
+<Scheduler
+  resources={resources}
+  events={events}
+  label="Today"
+  formatTime={(d) => d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
+/>`,
+    },
+  ],
+
   'file-tree': [
     {
       title: 'A project tree',

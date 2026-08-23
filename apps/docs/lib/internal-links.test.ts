@@ -57,7 +57,7 @@ function internalLinks(): Map<string, Set<string>> {
     const from = routeOf(file)
     for (const match of html.matchAll(/<a\b[^>]*?\shref="([^"]+)"/g)) {
       const href = match[1]
-      if (!href || !href.startsWith('/') || href.startsWith('//')) continue
+      if (!href?.startsWith('/') || href.startsWith('//')) continue
       // Fragments and query strings address the same document.
       const path = (href.split('#')[0] ?? '').split('?')[0] ?? ''
       if (path === '') continue

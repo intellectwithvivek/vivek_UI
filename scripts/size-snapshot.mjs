@@ -155,8 +155,7 @@ function fill(text, name, body) {
   return `${text.slice(0, from + start.length)}\n${body}\n${text.slice(to)}`
 }
 
-const renderReadme = (text) =>
-  fill(fill(text, 'size-table', sizeTable()), 'size-badge', badge())
+const renderReadme = (text) => fill(fill(text, 'size-table', sizeTable()), 'size-badge', badge())
 
 if (!check) {
   writeFileSync(OUT, json)

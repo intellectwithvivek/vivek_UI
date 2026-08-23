@@ -180,7 +180,7 @@ export function Scheduler({
     [events, known],
   )
 
-  const window = useMemo(() => {
+  const view = useMemo(() => {
     const stepMs = Math.max(step, 1) * MINUTE
     const starts = scheduled.map((event) => ms(event.start))
     const ends = scheduled.map((event) => ms(event.end))
@@ -201,12 +201,12 @@ export function Scheduler({
     }
   }, [scheduled, start, end, step])
 
-  const span = window.to - window.from
+  const span = view.to - view.from
   const ticks = useMemo(() => {
     const out: number[] = []
-    for (let at = window.from; at < window.to; at += window.stepMs) out.push(at)
+    for (let at = view.from; at < view.to; at += view.stepMs) out.push(at)
     return out
-  }, [window])
+  }, [view])
 
   const rows = useMemo(
     () =>
@@ -233,7 +233,7 @@ export function Scheduler({
   }, [showNow, now])
 
   const marker = now !== undefined ? ms(now) : clock
-  const showMarker = marker !== null && marker >= window.from && marker <= window.to
+  const showMarker = marker !== null && marker >= view.from && marker <= view.to
 
   const focusEvent = useCallback((id: string) => {
     setActiveId(id)
@@ -244,7 +244,7 @@ export function Scheduler({
     const here = order[rowIndex]
     if (!here) return
 
-    const step = (delta: number) => {
+    const moveBy = (delta: number) => {
       const next = here[at + delta]
       if (next) {
         event.preventDefault()
@@ -254,10 +254,10 @@ export function Scheduler({
 
     switch (event.key) {
       case 'ArrowRight':
-        step(1)
+        moveBy(1)
         return
       case 'ArrowLeft':
-        step(-1)
+        moveBy(-1)
         return
       case 'Home': {
         const first = here[0]
@@ -279,7 +279,7 @@ export function Scheduler({
       case 'ArrowDown': {
         event.preventDefault()
         const direction = event.key === 'ArrowDown' ? 1 : -1
-        const anchor = rows[rowIndex]?.placed[at]?.startMs ?? window.from
+        const anchor = rows[rowIndex]?.placed[at]?.startMs ?? view.from
         // Skip empty rows: stopping on a row with nothing in it would look like a dead key.
         for (let row = rowIndex + direction; row >= 0 && row < rows.length; row += direction) {
           const candidates = rows[row]?.placed
@@ -301,7 +301,7 @@ export function Scheduler({
     }
   }
 
-  const percent = (value: number) => ((value - window.from) / span) * 100
+  const percent = (value: number) => ((value - view.from) / span) * 100
 
   return (
     <div
@@ -362,8 +362,8 @@ export function Scheduler({
                 </span>
 
                 {row.placed.map((entry, at) => {
-                  const clippedStart = Math.max(entry.startMs, window.from)
-                  const clippedEnd = Math.min(entry.endMs, window.to)
+                  const clippedStart = Math.max(entry.startMs, view.from)
+                  const clippedEnd = Math.min(entry.endMs, view.to)
                   // Entirely outside the window: drawing it at zero width would be a sliver
                   // the user cannot hit but the keyboard can still reach.
                   if (clippedEnd <= clippedStart) return null
@@ -378,7 +378,7 @@ export function Scheduler({
                         aria-label={`${entry.event.title}. ${row.resource.label}, ${from} to ${to}, ${spokenDuration(minutes)}.`}
                         className="vk-scheduler__event"
                         data-clipped={
-                          entry.startMs < window.from || entry.endMs > window.to || undefined
+                          entry.startMs < view.from || entry.endMs > view.to || undefined
                         }
                         data-event-id={entry.event.id}
                         data-tone={entry.event.tone ?? 'default'}
@@ -424,7 +424,6 @@ export function Scheduler({
             <span
               aria-hidden="true"
               className="vk-scheduler__now"
-              data-testid="vk-scheduler-now"
               style={{
                 insetInlineStart: `calc(var(--vk-scheduler-gutter) + (100% - var(--vk-scheduler-gutter)) * ${percent(marker) / 100})`,
               }}

@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { useIsomorphicId } from '../../hooks/use-isomorphic-id'
 import { cx } from '../../utils/cx'
 
 export interface KanbanCard {
@@ -88,6 +89,10 @@ export function KanbanBoard({ columns, label, onMove, renderCard, className }: K
   const [dragOver, setDragOver] = useState<string | null>(null)
   const [announcement, setAnnouncement] = useState('')
   const boardRef = useRef<HTMLDivElement | null>(null)
+  // Card ids come from the caller's data, so two boards on one page - or two boards in a
+  // docs example - would emit the same `id` twice and every duplicate description would
+  // resolve to whichever element the browser found first.
+  const baseId = useIsomorphicId()
 
   const find = useCallback(
     (cardId: string) => {
@@ -270,8 +275,7 @@ export function KanbanBoard({ columns, label, onMove, renderCard, className }: K
                   return (
                     <li className="vk-kanban__item" key={card.id}>
                       <article
-                        aria-describedby={`${card.id}-hint`}
-                        aria-grabbed={holding || undefined}
+                        aria-describedby={`${baseId}-${card.id}-hint`}
                         className="vk-kanban__card"
                         data-grabbed={holding || undefined}
                         data-card-id={card.id}
@@ -307,7 +311,7 @@ export function KanbanBoard({ columns, label, onMove, renderCard, className }: K
                           screen-reader user reaching a draggable card has no way to discover
                           that Space picks it up unless they are told at that moment.
                         */}
-                        <span className="vk-visually-hidden" id={`${card.id}-hint`}>
+                        <span className="vk-visually-hidden" id={`${baseId}-${card.id}-hint`}>
                           {holding
                             ? 'Held. Arrow keys move it, Enter drops, Escape cancels.'
                             : 'Press Enter or Space to pick this card up.'}

@@ -128,7 +128,12 @@ function siteSources(): Array<{ path: string; text: string }> {
       }
     }
   }
-  for (const dir of ['app', 'components', 'lib']) walk(join(ROOT, dir))
+  // `previews` and `page-templates` render on real pages, so a number written there is as
+  // visible as one on the homepage. Leaving them out of the first version of this check let
+  // five previews keep saying "83 components" at 91.
+  for (const dir of ['app', 'components', 'lib', 'previews', 'page-templates']) {
+    walk(join(ROOT, dir))
+  }
   return out
 }
 

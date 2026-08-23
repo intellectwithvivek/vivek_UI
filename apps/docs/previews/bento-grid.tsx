@@ -3,7 +3,7 @@ import { BentoGrid, Heading, Stack, Text } from '@the_viveksingh/vivek-ui'
 function Cell({ title, body }: { title: string; body: string }) {
   return (
     <Stack gap={2} className="preview-panel" style={{ height: '100%' }}>
-      <Heading level={4} size="md">
+      <Heading level={3} size="md">
         {title}
       </Heading>
       <Text size="sm" tone="muted">
@@ -21,7 +21,7 @@ export default function BentoGridPreview({ name }: { name: string }) {
           <Cell title="Zero dependencies" body="Nothing to audit but React." />
         </BentoGrid.Item>
         <BentoGrid.Item>
-          <Cell title="83 components" body="Plus six charts." />
+          <Cell title="91 components" body="Plus six charts." />
         </BentoGrid.Item>
         <BentoGrid.Item>
           <Cell title="MIT" body="Free, forever." />

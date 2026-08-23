@@ -21,7 +21,7 @@ export default function CarouselPreview({ name }: { name: string }) {
     >
       {SLIDES.map((slide) => (
         <Stack key={slide.title} gap={2} className="preview-panel" style={{ minHeight: '8rem' }}>
-          <Heading level={4} size="md">
+          <Heading level={3} size="md">
             {slide.title}
           </Heading>
           <Text size="sm" tone="muted">

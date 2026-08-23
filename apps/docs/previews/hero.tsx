@@ -5,11 +5,12 @@ export default function HeroPreview({ name }: { name: string }) {
   if (name === 'split') {
     return (
       <Hero
+        headingLevel={3}
         layout="split"
         padding="md"
         eyebrow={<Badge tone="primary">{LIBRARY_VERSION_LABEL}</Badge>}
         title="One package. No dependencies."
-        description="83 components, 6 charts and a token system that your CSS can always override."
+        description="91 components, 6 charts and a token system that your CSS can always override."
         actions={
           <Stack direction="horizontal" gap={3} wrap>
             <Button>Get started</Button>
@@ -26,6 +27,7 @@ export default function HeroPreview({ name }: { name: string }) {
   }
   return (
     <Hero
+      headingLevel={3}
       padding="md"
       eyebrow="Free and MIT licensed"
       title="Build the whole interface with one install"

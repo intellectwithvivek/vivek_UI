@@ -73,7 +73,7 @@ export function PropsTable({ api, name }: { api: PropsApi | null; name: string }
       {api.variants?.map((variant, index) =>
         variant.props.length === 0 ? null : (
           <section className="props-variant" key={variant.label}>
-            <h4>Variant {index + 1}</h4>
+            <h3>Variant {index + 1}</h3>
             <Text size="sm" tone="muted">
               Additional props when the component is used in this form.
             </Text>

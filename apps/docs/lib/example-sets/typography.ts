@@ -5,7 +5,8 @@ export const TYPOGRAPHY_EXAMPLES: ExampleSet = {
   heading: [
     {
       title: 'Levels',
-      description: 'level picks the tag, h1 through h6, and each level has a default size.',
+      description:
+        'level picks the tag, h1 through h6, and each level has a default size. The demo starts at 3 on purpose: rendering an h1 here would give this page two of them and break its outline, which is exactly the mistake the next example is about.',
       name: 'levels',
       code: `<Heading level={1}>Level 1</Heading>
 <Heading level={2}>Level 2</Heading>
@@ -17,7 +18,7 @@ export const TYPOGRAPHY_EXAMPLES: ExampleSet = {
       description:
         'This is the whole point of the component. Needing a smaller heading is never a reason to pick a deeper tag: doing that breaks the document outline every screen reader relies on.',
       name: 'sizeVsLevel',
-      code: `<Heading level={2} size="md">An h2 that looks small</Heading>
+      code: `<Heading level={3} size="md">An h3 that looks small</Heading>
 <Heading level={4} size="2xl">An h4 that looks large</Heading>`,
     },
   ],

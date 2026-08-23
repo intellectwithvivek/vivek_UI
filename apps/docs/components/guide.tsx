@@ -374,6 +374,27 @@ export default function Page() {
         </section>
         <section>
           <Heading level={2} size="lg">
+            The controls that usually have no keyboard story
+          </Heading>
+          <Text tone="muted">
+            <Code>EditableGrid</Code> and <Code>FileTree</Code> are one tab stop each, with a roving
+            focus - the alternative, a tab stop per cell or per node, makes a twenty-row grid a
+            hundred and sixty stops. <Code>VirtualList</Code> keeps <Code>aria-posinset</Code> and{' '}
+            <Code>aria-setsize</Code> honest while it windows, so a screen reader is told how many
+            items there really are rather than how many happen to be rendered.
+          </Text>
+          <Text tone="muted">
+            <Code>KanbanBoard</Code> is the clearest case. The HTML5 drag-and-drop API has{' '}
+            <strong>no keyboard equivalent at all</strong> - no key starts a drag - so a board built
+            on it is unusable without a pointer, which is why almost every board on the web is. This
+            one ships two complete input paths: dragging, and a pick-up / move / drop model
+            announced through a live region. <Code>Scheduler</Code> has the same problem in a
+            different shape: a timeline says everything through position, so every booking carries
+            its resource, its times and its duration in its accessible name.
+          </Text>
+        </section>
+        <section>
+          <Heading level={2} size="lg">
             How it is verified
           </Heading>
           <Text tone="muted">
@@ -384,9 +405,17 @@ export default function Page() {
         <section>
           <Alert title="One honest gap" tone="warning">
             <Text size="sm">
-              Colour contrast is <strong>reasoned, not machine-verified</strong>. The axe contrast
-              rule cannot run without a real browser, so every "axe clean" claim covers structure
-              and ARIA but not contrast. A Playwright pass is on the roadmap.
+              The <strong>palette</strong> is machine-verified: a test computes the real contrast
+              ratio of every text token against the page and against each raised and recessed
+              surface, in both themes, and fails below 4.5:1 - with the focus ring and the strong
+              border held to the 3:1 non-text threshold. That is how four failing tokens were found,
+              including a warning colour at 2.94:1.
+            </Text>
+            <Text size="sm">
+              What is <strong>not</strong> verified is contrast as actually rendered. The axe
+              contrast rule needs a real browser, so an "axe clean" claim in a component test covers
+              structure and ARIA but not colour. A component that puts two verified tokens together
+              in a pair nobody checked would still pass. A Playwright run is on the roadmap.
             </Text>
           </Alert>
         </section>

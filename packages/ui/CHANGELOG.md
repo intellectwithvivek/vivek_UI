@@ -1,5 +1,281 @@
 # @the_viveksingh/vivek-ui
 
+## 0.5.0
+
+### Minor Changes
+
+- ccc7f36: Add `EditableGrid` — a spreadsheet-style grid you can type into.
+  
+  Every component library ships a *table*. None ship an editable one, so teams reach for AG
+  Grid, Handsontable or TanStack Table plus glue — a second dependency, often a paid licence,
+  for the single feature of typing into a cell.
+  
+  ```tsx
+  <EditableGrid
+    rows={rows}
+    columns={[
+      { key: 'name', header: 'Name', editable: true },
+      { key: 'qty', header: 'Qty', editable: true, numeric: true, parse: Number },
+    ]}
+    label="Inventory"
+    onCellChange={({ rowIndex, columnKey, value }) => update(rowIndex, columnKey, value)}
+  />
+  ```
+  
+  **The keyboard model is the WAI-ARIA grid pattern, not a table with inputs in it.** That
+  distinction is the whole design. An input per cell means one tab stop per cell, so a
+  50-column grid takes fifty presses to escape. Here the entire grid is **one** tab stop,
+  arrows move between cells, and a cell only becomes an input while it is being edited.
+  
+  | Key | Behaviour |
+  | --- | --- |
+  | Arrows | Move the focused cell |
+  | Home / End | First / last cell in the row |
+  | Ctrl+Home / Ctrl+End | First / last cell in the grid |
+  | Enter or F2 | Start editing |
+  | Any printable key | Start editing, replacing the cell |
+  | Enter while editing | Commit and move down |
+  | Tab / Shift+Tab | Commit and move right / left |
+  | Escape | Cancel, restoring the previous value |
+  
+  **`format` and `parse` are separate from `render` on purpose.** A currency cell displays
+  `$1,240.00` and edits as `1240`; conflating display and edit values is how editing a
+  formatted cell corrupts it. `parse` returning `undefined` rejects the edit, which is
+  validation without a second callback or an error state to thread through.
+  
+  **Nothing is mutated for you.** `onCellChange` reports the edit and your state decides. A
+  grid that writes into the array it was handed cannot work with immutable state, undo, or a
+  server round-trip that might fail.
+  
+  29 tests, including axe both at rest and mid-edit — an input nested inside a `gridcell` is
+  exactly the arrangement most likely to produce a role violation.
+- d9b6b76: Add `FileTree` — the WAI-ARIA treeview pattern, implemented properly.
+  
+  A tree is the control most often built as nested `<div>`s with click handlers, which
+  produces something a keyboard cannot drive and a screen reader cannot describe. The pattern
+  is specific, and this implements all of it:
+  
+  | Key | Behaviour |
+  | --- | --- |
+  | Up / Down | Previous / next **visible** node, crossing folder boundaries |
+  | Right | Expand a collapsed folder, then step into it |
+  | Left | Collapse an expanded folder, or move out to its parent |
+  | Home / End | First / last visible node |
+  | Enter / Space | Select |
+  | `*` | Expand every folder at this level |
+  | Any letter | Typeahead to the next match |
+  
+  Two implementation notes worth knowing:
+  
+  **The tree is flattened internally and rendered flat**, with depth drawn as padding and
+  carried semantically by `aria-level`. Real DOM nesting would mean keyboard navigation has to
+  walk the DOM to answer "what is the next visible node", which is where these implementations
+  usually break — Down from the last child of a folder must reach that folder's next sibling.
+  
+  **`aria-level`, `aria-posinset` and `aria-setsize` are on every node.** A collapsed tree
+  offers no other way to convey depth or position, so without them a screen-reader user hears
+  a flat list of names with no structure at all.
+  
+  One tab stop for the whole tree, and a disabled node is genuinely unselectable rather than
+  just dimmed. 18 tests, including axe both collapsed and expanded.
+- 5dfb64a: Add `KanbanBoard` — a board a keyboard can actually use.
+  
+  Nearly every Kanban implementation on the web is mouse-only, and the reason is structural
+  rather than lazy: **the HTML5 drag-and-drop API has no keyboard equivalent at all.**
+  `draggable` and `dragstart` fire for pointers and nothing else. Adding `tabindex` does not
+  help, because there is no key that initiates a drag. A board built on that API is unusable
+  for keyboard users, screen-reader users, and anyone with a motor impairment.
+  
+  So there are two complete input paths here, not one.
+  
+  **Pointer** — ordinary HTML5 drag and drop, with the drop target highlighted while a card is
+  in the air.
+  
+  **Keyboard** — the pick-up / move / drop model the WAI-ARIA authoring practices recommend in
+  place of dragging:
+  
+  | Key | Behaviour |
+  | --- | --- |
+  | Enter or Space | Pick the card up, or drop it |
+  | Left / Right | Move it to the previous / next column |
+  | Up / Down | Move it within its column |
+  | Escape | Cancel and leave it where it started |
+  
+  Every step is announced through an always-mounted `aria-live` region — *"Moved to In
+  progress, position 2 of 4"* — because a silent move is indistinguishable from nothing
+  happening. The instruction to press Enter is on each card as an accessible description,
+  since a screen-reader user reaching a draggable card has no other way to discover it.
+  
+  Columns take an optional `limit`, which shows in the header and blocks drops once reached —
+  announced as *"In progress is at its limit of 2"* rather than failing silently.
+  
+  **Nothing is mutated for you.** `onMove` reports the intended move; your state decides. That
+  is the only shape that works with an optimistic update the server might reject.
+  
+  19 tests, most of them covering the keyboard path, plus axe at rest and mid-drag.
+- de8a5ee: Add `Image`, `Newsletter` and `MapEmbed` — three things every marketing page needs and
+  everyone rebuilds badly.
+  
+  **`Image`** — a bare `<img>` in a design system is a gap, not a simplification. Three things
+  go wrong with one every single time, and all three are handled:
+  
+  - **Layout shift.** `ratio` reserves the box before the file arrives. Images with no
+    reserved space are the largest single contributor to a poor CLS score.
+  - **Broken images.** A dead URL renders the browser's broken-image icon on your marketing
+    page. `fallback` replaces it, and the `alt` text stays in the accessibility tree even
+    though the `<img>` is gone.
+  - **Missing alt text.** `alt` is **required at the type level**, the same way `IconButton`
+    requires `aria-label`. `alt=""` is available and is the correct answer for decoration —
+    the point is that the decision cannot be skipped.
+  
+  **`Newsletter`** — email capture that keeps the three things hand-rolled versions lose: the
+  label exists (visually hidden, because a placeholder disappears the moment you type),
+  double submission is prevented by awaiting your promise rather than by hope, and the result
+  lands in an `aria-live` region instead of silently swapping the form for a tick. Validation
+  is `type="email"` — real, localised, accessible messages, and better than any regex.
+  
+  **`MapEmbed`** — an embedded map without the privacy footgun. Dropping a Google Maps iframe
+  onto a contact page is one line that quietly makes your site contact Google and set cookies
+  on first paint, before the visitor consents to anything. It is one of the most common ways a
+  site acquires a GDPR problem and it is invisible unless you open the network tab. So:
+  **OpenStreetMap is the default** (no cookies, no analytics, loads immediately), and **Google
+  is gated behind a click**, with a real link out for anyone who never consents. The frame is
+  sandboxed without `allow-same-origin` and lazy-loaded.
+  
+  25 tests across the three, including axe on each.
+- 7b22e20: Add `Scheduler` — a resource timeline, with a keyboard model.
+  
+  Rooms, people or machines down the side; time across the top. Every booking tool, studio
+  calendar and shift roster needs this view, and no free React library ships one: shadcn/ui,
+  Mantine and Radix have nothing like it, and MUI's is behind a paid licence.
+  
+  **Overlapping bookings stack into lanes.** Drawing them on top of one another hides a
+  double-booking, which on a scheduler is a data-loss bug rather than a cosmetic one. A greedy
+  pack gives each booking the first lane whose previous booking has already finished, and the
+  row grows to fit.
+  
+  **It works without a pointer.** A timeline communicates entirely through position, and
+  position is invisible to a screen reader, so every booking carries its resource, its times
+  and its duration in its accessible name — *"Podcast. Studio A, 10:00 to 12:30, 2 hours 30
+  minutes"* — and the whole board is one tab stop with a roving focus:
+  
+  | Key | Behaviour |
+  | --- | --- |
+  | Left / Right | Previous / next booking for this resource, in time order |
+  | Up / Down | The nearest booking in time on the resource above / below |
+  | Home / End | First / last booking for this resource |
+  | Enter or Space | Select |
+  
+  Up and Down skip resources with nothing on them, because stopping on an empty row reads as a
+  dead key.
+  
+  Two details that are easy to get wrong and hard to notice:
+  
+  - **The clock is never read during render.** A `Date.now()` in the render body gives the
+    server one marker position and the browser another, which React reports as a hydration
+    mismatch. `showNow` reads it in an effect after mount; `now` takes an explicit time.
+  - **The axis snaps to local midnight, not to the epoch.** `Math.floor(ms / hour)` snaps
+    against UTC, which labels an hourly axis 08:30, 09:30, 10:30 for every user in India,
+    Nepal, Newfoundland or central Australia.
+  
+  Times are formatted by a deterministic `HH:MM` rather than `Intl.DateTimeFormat`, whose
+  output varies between Node builds and browsers; pass `formatTime` for anything else.
+  
+  **Nothing is mutated for you.** `onEventSelect` reports; your state decides.
+  
+  29 tests, plus axe.
+- 1198b7f: Add `VirtualList` — windowed rendering for large datasets, with no dependency.
+  
+  A list of 50,000 rows mounts 50,000 components and the browser stops being interactive long
+  before it finishes. `VirtualList` renders only the rows on screen and positions them with a
+  transform, so the cost tracks the size of the viewport rather than the size of the data.
+  
+  Every other option here is a separate package — react-window, react-virtuoso, TanStack
+  Virtual. This is about 150 lines and needs none of them.
+  
+  ```tsx
+  <VirtualList items={rows} itemHeight={56} getKey={(r) => r.id} label="Customers">
+    {(row) => <Row {...row} />}
+  </VirtualList>
+  ```
+  
+  **Two height modes.** A number is the fast path — scroll position maps to an index with one
+  division and nothing is measured. A function is an *estimate*: rows are measured as they
+  render and the estimate is replaced, so variable-height content works without the caller
+  pre-computing anything.
+  
+  **Accessibility is the part virtualisation usually breaks.** A naive implementation
+  announces "list, 12 items" when there are 50,000, because only 12 are in the DOM. Each row
+  carries its true `aria-posinset` and the real `aria-setsize`, so a screen reader says
+  "4,201 of 50,000".
+  
+  The role is `list`/`listitem` rather than `grid`/`row` for a reason worth recording:
+  `aria-posinset` and `aria-setsize` are **not valid on a grid row** — axe rejects it — and a
+  grid would have been a lie anyway, since these rows hold arbitrary content rather than
+  cells.
+  
+  Also: `onRangeChange` reports the visible window, which is the hook for infinite loading;
+  `scrollToIndex` jumps to a row; and the viewport is measured with a `ResizeObserver` rather
+  than once, because a list inside a flex parent is routinely zero-height on first paint and
+  would otherwise render empty forever.
+
+### Patch Changes
+
+- 7b22e20: Fix accessibility-lint failures across the six newest components, and stop uncategorised
+  components from shipping invisible.
+  
+  `EditableGrid` held a `columnAt` helper that was rebuilt on every render, so it could never
+  be a correct `useCallback` dependency — two suppressions were papering over it. It now reads
+  `columns` directly and the dependency lists are honest.
+  
+  The remaining reports were false positives against ARIA patterns, and each now carries the
+  reason rather than a bare suppression: `role="tree"` on a `ul` *is* the treeview pattern;
+  grid rows and column headers are deliberately not focusable, because the pattern puts the
+  single tab stop on the active cell; `role="list"` on a `list-style: none` list is what
+  restores the semantics Safari drops; a scrollable viewport must be focusable or a keyboard
+  user cannot scroll it (WCAG 2.1.1).
+  
+  Separately, seven components — `EditableGrid`, `VirtualList`, `FileTree`, `KanbanBoard`,
+  `Image`, `MapEmbed` and `Newsletter` — had no entry in the docs category map, so they fell
+  into an `Other` group the sidebar does not render and were unreachable from navigation. They
+  are categorised now, and the registry generator exits non-zero when a component has no
+  category instead of quietly hiding it.
+- 694cabe: Fix three defects in the newest components.
+  
+  `KanbanBoard` built each card's accessible description id out of the card id alone, so two
+  boards on one page emitted the same id twice and every duplicate `aria-describedby` resolved
+  to whichever element the browser found first. The ids are prefixed with a generated one now.
+  
+  It also set `aria-grabbed`, deprecated in ARIA 1.1 and removed in 1.2. No current screen
+  reader acts on it — the live region and the per-card description are what carry the state.
+  
+  `Scheduler` shadowed the DOM `window` global and its own `step` prop with local names.
+  Neither was read in those scopes, so neither was a bug yet; both are the kind that becomes
+  one on the next edit. A stray `data-testid` is gone from the published output too.
+- 614d931: Fix `RadioGroup`'s documented `children` API, which did nothing.
+  
+  `options` worked. `children` — the other half of the documented API, the half you reach for
+  when a radio needs custom content — silently did not:
+  
+  - no `name` reached the radios, so they were **not a native group at all**. Clicking one did
+    not deselect the others, and nothing submitted with the form.
+  - no `onChange` reached them, so the group's handler never fired.
+  - `value` and `defaultValue` on the group were ignored, so a controlled group could not
+    control anything.
+  
+  Each `Radio` child now receives the group's `name`, `required`, selection and change
+  handler. Anything you set on the child yourself still wins, and a child's own `onChange`
+  runs alongside the group's.
+  
+  This reaches direct children. A context would survive arbitrary nesting, but `createContext`
+  cannot run in a React Server Component, and `RadioGroup` renders on the server today —
+  turning it into a client component to support wrapping a radio in a `<div>` is the wrong
+  trade.
+  
+  Found by a new test that asserts every exported component is rendered by at least one test,
+  and by a suite that runs axe. `Radio` and `ChatThread.Empty` were both exported, documented
+  and shipped without ever being rendered by anything; both are covered now.
+
 ## 0.4.0
 
 ### Minor Changes

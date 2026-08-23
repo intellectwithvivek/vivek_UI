@@ -57,6 +57,9 @@ export default function HomePage() {
             <Button size="lg" variant="outline" asChild>
               <Link href="/docs/components">Browse components</Link>
             </Button>
+            <Button size="lg" variant="ghost" asChild>
+              <Link href="/pages">See whole pages</Link>
+            </Button>
           </>
         }
       />
@@ -103,6 +106,18 @@ export default function HomePage() {
             title: 'Zero runtime dependencies',
             description:
               'No Tailwind, no Radix, no clsx, no Emotion. react and react-dom are peers and are never bundled, so you cannot end up with two copies of React.',
+          },
+          {
+            id: 'pages',
+            title: 'Twelve whole pages, not fragments',
+            description:
+              'Landing, pricing, dashboard, checkout, sign in and more — each built only from published exports, with a live demo at real viewport widths and the complete source to copy. If a page there needed something hand-rolled, the library would be missing a component.',
+          },
+          {
+            id: 'nobody',
+            title: 'The controls nobody else ships',
+            description:
+              'EditableGrid, VirtualList, FileTree, KanbanBoard and Scheduler. What is missing from every other free library is the keyboard: HTML5 drag-and-drop has no keyboard equivalent at all, which is why almost every Kanban board on the web is mouse-only.',
           },
           {
             id: 'rsc',

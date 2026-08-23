@@ -9,6 +9,8 @@
  * to make sense with no context, leads with the direct answer, and gives the reason second.
  * An answer engine shows one paragraph, not a page.
  */
+import { bundleSize, cssSize } from './sizes'
+
 export interface FaqEntry {
   question: string
   answer: string
@@ -62,7 +64,25 @@ export const FAQ_ENTRIES: FaqEntry[] = [
   },
   {
     question: 'How big is VivekUI?',
+    // Derived from the size-limit measurement rather than written down. This answer said
+    // 41 kB and 23 kB while the real figures were 47.4 kB and 27.0 kB.
+    answer: `The entire library is ${bundleSize(
+      'Whole core library',
+    )} minified and compressed, and it is tree-shakeable, so you pay only for what you import — a single Button is ${bundleSize(
+      'Button only',
+    )}. The stylesheet is ${cssSize(
+      'styles.css',
+      'gzip',
+    )} gzipped. Size budgets are enforced in CI, so a change that exceeds them fails the build.`,
+  },
+  {
+    question: 'Does VivekUI have ready-made page templates?',
     answer:
-      'The entire library is about 41 kB minified and compressed, and it is tree-shakeable, so you pay only for what you import — a single Button is under 1 kB. The stylesheet is about 23 kB compressed. Size budgets are enforced in CI, so a change that exceeds them fails the build.',
+      'Yes. Twelve complete pages — landing, pricing, contact, sign in, create account, dashboard, settings, checkout, product detail, blog index, about and 404 — are published at /pages with a live demo and the full source for each. They are built only from exports of the published package, which a build step enforces, so the code shown runs as-is once you install VivekUI and import its stylesheet. Everything is MIT licensed with no attribution requirement.',
+  },
+  {
+    question: 'What does VivekUI have that shadcn/ui, Mantine and MUI do not?',
+    answer:
+      'Five controls no other free React library ships: EditableGrid, VirtualList, FileTree, KanbanBoard and Scheduler. In each case what is missing elsewhere is the keyboard support. The clearest example is the Kanban board — the HTML5 drag-and-drop API has no keyboard equivalent at all, so a board built on it cannot be used without a mouse, and almost every board on the web is. VivekUI ships two complete input paths: dragging, and a pick-up / move / drop model announced through a live region. MUI does have a scheduler, but it is behind a paid licence.',
   },
 ]

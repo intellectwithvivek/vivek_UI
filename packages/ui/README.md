@@ -11,7 +11,9 @@ Pages and App Router.
 [![npm](https://img.shields.io/npm/v/@the_viveksingh/vivek-ui?color=4f46e5)](https://www.npmjs.com/package/@the_viveksingh/vivek-ui)
 [![license](https://img.shields.io/npm/l/@the_viveksingh/vivek-ui?color=4f46e5)](https://github.com/intellectwithvivek/vivek_UI/blob/main/LICENSE)
 [![runtime deps](https://img.shields.io/badge/runtime%20deps-0-4f46e5)](#zero-dependencies-verifiable)
-[![one component](https://img.shields.io/badge/one%20component-773%20B-4f46e5)](#how-small-actually)
+<!-- size-badge:start -->
+[![one component](https://img.shields.io/badge/one%20component-771%20B-4f46e5)](#how-small-actually)
+<!-- size-badge:end -->
 [![docs](https://img.shields.io/badge/docs-ui.vivekkumarsingh.in-4f46e5)](https://ui.vivekkumarsingh.in)
 
 ### [**Documentation, live examples and a playground &rarr;**](https://ui.vivekkumarsingh.in)
@@ -248,21 +250,23 @@ and makes React mis-attach state across a reorder.
 
 Measured with `size-limit`, minified and brotlied, React excluded:
 
+<!-- size-table:start -->
 | Import | Cost |
 |---|---|
-| `{ Button }` | **198 B** |
-| `{ Modal }` (focus trap + scroll lock + portal) | **2.91 kB** |
-| A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **2.66 kB** |
-| All six charts | **8.14 kB** |
-| Every one of the 91 components | **41.6 kB** |
-| `styles.css` | 166 kB raw, **23 kB gzipped** |
-| `charts.css` | 6 kB raw, **1.5 kB gzipped** |
+| `{ Button }` | **771 B** |
+| `{ Modal }` (focus trap + scroll lock + portal) | **2.9 kB** |
+| A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **2.7 kB** |
+| All six charts | **8.3 kB** |
+| Every component, imported at once | **47.4 kB** |
+| `styles.css` | 192.0 kB raw, **27.0 kB gzipped** |
+| `charts.css` | 10.1 kB raw, **2.0 kB gzipped** |
+<!-- size-table:end -->
 
-Per-file ESM plus `sideEffects: false` means you pay only for what you import — importing `Button`
-alone costs 198 B, not 40.5 kB.
+Per-file ESM plus `sideEffects: false` means you pay only for what you import: importing `Button`
+alone costs a fraction of the whole-library figure above.
 
 **One caveat, stated plainly:** the CSS is a single stylesheet, so an app using five components
-still downloads all 23 kB gzipped. That is the trade for "one import, no build configuration".
+still downloads the whole thing. That is the trade for "one import, no build configuration".
 Chart CSS is split out separately.
 
 ### Zero dependencies, verifiable

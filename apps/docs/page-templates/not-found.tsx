@@ -30,9 +30,9 @@ const DESTINATIONS = [
     description: 'Six charts, each with an accessible data table.',
   },
   {
-    href: '/changelog',
-    title: 'Changelog',
-    description: 'What shipped, and what broke, in every release.',
+    href: '/pages',
+    title: 'Page templates',
+    description: 'Whole pages you can copy, from a landing page to a checkout.',
   },
 ]
 

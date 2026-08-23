@@ -15,7 +15,7 @@ const COLUMNS = [
     links: [
       { label: 'npm', href: 'https://www.npmjs.com/package/@the_viveksingh/vivek-ui' },
       { label: 'GitHub', href: 'https://github.com/intellectwithvivek' },
-      { label: 'Changelog', href: '/docs/changelog' },
+      { label: 'Page templates', href: '/pages' },
     ],
   },
   {

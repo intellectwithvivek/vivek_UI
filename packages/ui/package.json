@@ -98,7 +98,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "size": "size-limit"
+    "size": "node ../../scripts/size-snapshot.mjs --check",
+    "size:update": "node ../../scripts/size-snapshot.mjs"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",

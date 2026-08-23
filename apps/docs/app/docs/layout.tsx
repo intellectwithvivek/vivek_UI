@@ -39,6 +39,7 @@ const GUIDE_GROUPS: NavGroup[] = [
     items: [
       { href: '/docs/components', label: 'All components' },
       { href: '/docs/charts', label: 'All charts' },
+      { href: '/pages', label: 'Page templates' },
       { href: '/playground', label: 'Playground' },
     ],
   },

@@ -6,15 +6,20 @@
  * were already wrong: 44 server-safe components when the real figure was 49, and 198 B for
  * Button when size-limit reported 773 B. Both were true when written.
  *
- * The counts are derived from the registry now, so this asserts the derivation. The byte
- * figures cannot be derived at render time - size-limit runs against the built bundle - so
- * they are checked against the budgets instead: a stated size must be under its own budget,
- * which catches a figure that drifted past the limit CI enforces.
+ * The counts are derived from the registry, and the byte figures from the size-limit
+ * snapshot, so this asserts the derivations rather than the values.
+ *
+ * The previous version of this file compared each stated size against its *budget* instead:
+ * "40.8 kB is under the 48 kB limit, therefore fine". It was not fine — the real figure was
+ * 47.35 kB, and the page understated the library by sixteen per cent for months with the
+ * test green the whole time. Every understatement passes a check like that. One of its
+ * assertions was literally `expect(x || true).toBe(true)`.
  */
 import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { registry } from './registry'
+import { bundleSize, cssSize, sizes } from './sizes'
 
 const ROOT = join(__dirname, '..')
 const LANDING = readFileSync(join(ROOT, 'app', 'page.tsx'), 'utf8')
@@ -41,7 +46,6 @@ function toBytes(text: string): number {
 
 describe('landing page claims', () => {
   it('states no component or chart count as a literal', () => {
-    // The real counts are 83 and 6. A literal is a number that will go stale in place.
     const body = LANDING.slice(LANDING.indexOf('export default'))
     for (const literal of [String(registry.components.length), String(registry.charts.length)]) {
       expect(
@@ -57,24 +61,52 @@ describe('landing page claims', () => {
     expect(LANDING).toContain('!entry.isClient')
   })
 
-  it.each([
-    ['773 B', 'Button only'],
-    ['40.8 kB', 'Whole core library'],
-    ['8.14 kB', 'All charts'],
-  ])('states %s, which is within the %s budget', (stated, budgetName) => {
-    const budget = BUDGETS.find((b) => b.name.toLowerCase().includes(budgetName.toLowerCase()))
-    expect(budget, `no size-limit budget matching "${budgetName}"`).toBeDefined()
-    expect(LANDING.includes(stated) || true).toBe(true)
-    if (budget) {
-      expect(
-        toBytes(stated),
-        `the page states ${stated} but the ${budget.name} budget is ${budget.limit}`,
-      ).toBeLessThanOrEqual(toBytes(budget.limit))
+  it('states no byte figure as a literal either', () => {
+    const body = LANDING.slice(LANDING.indexOf('export default'))
+    const literals = Array.from(body.matchAll(/['"`][^'"`]*?\b[\d.]+\s?kB\b/g), (m) => m[0])
+    expect(literals, 'quote sizes through bundleSize/cssSize so they cannot go stale').toEqual([])
+  })
+
+  it('derives every size it displays from the measurement', () => {
+    expect(LANDING).toContain('bundleSize(')
+    expect(LANDING).toContain('cssSize(')
+  })
+})
+
+describe('the size snapshot the site quotes', () => {
+  it('has an entry for every size-limit budget', () => {
+    // A renamed budget would leave `bundleSize` throwing at build time, which is the
+    // intended failure — but catching it here names the problem instead.
+    for (const budget of BUDGETS) {
+      expect(sizes.bundles, `no recorded size for "${budget.name}"`).toHaveProperty(budget.name)
     }
   })
 
+  it('records sizes that are inside their budgets', () => {
+    for (const budget of BUDGETS) {
+      const recorded = sizes.bundles[budget.name]
+      expect(recorded, budget.name).toBeDefined()
+      if (recorded !== undefined) {
+        expect(
+          recorded,
+          `${budget.name} is ${recorded} B against ${budget.limit}`,
+        ).toBeLessThanOrEqual(toBytes(budget.limit))
+      }
+    }
+  })
+
+  it('formats what the page will actually print', () => {
+    // Guards the formatter, not the number: "47.4 kB" rather than "47354" or "47.354 kB".
+    expect(bundleSize('Button only')).toMatch(/^\d+ B$/)
+    expect(bundleSize('Whole core library')).toMatch(/^\d+\.\d kB$/)
+    expect(cssSize('styles.css', 'gzip')).toMatch(/^\d+\.\d kB$/)
+  })
+
+  it('throws on an unknown bundle rather than printing undefined', () => {
+    expect(() => bundleSize('Something that was renamed')).toThrow(/size-limit entry/)
+  })
+
   it('has a size-limit budget for every figure it quotes', () => {
-    // If the budgets are ever renamed this fails rather than silently checking nothing.
     expect(BUDGETS.length).toBeGreaterThanOrEqual(4)
   })
 })

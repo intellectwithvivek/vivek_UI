@@ -14,6 +14,7 @@ import {
 import Link from 'next/link'
 import { SupportCta } from '../components/support-cta'
 import { registry } from '../lib/registry'
+import { bundleSize, cssSize } from '../lib/sizes'
 import { LIBRARY_VERSION_LABEL } from '../lib/version'
 
 /*
@@ -64,10 +65,16 @@ export default function HomePage() {
         title="Measured, not claimed"
         description="size-limit figures from the published build, minified and brotlied, React excluded."
         items={[
-          { id: 'btn', value: '773 B', label: 'One component', description: 'importing Button' },
+          {
+            id: 'btn',
+            // Read from the size-limit measurement CI re-checks, not typed in here.
+            value: bundleSize('Button only'),
+            label: 'One component',
+            description: 'importing Button',
+          },
           {
             id: 'all',
-            value: '40.8 kB',
+            value: bundleSize('Whole core library'),
             label: `All ${COMPONENT_COUNT} components`,
             description: 'if you import everything',
           },
@@ -123,7 +130,7 @@ export default function HomePage() {
           {
             id: 'charts',
             title: 'Charts with no chart library',
-            description: `${CHART_COUNT} chart types in pure SVG, 8.14 kB for all of them. Each renders a real table fallback, and never encodes a series by colour alone.`,
+            description: `${CHART_COUNT} chart types in pure SVG, ${bundleSize('All charts')} for all of them. Each renders a real table fallback, and never encodes a series by colour alone.`,
           },
         ]}
       />
@@ -193,8 +200,7 @@ export default function HomePage() {
           {
             id: 'q4',
             question: 'What is the catch?',
-            answer:
-              'The CSS is one stylesheet, so an app using five components still downloads all 23 kB gzipped. That is the trade for one import and no build configuration. Chart CSS is a separate import.',
+            answer: `The CSS is one stylesheet, so an app using five components still downloads all ${cssSize('styles.css', 'gzip')} gzipped. That is the trade for one import and no build configuration. Chart CSS is a separate import.`,
           },
         ]}
       />

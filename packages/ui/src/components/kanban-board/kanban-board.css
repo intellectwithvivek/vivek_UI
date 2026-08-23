@@ -1,0 +1,149 @@
+:where(.vk-kanban) {
+  font-family: var(--vk-font-sans);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-kanban__columns) {
+  display: flex;
+  gap: var(--vk-space-4);
+  align-items: flex-start;
+  overflow-x: auto;
+  padding-block-end: var(--vk-space-2);
+}
+
+:where(.vk-kanban__column) {
+  flex: 1 0 16rem;
+  min-inline-size: 16rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-3);
+  padding: var(--vk-space-3);
+  background: var(--vk-color-surface-subtle);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-lg);
+  transition:
+    background-color var(--vk-duration) var(--vk-ease),
+    border-color var(--vk-duration) var(--vk-ease);
+}
+
+/* The drop target has to be obvious while a card is in the air. */
+:where(.vk-kanban__column[data-drag-over]) {
+  border-color: var(--vk-color-primary);
+  background: var(--vk-color-primary-subtle);
+}
+
+:where(.vk-kanban__column[data-full]) :where(.vk-kanban__count) {
+  color: var(--vk-color-danger);
+  font-weight: var(--vk-weight-semibold);
+}
+
+:where(.vk-kanban__column-head) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-kanban__column-title) {
+  font-size: var(--vk-text-sm);
+  font-weight: var(--vk-weight-semibold);
+  letter-spacing: var(--vk-tracking-snug);
+}
+
+:where(.vk-kanban__count) {
+  font-size: var(--vk-text-xs);
+  color: var(--vk-color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+:where(.vk-kanban__list) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-block-size: 3rem;
+}
+
+:where(.vk-kanban__card) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  padding: var(--vk-space-3);
+  background: var(--vk-color-surface);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  box-shadow: var(--vk-shadow-xs);
+  cursor: grab;
+  transition:
+    box-shadow var(--vk-duration) var(--vk-ease-out),
+    transform var(--vk-duration) var(--vk-ease-out),
+    border-color var(--vk-duration) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  :where(.vk-kanban__card:hover) {
+    box-shadow: var(--vk-shadow-md);
+    transform: translateY(-1px);
+  }
+}
+
+:where(.vk-kanban__card:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
+}
+
+/*
+ * The held state. This is the keyboard equivalent of "the card is under your cursor", so it
+ * has to be unmistakable - a keyboard user has no pointer to tell them what they are moving.
+ */
+:where(.vk-kanban__card[data-grabbed]) {
+  cursor: grabbing;
+  border-color: var(--vk-color-primary);
+  box-shadow: var(--vk-shadow-lg);
+  transform: scale(1.02);
+}
+
+:where(.vk-kanban__card-head) {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-kanban__card-title) {
+  font-size: var(--vk-text-sm);
+  font-weight: var(--vk-weight-medium);
+  line-height: var(--vk-leading-snug);
+}
+
+:where(.vk-kanban__card-badge) {
+  flex: none;
+}
+
+:where(.vk-kanban__card-description) {
+  margin: 0;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+  line-height: var(--vk-leading-normal);
+}
+
+:where(.vk-kanban__empty) {
+  padding: var(--vk-space-4);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+  text-align: center;
+  border: 1px dashed var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-kanban__card) {
+    transition: none;
+  }
+  :where(.vk-kanban__card:hover),
+  :where(.vk-kanban__card[data-grabbed]) {
+    transform: none;
+  }
+}

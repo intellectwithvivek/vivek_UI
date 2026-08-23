@@ -91,6 +91,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   tabs: dynamic(() => import('../previews/tabs')),
   'editable-grid': dynamic(() => import('../previews/editable-grid')),
   'file-tree': dynamic(() => import('../previews/file-tree')),
+  'kanban-board': dynamic(() => import('../previews/kanban-board')),
   image: dynamic(() => import('../previews/image')),
   'map-embed': dynamic(() => import('../previews/map-embed')),
   newsletter: dynamic(() => import('../previews/newsletter')),

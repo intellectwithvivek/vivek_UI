@@ -191,6 +191,13 @@ export { Hero, type HeroProps } from './components/hero'
 export { IconButton, type IconButtonProps } from './components/icon-button'
 export { Image, type ImageProps } from './components/image'
 export { Input, type InputProps } from './components/input'
+export {
+  KanbanBoard,
+  type KanbanBoardProps,
+  type KanbanCard,
+  type KanbanColumn,
+  type KanbanMove,
+} from './components/kanban-board'
 export { Kbd, type KbdProps } from './components/kbd'
 export { Label, type LabelProps } from './components/label'
 export { type Logo, LogoCloud, type LogoCloudProps } from './components/logo-cloud'

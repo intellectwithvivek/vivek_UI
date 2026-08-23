@@ -176,6 +176,32 @@ const CORE_EXAMPLES: ExampleSet = {
     },
   ],
 
+  'kanban-board': [
+    {
+      title: 'A sprint board you can drive from the keyboard',
+      description:
+        'HTML5 drag-and-drop has no keyboard equivalent at all, which is why nearly every Kanban board is mouse-only. This has two complete input paths: dragging, and a pick-up / move / drop model announced through a live region.',
+      name: 'default',
+      code: `const [columns, setColumns] = useState(initial)
+
+<KanbanBoard
+  columns={columns}
+  label="Sprint board"
+  // Nothing is mutated for you - the board reports the intended move.
+  onMove={({ cardId, fromColumnId, toColumnId, toIndex }) =>
+    setColumns((current) => applyMove(current, cardId, fromColumnId, toColumnId, toIndex))
+  }
+/>
+
+// Columns carry an optional work-in-progress limit, which blocks drops when reached:
+const initial = [
+  { id: 'backlog', title: 'Backlog', cards: [...] },
+  { id: 'doing', title: 'In progress', cards: [...], limit: 2 },
+  { id: 'done', title: 'Done', cards: [] },
+]`,
+    },
+  ],
+
   'file-tree': [
     {
       title: 'A project tree',

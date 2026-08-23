@@ -9916,6 +9916,66 @@
       "compound": false
     },
     {
+      "slug": "kanban-board",
+      "title": "Kanban board",
+      "kind": "component",
+      "category": "Other",
+      "exports": [
+        "KanbanBoard"
+      ],
+      "typeExports": [
+        "KanbanBoardProps",
+        "KanbanCard",
+        "KanbanColumn",
+        "KanbanMove"
+      ],
+      "primary": "KanbanBoard",
+      "description": "A Kanban board that a keyboard can actually use.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "columns",
+            "type": "readonly KanbanColumn[]",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": true,
+            "description": "Required. A board with no accessible name is one more unlabelled region.",
+            "default": ""
+          },
+          {
+            "name": "onMove",
+            "type": "(move: KanbanMove) => void",
+            "required": false,
+            "description": "Nothing is moved for you — apply this to your own state.",
+            "default": ""
+          },
+          {
+            "name": "renderCard",
+            "type": "(card: KanbanCard, column: KanbanColumn) => ReactNode",
+            "required": false,
+            "description": "Rendered instead of the default card body.",
+            "default": ""
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": false,
+        "extends": []
+      },
+      "compound": false
+    },
+    {
       "slug": "kbd",
       "title": "Kbd",
       "kind": "component",

@@ -8,8 +8,8 @@ import { PACKAGE_NAME, registry } from '../../lib/registry'
 
 export const metadata: Metadata = pageMeta({
   title: 'Introduction',
-  description:
-    'VivekUI is a free React component library with zero runtime dependencies: 83 accessible components and 6 SVG charts, one install, one CSS import, no config.',
+  // Derived, not written down: this said 83 at 91, and nothing rendered differently.
+  description: `VivekUI is a free React component library with zero runtime dependencies: ${registry.components.length} accessible components and ${registry.charts.length} SVG charts, one install, one CSS import, no config.`,
   path: '/docs',
   keywords: ['react component library', 'zero dependency react ui', 'free react components'],
 })

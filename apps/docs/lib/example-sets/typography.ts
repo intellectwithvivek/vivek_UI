@@ -247,7 +247,7 @@ export const TYPOGRAPHY_EXAMPLES: ExampleSet = {
         'Starts when it enters the viewport. Under prefers-reduced-motion it renders the final number immediately rather than animating.',
       name: 'basic',
       code: `<Heading level={3} size="hero">
-  <AnimatedCounter value={83} duration={1200} />
+  <AnimatedCounter value={91} duration={1200} />
 </Heading>`,
     },
     {

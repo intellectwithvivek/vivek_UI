@@ -6,8 +6,9 @@ import { byCategory, registry } from '../../../lib/registry'
 
 export const metadata: Metadata = pageMeta({
   title: 'All components',
-  description:
-    'Browse all 83 VivekUI React components by category - layout, forms, overlays, navigation, data, charts and AI chat - each with a live preview and props table.',
+  // Derived, not written down. A hardcoded count is right on the day it is typed and a
+  // small permanent lie from the next release onwards - this one said 83 at 91.
+  description: `Browse all ${registry.components.length} VivekUI React components by category - layout, forms, overlays, navigation, data, charts and AI chat - each with a live preview and props table.`,
   path: '/docs/components',
   keywords: ['react component list', 'react ui components', 'accessible react component library'],
 })

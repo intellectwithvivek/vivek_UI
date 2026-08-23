@@ -1,6 +1,7 @@
 import { Alert, Code, Heading, Text } from '@the_viveksingh/vivek-ui'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { registry } from '../lib/registry'
 import { CodeBlock } from './code-block'
 
 /**
@@ -9,6 +10,8 @@ import { CodeBlock } from './code-block'
  * One renderer rather than eight near-identical page files: the pages differ only in
  * content, and duplicating a layout eight times is how they drift apart.
  */
+const SERVER_SAFE = registry.components.filter((entry) => !entry.isClient).length
+
 export interface Guide {
   title: string
   summary: ReactNode
@@ -287,8 +290,8 @@ export default function Page() {
 
   'server-components': {
     title: 'Server Components',
-    description:
-      'Use React Server Components with VivekUI: 49 of 83 components render on the server with no client boundary, and the rest carry their own use client directive.',
+    // Derived: both halves of this sentence went stale silently once before.
+    description: `Use React Server Components with VivekUI: ${SERVER_SAFE} of ${registry.components.length} components render on the server with no client boundary, and the rest carry their own use client directive.`,
     summary: 'Most of the library needs no client boundary.',
     body: (
       <>

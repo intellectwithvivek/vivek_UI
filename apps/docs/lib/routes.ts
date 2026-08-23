@@ -8,6 +8,7 @@
  * The guide list IS hand-written, because those pages are hand-written. `routes.test.ts`
  * checks it against the filesystem so a new guide cannot be added without appearing here.
  */
+import { templates } from './page-templates'
 import { registry } from './registry'
 
 export interface Route {
@@ -21,7 +22,7 @@ export interface Route {
   changeFrequency: 'daily' | 'weekly' | 'monthly'
   /** Human label, reused for breadcrumbs and for llms.txt. */
   label: string
-  section: 'top' | 'guide' | 'component' | 'chart'
+  section: 'top' | 'guide' | 'component' | 'chart' | 'template'
 }
 
 /** Conceptual guides, ordered as a reading path rather than alphabetically. */
@@ -70,6 +71,15 @@ export const TOP_ROUTES: Route[] = [
     changeFrequency: 'monthly',
     section: 'top',
   },
+  {
+    path: '/pages',
+    // Whole-page templates are what people search for before they search for a component,
+    // so the gallery index sits with the other landing routes rather than under /docs.
+    label: 'Page templates',
+    priority: 0.9,
+    changeFrequency: 'weekly',
+    section: 'top',
+  },
 ]
 
 export function allRoutes(): Route[] {
@@ -97,6 +107,14 @@ export function allRoutes(): Route[] {
       priority: 0.7,
       changeFrequency: 'monthly' as const,
       section: 'chart' as const,
+    })),
+    ...templates.map((template) => ({
+      path: `/pages/${template.slug}`,
+      label: `${template.title} template`,
+      // Above an individual component page: a whole page is the higher-intent search.
+      priority: 0.8,
+      changeFrequency: 'monthly' as const,
+      section: 'template' as const,
     })),
   ]
 }

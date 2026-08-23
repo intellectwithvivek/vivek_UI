@@ -167,7 +167,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
   title="What one install gives you"
   columns={{ base: 2, lg: 4 }}
   items={[
-    { id: 'components', value: '83', label: 'Components', description: 'Plus six chart types' },
+    { id: 'components', value: '91', label: 'Components', description: 'Plus six chart types' },
     { id: 'deps', value: '0', label: 'Runtime dependencies', description: 'React is a peer' },
     { id: 'size', value: '40.5 kB', label: 'Whole library', description: 'Minified and gzipped' },
     { id: 'tests', value: '1268', label: 'Tests', description: 'Every component has an axe check' },

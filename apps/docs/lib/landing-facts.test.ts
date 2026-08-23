@@ -11,7 +11,7 @@
  * they are checked against the budgets instead: a stated size must be under its own budget,
  * which catches a figure that drifted past the limit CI enforces.
  */
-import { readFileSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { registry } from './registry'
@@ -76,5 +76,61 @@ describe('landing page claims', () => {
   it('has a size-limit budget for every figure it quotes', () => {
     // If the budgets are ever renamed this fails rather than silently checking nothing.
     expect(BUDGETS.length).toBeGreaterThanOrEqual(4)
+  })
+})
+
+/**
+ * Every source file under `app/`, `components/` and `lib/` — the places a claim about the
+ * library can end up in front of a reader.
+ */
+function siteSources(): Array<{ path: string; text: string }> {
+  const out: Array<{ path: string; text: string }> = []
+  const walk = (dir: string) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name)
+      if (entry.isDirectory()) {
+        if (entry.name === 'node_modules' || entry.name.startsWith('.')) continue
+        walk(full)
+      } else if (/\.tsx?$/.test(entry.name) && !entry.name.endsWith('.test.ts')) {
+        out.push({ path: full.slice(ROOT.length + 1), text: readFileSync(full, 'utf8') })
+      }
+    }
+  }
+  for (const dir of ['app', 'components', 'lib']) walk(join(ROOT, dir))
+  return out
+}
+
+const LINE_BREAK = String.fromCharCode(10)
+
+/** Every stated count of `noun` that disagrees with `real`, ignoring comments. */
+function staleCounts(pattern: RegExp, real: number): string[] {
+  const wrong: string[] = []
+  for (const file of siteSources()) {
+    for (const match of file.text.matchAll(pattern)) {
+      const stated = Number(match[1])
+      if (stated === real) continue
+      // A count inside a comment is usually history — "this put all 83 prop tables into
+      // the HTML" describes something that happened, not something being claimed now.
+      const line = file.text.slice(0, match.index).split(LINE_BREAK).length
+      const text = file.text.split(LINE_BREAK)[line - 1] ?? ''
+      if (/^\s*(\*|\/\/)/.test(text)) continue
+      wrong.push(`${file.path}:${line} says ${stated}, real is ${real}`)
+    }
+  }
+  return wrong
+}
+
+describe('counts stated anywhere on the site', () => {
+  it('never states a number of components that is not the real one', () => {
+    // Four pages still said "83 components" at 91 — two of them meta descriptions — and
+    // every build was green throughout. A count that is written down rather than derived
+    // goes stale in place, silently, because nothing renders differently when it is wrong.
+    expect(
+      staleCounts(/\b(\d{2,3})\s+(?:accessible\s+)?components\b/g, registry.components.length),
+    ).toEqual([])
+  })
+
+  it('never states a number of charts that is not the real one', () => {
+    expect(staleCounts(/\b(\d+)\s+(?:SVG\s+)?charts\b/g, registry.charts.length)).toEqual([])
   })
 })

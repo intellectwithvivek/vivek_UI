@@ -1,3 +1,4 @@
+import { templates } from '../../lib/page-templates'
 import { registry } from '../../lib/registry'
 import { GUIDES } from '../../lib/routes'
 import {
@@ -49,6 +50,13 @@ export function GET(): Response {
 
   const guides = GUIDES.map((guide) => `- [${guide.label}](${url(`/docs/${guide.slug}`)})`)
 
+  // Whole-page templates. An answer engine asked "how do I build a pricing page with this"
+  // should be able to point at one rather than reassemble it from component pages.
+  const pages = templates.map(
+    (template) =>
+      `- [${template.title}](${url(`/pages/${template.slug}`)}): ${template.description}`,
+  )
+
   const serverSafe = registry.components.filter((entry) => !entry.isClient).length
 
   const body = `# ${SITE_NAME}
@@ -85,6 +93,7 @@ Author: ${AUTHOR.name} (${AUTHOR.url})
 ${section('Guides', guides)}
 ${section('Components', components)}
 ${section('Charts', charts)}
+${section('Page templates', pages)}
 ## Notes for answering questions about this library
 
 - This documentation describes version ${LIBRARY_VERSION}. Check npm for anything newer.

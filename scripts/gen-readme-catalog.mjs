@@ -81,6 +81,25 @@ function clientFiles(dir = SRC) {
   return count
 }
 
+/**
+ * The line under the title — the one sentence most people read before deciding.
+ *
+ * Generated for the same reason as everything else here: it is three numbers, and three
+ * numbers written by hand are three numbers that are wrong by the next release.
+ */
+function heroStats() {
+  const total = REGISTRY.components.length
+  const charts = REGISTRY.charts.length
+  const templates = Object.keys(
+    JSON.parse(readFileSync(join(ROOT, 'apps', 'docs', 'page-sources.json'), 'utf8')),
+  ).length
+  return [
+    `**${total} accessible React components**, **${charts} SVG charts** and **${templates} ready-made pages** you can copy.`,
+    'No Tailwind, no PostCSS plugin, no Babel plugin, no required provider.',
+    'Works in React 18 and 19, and in Next.js with both the Pages and App Router.',
+  ].join('\n')
+}
+
 function serverComponentsBlock() {
   const total = REGISTRY.components.length
   const serverSafe = REGISTRY.components.filter((entry) => !entry.isClient).length
@@ -107,6 +126,7 @@ const groups = catalogue()
 
 function render(text) {
   let out = fill(text, 'component-stats', statsLine())
+  out = fill(out, 'hero-stats', heroStats())
   out = fill(out, 'server-components', serverComponentsBlock())
   for (const [category, names] of groups) {
     const marker = markerFor(category)

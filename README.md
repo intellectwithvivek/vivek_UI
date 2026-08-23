@@ -1,24 +1,31 @@
 <div align="center">
 
+<a href="https://ui.vivekkumarsingh.in">
+  <img src="https://ui.vivekkumarsingh.in/opengraph-image" alt="VivekUI - a free, zero-dependency React component library" width="720">
+</a>
+
 # VivekUI
 
-**One install. Zero configuration. Every building block of a website.**
+**Every building block of a website. One install, zero configuration, no dependencies.**
 
-A React component library with **zero runtime dependencies** — no Tailwind, no PostCSS plugin,
-no Babel plugin, no required provider. Works in React 18 and 19, and in Next.js with both the
-Pages and App Router.
+<!-- hero-stats:start -->
+**91 accessible React components**, **6 SVG charts** and **12 ready-made pages** you can copy.
+No Tailwind, no PostCSS plugin, no Babel plugin, no required provider.
+Works in React 18 and 19, and in Next.js with both the Pages and App Router.
+<!-- hero-stats:end -->
 
-[![npm](https://img.shields.io/npm/v/@the_viveksingh/vivek-ui?color=4f46e5)](https://www.npmjs.com/package/@the_viveksingh/vivek-ui)
+[![npm](https://img.shields.io/npm/v/@the_viveksingh/vivek-ui?color=4f46e5&label=npm)](https://www.npmjs.com/package/@the_viveksingh/vivek-ui)
 [![license](https://img.shields.io/npm/l/@the_viveksingh/vivek-ui?color=4f46e5)](LICENSE)
 [![runtime deps](https://img.shields.io/badge/runtime%20deps-0-4f46e5)](#zero-dependencies-verifiable)
 <!-- size-badge:start -->
 [![one component](https://img.shields.io/badge/one%20component-771%20B-4f46e5)](#how-small-actually)
 <!-- size-badge:end -->
-[![docs](https://img.shields.io/badge/docs-ui.vivekkumarsingh.in-4f46e5)](https://ui.vivekkumarsingh.in)
+[![axe tested](https://img.shields.io/badge/axe-tested%20per%20component-4f46e5)](#accessibility)
+[![provenance](https://img.shields.io/badge/npm-signed%20provenance-4f46e5)](#security)
 
 ### [**Documentation, live examples and a playground &rarr;**](https://ui.vivekkumarsingh.in)
 
-[Components](https://ui.vivekkumarsingh.in/docs/components) &middot; [Charts](https://ui.vivekkumarsingh.in/docs/charts) &middot; [Playground](https://ui.vivekkumarsingh.in/playground) &middot; [Installation](https://ui.vivekkumarsingh.in/docs/installation) &middot; [FAQ](https://ui.vivekkumarsingh.in/docs/faq)
+[Components](https://ui.vivekkumarsingh.in/docs/components) &middot; [Page templates](https://ui.vivekkumarsingh.in/pages) &middot; [Charts](https://ui.vivekkumarsingh.in/docs/charts) &middot; [Playground](https://ui.vivekkumarsingh.in/playground) &middot; [Installation](https://ui.vivekkumarsingh.in/docs/installation) &middot; [FAQ](https://ui.vivekkumarsingh.in/docs/faq)
 
 [Author's site](https://vivekkumarsingh.in) &middot; [GitHub](https://github.com/intellectwithvivek) &middot; [LinkedIn](https://www.linkedin.com/in/singhvvk/)
 
@@ -70,6 +77,7 @@ There is no step three. No config file, no CLI, no code generation.
 
 ## Contents
 
+[What is different here](#what-you-will-not-find-in-another-free-library) &middot;
 [Why not copy-paste?](#why-not-copy-paste-components) &middot;
 [Components](#components) &middot;
 [Charts](#charts) &middot;
@@ -81,6 +89,26 @@ There is no step three. No config file, no CLI, no code generation.
 [Server Components](#server-components) &middot;
 [Security](#security) &middot;
 [Roadmap](#roadmap)
+
+## What you will not find in another free library
+
+Every free React library gives you a button and a modal. These are the pieces that are
+missing when you try to finish an actual product, and the reason they are missing is always
+the same: doing them properly means writing a keyboard model, and that is the part people
+skip.
+
+| | What it does | Why nobody else ships it |
+|---|---|---|
+| **`EditableGrid`** | A spreadsheet you type into | The full ARIA grid model, with **one tab stop for the whole grid**. An input per cell makes a 20&times;8 grid 160 tab stops. |
+| **`Scheduler`** | Rooms or people down the side, time across the top | A timeline speaks through position, which a screen reader cannot see. MUI's is behind a paid licence; the rest have none. |
+| **`KanbanBoard`** | Drag a card, or move it with the keyboard | **HTML5 drag-and-drop has no keyboard equivalent at all.** So this ships two complete input paths, the second announced through a live region. |
+| **`FileTree`** | A real treeview | Arrows crossing folder boundaries, `*` to expand a level, typeahead. Most "trees" are nested `div`s with click handlers. |
+| **`VirtualList`** | 50,000 rows, 12 in the DOM | `aria-posinset` and `aria-setsize` stay honest, so a screen reader hears "4,201 of 50,000", not "of 12". |
+
+And **[twelve complete pages](https://ui.vivekkumarsingh.in/pages)** &mdash; landing, pricing,
+dashboard, checkout, sign in, settings, blog, product, contact, team, sign up and 404. Each one
+is built only from exports of this package, which a build step enforces, so the code on the page
+runs as-is. Copy it, change the words, ship it.
 
 ## Why not copy-paste components?
 
@@ -294,7 +322,7 @@ Measured with `size-limit`, minified and brotlied, React excluded:
 | `{ Modal }` (focus trap + scroll lock + portal) | **2.9 kB** |
 | A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **2.7 kB** |
 | All six charts | **8.3 kB** |
-| Every component, imported at once | **47.4 kB** |
+| Every component, imported at once | **47.6 kB** |
 | `styles.css` | 192.0 kB raw, **27.0 kB gzipped** |
 | `charts.css` | 10.1 kB raw, **2.0 kB gzipped** |
 <!-- size-table:end -->
@@ -430,8 +458,8 @@ Report a vulnerability via [SECURITY.md](SECURITY.md).
 | Status | |
 |---|---|
 | **Shipped** | Layout, typography, actions, forms, overlays, navigation, data, AI chat, sections, media, charts, theming |
-| Next | Documentation site with live examples and props tables |
-| Then | Built-in icon set; a Playwright pass for colour contrast and real-browser behaviour |
+| **Shipped** | [Documentation site](https://ui.vivekkumarsingh.in) &mdash; a page per component with live previews, props tables and an in-browser playground |
+| Next | Built-in icon set; a Playwright pass for colour contrast and real-browser behaviour |
 | Later | `DataTable` virtualisation, richer chart types — driven by what people actually ask for |
 
 ## Contributing

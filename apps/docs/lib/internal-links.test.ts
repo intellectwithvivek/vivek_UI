@@ -16,6 +16,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join, sep } from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { allRoutes } from './routes'
 
 const BUILD = join(__dirname, '..', '.next', 'server', 'app')
 
@@ -89,6 +90,16 @@ describe.skipIf(!built)('internal links in the built site', () => {
       dead.push(`${href} <- linked from ${[...from].sort().slice(0, 3).join(', ')}`)
     }
     expect(dead, 'these links 404').toEqual([])
+  })
+
+  it('every route in the sitemap was actually built', () => {
+    // The other direction from the test above, and the more damaging one: a sitemap that
+    // lists URLs the site does not serve teaches a crawler the file is unreliable, and it
+    // stops being trusted for the routes that are real.
+    const missing = allRoutes()
+      .map((route) => route.path)
+      .filter((path) => !routes.has(path))
+    expect(missing, 'the sitemap advertises these; nothing was built for them').toEqual([])
   })
 
   it('links to an external site open safely', () => {

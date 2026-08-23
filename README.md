@@ -100,25 +100,35 @@ drifted. VivekUI is a normal dependency: `npm update` and you have the fixes.
 
 ## Components
 
-**91 components. 138 runtime exports.** Every one is covered by tests including
-automated `axe` assertions, and **44 need no `'use client'`** — they render directly in React Server
-Components.
+<!-- component-stats:start -->
+**91 components. 141 runtime exports.** Every one is covered by tests including
+automated `axe` assertions, and **49 need no `'use client'`** — they render directly in React
+Server Components.
+<!-- component-stats:end -->
 
 ### Layout
 
-`Box` &middot; `Stack` &middot; `Flex` &middot; `Grid` &middot; `Container` &middot; `Section` &middot; `Divider` &middot; `AspectRatio` &middot; `BentoGrid` &middot; `ScrollArea`
+<!-- catalog-layout:start -->
+`AspectRatio` &middot; `BentoGrid` &middot; `Box` &middot; `Container` &middot; `Divider` &middot; `Grid` &middot; `ScrollArea` &middot; `Section` &middot; `Flex` &middot; `Stack`
+<!-- catalog-layout:end -->
 
 ### Typography
 
-`Heading` &middot; `Text` &middot; `Code` &middot; `Kbd` &middot; `Prose`
+<!-- catalog-typography:start -->
+`Code` &middot; `Heading` &middot; `Kbd` &middot; `isSafeHref` &middot; `Prose` &middot; `Text`
+<!-- catalog-typography:end -->
 
 ### Actions
 
-`Button` &middot; `IconButton` &middot; `ButtonGroup` &middot; `CopyButton`
+<!-- catalog-actions:start -->
+`Button` &middot; `ButtonGroup` &middot; `CopyButton` &middot; `IconButton`
+<!-- catalog-actions:end -->
 
 ### Forms
 
-`Field` &middot; `Label` &middot; `Input` &middot; `Textarea` &middot; `Select` &middot; `Checkbox` &middot; `RadioGroup` &middot; `Switch` &middot; `Slider` &middot; `PasswordInput` &middot; `OTPInput` &middot; `Rating` &middot; `TagInput` &middot; `FileUpload` &middot; `Combobox` &middot; `Calendar` &middot; `DatePicker`
+<!-- catalog-forms:start -->
+`Calendar` &middot; `formatDate` &middot; `parseISODate` &middot; `toISODate` &middot; `Checkbox` &middot; `Combobox` &middot; `DatePicker` &middot; `Field` &middot; `FileUpload` &middot; `formatBytes` &middot; `matchesAccept` &middot; `Input` &middot; `Label` &middot; `OTPInput` &middot; `PasswordInput` &middot; `Radio` &middot; `RadioGroup` &middot; `Rating` &middot; `Select` &middot; `Slider` &middot; `Switch` &middot; `TagInput` &middot; `Textarea`
+<!-- catalog-forms:end -->
 
 `Field` owns the ARIA wiring, so it cannot drift:
 
@@ -135,11 +145,15 @@ region, so a message appearing after submit is genuinely announced.
 
 ### Overlays
 
-`Modal` &middot; `Drawer` &middot; `Tabs` &middot; `Accordion` &middot; `Tooltip` &middot; `Popover` &middot; `DropdownMenu` &middot; `Toast` &middot; `Portal`
+<!-- catalog-overlays:start -->
+`Accordion` &middot; `Drawer` &middot; `DropdownMenu` &middot; `Modal` &middot; `Popover` &middot; `Portal` &middot; `Tabs` &middot; `Toast` &middot; `useToast` &middot; `Tooltip`
+<!-- catalog-overlays:end -->
 
 ### Navigation
 
-`Navbar` &middot; `Sidebar` &middot; `Breadcrumb` &middot; `Pagination` &middot; `CommandPalette`
+<!-- catalog-navigation:start -->
+`Breadcrumb` &middot; `CommandPalette` &middot; `Navbar` &middot; `Pagination` &middot; `Sidebar`
+<!-- catalog-navigation:end -->
 
 Every link-rendering part accepts `asChild`, so your router's `Link` works without the library
 depending on a router:
@@ -150,7 +164,9 @@ depending on a router:
 
 ### Data display
 
-`Table` &middot; `DataTable` &middot; `Card` &middot; `Badge` &middot; `Avatar` &middot; `Timeline` &middot; `Stepper`
+<!-- catalog-data-display:start -->
+`Avatar` &middot; `Badge` &middot; `Card` &middot; `DataTable` &middot; `EditableGrid` &middot; `FileTree` &middot; `KanbanBoard` &middot; `Scheduler` &middot; `Stepper` &middot; `Table` &middot; `Timeline` &middot; `VirtualList`
+<!-- catalog-data-display:end -->
 
 `DataTable` is batteries-included — client-side sort, search, pagination and row selection, with
 controlled escape hatches (`onSortChange`, `onPageChange`, `onSearchChange`) for server-driven data:
@@ -166,9 +182,25 @@ controlled escape hatches (`onSortChange`, `onPageChange`, `onSearchChange`) for
 />
 ```
 
+`EditableGrid`, `VirtualList`, `FileTree`, `KanbanBoard` and `Scheduler` are here because no other
+free React library ships them — and the reason they are missing elsewhere is always the keyboard.
+
+| Component | The part everyone skips |
+|---|---|
+| `EditableGrid` | The full WAI-ARIA grid model, with **one tab stop for the whole grid**. An input per cell makes a 20&times;8 grid 160 tab stops. |
+| `VirtualList` | `aria-posinset` and `aria-setsize` stay honest while it windows, so a screen reader hears "item 4,201 of 50,000" rather than "of 12". |
+| `FileTree` | Arrows crossing folder boundaries, Right to open then enter, `*` to expand a level, typeahead. Most trees are nested `div`s with click handlers. |
+| `KanbanBoard` | **HTML5 drag-and-drop has no keyboard equivalent at all** — no key starts a drag. So this ships two complete input paths, the second a pick-up / move / drop model with live-region announcements. |
+| `Scheduler` | A timeline says everything through position, which a screen reader cannot see, so each booking carries its resource, times and duration in its accessible name. Overlaps stack into lanes instead of hiding each other. |
+
+None of them mutate your data. Each reports the intended change and your state decides, which is
+the only shape that survives an optimistic update the server rejects.
+
 ### AI chat
 
-`ChatThread` &middot; `ChatMessage` &middot; `ChatInput` &middot; `TypingIndicator` &middot; `ChatCodeBlock`
+<!-- catalog-ai-chat:start -->
+`ChatCodeBlock` &middot; `ChatInput` &middot; `ChatMessage` &middot; `ChatThread` &middot; `TypingIndicator`
+<!-- catalog-ai-chat:end -->
 
 Message content is always a `ReactNode`, never an HTML string — there is no
 `dangerouslySetInnerHTML` anywhere in the library, so model output cannot become markup. The
@@ -178,11 +210,15 @@ they have scrolled up to read.
 
 ### Feedback
 
-`Alert` &middot; `Toast` &middot; `Spinner` &middot; `Skeleton` &middot; `Progress` &middot; `EmptyState`
+<!-- catalog-feedback:start -->
+`Alert` &middot; `EmptyState` &middot; `Progress` &middot; `Skeleton` &middot; `Spinner`
+<!-- catalog-feedback:end -->
 
 ### Sections
 
-`Hero` &middot; `FeatureGrid` &middot; `Pricing` &middot; `Testimonials` &middot; `FAQ` &middot; `CTA` &middot; `Stats` &middot; `Footer` &middot; `LogoCloud`
+<!-- catalog-sections:start -->
+`CTA` &middot; `FAQ` &middot; `FeatureGrid` &middot; `Footer` &middot; `Hero` &middot; `LogoCloud` &middot; `Newsletter` &middot; `Pricing` &middot; `Stats` &middot; `Testimonials`
+<!-- catalog-sections:end -->
 
 Installable page sections are the differentiator. Primitives are everywhere, but assembling a
 landing page still means hand-writing the pricing table. Here it is a component. `FAQ` is built on
@@ -190,7 +226,9 @@ native `<details>`, so it needs **no ARIA and no JavaScript**.
 
 ### Media and time
 
-`Carousel` &middot; `Marquee` &middot; `AnimatedCounter` &middot; `Countdown` &middot; `Clock` &middot; `RelativeTime`
+<!-- catalog-media-time:start -->
+`AnimatedCounter` &middot; `Carousel` &middot; `Clock` &middot; `Countdown` &middot; `Image` &middot; `MapEmbed` &middot; `Marquee` &middot; `RelativeTime`
+<!-- catalog-media-time:end -->
 
 `Countdown` and `Clock` accept a `now` prop and never read the clock during render, so server and
 client HTML agree and there is no hydration mismatch. `AnimatedCounter` renders its **final** value
@@ -198,7 +236,9 @@ in server HTML, never `0`.
 
 ### Theming
 
-`ThemeProvider` &middot; `ThemeToggle`
+<!-- catalog-theming:start -->
+`createThemeScript` &middot; `DEFAULT_STORAGE_KEY` &middot; `DEFAULT_THEME_ATTRIBUTE` &middot; `ThemeProvider` &middot; `themeScript` &middot; `useTheme` &middot; `ThemeToggle`
+<!-- catalog-theming:end -->
 
 ## Charts
 
@@ -361,11 +401,13 @@ without a browser. A Playwright pass is on the roadmap.
 
 ## Server Components
 
+<!-- server-components:start -->
 **49 of the 91 components carry no `'use client'`** and render directly in React Server Components.
 Only genuinely interactive ones declare it, per file.
 
 The build is unbundled precisely so each file keeps its own directive, and CI asserts on every build
-that all 47 client files still carry theirs in **both** the ESM and CJS output.
+that all 55 client files still carry theirs in **both** the ESM and CJS output.
+<!-- server-components:end -->
 
 ## Security
 

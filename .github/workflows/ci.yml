@@ -75,6 +75,13 @@ jobs:
       - name: Size limit
         run: pnpm --filter @the_viveksingh/vivek-ui size
 
+      # The README is the npm page, and prose is the one thing no other gate reads. Its
+      # component catalogue is generated from the registry; this fails when it has drifted.
+      # It listed none of the eight newest components, and claimed 44 server-safe when the
+      # figure was 49, with every check green.
+      - name: README catalogue is current
+        run: node scripts/gen-readme-catalog.mjs --check
+
       # Packaging correctness, from the two tools the ecosystem actually uses.
       #
       # These caught a real defect that every other gate was blind to: the exports map

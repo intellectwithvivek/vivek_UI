@@ -18,7 +18,9 @@
     "version-packages": "changeset version",
     "release": "pnpm -r build && changeset publish",
     "gen:exports": "node scripts/gen-exports.mjs",
-    "check:refs": "node scripts/strip-internal-refs.mjs --check"
+    "check:refs": "node scripts/strip-internal-refs.mjs --check",
+    "gen:readme": "node scripts/gen-readme-catalog.mjs",
+    "check:readme": "node scripts/gen-readme-catalog.mjs --check"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.9",

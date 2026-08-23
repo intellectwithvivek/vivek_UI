@@ -90,6 +90,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   table: dynamic(() => import('../previews/table')),
   tabs: dynamic(() => import('../previews/tabs')),
   'editable-grid': dynamic(() => import('../previews/editable-grid')),
+  'file-tree': dynamic(() => import('../previews/file-tree')),
   image: dynamic(() => import('../previews/image')),
   'map-embed': dynamic(() => import('../previews/map-embed')),
   newsletter: dynamic(() => import('../previews/newsletter')),

@@ -176,6 +176,46 @@ const CORE_EXAMPLES: ExampleSet = {
     },
   ],
 
+  'file-tree': [
+    {
+      title: 'A project tree',
+      description:
+        'The full WAI-ARIA treeview keyboard model: arrows navigate across folder boundaries, Right opens and steps in, Left collapses or moves to the parent, * expands the level, and typing jumps to a match.',
+      name: 'default',
+      code: `const tree = [
+  {
+    id: 'src',
+    label: 'src',
+    // The presence of a children array is what makes a node a folder.
+    children: [
+      { id: 'index', label: 'index.ts' },
+      { id: 'components', label: 'components', children: [...] },
+    ],
+  },
+  { id: 'pkg', label: 'package.json' },
+  { id: 'lock', label: 'pnpm-lock.yaml', disabled: true },
+]
+
+<FileTree
+  nodes={tree}
+  label="Project files"
+  defaultExpandedIds={['src']}
+  onSelect={(node) => open(node.id)}
+/>`,
+    },
+    {
+      title: 'Controlled expansion',
+      description: 'Drive the open folders yourself to persist them, or to open to a path.',
+      name: 'controlled',
+      code: `<FileTree
+  nodes={tree}
+  label="Project files"
+  expandedIds={open}
+  onExpandedChange={setOpen}
+/>`,
+    },
+  ],
+
   'editable-grid': [
     {
       title: 'An editable order table',

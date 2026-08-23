@@ -9246,6 +9246,99 @@
       "compound": false
     },
     {
+      "slug": "file-tree",
+      "title": "File tree",
+      "kind": "component",
+      "category": "Other",
+      "exports": [
+        "FileTree"
+      ],
+      "typeExports": [
+        "FileTreeProps",
+        "TreeNode"
+      ],
+      "primary": "FileTree",
+      "description": "A file tree, implementing the WAI-ARIA treeview pattern.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "nodes",
+            "type": "readonly TreeNode[]",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": true,
+            "description": "Required. A tree with no accessible name is unnavigable.",
+            "default": ""
+          },
+          {
+            "name": "selectedId",
+            "type": "string | null",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "defaultSelectedId",
+            "type": "string | null",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onSelect",
+            "type": "(node: TreeNode) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "expandedIds",
+            "type": "readonly string[]",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "defaultExpandedIds",
+            "type": "readonly string[]",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onExpandedChange",
+            "type": "(ids: string[]) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "guides",
+            "type": "boolean",
+            "required": false,
+            "description": "Show the connecting guide lines. Default `true`.",
+            "default": ""
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": false,
+        "extends": []
+      },
+      "compound": false
+    },
+    {
       "slug": "file-upload",
       "title": "File upload",
       "kind": "component",

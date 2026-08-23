@@ -1,0 +1,101 @@
+/*
+ * FileTree.
+ *
+ * The tree is rendered FLAT - every visible node is a sibling `<li>` - and depth is drawn
+ * with padding rather than with nesting. Real nesting would mean a `<ul>` inside every
+ * folder, and keyboard navigation across folder boundaries then has to walk the DOM tree
+ * rather than an array. `aria-level` carries the depth for assistive technology, which is
+ * what the ARIA treeview pattern asks for anyway.
+ */
+
+:where(.vk-file-tree) {
+  margin: 0;
+  padding: var(--vk-space-1);
+  list-style: none;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-fg);
+  user-select: none;
+}
+
+:where(.vk-file-tree__item) {
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+}
+
+:where(.vk-file-tree__row) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+  min-block-size: 1.75rem;
+  /* Depth as padding. --vk-tree-level is set inline per node. */
+  padding-inline-start: calc(var(--vk-space-2) + var(--vk-tree-level, 0) * var(--vk-space-4));
+  padding-inline-end: var(--vk-space-2);
+  border-radius: var(--vk-radius-sm);
+}
+
+@media (hover: hover) {
+  :where(.vk-file-tree__item:not([data-disabled]):hover) > :where(.vk-file-tree__row) {
+    background: var(--vk-color-surface-hover);
+  }
+}
+
+:where(.vk-file-tree__item[aria-selected="true"]) > :where(.vk-file-tree__row) {
+  background: var(--vk-color-primary-subtle);
+  color: var(--vk-color-primary-subtle-fg);
+  font-weight: var(--vk-weight-medium);
+}
+
+:where(.vk-file-tree__item:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: -2px;
+}
+
+:where(.vk-file-tree__item[data-disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Chevron from a rotated corner, so there is no icon dependency. */
+:where(.vk-file-tree__chevron) {
+  flex: none;
+  inline-size: 0.4em;
+  block-size: 0.4em;
+  margin-inline-start: 0.2em;
+  border-inline-end: 1.5px solid currentcolor;
+  border-block-end: 1.5px solid currentcolor;
+  transform: rotate(-45deg);
+  transition: transform var(--vk-duration) var(--vk-ease);
+  opacity: 0.7;
+}
+
+:where(.vk-file-tree__chevron[data-open]) {
+  transform: rotate(45deg);
+}
+
+/* Keeps files aligned with the labels of folders, rather than with their chevrons. */
+:where(.vk-file-tree__spacer) {
+  flex: none;
+  inline-size: 0.4em;
+  margin-inline-start: 0.2em;
+}
+
+:where(.vk-file-tree__icon) {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-file-tree__label) {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-file-tree__chevron) {
+    transition: none;
+  }
+}

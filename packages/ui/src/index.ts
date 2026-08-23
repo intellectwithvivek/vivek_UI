@@ -170,6 +170,7 @@ export { EmptyState, type EmptyStateProps, type EmptyStateSize } from './compone
 export { FAQ, type FaqItem, type FAQProps } from './components/faq'
 export { type Feature, FeatureGrid, type FeatureGridProps } from './components/feature-grid'
 export { Field, type FieldProps } from './components/field'
+export { FileTree, type FileTreeProps, type TreeNode } from './components/file-tree'
 export {
   type FileRejection,
   type FileRejectReason,

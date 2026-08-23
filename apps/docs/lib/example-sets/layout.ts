@@ -213,7 +213,7 @@ export const LAYOUT_EXAMPLES: ExampleSet = {
       name: 'dense',
       code: `<BentoGrid cols={4} gap={3} rowHeight="6rem" dense>
   <BentoGrid.Item colSpan={2}>Zero dependencies</BentoGrid.Item>
-  <BentoGrid.Item>88 components</BentoGrid.Item>
+  <BentoGrid.Item>89 components</BentoGrid.Item>
   <BentoGrid.Item>MIT</BentoGrid.Item>
   <BentoGrid.Item colSpan={3}>Server-safe</BentoGrid.Item>
 </BentoGrid>`,

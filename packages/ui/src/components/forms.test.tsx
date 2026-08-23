@@ -6,7 +6,7 @@ import { Checkbox } from './checkbox'
 import { Field } from './field'
 import { Input } from './input'
 import { Label } from './label'
-import { RadioGroup } from './radio-group'
+import { Radio, RadioGroup } from './radio-group'
 import { Select } from './select'
 import { Switch } from './switch'
 import { Textarea } from './textarea'
@@ -200,6 +200,75 @@ describe('Switch', () => {
     )
     const form = screen.getByTestId('f') as HTMLFormElement
     expect(new FormData(form).get('theme')).toBe('on')
+  })
+})
+
+describe('Radio', () => {
+  // `Radio` is exported, so it is public API, but every RadioGroup test used the `options`
+  // prop - which means the `children` path, the whole reason `Radio` is exported, had never
+  // been rendered by anything.
+  it('renders inside a RadioGroup and takes part in the same native group', () => {
+    render(
+      <RadioGroup label="Delivery" name="delivery">
+        <Radio value="standard" label="Standard" />
+        <Radio value="express" label="Express" description="Next working day" />
+      </RadioGroup>,
+    )
+    const radios = screen.getAllByRole('radio')
+    expect(radios).toHaveLength(2)
+    // The shared name is what makes them mutually exclusive without any JavaScript.
+    for (const radio of radios) expect(radio).toHaveAttribute('name', 'delivery')
+  })
+
+  it('labels itself from its label and description together', () => {
+    // The description sits inside the `<label>`, so it lands in the accessible *name*
+    // rather than in `aria-describedby`. That is consistent across Checkbox, Switch and
+    // Radio, and the wording is announced either way - pinned here so the choice is
+    // deliberate rather than accidental.
+    render(
+      <RadioGroup label="Delivery" name="delivery">
+        <Radio value="express" label="Express" description="Next working day" />
+      </RadioGroup>,
+    )
+    // Matched loosely rather than exactly: jsdom concatenates adjacent spans with no
+    // separator, while a real browser inserts a space between block-level boxes. Both
+    // strings being in the name is the part that matters.
+    expect(screen.getByRole('radio', { name: /Express/ })).toHaveAccessibleName(
+      /Express\s*Next working day/,
+    )
+  })
+
+  it('selects on click and reports through the group', () => {
+    const onChange = vi.fn()
+    render(
+      <RadioGroup label="Delivery" name="delivery" onChange={onChange}>
+        <Radio value="standard" label="Standard" />
+        <Radio value="express" label="Express" />
+      </RadioGroup>,
+    )
+    screen.getByRole('radio', { name: /Express/ }).click()
+    expect(onChange).toHaveBeenCalledWith('express')
+  })
+
+  it('forwards a ref to the input, so a form library can register it', () => {
+    const ref = createRef<HTMLInputElement>()
+    render(
+      <RadioGroup label="Delivery" name="delivery">
+        <Radio ref={ref} value="standard" label="Standard" />
+      </RadioGroup>,
+    )
+    expect(ref.current?.tagName).toBe('INPUT')
+    expect(ref.current?.type).toBe('radio')
+  })
+
+  it('has no axe violations', async () => {
+    const { container } = render(
+      <RadioGroup label="Delivery" name="delivery">
+        <Radio value="standard" label="Standard" />
+        <Radio value="express" label="Express" description="Next working day" />
+      </RadioGroup>,
+    )
+    expect(await axe(container)).toHaveNoViolations()
   })
 })
 

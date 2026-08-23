@@ -225,6 +225,60 @@ describe('ChatMessage', () => {
  * ChatThread
  * ------------------------------------------------------------------ */
 
+describe('ChatThread.Empty', () => {
+  // Exported as `ChatThread.Empty` and as `ChatThreadEmpty`, so it is public API, but every
+  // test reached the empty state through the `emptyState` prop - which meant the exported
+  // part itself had never been rendered by anything.
+  it('carries the empty-state styling, so a custom empty state matches the built-in one', () => {
+    const { container } = render(
+      <ChatThread
+        label="Conversation"
+        emptyState={<ChatThread.Empty>No messages yet</ChatThread.Empty>}
+      />,
+    )
+    const empty = container.querySelectorAll('.vk-chat-thread__empty')
+    expect(empty.length).toBeGreaterThan(0)
+    expect(screen.getByText('No messages yet')).toBeInTheDocument()
+  })
+
+  it('merges className and spreads the rest onto its root, per the component contract', () => {
+    render(
+      <ChatThread
+        label="Conversation"
+        emptyState={
+          <ChatThread.Empty className="mine" data-testid="empty">
+            Nothing here
+          </ChatThread.Empty>
+        }
+      />,
+    )
+    const node = screen.getByTestId('empty')
+    expect(node).toHaveClass('vk-chat-thread__empty')
+    expect(node).toHaveClass('mine')
+  })
+
+  it('forwards a ref to its root element', () => {
+    const ref = createRef<HTMLDivElement>()
+    render(
+      <ChatThread
+        label="Conversation"
+        emptyState={<ChatThread.Empty ref={ref}>Nothing</ChatThread.Empty>}
+      />,
+    )
+    expect(ref.current?.tagName).toBe('DIV')
+  })
+
+  it('has no axe violations', async () => {
+    const { container } = render(
+      <ChatThread
+        label="Conversation"
+        emptyState={<ChatThread.Empty>Ask the assistant anything.</ChatThread.Empty>}
+      />,
+    )
+    expect(await axe(container)).toHaveNoViolations()
+  })
+})
+
 describe('ChatThread', () => {
   it('renders an empty log with zero props', () => {
     render(<ChatThread />)

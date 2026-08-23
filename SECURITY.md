@@ -110,12 +110,25 @@ policy.
 
 Not vulnerabilities, but worth knowing:
 
-- **Validate URLs you pass in.** Any component that accepts an `href` or `src` from your
-  data — `Footer`, `Breadcrumb`, `Navbar`, `Sidebar`, `Avatar`, `LogoCloud` — renders the
-  value you give it. `Prose.Link` is the exception: it applies an `http:`/`https:`/
-  scheme-less allowlist and refuses anything else. If your URLs come from a CMS, an API,
-  or a language model, run them through `isSafeHref` (exported from the `Prose` module) or
-  your own allowlist first.
+- **`href` is scheme-validated for you.** Every component that renders an `href` from your
+  data — `Footer`, `Breadcrumb`, `Navbar`, `Sidebar`, `Prose.Link` — puts it through an
+  allowlist of `http:`, `https:`, `mailto:` and `tel:`, and drops anything else. That
+  includes `javascript:` and `data:`, and it survives the whitespace trick
+  (`java&Tab;script:`) because control characters are stripped before the scheme is read.
+  This matters because React 18 renders a `javascript:` URL verbatim — only React 19 blocks
+  it — and `^18` is inside the supported peer range.
+
+  Two places where the value is still yours to check: `Button asChild` and every other
+  `asChild` slot render **your** element, so the `href` on it never passes through the
+  library; and `isSafeHref` is exported if you want to run your own data through the same
+  allowlist before it reaches anything else.
+- **An `src` is not sanitised, and does not need to be.** `Avatar`, `LogoCloud` and `Image`
+  pass `src` to an `<img>`, which cannot execute script in any modern browser — a
+  `javascript:` URL is inert there, and an SVG loaded through `<img>` has scripting
+  disabled. What an `src` *can* do is tell a third-party host that your visitor loaded the
+  page, so host the file yourself if that matters to you. `MapEmbed` builds its own URL from
+  the coordinates or query you pass and encodes every part, and its iframe is sandboxed
+  without `allow-same-origin`.
 - **`target="_blank"` needs `rel="noopener noreferrer"`.** `Prose.Link` adds it for you.
   Where you set `target` yourself — through `linkProps` or a spread — set `rel` too.
 - **A CSV export is code on someone else's machine.** `toCsv` neutralises leading `=`,

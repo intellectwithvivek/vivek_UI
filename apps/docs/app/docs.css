@@ -522,11 +522,7 @@ body {
 .accent-picker {
   display: inline-flex;
   align-items: center;
-  gap: var(--vk-space-1);
-  padding: var(--vk-space-1);
-  border: 1px solid var(--vk-color-border);
-  border-radius: var(--vk-radius-full);
-  background: var(--vk-color-surface-subtle);
+  gap: var(--vk-space-2);
 }
 
 .accent-picker__swatch {
@@ -750,32 +746,55 @@ body {
 }
 
 /*
- * The accent picker moves rather than disappearing.
+ * The accent trigger: one swatch, 32px, at every width.
  *
- * It is five swatches plus a container — roughly 150px, which is most of a phone bar and
- * still too much at 768px, where it helped push the brand into the links. So it lives in
- * the navbar actions from 64rem up, and inside the hamburger sheet below that. Exactly one
- * of the two is rendered at any width; `display: none` keeps the other out of the
- * accessibility tree as well as out of the layout.
+ * It replaced a five-swatch row that came to ~150px. That row could not be placed: the
+ * library's `Navbar` swaps its links between a sheet and an inline row on a **container**
+ * query, and anything written here is a **viewport** media query, so between the two
+ * thresholds the picker landed inline in the middle of the links. A fixed 32px control has
+ * no threshold to disagree about.
  */
-.header-wide-only {
+.accent-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  padding: 0;
+  background: none;
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-full);
+  cursor: pointer;
+  transition: border-color var(--vk-duration-fast) var(--vk-ease);
+}
+
+@media (hover: hover) {
+  .accent-trigger:hover {
+    border-color: var(--vk-color-border-strong);
+  }
+}
+
+.accent-trigger:focus-visible {
+  outline: 2px solid var(--vk-color-ring);
+  outline-offset: 2px;
+}
+
+.accent-trigger__dot {
+  inline-size: 1.0625rem;
+  block-size: 1.0625rem;
+  border-radius: var(--vk-radius-full);
+  background: var(--swatch);
+  border: 1px solid color-mix(in oklab, var(--vk-color-fg) 14%, transparent);
+}
+
+/* Present only where the bar has room to spare. Duplicated in the footer. */
+.header-support-link {
   display: none;
 }
 
-.header-narrow-only {
-  display: flex;
-  justify-content: center;
-  padding-block-start: var(--vk-space-2);
-}
-
 @media (min-width: 64rem) {
-  .header-wide-only {
+  .header-support-link {
     display: inline-flex;
-    align-items: center;
-  }
-
-  .header-narrow-only {
-    display: none;
   }
 }
 

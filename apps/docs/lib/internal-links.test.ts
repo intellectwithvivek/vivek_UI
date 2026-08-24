@@ -126,6 +126,23 @@ describe.skipIf(!built)('internal links in the built site', () => {
     expect(misplaced, 'toggle renders before the actions').toEqual([])
   })
 
+  it('keeps the wide accent swatch row out of the navbar', () => {
+    // The five-swatch row is ~150px. In the bar it overflowed at 768px and painted the nav
+    // links over each other; every attempt to place it with a media query failed, because
+    // `Navbar` switches its links on a *container* query and nothing written in this app can
+    // see that threshold. It lives in a popover behind a 32px trigger now. If it ever comes
+    // back into the bar, this fails before anyone opens a browser.
+    const inBar = pages
+      .filter(({ html }) => {
+        const start = html.indexOf('vk-navbar__inner')
+        if (start === -1) return false
+        const bar = html.slice(start, html.indexOf('</nav>', start))
+        return bar.includes('accent-picker')
+      })
+      .map(({ route }) => route)
+    expect(inBar, 'the swatch row is back in the header bar').toEqual([])
+  })
+
   it('gives every page-template page a way back to the gallery', () => {
     // These pages sit outside the docs shell, so they have no sidebar. Shipped without a
     // single link back: from a search result the only way out was the browser's back

@@ -55,26 +55,17 @@ export function SiteHeader() {
         <Navbar.Link asChild active={isActive('/playground')}>
           <Link href="/playground">Playground</Link>
         </Navbar.Link>
-
-        {/*
-          The accent picker again, inside the sheet this time.
-          Hiding it on narrow screens took it away entirely: `Navbar.Actions` stays in the
-          bar at every width, so a phone had no way to change the accent at all. The sheet
-          is where a phone's controls belong. Only one of the two is ever displayed, and
-          `display: none` keeps the other out of the accessibility tree, so there is no
-          duplicate radiogroup to tab through.
-        */}
-        <span className="header-narrow-only">
-          <AccentPicker />
-        </span>
       </Navbar.Links>
 
       <Navbar.Actions>
-        <span className="header-wide-only">
-          <AccentPicker />
-        </span>
+        <AccentPicker />
         <ThemeToggle mode="cycle" />
-        <Button asChild size="sm" variant="ghost">
+        {/*
+          Dropped from the bar below 64rem. It is the least load-bearing thing in the header
+          and it already has a place in the footer's Support column, so removing it costs
+          nothing and buys the six nav links room to sit side by side at 768px.
+        */}
+        <Button asChild className="header-support-link" size="sm" variant="ghost">
           <a
             aria-label="Buy me a coffee"
             href={LINKS.buyMeACoffee}

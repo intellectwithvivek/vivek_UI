@@ -631,6 +631,7 @@ body {
 }
 
 .browser__viewport {
+  position: relative;
   max-inline-size: 100%;
   block-size: 100%;
   border-radius: var(--vk-radius-md);
@@ -645,10 +646,18 @@ body {
   display: block;
 }
 
-.browser__poster {
+/*
+ * The loading state, underneath the frame rather than instead of it.
+ *
+ * An iframe paints nothing until its document has something to show, so without this the
+ * box is a blank rectangle for as long as the site takes to render — which reads as broken
+ * rather than as loading. The frame covers this the moment it paints.
+ */
+.browser__poster-bed {
+  position: absolute;
+  inset: 0;
   display: grid;
   place-items: center;
-  block-size: 100%;
   padding: var(--vk-space-6);
   text-align: center;
   /* The poster gradients are chosen dark, so this pair is fixed rather than themed. */
@@ -659,10 +668,6 @@ body {
   font-size: var(--vk-text-2xl);
   font-weight: var(--vk-weight-bold);
   letter-spacing: -0.02em;
-}
-
-.browser__poster .vk-text {
-  color: rgb(255 255 255 / 0.85);
 }
 
 /* ------------------------------------------------------------- showcase gallery */
@@ -734,25 +739,40 @@ body {
 }
 
 /*
- * Header extras that only earn their width on a real screen.
+ * The accent picker moves rather than disappearing.
  *
- * The accent picker is five swatches and its container — about 150px of a 390px phone bar,
- * which squeezed the brand down to a single letter. The theme toggle and the GitHub link
- * are what people reach for on a phone; picking a brand accent is not.
+ * It is five swatches plus a container — roughly 150px, which is most of a phone bar and
+ * still too much at 768px, where it helped push the brand into the links. So it lives in
+ * the navbar actions from 64rem up, and inside the hamburger sheet below that. Exactly one
+ * of the two is rendered at any width; `display: none` keeps the other out of the
+ * accessibility tree as well as out of the layout.
  */
 .header-wide-only {
   display: none;
 }
 
-@media (min-width: 48rem) {
+.header-narrow-only {
+  display: flex;
+  justify-content: center;
+  padding-block-start: var(--vk-space-2);
+}
+
+@media (min-width: 64rem) {
   .header-wide-only {
     display: inline-flex;
     align-items: center;
   }
+
+  .header-narrow-only {
+    display: none;
+  }
 }
 
-/* The wordmark is the first thing to overflow. Let it shrink before anything else does. */
-@media (max-width: 26rem) {
+/*
+ * The version badge is the least useful thing in the bar and the first to go. Below 64rem
+ * the six nav links and three actions need every pixel.
+ */
+@media (max-width: 63.999rem) {
   .vk-navbar__brand .vk-badge {
     display: none;
   }

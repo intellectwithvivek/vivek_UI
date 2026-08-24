@@ -6,12 +6,14 @@ import { useState } from 'react'
 /**
  * A live site, shown inside browser chrome.
  *
- * **The frame does not load until you ask it to.** Every showcase site is a full Next.js
- * application; embedding one costs a document, its JavaScript, its fonts and its images, and
- * it also hands that origin the visitor's IP and lets it set cookies. Twelve of those on a
- * gallery page would be indefensible on any of those grounds, so this renders a poster and
- * mounts the iframe on a click — the same facade pattern a well-behaved YouTube or Maps
- * embed uses.
+ * **It loads on arrival.** An earlier version made you press a button first, on the reasoning
+ * that embedding a whole Next.js application is expensive. That reasoning belongs on the
+ * gallery, where there are twelve of them; here there is exactly one, and it is the entire
+ * reason the page exists. Asking someone to click a button to see the thing they navigated to
+ * is friction with nothing on the other side of it.
+ *
+ * `loading="lazy"` still applies, so the fetch happens when the frame scrolls into view
+ * rather than competing with the page's own first paint.
  *
  * **There is always a way out.** The "Open live site" link is present before, during and
  * after loading, because an embedded site can fail in ways this page cannot detect: a
@@ -43,7 +45,6 @@ export interface BrowserFrameProps {
 }
 
 export function BrowserFrame({ url, label, name, poster, height = 620 }: BrowserFrameProps) {
-  const [loaded, setLoaded] = useState(false)
   const [width, setWidth] = useState<WidthId>('desktop')
   const chosen = WIDTHS.find((option) => option.id === width) ?? WIDTHS[2]
 
@@ -94,46 +95,36 @@ export function BrowserFrame({ url, label, name, poster, height = 620 }: Browser
             className="browser__viewport"
             style={{ width: chosen.width > 0 ? `${chosen.width}px` : '100%' }}
           >
-            {loaded ? (
-              <iframe
-                className="browser__frame"
-                /*
-                 * `allow-same-origin` is required, and leaving it out is why this frame first
-                 * rendered blank.
-                 *
-                 * Without it the framed document gets an *opaque* origin, and in an opaque
-                 * origin every `localStorage` and `sessionStorage` access throws a
-                 * SecurityError rather than returning null. Every one of these sites reads
-                 * localStorage on mount for its theme, so the exception landed during
-                 * hydration and the app rendered nothing at all — a white rectangle with no
-                 * error visible on this page.
-                 *
-                 * The usual objection is that `allow-scripts` plus `allow-same-origin` lets a
-                 * frame remove its own sandbox attribute, which makes the sandbox close to
-                 * decorative. That objection is about untrusted content. These are twelve
-                 * first-party sites on a domain we control, listed by hand in `showcase.ts`;
-                 * what the sandbox is still buying here is no top-level navigation and no
-                 * downloads, which is worth keeping.
-                 */
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
-                src={url}
-                title={`${name}, live preview`}
-              />
-            ) : (
-              <div className="browser__poster" style={{ background: poster }}>
-                <Stack align="center" gap={3}>
-                  <span className="browser__poster-name">{name}</span>
-                  <Button onClick={() => setLoaded(true)} size="lg">
-                    Load live preview
-                  </Button>
-                  <Text size="sm">
-                    Loads {label} in a frame. Nothing is fetched from it until you press this.
-                  </Text>
-                </Stack>
-              </div>
-            )}
+            {/* The poster sits underneath as the loading state, so the box is never blank. */}
+            <div className="browser__poster-bed" style={{ background: poster }}>
+              <span className="browser__poster-name">{name}</span>
+            </div>
+            <iframe
+              className="browser__frame"
+              /*
+               * `allow-same-origin` is required, and leaving it out is why this frame first
+               * rendered blank.
+               *
+               * Without it the framed document gets an *opaque* origin, and in an opaque
+               * origin every `localStorage` and `sessionStorage` access throws a
+               * SecurityError rather than returning null. Every one of these sites reads
+               * localStorage on mount for its theme, so the exception landed during
+               * hydration and the app rendered nothing at all — a white rectangle with no
+               * error visible on this page.
+               *
+               * The usual objection is that `allow-scripts` plus `allow-same-origin` lets a
+               * frame remove its own sandbox attribute, which makes the sandbox close to
+               * decorative. That objection is about untrusted content. These are twelve
+               * first-party sites on a domain we control, listed by hand in `showcase.ts`;
+               * what the sandbox is still buying here is no top-level navigation and no
+               * downloads, which is worth keeping.
+               */
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              src={url}
+              title={`${name}, live preview`}
+            />
           </div>
         </div>
       </div>

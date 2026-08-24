@@ -62,6 +62,18 @@ export function SiteHeader() {
         <Navbar.Link asChild active={isActive('/playground')}>
           <Link href="/playground">Playground</Link>
         </Navbar.Link>
+
+        {/*
+          The accent picker again, inside the sheet this time.
+          Hiding it on narrow screens took it away entirely: `Navbar.Actions` stays in the
+          bar at every width, so a phone had no way to change the accent at all. The sheet
+          is where a phone's controls belong. Only one of the two is ever displayed, and
+          `display: none` keeps the other out of the accessibility tree, so there is no
+          duplicate radiogroup to tab through.
+        */}
+        <span className="header-narrow-only">
+          <AccentPicker />
+        </span>
       </Navbar.Links>
 
       <Navbar.Actions>

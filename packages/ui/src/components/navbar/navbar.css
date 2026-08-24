@@ -74,6 +74,14 @@
   align-items: center;
   gap: var(--vk-space-2);
   min-width: 0;
+  /*
+   * `min-width: 0` lets the brand shrink below its content, which is what stops it forcing
+   * the bar wider than its container. Without `overflow: hidden` that shrinking is purely
+   * notional: the box gets narrower and the text carries on painting straight over the
+   * links beside it. At the exact width where the links come inline - a tablet - the brand
+   * and the first link rendered on top of one another.
+   */
+  overflow: hidden;
   /* Nothing shrinks the brand away before the links have collapsed. */
   margin-inline-end: auto;
   font-size: var(--vk-text-lg);
@@ -230,6 +238,9 @@
     z-index: auto;
     display: flex;
     flex: 1 1 auto;
+    /* Same reasoning as the brand: a flex item that cannot shrink past its content pushes
+       the actions out of the bar instead of tightening up. */
+    min-inline-size: 0;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;

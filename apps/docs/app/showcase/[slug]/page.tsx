@@ -127,8 +127,8 @@ export default async function ShowcasePage({ params }: { params: Promise<{ slug:
           Live preview
         </Heading>
         <Text tone="muted">
-          Nothing is fetched from {displayUrl(site)} until you press the button — this page does not
-          load twelve other people's sites behind your back.
+          The real {displayUrl(site)}, in a frame with its own viewport — so the phone and tablet
+          widths below are the site's actual breakpoints, not this page's.
         </Text>
         <BrowserFrame
           label={displayUrl(site)}

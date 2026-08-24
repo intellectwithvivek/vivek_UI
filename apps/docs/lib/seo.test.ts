@@ -83,6 +83,19 @@ describe.skipIf(!built)('on-page SEO across the built site', () => {
     expect(missing).toEqual([])
   })
 
+  it('leaves the brand link with an accessible name at every width', () => {
+    // Below 64rem the header shows the logo alone. The logo is decorative (`alt=""`), so
+    // the wordmark has to stay in the accessibility tree while it is off the page — hiding
+    // it with `display: none` would leave the link home announced as bare "link".
+    const nameless = pages
+      .filter(({ html }) => {
+        const brand = html.match(/<a[^>]*class="vk-navbar__brand"[\s\S]*?<\/a>/)?.[0] ?? ''
+        return !/brand-wordmark[^>]*>VivekUI</.test(brand)
+      })
+      .map(({ route }) => route)
+    expect(nameless, 'brand link has no text to be named by').toEqual([])
+  })
+
   it('gives every page the social card tags', () => {
     // Without these a shared link renders as a bare URL, which is most of what a link is
     // worth on a social feed or in a chat client.
@@ -173,5 +186,33 @@ describe.skipIf(!built)('structured data', () => {
     ]) {
       expect(types, `no ${required} anywhere on the site`).toContain(required)
     }
+  })
+})
+
+describe('the stylesheet behind the showcase frame', () => {
+  it('paints the live frame above its loading poster', () => {
+    // The poster bed is `position: absolute`, and a positioned element paints above a
+    // non-positioned sibling whatever the DOM order says. With the frame left static the
+    // poster covered the site permanently: it loaded, it rendered, and none of it was ever
+    // visible — which looked exactly like a preview that had failed to load.
+    const css = readFileSync(join(__dirname, '..', 'app', 'docs.css'), 'utf8')
+    const rule = css.match(/\.browser__frame\s*\{[^}]*\}/)?.[0] ?? ''
+    expect(rule, 'no .browser__frame rule found').not.toBe('')
+    expect(rule, 'a static frame is painted over by the poster bed').toMatch(
+      /position:\s*(relative|absolute)/,
+    )
+  })
+})
+
+describe('the stylesheet behind the brand', () => {
+  it('clips the wordmark rather than removing it', () => {
+    // `display: none` and `visibility: hidden` both drop an element from the accessibility
+    // tree. Either would silently strip the home link's only accessible name on every phone.
+    const css = readFileSync(join(__dirname, '..', 'app', 'docs.css'), 'utf8')
+    const rule = css.match(/\.brand-wordmark\s*\{[^}]*\}/)?.[0] ?? ''
+    expect(rule, 'no .brand-wordmark rule found').not.toBe('')
+    expect(rule).not.toMatch(/display:\s*none/)
+    expect(rule).not.toMatch(/visibility:\s*hidden/)
+    expect(rule, 'not the visually-hidden pattern').toMatch(/clip-path|clip:/)
   })
 })

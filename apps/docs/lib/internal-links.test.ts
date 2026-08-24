@@ -103,6 +103,46 @@ describe.skipIf(!built)('internal links in the built site', () => {
     expect(missing, 'the sitemap advertises these; nothing was built for them').toEqual([])
   })
 
+  it('renders a navbar toggle, or mobile has no navigation at all', () => {
+    // The library hides `Navbar.Links` below its breakpoint and shows the toggle instead.
+    // The header shipped without a toggle, so on every phone the links were not cramped —
+    // Docs, Components, Charts, Showcase, Pages and Playground were simply unreachable.
+    const stranded = pages
+      .filter(({ html }) => !/vk-navbar__toggle/.test(html))
+      .map(({ route }) => route)
+    expect(stranded, 'no mobile navigation on these pages').toEqual([])
+  })
+
+  it('puts the menu toggle at the end of the bar, where a thumb reaches it', () => {
+    // Both the toggle and the actions are `flex: 0 0 auto`, so source order is the visual
+    // order. Rendered before the actions, the hamburger sat in the middle of the bar.
+    const misplaced = pages
+      .filter(({ html }) => {
+        const toggle = html.indexOf('vk-navbar__toggle')
+        const actions = html.indexOf('vk-navbar__actions')
+        return toggle !== -1 && actions !== -1 && toggle < actions
+      })
+      .map(({ route }) => route)
+    expect(misplaced, 'toggle renders before the actions').toEqual([])
+  })
+
+  it('keeps the wide accent swatch row out of the navbar', () => {
+    // The five-swatch row is ~150px. In the bar it overflowed at 768px and painted the nav
+    // links over each other; every attempt to place it with a media query failed, because
+    // `Navbar` switches its links on a *container* query and nothing written in this app can
+    // see that threshold. It lives in a popover behind a 32px trigger now. If it ever comes
+    // back into the bar, this fails before anyone opens a browser.
+    const inBar = pages
+      .filter(({ html }) => {
+        const start = html.indexOf('vk-navbar__inner')
+        if (start === -1) return false
+        const bar = html.slice(start, html.indexOf('</nav>', start))
+        return bar.includes('accent-picker')
+      })
+      .map(({ route }) => route)
+    expect(inBar, 'the swatch row is back in the header bar').toEqual([])
+  })
+
   it('gives every page-template page a way back to the gallery', () => {
     // These pages sit outside the docs shell, so they have no sidebar. Shipped without a
     // single link back: from a search result the only way out was the browser's back

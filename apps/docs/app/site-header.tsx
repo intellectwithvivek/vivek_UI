@@ -4,6 +4,8 @@ import { Badge, Button, Navbar, ThemeToggle } from '@the_viveksingh/vivek-ui'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AccentPicker } from '../components/accent-picker'
+import { BRAND_LOGO } from '../lib/brand-logo'
+import { LINKS } from '../lib/links'
 import { LIBRARY_VERSION_LABEL } from '../lib/version'
 
 /**
@@ -22,7 +24,15 @@ export function SiteHeader() {
     <Navbar sticky bordered>
       <Navbar.Brand asChild>
         <Link href="/">
-          VivekUI <Badge tone="neutral">{LIBRARY_VERSION_LABEL}</Badge>
+          {/*
+            The logo file is opaque with a white background, so it sits on a white tile
+            rather than directly on the header - on the dark theme a bare white square
+            would read as a rendering fault. Width and height are set to reserve the box
+            before it decodes, which is a layout shift on every page otherwise.
+          */}
+          <img alt="" className="brand-mark" height={28} src={BRAND_LOGO} width={28} />
+          <span className="brand-wordmark">VivekUI</span>{' '}
+          <Badge tone="neutral">{LIBRARY_VERSION_LABEL}</Badge>
         </Link>
       </Navbar.Brand>
 
@@ -36,6 +46,9 @@ export function SiteHeader() {
         <Navbar.Link asChild active={isActive('/docs/charts')}>
           <Link href="/docs/charts">Charts</Link>
         </Navbar.Link>
+        <Navbar.Link asChild active={isActive('/showcase')}>
+          <Link href="/showcase">Showcase</Link>
+        </Navbar.Link>
         <Navbar.Link asChild active={isActive('/pages')}>
           <Link href="/pages">Pages</Link>
         </Navbar.Link>
@@ -47,10 +60,15 @@ export function SiteHeader() {
       <Navbar.Actions>
         <AccentPicker />
         <ThemeToggle mode="cycle" />
-        <Button asChild size="sm" variant="ghost">
+        {/*
+          Dropped from the bar below 64rem. It is the least load-bearing thing in the header
+          and it already has a place in the footer's Support column, so removing it costs
+          nothing and buys the six nav links room to sit side by side at 768px.
+        */}
+        <Button asChild className="header-support-link" size="sm" variant="ghost">
           <a
             aria-label="Buy me a coffee"
-            href="https://www.buymeacoffee.com/theviveksingh"
+            href={LINKS.buyMeACoffee}
             rel="noopener noreferrer"
             target="_blank"
             title="Buy me a coffee"
@@ -59,15 +77,22 @@ export function SiteHeader() {
           </a>
         </Button>
         <Button variant="outline" size="sm" asChild>
-          <a
-            href="https://github.com/intellectwithvivek/vivek_UI"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
+          <a href={LINKS.repo} rel="noopener noreferrer" target="_blank">
             GitHub
           </a>
         </Button>
       </Navbar.Actions>
+
+      {/*
+        Last in the bar, so the toggle sits at the far end where a thumb reaches it — both
+        it and the actions are `flex: 0 0 auto`, so source order is the visual order.
+
+        Without a toggle at all the header had no mobile navigation: the library hides
+        `Navbar.Links` below its breakpoint and shows this instead, so omitting it left Docs,
+        Components, Charts, Showcase, Pages and Playground unreachable on every phone. They
+        were not cramped — they were gone.
+      */}
+      <Navbar.Toggle />
     </Navbar>
   )
 }

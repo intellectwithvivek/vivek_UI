@@ -11,6 +11,7 @@
     "dev:all": "pnpm --filter @the_viveksingh/vivek-ui build && node scripts/gen-registry.mjs && next dev --port 3100",
     "gen:registry": "node scripts/gen-registry.mjs",
     "gen:pages": "node scripts/gen-page-sources.mjs",
+    "gen:favicons": "node scripts/gen-favicons.mjs",
     "check:examples": "node scripts/check-examples.mjs",
     "test": "vitest run"
   },

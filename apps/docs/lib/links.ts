@@ -12,6 +12,8 @@ export const LINKS = {
     github: 'https://github.com/intellectwithvivek',
     linkedin: 'https://www.linkedin.com/in/singhvvk/',
   },
+  /** The project's own LinkedIn page, distinct from the author's personal profile. */
+  linkedin: 'https://www.linkedin.com/company/vivek-ui',
   buyMeACoffee: 'https://www.buymeacoffee.com/theviveksingh',
   sponsors: 'https://github.com/sponsors/intellectwithvivek',
 } as const

@@ -31,7 +31,8 @@ export function SiteHeader() {
             before it decodes, which is a layout shift on every page otherwise.
           */}
           <img alt="" className="brand-mark" height={28} src={BRAND_LOGO} width={28} />
-          VivekUI <Badge tone="neutral">{LIBRARY_VERSION_LABEL}</Badge>
+          <span className="brand-wordmark">VivekUI</span>{' '}
+          <Badge tone="neutral">{LIBRARY_VERSION_LABEL}</Badge>
         </Link>
       </Navbar.Brand>
 

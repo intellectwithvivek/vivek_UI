@@ -777,3 +777,31 @@ body {
     display: none;
   }
 }
+
+/*
+ * Below 64rem the brand is the logo alone.
+ *
+ * The wordmark is *clipped*, not removed. The logo carries `alt=""` because the text next to
+ * it was the accessible name — so `display: none` here would leave the link home with no
+ * name at all, announced as "link" or read out as its URL. This is the visually-hidden
+ * pattern: gone from the page, still in the accessibility tree.
+ */
+@media (max-width: 63.999rem) {
+  .brand-wordmark {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* A 28px logo on its own is under the 44px touch target every mobile guideline asks for. */
+  .vk-navbar__brand {
+    min-block-size: 44px;
+    min-inline-size: 44px;
+  }
+}

@@ -36,14 +36,6 @@ export function SiteHeader() {
         </Link>
       </Navbar.Brand>
 
-      {/*
-        Without this the header has no mobile navigation at all: the library hides
-        `Navbar.Links` below its breakpoint and shows the toggle instead, so omitting the
-        toggle left Docs, Components, Charts, Showcase, Pages and Playground unreachable on
-        every phone. The links were not cramped — they were gone.
-      */}
-      <Navbar.Toggle />
-
       <Navbar.Links>
         <Navbar.Link asChild active={isActive('/docs')}>
           <Link href="/docs">Docs</Link>
@@ -99,6 +91,17 @@ export function SiteHeader() {
           </a>
         </Button>
       </Navbar.Actions>
+
+      {/*
+        Last in the bar, so the toggle sits at the far end where a thumb reaches it — both
+        it and the actions are `flex: 0 0 auto`, so source order is the visual order.
+
+        Without a toggle at all the header had no mobile navigation: the library hides
+        `Navbar.Links` below its breakpoint and shows this instead, so omitting it left Docs,
+        Components, Charts, Showcase, Pages and Playground unreachable on every phone. They
+        were not cramped — they were gone.
+      */}
+      <Navbar.Toggle />
     </Navbar>
   )
 }

@@ -189,6 +189,21 @@ describe.skipIf(!built)('structured data', () => {
   })
 })
 
+describe('the stylesheet behind the showcase frame', () => {
+  it('paints the live frame above its loading poster', () => {
+    // The poster bed is `position: absolute`, and a positioned element paints above a
+    // non-positioned sibling whatever the DOM order says. With the frame left static the
+    // poster covered the site permanently: it loaded, it rendered, and none of it was ever
+    // visible — which looked exactly like a preview that had failed to load.
+    const css = readFileSync(join(__dirname, '..', 'app', 'docs.css'), 'utf8')
+    const rule = css.match(/\.browser__frame\s*\{[^}]*\}/)?.[0] ?? ''
+    expect(rule, 'no .browser__frame rule found').not.toBe('')
+    expect(rule, 'a static frame is painted over by the poster bed').toMatch(
+      /position:\s*(relative|absolute)/,
+    )
+  })
+})
+
 describe('the stylesheet behind the brand', () => {
   it('clips the wordmark rather than removing it', () => {
     // `display: none` and `visibility: hidden` both drop an element from the accessibility

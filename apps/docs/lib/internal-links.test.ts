@@ -113,6 +113,19 @@ describe.skipIf(!built)('internal links in the built site', () => {
     expect(stranded, 'no mobile navigation on these pages').toEqual([])
   })
 
+  it('puts the menu toggle at the end of the bar, where a thumb reaches it', () => {
+    // Both the toggle and the actions are `flex: 0 0 auto`, so source order is the visual
+    // order. Rendered before the actions, the hamburger sat in the middle of the bar.
+    const misplaced = pages
+      .filter(({ html }) => {
+        const toggle = html.indexOf('vk-navbar__toggle')
+        const actions = html.indexOf('vk-navbar__actions')
+        return toggle !== -1 && actions !== -1 && toggle < actions
+      })
+      .map(({ route }) => route)
+    expect(misplaced, 'toggle renders before the actions').toEqual([])
+  })
+
   it('gives every page-template page a way back to the gallery', () => {
     // These pages sit outside the docs shell, so they have no sidebar. Shipped without a
     // single link back: from a search result the only way out was the browser's back

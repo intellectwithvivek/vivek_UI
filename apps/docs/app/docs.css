@@ -640,6 +640,17 @@ body {
 }
 
 .browser__frame {
+  /*
+   * Positioned so it paints *over* the poster bed.
+   *
+   * The bed is `position: absolute` and the frame was static — and a positioned element
+   * paints above a non-positioned sibling regardless of DOM order. So the loading poster
+   * covered the site permanently: the frame loaded, the site rendered, and none of it was
+   * ever visible. An iframe's own background is transparent, so the bed still shows through
+   * until the site paints, which is the whole point of having it.
+   */
+  position: relative;
+  z-index: 1;
   inline-size: 100%;
   block-size: 100%;
   border: 0;

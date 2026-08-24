@@ -667,6 +667,45 @@ body {
 
 /* ------------------------------------------------------------- showcase gallery */
 
+/*
+ * A live site, rendered at a desktop viewport and scaled into a card.
+ *
+ * The frame is a fixed 1280x800 and scaled by a transform, not simply made narrow: a narrow
+ * iframe renders the site's mobile layout, which is not what a landscape card promises. The
+ * scale and the card width are locked together — 1280 x 0.3125 = 400 — so the thumbnail
+ * always fills its box exactly, with no letterboxing to hide.
+ */
+.site-thumb {
+  position: relative;
+  inline-size: 100%;
+  max-inline-size: 400px;
+  margin-inline: auto;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  /* Shown while the frame is still lazy, and behind any site with a transparent body. */
+  background: var(--vk-color-surface-sunken);
+}
+
+.site-thumb__frame {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 1280px;
+  block-size: 800px;
+  border: 0;
+  transform: scale(0.3125);
+  transform-origin: 0 0;
+  /* A click belongs to the card's link, never to the site inside the frame. */
+  pointer-events: none;
+}
+
+.site-thumb__shield {
+  position: absolute;
+  inset: 0;
+}
+
 .showcase-card__poster {
   display: grid;
   place-items: center;
@@ -692,4 +731,29 @@ body {
   background: #ffffff;
   object-fit: contain;
   flex: none;
+}
+
+/*
+ * Header extras that only earn their width on a real screen.
+ *
+ * The accent picker is five swatches and its container — about 150px of a 390px phone bar,
+ * which squeezed the brand down to a single letter. The theme toggle and the GitHub link
+ * are what people reach for on a phone; picking a brand accent is not.
+ */
+.header-wide-only {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .header-wide-only {
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* The wordmark is the first thing to overflow. Let it shrink before anything else does. */
+@media (max-width: 26rem) {
+  .vk-navbar__brand .vk-badge {
+    display: none;
+  }
 }

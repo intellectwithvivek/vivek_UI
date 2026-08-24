@@ -98,11 +98,24 @@ export function BrowserFrame({ url, label, name, poster, height = 620 }: Browser
               <iframe
                 className="browser__frame"
                 /*
-                 * No `allow-same-origin`: with it, a framed page can reach back into this
-                 * one through the sandbox it shares. Scripts are allowed because these are
-                 * React applications and would render nothing without them.
+                 * `allow-same-origin` is required, and leaving it out is why this frame first
+                 * rendered blank.
+                 *
+                 * Without it the framed document gets an *opaque* origin, and in an opaque
+                 * origin every `localStorage` and `sessionStorage` access throws a
+                 * SecurityError rather than returning null. Every one of these sites reads
+                 * localStorage on mount for its theme, so the exception landed during
+                 * hydration and the app rendered nothing at all — a white rectangle with no
+                 * error visible on this page.
+                 *
+                 * The usual objection is that `allow-scripts` plus `allow-same-origin` lets a
+                 * frame remove its own sandbox attribute, which makes the sandbox close to
+                 * decorative. That objection is about untrusted content. These are twelve
+                 * first-party sites on a domain we control, listed by hand in `showcase.ts`;
+                 * what the sandbox is still buying here is no top-level navigation and no
+                 * downloads, which is worth keeping.
                  */
-                sandbox="allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
                 loading="lazy"
                 referrerPolicy="strict-origin-when-cross-origin"
                 src={url}

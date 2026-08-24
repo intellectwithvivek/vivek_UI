@@ -103,6 +103,16 @@ describe.skipIf(!built)('internal links in the built site', () => {
     expect(missing, 'the sitemap advertises these; nothing was built for them').toEqual([])
   })
 
+  it('renders a navbar toggle, or mobile has no navigation at all', () => {
+    // The library hides `Navbar.Links` below its breakpoint and shows the toggle instead.
+    // The header shipped without a toggle, so on every phone the links were not cramped —
+    // Docs, Components, Charts, Showcase, Pages and Playground were simply unreachable.
+    const stranded = pages
+      .filter(({ html }) => !/vk-navbar__toggle/.test(html))
+      .map(({ route }) => route)
+    expect(stranded, 'no mobile navigation on these pages').toEqual([])
+  })
+
   it('gives every page-template page a way back to the gallery', () => {
     // These pages sit outside the docs shell, so they have no sidebar. Shipped without a
     // single link back: from a search result the only way out was the browser's back

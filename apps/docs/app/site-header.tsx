@@ -35,6 +35,14 @@ export function SiteHeader() {
         </Link>
       </Navbar.Brand>
 
+      {/*
+        Without this the header has no mobile navigation at all: the library hides
+        `Navbar.Links` below its breakpoint and shows the toggle instead, so omitting the
+        toggle left Docs, Components, Charts, Showcase, Pages and Playground unreachable on
+        every phone. The links were not cramped — they were gone.
+      */}
+      <Navbar.Toggle />
+
       <Navbar.Links>
         <Navbar.Link asChild active={isActive('/docs')}>
           <Link href="/docs">Docs</Link>
@@ -57,7 +65,9 @@ export function SiteHeader() {
       </Navbar.Links>
 
       <Navbar.Actions>
-        <AccentPicker />
+        <span className="header-wide-only">
+          <AccentPicker />
+        </span>
         <ThemeToggle mode="cycle" />
         <Button asChild size="sm" variant="ghost">
           <a

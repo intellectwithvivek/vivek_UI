@@ -11,9 +11,9 @@ import {
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { JsonLd } from '../../components/json-ld'
+import { SiteThumbnail } from '../../components/site-thumbnail'
 import { pageMeta } from '../../lib/page-meta'
-import { displayUrl, SHOWCASE, SHOWCASE_CATEGORIES } from '../../lib/showcase'
-import { posterFor } from '../../lib/showcase-poster'
+import { displayUrl, SHOWCASE } from '../../lib/showcase'
 import { breadcrumbs, techArticle } from '../../lib/structured-data'
 
 const DESCRIPTION =
@@ -67,63 +67,51 @@ export default function ShowcaseIndex() {
         </Stack>
       </header>
 
-      {SHOWCASE_CATEGORIES.map((category) => {
-        const sites = SHOWCASE.filter((site) => site.category === category)
-        if (sites.length === 0) return null
+      {/*
+        One grid, not a section per category. Grouping left a single card in the "Portfolio"
+        row, and a lone grid item stretches to fill its track — which rendered one card 1500
+        pixels wide with a 900-pixel-tall image inside it. The category is a badge on the card
+        instead, which is where it was more use anyway.
+      */}
+      <Grid gap={4} minItemWidth="20rem">
+        {SHOWCASE.map((site) => (
+          <Card key={site.slug} padding="md" variant="outline">
+            <Stack gap={3}>
+              <SiteThumbnail site={site} />
 
-        return (
-          <section key={category}>
-            <Heading level={2} size="lg">
-              {category}
-            </Heading>
-            <Grid gap={4} minItemWidth="20rem">
-              {sites.map((site) => (
-                <Card key={site.slug} padding="md" variant="outline">
-                  <Stack gap={3}>
-                    {/*
-                      A poster, not a screenshot. A stale screenshot of a site that has since
-                      been redesigned is worse than an honest placeholder, and the live frame
-                      is one click away on the site's own page.
-                    */}
-                    <div
-                      aria-hidden="true"
-                      className="showcase-card__poster"
-                      style={{ background: posterFor(site.slug) }}
-                    >
-                      {site.name}
-                    </div>
+              <Stack gap={1}>
+                <Heading level={2} size="md">
+                  {/* The link is on the heading, so its accessible name stays short. */}
+                  <Link href={`/showcase/${site.slug}`}>{site.name}</Link>
+                </Heading>
+                <Stack align="center" direction="horizontal" gap={2} wrap>
+                  <Badge size="sm" tone="neutral" variant="soft">
+                    {site.category}
+                  </Badge>
+                  <Text size="sm" tone="muted">
+                    {displayUrl(site)}
+                  </Text>
+                </Stack>
+              </Stack>
 
-                    <Stack gap={1}>
-                      <Heading level={3} size="md">
-                        {/* The link is on the heading, so its accessible name stays short. */}
-                        <Link href={`/showcase/${site.slug}`}>{site.name}</Link>
-                      </Heading>
-                      <Text size="sm" tone="muted">
-                        {displayUrl(site)}
-                      </Text>
-                    </Stack>
+              <Text size="sm">{site.tagline}</Text>
 
-                    <Text size="sm">{site.tagline}</Text>
-
-                    <Stack direction="horizontal" gap={2} wrap>
-                      {site.components.slice(0, 4).map((name) => (
-                        <Badge key={name} size="sm" variant="soft">
-                          {name}
-                        </Badge>
-                      ))}
-                      {site.components.length > 4 ? (
-                        <Badge size="sm" tone="neutral" variant="soft">
-                          +{site.components.length - 4}
-                        </Badge>
-                      ) : null}
-                    </Stack>
-                  </Stack>
-                </Card>
-              ))}
-            </Grid>
-          </section>
-        )
-      })}
+              <Stack direction="horizontal" gap={2} wrap>
+                {site.components.slice(0, 4).map((name) => (
+                  <Badge key={name} size="sm" variant="soft">
+                    {name}
+                  </Badge>
+                ))}
+                {site.components.length > 4 ? (
+                  <Badge size="sm" tone="neutral" variant="soft">
+                    +{site.components.length - 4}
+                  </Badge>
+                ) : null}
+              </Stack>
+            </Stack>
+          </Card>
+        ))}
+      </Grid>
     </Container>
   )
 }

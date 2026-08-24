@@ -10,6 +10,8 @@
  * The component check is the one that matters. Those names become links into the docs, and a
  * name that does not exist is both a dead link and a false claim about what the site shows.
  */
+import { existsSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { registry } from './registry'
 import { cloneCommand, displayUrl, SHOWCASE, SHOWCASE_CATEGORIES } from './showcase'
@@ -91,5 +93,44 @@ describe('showcase data', () => {
       (site) => `${site.slug}: ${site.tagline.length + suffix.length}`,
     )
     expect(long).toEqual([])
+  })
+})
+
+const INDEX = join(__dirname, '..', '.next', 'server', 'app', 'showcase.html')
+const built = existsSync(INDEX)
+
+describe.skipIf(!built)('the framed previews', () => {
+  const html = built ? readFileSync(INDEX, 'utf8') : ''
+  const frames = [...html.matchAll(/<iframe[^>]*>/g)].map((match) => match[0])
+
+  it('renders one thumbnail per site', () => {
+    expect(frames).toHaveLength(SHOWCASE.length)
+  })
+
+  it('lazy-loads every one', () => {
+    // Twelve full applications on one page is only defensible because the browser fetches
+    // the frames near the viewport and no others. Drop this and the page pulls twelve sites
+    // on first paint.
+    const eager = frames.filter((frame) => !/loading="lazy"/.test(frame))
+    expect(eager).toEqual([])
+  })
+
+  it('grants allow-same-origin, without which the sites render blank', () => {
+    // An opaque origin makes every localStorage access throw a SecurityError rather than
+    // returning null. These sites read localStorage on mount for their theme, so the
+    // exception lands during hydration and nothing renders — a white rectangle, no error.
+    const opaque = frames.filter(
+      (frame) => /sandbox=/.test(frame) && !/allow-same-origin/.test(frame),
+    )
+    expect(opaque, 'sandboxed into an opaque origin').toEqual([])
+  })
+
+  it('keeps every frame sandboxed and out of the accessibility tree', () => {
+    for (const frame of frames) {
+      expect(frame, 'unsandboxed frame').toMatch(/sandbox="/)
+      // Decorative duplication of the card's link: announcing it would read a whole website
+      // to a screen-reader user who asked for a card.
+      expect(frame, 'thumbnail is not hidden from AT').toMatch(/aria-hidden="true"/)
+    }
   })
 })

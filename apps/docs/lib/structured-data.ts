@@ -19,6 +19,7 @@
  *   - `FAQPage` — the one schema answer engines quote most directly. Only used where the
  *     page genuinely is questions and answers; faking it is a manual-action risk.
  */
+import { LINKS } from './links'
 import { AUTHOR, PACKAGE_NAME, REPO_URL, SITE_NAME, SITE_TAGLINE, url } from './site'
 import { LIBRARY_VERSION } from './version'
 
@@ -44,6 +45,12 @@ export function softwareApplication(): Json {
     codeRepository: REPO_URL,
     programmingLanguage: ['TypeScript', 'JavaScript'],
     author: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
+    /*
+     * `sameAs` is how a knowledge graph joins this page to the project's other profiles.
+     * Without it the LinkedIn page and the npm listing are three unrelated things that
+     * happen to share a name.
+     */
+    sameAs: [LINKS.linkedin, LINKS.npm, REPO_URL],
     // Explicit zero price. "Is it free" is a question people ask an answer engine, and
     // this is the field it reads to answer it.
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
@@ -168,5 +175,53 @@ export function howTo(input: {
       name: step.name,
       text: step.text,
     })),
+  }
+}
+
+/**
+ * One showcase site as `SoftwareSourceCode`.
+ *
+ * This is the type Google understands for a code repository, and the one an answer engine
+ * reads when someone asks for a free open-source template. `license` and `isAccessibleForFree`
+ * matter more than they look: "free" is the whole proposition, and stating it as data rather
+ * than as marketing copy is what makes it quotable.
+ */
+export function softwareSourceCode(input: {
+  name: string
+  description: string
+  path: string
+  repository: string
+  live: string
+}): Json {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name: input.name,
+    description: input.description,
+    url: url(input.path),
+    codeRepository: input.repository,
+    /* Where the built thing actually runs, which is not the same as where the code lives. */
+    targetProduct: {
+      '@type': 'WebApplication',
+      name: input.name,
+      url: input.live,
+      applicationCategory: 'WebApplication',
+      operatingSystem: 'Any',
+      browserRequirements: 'Requires JavaScript',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+    programmingLanguage: [
+      { '@type': 'ComputerLanguage', name: 'TypeScript' },
+      { '@type': 'ComputerLanguage', name: 'React' },
+    ],
+    runtimePlatform: 'Next.js',
+    license: 'https://opensource.org/licenses/MIT',
+    isAccessibleForFree: true,
+    author: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
+    isBasedOn: {
+      '@type': 'SoftwareApplication',
+      name: SITE_NAME,
+      url: url('/'),
+    },
   }
 }

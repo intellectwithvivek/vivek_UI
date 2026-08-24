@@ -571,3 +571,125 @@ body {
     transform: none;
   }
 }
+
+/* ---------------------------------------------------------------- browser frame */
+
+/*
+ * Chrome around a live site preview. Deliberately understated: a heavy skeuomorphic browser
+ * competes with the site inside it, which is the thing the visitor came to look at.
+ */
+.browser {
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-lg);
+  background: var(--vk-color-surface-sunken);
+  overflow: hidden;
+}
+
+.browser__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-3);
+  padding: var(--vk-space-2) var(--vk-space-3);
+  background: var(--vk-color-surface-subtle);
+  border-block-end: 1px solid var(--vk-color-border);
+}
+
+.browser__dots {
+  display: flex;
+  gap: 6px;
+  flex: none;
+}
+
+.browser__dots span {
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: 50%;
+  background: var(--vk-color-border-strong);
+  opacity: 0.5;
+}
+
+.browser__url {
+  flex: 1;
+  min-inline-size: 0;
+  padding: 4px var(--vk-space-3);
+  font-family: var(--vk-font-mono);
+  font-size: var(--vk-text-xs);
+  color: var(--vk-color-fg-subtle);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: 999px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.browser__stage {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.browser__viewport {
+  max-inline-size: 100%;
+  block-size: 100%;
+  border-radius: var(--vk-radius-md);
+  overflow: hidden;
+  background: var(--vk-color-bg);
+}
+
+.browser__frame {
+  inline-size: 100%;
+  block-size: 100%;
+  border: 0;
+  display: block;
+}
+
+.browser__poster {
+  display: grid;
+  place-items: center;
+  block-size: 100%;
+  padding: var(--vk-space-6);
+  text-align: center;
+  /* The poster gradients are chosen dark, so this pair is fixed rather than themed. */
+  color: #ffffff;
+}
+
+.browser__poster-name {
+  font-size: var(--vk-text-2xl);
+  font-weight: var(--vk-weight-bold);
+  letter-spacing: -0.02em;
+}
+
+.browser__poster .vk-text {
+  color: rgb(255 255 255 / 0.85);
+}
+
+/* ------------------------------------------------------------- showcase gallery */
+
+.showcase-card__poster {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--vk-radius-md);
+  color: #ffffff;
+  font-weight: var(--vk-weight-bold);
+  font-size: var(--vk-text-lg);
+  letter-spacing: -0.01em;
+  text-align: center;
+  padding: var(--vk-space-4);
+}
+
+/*
+ * The brand mark. The source logo is opaque with a white background, so it gets a white
+ * tile and a radius - on the dark theme a bare white square reads as a broken image rather
+ * than as a logo. Swap in a transparent PNG or an SVG and the tile can go.
+ */
+.brand-mark {
+  inline-size: 28px;
+  block-size: 28px;
+  border-radius: 7px;
+  background: #ffffff;
+  object-fit: contain;
+  flex: none;
+}

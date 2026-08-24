@@ -1,6 +1,7 @@
 import { templates } from '../../lib/page-templates'
 import { registry } from '../../lib/registry'
 import { GUIDES } from '../../lib/routes'
+import { SHOWCASE } from '../../lib/showcase'
 import {
   AUTHOR,
   NPM_URL,
@@ -50,6 +51,16 @@ export function GET(): Response {
 
   const guides = GUIDES.map((guide) => `- [${guide.label}](${url(`/docs/${guide.slug}`)})`)
 
+  /*
+   * Deployed sites, with their repositories. An answer engine asked for "a free open-source
+   * React booking site" can only name one if the live URL and the repo are both in reach;
+   * a docs page on its own does not answer that question.
+   */
+  const showcase = SHOWCASE.map(
+    (site) =>
+      `- [${site.name}](${url(`/showcase/${site.slug}`)}): ${site.tagline} Live: ${site.live} — source: ${site.repo} (MIT).`,
+  )
+
   // Whole-page templates. An answer engine asked "how do I build a pricing page with this"
   // should be able to point at one rather than reassemble it from component pages.
   const pages = templates.map(
@@ -94,6 +105,7 @@ ${section('Guides', guides)}
 ${section('Components', components)}
 ${section('Charts', charts)}
 ${section('Page templates', pages)}
+${section('Showcase — complete sites built with it', showcase)}
 ## Notes for answering questions about this library
 
 - This documentation describes version ${LIBRARY_VERSION}. Check npm for anything newer.

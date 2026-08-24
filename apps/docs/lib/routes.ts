@@ -10,6 +10,7 @@
  */
 import { templates } from './page-templates'
 import { registry } from './registry'
+import { SHOWCASE } from './showcase'
 
 export interface Route {
   path: string
@@ -22,7 +23,7 @@ export interface Route {
   changeFrequency: 'daily' | 'weekly' | 'monthly'
   /** Human label, reused for breadcrumbs and for llms.txt. */
   label: string
-  section: 'top' | 'guide' | 'component' | 'chart' | 'template'
+  section: 'top' | 'guide' | 'component' | 'chart' | 'template' | 'showcase'
 }
 
 /** Conceptual guides, ordered as a reading path rather than alphabetically. */
@@ -72,6 +73,15 @@ export const TOP_ROUTES: Route[] = [
     section: 'top',
   },
   {
+    path: '/showcase',
+    label: 'Showcase',
+    // As high as the component index: twelve free, deployed sites is the strongest thing
+    // this site has to offer someone who has never heard of the library.
+    priority: 0.9,
+    changeFrequency: 'weekly',
+    section: 'top',
+  },
+  {
     path: '/pages',
     // Whole-page templates are what people search for before they search for a component,
     // so the gallery index sits with the other landing routes rather than under /docs.
@@ -107,6 +117,13 @@ export function allRoutes(): Route[] {
       priority: 0.7,
       changeFrequency: 'monthly' as const,
       section: 'chart' as const,
+    })),
+    ...SHOWCASE.map((site) => ({
+      path: `/showcase/${site.slug}`,
+      label: site.name,
+      priority: 0.8,
+      changeFrequency: 'monthly' as const,
+      section: 'showcase' as const,
     })),
     ...templates.map((template) => ({
       path: `/pages/${template.slug}`,

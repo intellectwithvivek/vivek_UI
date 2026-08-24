@@ -258,6 +258,8 @@ export default function HomePage() {
               { label: 'Installation', href: '/docs/installation' },
               { label: 'Components', href: '/docs/components' },
               { label: 'Charts', href: '/docs/charts' },
+              { label: 'Showcase', href: '/showcase' },
+              { label: 'Page templates', href: '/pages' },
               { label: 'Playground', href: '/playground' },
             ],
           },
@@ -272,6 +274,11 @@ export default function HomePage() {
               {
                 label: 'npm',
                 href: 'https://www.npmjs.com/package/@the_viveksingh/vivek-ui',
+                target: '_blank',
+              },
+              {
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/company/vivek-ui',
                 target: '_blank',
               },
             ],

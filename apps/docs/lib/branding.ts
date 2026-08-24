@@ -1,6 +1,7 @@
 import { existsSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import type { Metadata } from 'next'
+import { BRAND_LOGO_FILE } from './brand-logo'
 
 /**
  * Brand assets, detected at build time.
@@ -80,9 +81,12 @@ export const ICON_ROLES = {
 export type IconRole = keyof typeof ICON_ROLES
 
 /** Every filename any role will accept. Used to spot a stray file in the folder. */
-export const RECOGNISED_FILENAMES: string[] = Object.values(ICON_ROLES).flatMap(
-  (role) => role.names as readonly string[],
-)
+export const RECOGNISED_FILENAMES: string[] = [
+  ...Object.values(ICON_ROLES).flatMap((role) => role.names as readonly string[]),
+  // Read by the header rather than by `brandIcons()`, and by `gen-favicons.mjs` as the
+  // source every other file here is derived from.
+  BRAND_LOGO_FILE,
+]
 
 /** The first accepted filename that exists for a role, or null. */
 export function resolveRole(role: IconRole): { file: string; bytes: number } | null {

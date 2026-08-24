@@ -4,6 +4,8 @@ import { Badge, Button, Navbar, ThemeToggle } from '@the_viveksingh/vivek-ui'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AccentPicker } from '../components/accent-picker'
+import { BRAND_LOGO } from '../lib/brand-logo'
+import { LINKS } from '../lib/links'
 import { LIBRARY_VERSION_LABEL } from '../lib/version'
 
 /**
@@ -22,6 +24,13 @@ export function SiteHeader() {
     <Navbar sticky bordered>
       <Navbar.Brand asChild>
         <Link href="/">
+          {/*
+            The logo file is opaque with a white background, so it sits on a white tile
+            rather than directly on the header - on the dark theme a bare white square
+            would read as a rendering fault. Width and height are set to reserve the box
+            before it decodes, which is a layout shift on every page otherwise.
+          */}
+          <img alt="" className="brand-mark" height={28} src={BRAND_LOGO} width={28} />
           VivekUI <Badge tone="neutral">{LIBRARY_VERSION_LABEL}</Badge>
         </Link>
       </Navbar.Brand>
@@ -35,6 +44,9 @@ export function SiteHeader() {
         </Navbar.Link>
         <Navbar.Link asChild active={isActive('/docs/charts')}>
           <Link href="/docs/charts">Charts</Link>
+        </Navbar.Link>
+        <Navbar.Link asChild active={isActive('/showcase')}>
+          <Link href="/showcase">Showcase</Link>
         </Navbar.Link>
         <Navbar.Link asChild active={isActive('/pages')}>
           <Link href="/pages">Pages</Link>
@@ -50,7 +62,7 @@ export function SiteHeader() {
         <Button asChild size="sm" variant="ghost">
           <a
             aria-label="Buy me a coffee"
-            href="https://www.buymeacoffee.com/theviveksingh"
+            href={LINKS.buyMeACoffee}
             rel="noopener noreferrer"
             target="_blank"
             title="Buy me a coffee"
@@ -59,11 +71,7 @@ export function SiteHeader() {
           </a>
         </Button>
         <Button variant="outline" size="sm" asChild>
-          <a
-            href="https://github.com/intellectwithvivek/vivek_UI"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
+          <a href={LINKS.repo} rel="noopener noreferrer" target="_blank">
             GitHub
           </a>
         </Button>

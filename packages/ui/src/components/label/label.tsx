@@ -2,7 +2,7 @@ import { forwardRef, type LabelHTMLAttributes } from 'react'
 import { cx } from '../../utils/cx'
 
 export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
   /** Show a required marker. Purely visual — set `required` on the control too. */
   required?: boolean
 }

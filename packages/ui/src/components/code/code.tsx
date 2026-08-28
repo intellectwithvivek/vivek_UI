@@ -4,7 +4,7 @@ import { cx } from '../../utils/cx'
 export interface CodeProps extends HTMLAttributes<HTMLElement> {
   /** Render as a fenced block (`pre > code`) instead of inline. */
   block?: boolean
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
 }
 
 /** Monospaced code. Inline by default; `block` wraps it in a scrollable `pre`. */

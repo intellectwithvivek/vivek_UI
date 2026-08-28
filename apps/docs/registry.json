@@ -2347,7 +2347,7 @@
           },
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
             "default": ""
@@ -2494,7 +2494,7 @@
           },
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
             "default": ""
@@ -5382,7 +5382,7 @@
           },
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
             "default": ""
@@ -5500,7 +5500,7 @@
           },
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
             "default": ""
@@ -8153,10 +8153,10 @@
             "default": ""
           },
           {
-            "name": "variant",
+            "name": "background",
             "type": "'default' | 'muted' | 'primary'",
             "required": false,
-            "description": "Surface treatment. `primary` re-points the palette for the whole block.",
+            "description": "Surface treatment, forwarded to the underlying `Section`. Named `background` because that is exactly what it is — `variant` implied a structural difference that never existed, and Section already calls this vocabulary `background`.",
             "default": ""
           },
           {
@@ -8889,10 +8889,10 @@
       "api": {
         "props": [
           {
-            "name": "rows",
+            "name": "data",
             "type": "readonly Row[]",
             "required": true,
-            "description": "",
+            "description": "The data. Named `data` to match DataTable — tabular row sets are always `data`.",
             "default": ""
           },
           {
@@ -8920,7 +8920,7 @@
             "name": "getRowKey",
             "type": "(row: Row, index: number) => string | number",
             "required": false,
-            "description": "Stable row identity. Defaults to the index, which breaks if rows reorder.",
+            "description": "Stable row identity. Defaults to the index, which breaks if data reorder.",
             "default": ""
           },
           {
@@ -8936,24 +8936,12 @@
             "required": false,
             "description": "Fixed height turns on scrolling with a sticky header.",
             "default": ""
-          },
-          {
-            "name": "className",
-            "type": "string",
-            "required": false,
-            "description": "",
-            "default": ""
-          },
-          {
-            "name": "id",
-            "type": "string",
-            "required": false,
-            "description": "",
-            "default": ""
           }
         ],
-        "spreadsHostProps": false,
-        "extends": []
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>"
+        ]
       },
       "compound": false
     },
@@ -9049,10 +9037,10 @@
             "default": ""
           },
           {
-            "name": "defaultOpen",
+            "name": "defaultOpenIndex",
             "type": "number",
             "required": false,
-            "description": "Index of the item to render open on first paint. Server-rendered as the native `open` attribute, so there is nothing to hydrate.",
+            "description": "Index of the item to render open on first paint. Server-rendered as the native `open` attribute, so there is nothing to hydrate. Named with `Index` because every other component's `defaultOpen` is a boolean — same name, different type, was a trap.",
             "default": ""
           },
           {
@@ -9225,7 +9213,7 @@
           },
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
             "default": ""
@@ -9333,15 +9321,17 @@
             "default": ""
           },
           {
-            "name": "className",
-            "type": "string",
+            "name": "onSelectedIdChange",
+            "type": "(id: string) => void",
             "required": false,
-            "description": "",
+            "description": "Reports selection changes for a controlled tree — the id twin of `onSelect`, which hands you the whole node. Fires alongside it.",
             "default": ""
           }
         ],
-        "spreadsHostProps": false,
-        "extends": []
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<React.HTMLAttributes<HTMLUListElement>, 'onSelect'>"
+        ]
       },
       "compound": false
     },
@@ -9465,7 +9455,7 @@
           },
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
             "default": ""
@@ -9739,6 +9729,74 @@
       "compound": false
     },
     {
+      "slug": "hover-card",
+      "title": "Hover card",
+      "kind": "component",
+      "category": "Overlays",
+      "exports": [
+        "HoverCard",
+        "HoverCardContent",
+        "HoverCardTrigger"
+      ],
+      "typeExports": [
+        "HoverCardContentProps",
+        "HoverCardProps",
+        "HoverCardTriggerProps"
+      ],
+      "primary": "HoverCard",
+      "description": "A rich preview that appears on hover and on focus — a user card on an",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "description": "Controlled open state.",
+            "default": ""
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "required": false,
+            "description": "Initial open state while uncontrolled. Default `false`.",
+            "default": ""
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "openDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before a hover opens the card, ms. Default `300` — longer than a tooltip's, because a card is heavier than a tip and a pointer merely passing over a list of mentions must not open one preview per name. Keyboard focus ignores this and opens immediately: the delay exists to filter out accidental hovers, and pressing Tab is never accidental.",
+            "default": ""
+          },
+          {
+            "name": "closeDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the card closes after the pointer leaves, ms. Default `150`. Must stay above zero: it is the window in which the pointer can cross the gap from the trigger onto the card itself without the card vanishing underneath it.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": false,
+        "extends": []
+      },
+      "compound": true
+    },
+    {
       "slug": "icon-button",
       "title": "Icon button",
       "kind": "component",
@@ -9787,6 +9845,13 @@
             "type": "string",
             "required": true,
             "description": "Required. An icon-only control has no text for a screen reader to announce, so the accessible name has to come from here — this is the single most common a11y bug in icon buttons, so the type system enforces it.",
+            "default": ""
+          },
+          {
+            "name": "asChild",
+            "type": "boolean",
+            "required": false,
+            "description": "Render the child element instead of a `<button>` — an icon link: `<IconButton asChild aria-label=\"Settings\"><Link href=\"/settings\">{gear}</Link></IconButton>`. `loading` and `disabled` are ignored with `asChild`, same as Button: `disabled` is not valid on an anchor, and a spinner would fight the child's content.",
             "default": ""
           }
         ],
@@ -9968,17 +10033,12 @@
             "required": false,
             "description": "Rendered instead of the default card body.",
             "default": ""
-          },
-          {
-            "name": "className",
-            "type": "string",
-            "required": false,
-            "description": "",
-            "default": ""
           }
         ],
-        "spreadsHostProps": false,
-        "extends": []
+        "spreadsHostProps": true,
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
       },
       "compound": false
     },
@@ -10000,7 +10060,7 @@
         "props": [
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
             "default": ""
@@ -10031,7 +10091,7 @@
         "props": [
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
             "default": ""
@@ -10537,7 +10597,7 @@
             "default": ""
           },
           {
-            "name": "onChange",
+            "name": "onValueChange",
             "type": "(value: string) => void",
             "required": false,
             "description": "Called with the whole code on every edit, in both modes.",
@@ -11063,8 +11123,8 @@
           {
             "name": "label",
             "type": "string",
-            "required": false,
-            "description": "Accessible name, e.g. \"Upload progress\".",
+            "required": true,
+            "description": "Required. A `role=\"progressbar\"` with no accessible name is announced as a bare \"progress bar\" — the one thing a progress bar must communicate is what is progressing. This was the last widget in the library that could render an unlabelled live region.",
             "default": ""
           }
         ],
@@ -11177,10 +11237,10 @@
             "default": ""
           },
           {
-            "name": "onChange",
+            "name": "onValueChange",
             "type": "(value: string) => void",
             "required": false,
-            "description": "",
+            "description": "Reports the selected value. Named `onValueChange`, not `onChange`, because the DOM already owns `onChange` with an event signature — redefining it breaks the mental model and the types for anyone spreading input props.",
             "default": ""
           },
           {
@@ -11192,9 +11252,16 @@
           },
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
+            "default": ""
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "required": false,
+            "description": "Marks the control invalid: sets `aria-invalid` and a `data-invalid` hook for styling. Every other form control in the library takes this; these two were the exceptions, so a form could not show a consistent error state across its rows.",
             "default": ""
           },
           {
@@ -11214,7 +11281,7 @@
         ],
         "spreadsHostProps": true,
         "extends": [
-          "Omit<HTMLAttributes<HTMLFieldSetElement>, 'onChange'>"
+          "HTMLAttributes<HTMLFieldSetElement>"
         ]
       },
       "compound": true
@@ -11503,7 +11570,7 @@
             "default": ""
           },
           {
-            "name": "onEventSelect",
+            "name": "onSelect",
             "type": "(event: SchedulerEvent) => void",
             "required": false,
             "description": "",
@@ -11522,17 +11589,12 @@
             "required": false,
             "description": "How a time is written, in the axis and in every accessible name. The default is a deterministic 24-hour `HH:MM` rather than `Intl.DateTimeFormat`, because ICU output varies between Node builds and browsers — the same code would render differently for two of your users. Pass your own for 12-hour clocks or other locales.",
             "default": ""
-          },
-          {
-            "name": "className",
-            "type": "string",
-            "required": false,
-            "description": "",
-            "default": ""
           }
         ],
-        "spreadsHostProps": false,
-        "extends": []
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'>"
+        ]
       },
       "compound": false
     },
@@ -11645,6 +11707,87 @@
         "spreadsHostProps": true,
         "extends": [
           "HTMLAttributes<HTMLElement>"
+        ]
+      },
+      "compound": false
+    },
+    {
+      "slug": "segmented",
+      "title": "Segmented",
+      "kind": "component",
+      "category": "Forms",
+      "exports": [
+        "Segmented"
+      ],
+      "typeExports": [
+        "SegmentedOption",
+        "SegmentedProps"
+      ],
+      "primary": "Segmented",
+      "description": "A segmented control: one visible choice from a few, always all on screen.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "options",
+            "type": "readonly SegmentedOption[]",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": true,
+            "description": "Required. The group has no visible name — the segments label themselves, not the choice being made — so without this a screen reader announces \"radio group\" and nothing else.",
+            "default": ""
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "required": false,
+            "description": "Controlled selection.",
+            "default": ""
+          },
+          {
+            "name": "defaultValue",
+            "type": "string",
+            "required": false,
+            "description": "Uncontrolled initial selection. Omit it and nothing starts selected.",
+            "default": ""
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: string) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "size",
+            "type": "'sm' | 'md' | 'lg'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "fullWidth",
+            "type": "boolean",
+            "required": false,
+            "description": "Stretch to the container, splitting the width equally between segments.",
+            "default": ""
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'>"
         ]
       },
       "compound": false
@@ -14270,9 +14413,16 @@
           },
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
+            "default": ""
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "required": false,
+            "description": "Marks the control invalid: sets `aria-invalid` and a `data-invalid` hook for styling. Every other form control in the library takes this; these two were the exceptions, so a form could not show a consistent error state across its rows.",
             "default": ""
           },
           {
@@ -14488,7 +14638,7 @@
             "default": ""
           },
           {
-            "name": "onChange",
+            "name": "onValueChange",
             "type": "(value: string[]) => void",
             "required": false,
             "description": "Called with the whole new list on every add or remove, in both modes.",
@@ -14706,7 +14856,7 @@
           },
           {
             "name": "tone",
-            "type": "'default' | 'muted' | 'danger' | 'primary'",
+            "type": "'neutral' | 'muted' | 'danger' | 'primary'",
             "required": false,
             "description": "`muted` for secondary copy, `danger` for errors.",
             "default": ""
@@ -15186,7 +15336,7 @@
           },
           {
             "name": "size",
-            "type": "'sm' | 'md'",
+            "type": "'sm' | 'md' | 'lg'",
             "required": false,
             "description": "",
             "default": ""
@@ -15647,14 +15797,14 @@
             "name": "innerRadius",
             "type": "number",
             "required": false,
-            "description": "Hole size as a fraction of the outer radius, `0` to `0.95`. Only applies with `donut`; defaults to `0.6`.",
+            "description": "Hole diameter as a fraction of the outer radius, `0` to `0.95`. Only applies with `donut`; defaults to `0.6`.",
             "default": ""
           },
           {
-            "name": "size",
+            "name": "diameter",
             "type": "number",
             "required": false,
-            "description": "Side of the square `viewBox`, in px, and the widest the chart will draw.",
+            "description": "Rendered diameter in pixels. Named `diameter`, not `size`, because `size` is a sm/md/lg scale everywhere else in the library — same word, different type, was a trap.",
             "default": ""
           },
           {
@@ -15738,10 +15888,10 @@
             "default": ""
           },
           {
-            "name": "size",
+            "name": "diameter",
             "type": "number",
             "required": false,
-            "description": "Diameter in px. The ring scales down responsively but never past this.",
+            "description": "Rendered diameter in pixels. Named `diameter`, not `size`, because `size` is a sm/md/lg scale everywhere else in the library — same word, different type, was a trap.",
             "default": ""
           },
           {

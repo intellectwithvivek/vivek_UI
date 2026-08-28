@@ -7,7 +7,7 @@ export interface CheckboxProps
   label?: ReactNode
   /** Secondary line under the label. */
   description?: ReactNode
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
   invalid?: boolean
 }
 

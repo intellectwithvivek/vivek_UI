@@ -6,7 +6,7 @@ export interface TextProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType
   size?: 'sm' | 'md' | 'lg' | 'xl'
   /** `muted` for secondary copy, `danger` for errors. */
-  tone?: 'default' | 'muted' | 'danger' | 'primary'
+  tone?: 'neutral' | 'muted' | 'danger' | 'primary'
   weight?: 'normal' | 'medium' | 'semibold' | 'bold'
   align?: 'start' | 'center' | 'end'
   truncate?: boolean
@@ -25,7 +25,7 @@ export const Text = forwardRef<HTMLElement, TextProps>(function Text(
   {
     as: Component = 'p',
     size = 'md',
-    tone = 'default',
+    tone = 'neutral',
     weight,
     align,
     truncate,

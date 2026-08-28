@@ -1,5 +1,6 @@
 import { type ButtonHTMLAttributes, forwardRef } from 'react'
 import { cx } from '../../utils/cx'
+import { Slot } from '../../utils/slot'
 
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'solid' | 'outline' | 'ghost'
@@ -13,6 +14,13 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
    * bug in icon buttons, so the type system enforces it.
    */
   'aria-label': string
+  /**
+   * Render the child element instead of a `<button>` — an icon link:
+   * `<IconButton asChild aria-label="Settings"><Link href="/settings">{gear}</Link></IconButton>`.
+   * `loading` and `disabled` are ignored with `asChild`, same as Button: `disabled` is not
+   * valid on an anchor, and a spinner would fight the child's content.
+   */
+  asChild?: boolean
 }
 
 /**
@@ -24,18 +32,39 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
  * leaving it to code review.
  */
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
-  { variant = 'ghost', size = 'md', loading, round, className, children, disabled, ...rest },
+  {
+    variant = 'ghost',
+    size = 'md',
+    loading,
+    round,
+    asChild,
+    className,
+    children,
+    disabled,
+    ...rest
+  },
   ref,
 ) {
+  const shared = {
+    ref,
+    className: cx('vk-icon-button', className),
+    'data-variant': variant,
+    'data-size': size,
+    'data-round': round || undefined,
+  }
+
+  if (asChild) {
+    return (
+      <Slot {...shared} {...rest}>
+        {children}
+      </Slot>
+    )
+  }
   return (
     <button
-      ref={ref}
-      className={cx('vk-icon-button', className)}
-      data-variant={variant}
-      data-size={size}
-      data-round={round || undefined}
       data-loading={loading || undefined}
       disabled={disabled || loading}
+      {...shared}
       {...rest}
     >
       {loading ? <span className="vk-icon-button__spinner" aria-hidden="true" /> : children}

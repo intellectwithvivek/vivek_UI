@@ -242,7 +242,7 @@ export default function Revenue() {
     {
       title: 'Custom content and scale',
       variant: 'custom',
-      code: `<ProgressRing value={7} max={10} size={140} thickness={12} label="Onboarding">
+      code: `<ProgressRing value={7} max={10} diameter={140} thickness={12} label="Onboarding">
   <strong>7/10</strong>
   <span>steps done</span>
 </ProgressRing>`,

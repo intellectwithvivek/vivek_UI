@@ -139,7 +139,7 @@ export default function CheckoutPage() {
                   <RadioGroup
                     label="How should we deliver this?"
                     name="shipping"
-                    onChange={setShipping}
+                    onValueChange={setShipping}
                     options={[
                       {
                         value: 'standard',

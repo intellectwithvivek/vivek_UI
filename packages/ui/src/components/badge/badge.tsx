@@ -4,7 +4,7 @@ import { cx } from '../../utils/cx'
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: 'solid' | 'soft' | 'outline'
   tone?: 'primary' | 'neutral' | 'success' | 'warning' | 'danger'
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
   /** Pill-shaped instead of rounded-rectangle. */
   pill?: boolean
 }

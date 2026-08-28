@@ -241,7 +241,7 @@ describe('Radio', () => {
   it('selects on click and reports through the group', () => {
     const onChange = vi.fn()
     render(
-      <RadioGroup label="Delivery" name="delivery" onChange={onChange}>
+      <RadioGroup label="Delivery" name="delivery" onValueChange={onChange}>
         <Radio value="standard" label="Standard" />
         <Radio value="express" label="Express" />
       </RadioGroup>,
@@ -323,7 +323,7 @@ describe('RadioGroup', () => {
     render(
       <RadioGroup
         name="plan"
-        onChange={onChange}
+        onValueChange={onChange}
         options={[
           { value: 'free', label: 'Free' },
           { value: 'pro', label: 'Pro' },
@@ -339,7 +339,7 @@ describe('RadioGroup', () => {
       <RadioGroup
         name="plan"
         value="free"
-        onChange={() => {}}
+        onValueChange={() => {}}
         options={[
           { value: 'free', label: 'Free' },
           { value: 'pro', label: 'Pro' },

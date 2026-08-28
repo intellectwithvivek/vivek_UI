@@ -24,7 +24,7 @@ export interface TagInputProps
   /** Uncontrolled initial tags. Default `[]`. */
   defaultValue?: string[]
   /** Called with the whole new list on every add or remove, in both modes. */
-  onChange?: (value: string[]) => void
+  onValueChange?: (value: string[]) => void
   /** Hard cap. Further tags are rejected with reason `'max'`. */
   max?: number
   /**
@@ -74,7 +74,7 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(function Tag
   {
     value,
     defaultValue,
-    onChange,
+    onValueChange,
     max,
     validate,
     allowDuplicates = false,
@@ -104,7 +104,7 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(function Tag
   const [tags, setTags] = useControllableState<string[]>({
     value,
     defaultValue: defaultValue ?? [],
-    onChange,
+    onChange: onValueChange,
   })
   const [draft, setDraft] = useState('')
   const [error, setError] = useState<string | null>(null)

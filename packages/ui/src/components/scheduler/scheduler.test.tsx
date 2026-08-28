@@ -216,10 +216,10 @@ describe('Scheduler · keyboard, the only way in without a pointer', () => {
   })
 
   it('reports a selection, and does not mutate anything', () => {
-    const onEventSelect = vi.fn()
-    setup({ onEventSelect })
+    const onSelect = vi.fn()
+    setup({ onSelect })
     fireEvent.click(slot('e2'))
-    expect(onEventSelect).toHaveBeenCalledWith(expect.objectContaining({ id: 'e2' }))
+    expect(onSelect).toHaveBeenCalledWith(expect.objectContaining({ id: 'e2' }))
     // Still exactly where it was: state is the caller's.
     expect(left(slot('e2'))).toBeCloseTo(40, 5)
   })

@@ -4,7 +4,13 @@ import { cx } from '../../utils/cx'
 export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
   label?: ReactNode
   description?: ReactNode
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
+  /**
+   * Marks the control invalid: sets `aria-invalid` and a `data-invalid` hook for styling.
+   * Every other form control in the library takes this; these two were the exceptions, so a
+   * form could not show a consistent error state across its rows.
+   */
+  invalid?: boolean
   /** Put the control after the label instead of before it. */
   labelPosition?: 'start' | 'end'
 }
@@ -17,17 +23,19 @@ export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
  * takes effect immediately; use `Checkbox` for anything that needs a submit.
  */
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
-  { label, description, size = 'md', labelPosition = 'end', className, id, ...rest },
+  { label, description, size = 'md', invalid, labelPosition = 'end', className, id, ...rest },
   ref,
 ) {
   return (
     <label
       className={cx('vk-switch', className)}
       data-size={size}
+      data-invalid={invalid || undefined}
       data-label-position={labelPosition}
       htmlFor={id}
     >
       <input
+        aria-invalid={invalid || undefined}
         ref={ref}
         id={id}
         type="checkbox"

@@ -318,7 +318,7 @@ export const FORM_EXAMPLES: ExampleSet = {
   defaultValue={['react', 'typescript', 'accessibility']}
   placeholder="Add a topic"
   aria-label="Topics"
-  onChange={setTopics}
+  onValueChange={setTopics}
 />`,
     },
     {

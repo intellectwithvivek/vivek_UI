@@ -23,7 +23,7 @@ export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   error?: ReactNode
   /** Marks the label and sets `required` on the control. */
   required?: boolean
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
   /** Explicit id for the control. One is generated when omitted. */
   id?: string
   /** Exactly one form control: `Input`, `Textarea`, `Select`, and so on. */

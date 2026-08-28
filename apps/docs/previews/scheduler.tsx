@@ -77,7 +77,7 @@ export default function SchedulerPreview() {
         events={EVENTS}
         label="Studio bookings, 12 March"
         now={at(13, 20)}
-        onEventSelect={setSelected}
+        onSelect={setSelected}
         resources={RESOURCES}
         start={at(9)}
       />

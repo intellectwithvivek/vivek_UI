@@ -783,7 +783,9 @@ describe('ProgressRing', () => {
   })
 
   it('never lets the stroke swallow the radius', () => {
-    const { container } = render(<ProgressRing value={50} size={40} thickness={400} label="a" />)
+    const { container } = render(
+      <ProgressRing value={50} diameter={40} thickness={400} label="a" />,
+    )
     const arc = container.querySelector('.vk-progress-ring__arc')
     expect(Number(arc?.getAttribute('r'))).toBeGreaterThan(0)
     expectCleanNumbers(container)

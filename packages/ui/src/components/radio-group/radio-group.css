@@ -15,6 +15,16 @@
   font-size: var(--vk-text-md);
 }
 
+/*
+ * `lg` completes the sm/md/lg scale every other control already had. Before 1.0 a
+ * `size="lg"` form was impossible to compose: Input and Select had lg, Checkbox and Field
+ * did not, so the row came out mismatched. The internals are em-based, so one font-size
+ * scales the whole control.
+ */
+:where(.vk-radio-group[data-size="lg"]) {
+  font-size: var(--vk-text-lg);
+}
+
 :where(.vk-radio-group__legend) {
   padding: 0;
   margin-bottom: var(--vk-space-2);

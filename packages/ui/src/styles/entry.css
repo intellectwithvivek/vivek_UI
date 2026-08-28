@@ -63,6 +63,7 @@
 @import "../components/grid/grid.css";
 @import "../components/heading/heading.css";
 @import "../components/hero/hero.css";
+@import "../components/hover-card/hover-card.css";
 @import "../components/icon-button/icon-button.css";
 @import "../components/image/image.css";
 @import "../components/input/input.css";
@@ -88,6 +89,7 @@
 @import "../components/scheduler/scheduler.css";
 @import "../components/scroll-area/scroll-area.css";
 @import "../components/section/section.css";
+@import "../components/segmented/segmented.css";
 @import "../components/select/select.css";
 @import "../components/sidebar/sidebar.css";
 @import "../components/skeleton/skeleton.css";

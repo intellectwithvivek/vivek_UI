@@ -8,7 +8,7 @@ export interface TypingIndicatorProps extends HTMLAttributes<HTMLDivElement> {
   showLabel?: boolean
   /** How many dots. Defaults to 3. */
   dots?: number
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
   /**
    * When `false` the live region stays mounted but empty. Use this when you want a
    * guaranteed announcement — see the accessibility note on the component.

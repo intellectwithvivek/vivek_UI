@@ -1,6 +1,9 @@
 'use client'
 
+import type { ReactElement, RefAttributes } from 'react'
 import {
+  forwardRef,
+  type HTMLAttributes,
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
   useCallback,
@@ -47,21 +50,20 @@ export interface CellChange<Row> {
   row: Row
 }
 
-export interface EditableGridProps<Row> {
-  rows: readonly Row[]
+export interface EditableGridProps<Row> extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+  /** The data. Named `data` to match DataTable — tabular row sets are always `data`. */
+  data: readonly Row[]
   columns: readonly EditableColumn<Row>[]
   /** Required. A grid with no accessible name is unusable with a screen reader. */
   label: string
   /** Fired when an edit is committed. Nothing is mutated for you — apply it to your state. */
   onCellChange?: (change: CellChange<Row>) => void
-  /** Stable row identity. Defaults to the index, which breaks if rows reorder. */
+  /** Stable row identity. Defaults to the index, which breaks if data reorder. */
   getRowKey?: (row: Row, index: number) => string | number
   /** Blocks editing everywhere, whatever the columns say. */
   readOnly?: boolean
   /** Fixed height turns on scrolling with a sticky header. */
   height?: string | number
-  className?: string
-  id?: string
 }
 
 interface CellPosition {
@@ -78,44 +80,21 @@ function readValue<Row>(row: Row, key: string): unknown {
   return (row as Record<string, unknown>)[key]
 }
 
-/**
- * A spreadsheet-style editable grid.
- *
- * The gap this fills: every component library ships a *table*, and none ship an editable
- * one. Teams reach for AG Grid, Handsontable or TanStack Table plus a lot of glue — a second
- * dependency, often a paid licence, for the single feature of typing into a cell.
- *
- * **Keyboard model is the WAI-ARIA grid pattern, not a table with inputs in it.** The
- * distinction matters: inputs in every cell means one tab stop per cell, so a 50-column grid
- * takes 50 tabs to escape. Here the whole grid is ONE tab stop, arrows move between cells,
- * and a cell only becomes an input while it is being edited.
- *
- * | Key | Behaviour |
- * | --- | --- |
- * | Arrows | Move the focused cell |
- * | Home / End | First / last cell in the row |
- * | Ctrl+Home / Ctrl+End | First / last cell in the grid |
- * | Enter or F2 | Start editing |
- * | Any printable key | Start editing, replacing the cell |
- * | Enter while editing | Commit and move down |
- * | Tab while editing | Commit and move right |
- * | Escape | Cancel, restoring the previous value |
- *
- * **Nothing is mutated for you.** `onCellChange` reports the edit and your state decides. A
- * grid that writes into the array it was handed is impossible to make work with immutable
- * state, undo, or a server round-trip that might fail.
- */
-export function EditableGrid<Row>({
-  rows,
-  columns,
-  label,
-  onCellChange,
-  getRowKey,
-  readOnly = false,
-  height,
-  className,
-  id,
-}: EditableGridProps<Row>) {
+function EditableGridRoot<Row>(
+  {
+    data,
+    columns,
+    label,
+    onCellChange,
+    getRowKey,
+    readOnly = false,
+    height,
+    className,
+    style,
+    ...rest
+  }: EditableGridProps<Row>,
+  forwardedRef: React.ForwardedRef<HTMLDivElement>,
+) {
   const [focused, setFocused] = useState<CellPosition>({ row: 0, col: 0 })
   const [editing, setEditing] = useState<CellPosition | null>(null)
   const [draft, setDraft] = useState('')
@@ -124,7 +103,7 @@ export function EditableGrid<Row>({
   /** Set when a keystroke moved focus, so the DOM focus follows — but not on mere re-render. */
   const shouldRefocus = useRef(false)
 
-  const rowCount = rows.length
+  const rowCount = data.length
   const colCount = columns.length
 
   const clamp = useCallback(
@@ -159,7 +138,7 @@ export function EditableGrid<Row>({
   const beginEdit = useCallback(
     (pos: CellPosition, initial?: string) => {
       const column = columns[pos.col]
-      const row = rows[pos.row]
+      const row = data[pos.row]
       if (!column || row === undefined) return
       if (readOnly || !column.editable) return
       const current =
@@ -168,14 +147,14 @@ export function EditableGrid<Row>({
       setDraft(current)
       setEditing(pos)
     },
-    [columns, rows, readOnly],
+    [columns, data, readOnly],
   )
 
   const commit = useCallback(
     (then?: CellPosition) => {
       if (!editing) return
       const column = columns[editing.col]
-      const row = rows[editing.row]
+      const row = data[editing.row]
       if (column && row !== undefined) {
         // `parse` returning undefined is the documented way to reject an edit, so an invalid
         // entry restores the old value rather than writing a broken one.
@@ -193,7 +172,7 @@ export function EditableGrid<Row>({
       shouldRefocus.current = true
       if (then) setFocused(clamp(then))
     },
-    [editing, columns, rows, draft, onCellChange, clamp],
+    [editing, columns, data, draft, onCellChange, clamp],
   )
 
   const cancel = useCallback(() => {
@@ -269,10 +248,14 @@ export function EditableGrid<Row>({
       aria-rowcount={rowCount + 1}
       className={cx('vk-editable-grid', className)}
       data-scrolls={scrolls || undefined}
-      id={id}
-      ref={gridRef}
+      ref={(node) => {
+        gridRef.current = node
+        if (typeof forwardedRef === 'function') forwardedRef(node)
+        else if (forwardedRef) forwardedRef.current = node
+      }}
       role="grid"
-      style={scrolls ? { height, overflow: 'auto' } : undefined}
+      style={scrolls ? { height, overflow: 'auto', ...style } : style}
+      {...rest}
     >
       <div className="vk-editable-grid__head" role="rowgroup">
         {/* biome-ignore lint/a11y/useFocusableInteractive: the ARIA grid pattern puts the single tab stop on the active cell - a focusable row would add a second. */}
@@ -295,7 +278,7 @@ export function EditableGrid<Row>({
       </div>
 
       <div className="vk-editable-grid__body" role="rowgroup">
-        {rows.map((row, rowIndex) => (
+        {data.map((row, rowIndex) => (
           // biome-ignore lint/a11y/useFocusableInteractive: as above - focus belongs to the active cell, not the row.
           <div
             aria-rowindex={rowIndex + 2}
@@ -358,3 +341,43 @@ export function EditableGrid<Row>({
     </div>
   )
 }
+
+/**
+ * forwardRef erases generics, so the ref-forwarding wrapper is cast back to a generic
+ * callable — the same shape DataTable uses. §4.1: every component forwards its ref and
+ * spreads the rest onto the root.
+ */
+interface EditableGridComponent {
+  <Row>(props: EditableGridProps<Row> & RefAttributes<HTMLDivElement>): ReactElement | null
+  displayName?: string
+}
+
+/**
+ * A spreadsheet-style editable grid.
+ *
+ * The gap this fills: every component library ships a *table*, and none ship an editable
+ * one. Teams reach for AG Grid, Handsontable or TanStack Table plus a lot of glue — a second
+ * dependency, often a paid licence, for the single feature of typing into a cell.
+ *
+ * **Keyboard model is the WAI-ARIA grid pattern, not a table with inputs in it.** The
+ * distinction matters: inputs in every cell means one tab stop per cell, so a 50-column grid
+ * takes 50 tabs to escape. Here the whole grid is ONE tab stop, arrows move between cells,
+ * and a cell only becomes an input while it is being edited.
+ *
+ * | Key | Behaviour |
+ * | --- | --- |
+ * | Arrows | Move the focused cell |
+ * | Home / End | First / last cell in the row |
+ * | Ctrl+Home / Ctrl+End | First / last cell in the grid |
+ * | Enter or F2 | Start editing |
+ * | Any printable key | Start editing, replacing the cell |
+ * | Enter while editing | Commit and move down |
+ * | Tab while editing | Commit and move right |
+ * | Escape | Cancel, restoring the previous value |
+ *
+ * **Nothing is mutated for you.** `onCellChange` reports the edit and your state decides. A
+ * grid that writes into the array it was handed is impossible to make work with immutable
+ * state, undo, or a server round-trip that might fail.
+ */
+export const EditableGrid = forwardRef(EditableGridRoot) as EditableGridComponent
+EditableGrid.displayName = 'EditableGrid'

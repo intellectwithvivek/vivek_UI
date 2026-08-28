@@ -51,7 +51,7 @@ export interface FileUploadProps
   label?: ReactNode
   /** Secondary line — the place for "PNG or JPG, up to 5 MB". */
   hint?: ReactNode
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
   /** Accessible name for a row's remove button. Default `` `Remove ${name}` ``. */
   removeLabel?: (fileName: string) => string
 }

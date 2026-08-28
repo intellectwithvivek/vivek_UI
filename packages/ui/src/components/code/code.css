@@ -18,6 +18,16 @@
   font-size: 1em;
 }
 
+/*
+ * `lg` completes the sm/md/lg scale every other control already had. Before 1.0 a
+ * `size="lg"` form was impossible to compose: Input and Select had lg, Checkbox and Field
+ * did not, so the row came out mismatched. The internals are em-based, so one font-size
+ * scales the whole control.
+ */
+:where(.vk-code[data-size="lg"]) {
+  font-size: 1.125em;
+}
+
 :where(.vk-code--block) {
   margin: 0;
   padding: var(--vk-space-4);

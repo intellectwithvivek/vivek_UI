@@ -494,7 +494,7 @@ describe('FAQ', () => {
   })
 
   it('opens the requested item server-side, via the open attribute', () => {
-    const { container } = render(<FAQ items={faqItems} defaultOpen={1} />)
+    const { container } = render(<FAQ items={faqItems} defaultOpenIndex={1} />)
     const details = container.querySelectorAll('details')
     expect(details[0]).not.toHaveAttribute('open')
     expect(details[1]).toHaveAttribute('open')
@@ -528,7 +528,7 @@ describe('FAQ', () => {
   it('has no axe violations, open or closed', async () => {
     const closed = render(<FAQ title="Questions" items={faqItems} />)
     expect(await axe(closed.container)).toHaveNoViolations()
-    const open = render(<FAQ title="More questions" items={faqItems} defaultOpen={0} />)
+    const open = render(<FAQ title="More questions" items={faqItems} defaultOpenIndex={0} />)
     expect(await axe(open.container)).toHaveNoViolations()
   })
 })
@@ -556,7 +556,7 @@ describe('CTA', () => {
   it('maps variant onto the section background, defaulting to muted', () => {
     const { container: fallback } = render(<CTA title="A" />)
     expect(fallback.querySelector('.vk-cta')).toHaveAttribute('data-background', 'muted')
-    const { container: primary } = render(<CTA title="B" variant="primary" />)
+    const { container: primary } = render(<CTA title="B" background="primary" />)
     expect(primary.querySelector('.vk-cta')).toHaveAttribute('data-background', 'primary')
   })
 
@@ -579,7 +579,7 @@ describe('CTA', () => {
     for (const variant of ['default', 'muted', 'primary'] as const) {
       const { container } = render(
         <CTA
-          variant={variant}
+          background={variant}
           title="Ready to ship?"
           description="Install it in a minute."
           actions={<Button>Install</Button>}
@@ -792,9 +792,9 @@ describe('a full assembled page', () => {
         <Pricing title="Simple pricing" description="No seats, no surprises." plans={plans} />
         <Testimonials title="Loved by teams" items={testimonials} />
         <Stats title="By the numbers" items={stats} />
-        <FAQ title="Questions" items={faqItems} name="page-faq" defaultOpen={0} />
+        <FAQ title="Questions" items={faqItems} name="page-faq" defaultOpenIndex={0} />
         <CTA
-          variant="primary"
+          background="primary"
           title="Ready to ship?"
           description="One install, one CSS import."
           actions={<Button variant="outline">Install</Button>}

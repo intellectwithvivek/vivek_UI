@@ -9,7 +9,7 @@
 **Every building block of a website. One install, zero configuration, no dependencies.**
 
 <!-- hero-stats:start -->
-**91 accessible React components**, **6 SVG charts** and **12 ready-made pages** you can copy.
+**93 accessible React components**, **6 SVG charts** and **12 ready-made pages** you can copy.
 No Tailwind, no PostCSS plugin, no Babel plugin, no provider required to render — only toasts
 and the theme hook use one, locally.
 Works in React 18 and 19, and in Next.js with both the Pages and App Router.
@@ -126,14 +126,14 @@ drifted. VivekUI is a normal dependency: `npm update` and you have the fixes.
 | Runtime dependencies | **0** | Tailwind + Radix + CVA + clsx | Emotion or styled-components |
 | Updates | `npm update` | Re-copy each file by hand | `npm update` |
 | Overrides | One flat class wins (zero specificity) | Edit the source you own | `sx`, `!important`, specificity fights |
-| Server Components | 49 of 91 need no client boundary | Depends what you copied | Often needs a client boundary |
+| Server Components | 49 of 93 need no client boundary | Depends what you copied | Often needs a client boundary |
 | Charts | Built in, pure SVG, 0 deps | Wraps Recharts (~100 kB) | Separate package |
 | Theming | Plain CSS custom properties | Tailwind config | Theme object / JS API |
 
 ## Components
 
 <!-- component-stats:start -->
-**91 components. 141 runtime exports.** Every one is covered by tests including
+**93 components. 141 runtime exports.** Every one is covered by tests including
 automated `axe` assertions, and **49 need no `'use client'`** — they render directly in React
 Server Components.
 <!-- component-stats:end -->
@@ -324,10 +324,10 @@ Measured with `size-limit`, minified and brotlied, React excluded:
 |---|---|
 | `{ Button }` | **771 B** |
 | `{ Modal }` (focus trap + scroll lock + portal) | **2.9 kB** |
-| A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **2.7 kB** |
+| A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **2.9 kB** |
 | All six charts | **8.3 kB** |
-| Every component, imported at once | **47.6 kB** |
-| `styles.css` | 192.0 kB raw, **27.0 kB gzipped** |
+| Every component, imported at once | **48.9 kB** |
+| `styles.css` | 197.0 kB raw, **27.7 kB gzipped** |
 | `charts.css` | 10.1 kB raw, **2.0 kB gzipped** |
 <!-- size-table:end -->
 
@@ -435,7 +435,7 @@ dark mode — in the Playwright suite, where contrast is measured on the pixels 
 ## Server Components
 
 <!-- server-components:start -->
-**49 of the 91 components carry no `'use client'`** and render directly in React Server Components.
+**49 of the 93 components carry no `'use client'`** and render directly in React Server Components.
 Only genuinely interactive ones declare it, per file.
 
 The build is unbundled precisely so each file keeps its own directive, and CI asserts on every build

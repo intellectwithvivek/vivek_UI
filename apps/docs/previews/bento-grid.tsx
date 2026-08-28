@@ -21,7 +21,7 @@ export default function BentoGridPreview({ name }: { name: string }) {
           <Cell title="Zero dependencies" body="Nothing to audit but React." />
         </BentoGrid.Item>
         <BentoGrid.Item>
-          <Cell title="91 components" body="Plus six charts." />
+          <Cell title="93 components" body="Plus six charts." />
         </BentoGrid.Item>
         <BentoGrid.Item>
           <Cell title="MIT" body="Free, forever." />

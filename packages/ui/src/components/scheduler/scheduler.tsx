@@ -1,6 +1,15 @@
 'use client'
 
-import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  forwardRef,
+  type HTMLAttributes,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { cx } from '../../utils/cx'
 
 export interface SchedulerResource {
@@ -19,11 +28,11 @@ export interface SchedulerEvent {
   end: Date | number
   /** Drives `data-tone`, so you can colour by status without writing a renderer. */
   tone?: 'default' | 'accent' | 'success' | 'warning' | 'danger'
-  /** Anything you need back in `onEventSelect`. */
+  /** Anything you need back in `onSelect`. */
   meta?: unknown
 }
 
-export interface SchedulerProps {
+export interface SchedulerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> {
   resources: readonly SchedulerResource[]
   events: readonly SchedulerEvent[]
   /** Required. A timeline with no accessible name is one more unlabelled region. */
@@ -46,7 +55,7 @@ export interface SchedulerProps {
   showNow?: boolean
   /** An explicit "now", which overrides {@link showNow}'s clock. Useful in tests and demos. */
   now?: Date | number
-  onEventSelect?: (event: SchedulerEvent) => void
+  onSelect?: (event: SchedulerEvent) => void
   /** Rendered instead of the default title + time. The wrapper button stays ours. */
   renderEvent?: (event: SchedulerEvent, resource: SchedulerResource) => ReactNode
   /**
@@ -57,7 +66,6 @@ export interface SchedulerProps {
    * differently for two of your users. Pass your own for 12-hour clocks or other locales.
    */
   formatTime?: (value: Date) => string
-  className?: string
 }
 
 const MINUTE = 60_000
@@ -152,23 +160,28 @@ function packLanes(events: readonly SchedulerEvent[]): { placed: Placed[]; lanes
  * Overlapping bookings are packed into stacked lanes rather than drawn on top of each other,
  * so a double-booking is visible instead of hidden.
  *
- * **Nothing is mutated for you.** `onEventSelect` reports; your state decides.
+ * **Nothing is mutated for you.** `onSelect` reports; your state decides.
  */
-export function Scheduler({
-  resources,
-  events,
-  label,
-  start,
-  end,
-  step = 60,
-  minTickWidth = 96,
-  showNow = false,
-  now,
-  onEventSelect,
-  renderEvent,
-  formatTime = defaultFormatTime,
-  className,
-}: SchedulerProps) {
+export const Scheduler = forwardRef<HTMLDivElement, SchedulerProps>(function Scheduler(
+  {
+    resources,
+    events,
+    label,
+    start,
+    end,
+    step = 60,
+    minTickWidth = 96,
+    showNow = false,
+    now,
+    onSelect,
+    renderEvent,
+    formatTime = defaultFormatTime,
+    className,
+    style,
+    ...rest
+  }: SchedulerProps,
+  forwardedRef,
+) {
   const [activeId, setActiveId] = useState<string | null>(null)
   const rootRef = useRef<HTMLDivElement | null>(null)
 
@@ -307,11 +320,19 @@ export function Scheduler({
     <div
       aria-label={label}
       className={cx('vk-scheduler', className)}
-      ref={rootRef}
+      ref={(node) => {
+        rootRef.current = node
+        if (typeof forwardedRef === 'function') forwardedRef(node)
+        else if (forwardedRef) forwardedRef.current = node
+      }}
       role="group"
-      style={
-        { '--vk-scheduler-min-width': `${ticks.length * minTickWidth}px` } as React.CSSProperties
-      }
+      style={{
+        ...({
+          '--vk-scheduler-min-width': `${ticks.length * minTickWidth}px`,
+        } as React.CSSProperties),
+        ...style,
+      }}
+      {...rest}
     >
       <div className="vk-scheduler__scroll">
         <div className="vk-scheduler__canvas">
@@ -384,7 +405,7 @@ export function Scheduler({
                         data-tone={entry.event.tone ?? 'default'}
                         onClick={() => {
                           setActiveId(entry.event.id)
-                          onEventSelect?.(entry.event)
+                          onSelect?.(entry.event)
                         }}
                         onKeyDown={(keyEvent) => onKeyDown(keyEvent, rowIndex, at)}
                         style={
@@ -433,4 +454,4 @@ export function Scheduler({
       </div>
     </div>
   )
-}
+})

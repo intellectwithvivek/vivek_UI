@@ -7,7 +7,11 @@ export interface ProgressRingProps extends Omit<HTMLAttributes<HTMLDivElement>, 
   value?: number
   max?: number
   /** Diameter in px. The ring scales down responsively but never past this. */
-  size?: number
+  /**
+   * Rendered diameter in pixels. Named `diameter`, not `size`, because `size` is a
+   * sm/md/lg scale everywhere else in the library — same word, different type, was a trap.
+   */
+  diameter?: number
   /** Stroke width in px. Clamped so it can never exceed the radius. */
   thickness?: number
   /** Accessible name, e.g. "Storage used". */
@@ -42,7 +46,7 @@ export const ProgressRing = forwardRef<HTMLDivElement, ProgressRingProps>(functi
   {
     value = 0,
     max = 100,
-    size = 96,
+    diameter = 96,
     thickness = 8,
     label,
     showValue = false,
@@ -60,7 +64,7 @@ export const ProgressRing = forwardRef<HTMLDivElement, ProgressRingProps>(functi
   },
   ref,
 ) {
-  const box = isNum(size) && size > 16 ? Math.round(size) : 96
+  const box = isNum(diameter) && diameter > 16 ? Math.round(diameter) : 96
   const safeMax = isNum(max) && max > 0 ? max : 100
   const current = clamp(isNum(value) ? value : 0, 0, safeMax)
   const percent = num((current / safeMax) * 100, 2)

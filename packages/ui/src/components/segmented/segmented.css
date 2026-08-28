@@ -1,0 +1,166 @@
+/*
+ * Segmented styles.
+ *
+ * Every selector is :where()-wrapped => specificity 0, so a consumer's own
+ * `.my-toggle { background: red }` wins with no !important. Every value comes from a
+ * --vk-* token. State is aria-checked and data-attributes, never classes computed in JS.
+ *
+ * The sliding thumb needs no JS measurement: segments are equal-width grid columns
+ * (`grid-auto-columns: 1fr`), so the thumb is exactly `1/count` of the padded width and
+ * a translateX of `index * 100%` — percentages of its OWN width — lands it on any
+ * segment. The component supplies `--vk-segmented-count` and `--vk-segmented-index`.
+ */
+
+:where(.vk-segmented) {
+  position: relative;
+  display: inline-grid;
+  grid-auto-flow: column;
+  /* Equal columns are what make the thumb arithmetic exact — and what a segmented
+     control looks like anyway: iOS sizes every segment to the widest. */
+  grid-auto-columns: 1fr;
+  padding: var(--vk-space-1);
+  background: var(--vk-color-surface-subtle);
+  border-radius: var(--vk-radius-full);
+  font-family: var(--vk-font-sans);
+}
+
+:where(.vk-segmented[data-full-width]) {
+  display: grid;
+  inline-size: 100%;
+}
+
+:where(.vk-segmented[data-disabled]) {
+  opacity: 0.55;
+}
+
+/* ---------------------------------------------------------------- thumb */
+
+:where(.vk-segmented__thumb) {
+  position: absolute;
+  inset-block: var(--vk-space-1);
+  inset-inline-start: var(--vk-space-1);
+  inline-size: calc((100% - 2 * var(--vk-space-1)) / var(--vk-segmented-count, 1));
+  background: var(--vk-segmented-thumb, var(--vk-color-surface));
+  border-radius: var(--vk-radius-full);
+  box-shadow: var(--vk-shadow-sm);
+  transform: translateX(calc(var(--vk-segmented-index, 0) * 100%));
+  transition: transform var(--vk-duration) var(--vk-ease);
+}
+
+/* translateX has no logical form, so RTL negates it by hand — same as the switch. */
+:where([dir="rtl"] .vk-segmented__thumb) {
+  transform: translateX(calc(var(--vk-segmented-index, 0) * -100%));
+}
+
+/*
+ * Dark mode is not a colour swap: `surface` is DARKER than `surface-subtle` there, so a
+ * surface-coloured thumb reads as a hole instead of a knob, and a black shadow separates
+ * nothing. Mix a little foreground in so the thumb lifts, the way every raised dark
+ * surface in tokens.css does. `--vk-segmented-thumb` still wins if a consumer sets it.
+ */
+:where([data-theme="dark"] .vk-segmented__thumb) {
+  background: var(
+    --vk-segmented-thumb,
+    color-mix(in oklab, var(--vk-color-fg) 12%, var(--vk-color-surface))
+  );
+}
+
+/* ---------------------------------------------------------------- segments */
+
+:where(.vk-segmented__segment) {
+  /* Above the thumb: the label must never slide underneath the thing highlighting it. */
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vk-space-2);
+  min-inline-size: 0;
+  padding-block: 0;
+  font-family: inherit;
+  font-weight: var(--vk-weight-medium);
+  line-height: var(--vk-leading-none);
+  white-space: nowrap;
+  color: var(--vk-color-muted);
+  background: none;
+  border: none;
+  border-radius: var(--vk-radius-full);
+  cursor: pointer;
+  transition: color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-segmented__segment[aria-checked="true"]) {
+  color: var(--vk-color-fg);
+}
+
+@media (hover: hover) {
+  :where(.vk-segmented__segment:hover:not(:disabled)) {
+    color: var(--vk-color-fg);
+  }
+}
+
+:where(.vk-segmented__segment:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  /* Inward: an offset ring around a segment crosses the container edge and its
+     neighbours, which reads as three things focused instead of one. */
+  outline-offset: calc(-1 * var(--vk-ring-width));
+}
+
+:where(.vk-segmented__segment:disabled) {
+  cursor: not-allowed;
+}
+
+/* The whole-group fade already covers every segment; fading twice goes illegible. */
+:where(.vk-segmented:not([data-disabled]) .vk-segmented__segment:disabled) {
+  opacity: 0.55;
+}
+
+:where(.vk-segmented__icon) {
+  display: inline-flex;
+  flex: none;
+}
+
+:where(.vk-segmented__label) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------------------------------------------------------------- sizes
+ * Segment + container padding lands on the Button heights (2 / 2.5 / 3rem), so the two
+ * sit on one line without a wobble.
+ */
+
+:where(.vk-segmented[data-size="sm"] .vk-segmented__segment) {
+  block-size: 1.5rem;
+  padding-inline: var(--vk-space-3);
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-segmented[data-size="md"] .vk-segmented__segment) {
+  block-size: 2rem;
+  padding-inline: var(--vk-space-4);
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-segmented[data-size="lg"] .vk-segmented__segment) {
+  block-size: 2.5rem;
+  padding-inline: var(--vk-space-5);
+  font-size: var(--vk-text-lg);
+}
+
+/* Touch: same 44px floor as touch.css. The thumb is inset-anchored, so it follows. */
+@media (pointer: coarse) {
+  :where(.vk-segmented__segment) {
+    min-block-size: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-segmented__thumb) {
+    transition: none;
+  }
+
+  :where(.vk-segmented__segment) {
+    transition: none;
+  }
+}

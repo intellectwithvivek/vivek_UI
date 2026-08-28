@@ -51,7 +51,7 @@ export interface BreadcrumbProps extends Omit<HTMLAttributes<HTMLElement>, 'chil
   items?: BreadcrumbItemData[]
   /** Divider between items. A chevron by default; always decorative. */
   separator?: ReactNode
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
   /** Accessible name for the `nav`. Defaults to `"Breadcrumb"`. */
   label?: string
   /** Compound form — `Breadcrumb.Item` and `Breadcrumb.Separator`. Wins over `items`. */

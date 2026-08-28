@@ -4,7 +4,7 @@ export default function CTAPreview({ name }: { name: string }) {
   if (name === 'primary') {
     return (
       <CTA
-        variant="primary"
+        background="primary"
         padding="md"
         eyebrow="Open source"
         title="Ship your next interface this week"

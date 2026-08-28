@@ -188,6 +188,14 @@ export {
 export { Grid, type GridProps, type ResponsiveCols } from './components/grid'
 export { Heading, type HeadingProps } from './components/heading'
 export { Hero, type HeroProps } from './components/hero'
+export {
+  HoverCard,
+  HoverCardContent,
+  type HoverCardContentProps,
+  type HoverCardProps,
+  HoverCardTrigger,
+  type HoverCardTriggerProps,
+} from './components/hover-card'
 export { IconButton, type IconButtonProps } from './components/icon-button'
 export { Image, type ImageProps } from './components/image'
 export { Input, type InputProps } from './components/input'
@@ -284,6 +292,7 @@ export {
   type SectionHeaderProps,
   type SectionProps,
 } from './components/section'
+export { Segmented, type SegmentedOption, type SegmentedProps } from './components/segmented'
 export { Select, type SelectOption, type SelectProps } from './components/select'
 export {
   Sidebar,

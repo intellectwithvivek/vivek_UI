@@ -182,7 +182,7 @@ describe('adversarial: degenerate geometry', () => {
   })
   it('ring thickness larger than the size does not invert', () => {
     assertClean(
-      renderToStaticMarkup(<ProgressRing value={50} size={20} thickness={400} />),
+      renderToStaticMarkup(<ProgressRing value={50} diameter={20} thickness={400} />),
       'ring/thick',
     )
   })

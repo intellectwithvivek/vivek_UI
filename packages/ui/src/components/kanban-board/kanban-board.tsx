@@ -1,6 +1,8 @@
 'use client'
 
 import {
+  forwardRef,
+  type HTMLAttributes,
   type DragEvent as ReactDragEvent,
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
@@ -36,7 +38,7 @@ export interface KanbanMove {
   toIndex: number
 }
 
-export interface KanbanBoardProps {
+export interface KanbanBoardProps extends HTMLAttributes<HTMLDivElement> {
   columns: readonly KanbanColumn[]
   /** Required. A board with no accessible name is one more unlabelled region. */
   label: string
@@ -44,7 +46,6 @@ export interface KanbanBoardProps {
   onMove?: (move: KanbanMove) => void
   /** Rendered instead of the default card body. */
   renderCard?: (card: KanbanCard, column: KanbanColumn) => ReactNode
-  className?: string
 }
 
 interface Grabbed {
@@ -84,7 +85,10 @@ interface Grabbed {
  * **Nothing is mutated for you.** `onMove` reports the intended move and your state decides,
  * which is the only shape that works with an optimistic update that might be rejected.
  */
-export function KanbanBoard({ columns, label, onMove, renderCard, className }: KanbanBoardProps) {
+export const KanbanBoard = forwardRef<HTMLDivElement, KanbanBoardProps>(function KanbanBoard(
+  { columns, label, onMove, renderCard, className, style, ...rest }: KanbanBoardProps,
+  forwardedRef,
+) {
   const [grabbed, setGrabbed] = useState<Grabbed | null>(null)
   const [dragOver, setDragOver] = useState<string | null>(null)
   const [announcement, setAnnouncement] = useState('')
@@ -233,7 +237,18 @@ export function KanbanBoard({ columns, label, onMove, renderCard, className }: K
   }
 
   return (
-    <div aria-label={label} className={cx('vk-kanban', className)} ref={boardRef} role="group">
+    <div
+      aria-label={label}
+      className={cx('vk-kanban', className)}
+      ref={(node) => {
+        boardRef.current = node
+        if (typeof forwardedRef === 'function') forwardedRef(node)
+        else if (forwardedRef) forwardedRef.current = node
+      }}
+      role="group"
+      style={style}
+      {...rest}
+    >
       {/*
         Always mounted. A live region created at the same moment it gains text is frequently
         never announced - the screen reader has to already be observing the node.
@@ -331,4 +346,4 @@ export function KanbanBoard({ columns, label, onMove, renderCard, className }: K
       </div>
     </div>
   )
-}
+})

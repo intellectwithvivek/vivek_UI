@@ -23,7 +23,7 @@ export interface OTPInputProps
   /** Uncontrolled initial value. */
   defaultValue?: string
   /** Called with the whole code on every edit, in both modes. */
-  onChange?: (value: string) => void
+  onValueChange?: (value: string) => void
   /** Called once the last box is filled. Handy for auto-submit. */
   onComplete?: (value: string) => void
   /** `'numeric'` (default) accepts digits; `'alphanumeric'` also accepts letters. */
@@ -73,7 +73,7 @@ export const OTPInput = forwardRef<HTMLInputElement, OTPInputProps>(function OTP
     length = 6,
     value,
     defaultValue,
-    onChange,
+    onValueChange,
     onComplete,
     type = 'numeric',
     mask,
@@ -100,7 +100,7 @@ export const OTPInput = forwardRef<HTMLInputElement, OTPInputProps>(function OTP
   const [raw, setRaw] = useControllableState<string>({
     value,
     defaultValue: defaultValue ?? '',
-    onChange,
+    onChange: onValueChange,
   })
 
   // Normalised once, here, so nothing downstream has to wonder whether the string it

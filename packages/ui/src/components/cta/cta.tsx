@@ -11,7 +11,12 @@ export interface CTAProps extends Omit<SectionProps, 'title' | 'background'> {
   /** Usually one or two `Button`s. Laid out in a row that wraps. */
   actions?: ReactNode
   /** Surface treatment. `primary` re-points the palette for the whole block. */
-  variant?: 'default' | 'muted' | 'primary'
+  /**
+   * Surface treatment, forwarded to the underlying `Section`. Named `background` because
+   * that is exactly what it is — `variant` implied a structural difference that never
+   * existed, and Section already calls this vocabulary `background`.
+   */
+  background?: 'default' | 'muted' | 'primary'
   /** Level of `title`. Defaults to `2`. */
   headingLevel?: HeadingLevel
 }
@@ -30,7 +35,7 @@ export const CTA = forwardRef<HTMLElement, CTAProps>(function CTA(
     title,
     description,
     actions,
-    variant = 'muted',
+    background = 'muted',
     align = 'center',
     headingLevel = 2,
     padding = 'lg',
@@ -44,7 +49,7 @@ export const CTA = forwardRef<HTMLElement, CTAProps>(function CTA(
     <Section
       ref={ref}
       className={cx('vk-cta', className)}
-      background={variant}
+      background={background}
       align={align}
       padding={padding}
       {...rest}

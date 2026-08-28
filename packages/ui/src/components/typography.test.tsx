@@ -51,7 +51,7 @@ describe('Text', () => {
     const el = screen.getByTestId('t')
     expect(el.tagName).toBe('P')
     expect(el).toHaveAttribute('data-size', 'md')
-    expect(el).toHaveAttribute('data-tone', 'default')
+    expect(el).toHaveAttribute('data-tone', 'neutral')
   })
 
   it('retags via `as`', () => {

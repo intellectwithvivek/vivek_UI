@@ -18,7 +18,7 @@
   font-size: var(--vk-text-xl);
 }
 
-:where(.vk-text[data-tone="default"]) {
+:where(.vk-text[data-tone="neutral"]) {
   color: var(--vk-color-fg);
 }
 :where(.vk-text[data-tone="muted"]) {

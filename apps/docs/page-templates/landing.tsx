@@ -92,7 +92,7 @@ const PLANS = [
     price: '$0',
     period: 'forever',
     description: 'Everything in the library, under MIT.',
-    features: ['All 91 components', 'All 6 charts', 'Full source on GitHub', 'MIT licence'],
+    features: ['All 93 components', 'All 6 charts', 'Full source on GitHub', 'MIT licence'],
     cta: (
       <Button fullWidth variant="outline">
         Install it
@@ -161,7 +161,7 @@ export default function LandingPage() {
             </Button>
           </>
         }
-        description="Ninety-one components and six charts, with no runtime dependencies, no CSS-in-JS, and no build plugin. Install one package and import a stylesheet."
+        description="Ninety-three components and six charts, with no runtime dependencies, no CSS-in-JS, and no build plugin. Install one package and import a stylesheet."
         eyebrow={<Badge variant="soft">v1.0 is out</Badge>}
         title="Ship the interface, not the infrastructure"
       />
@@ -283,7 +283,7 @@ export default function LandingPage() {
         }
         description="One npm install and one stylesheet import. There is no configuration step."
         title="Start with a Button and see how far it goes"
-        variant="primary"
+        background="primary"
       />
 
       <Footer

@@ -29,7 +29,7 @@ const COLUMNS: EditableColumn<Row>[] = [
 ]
 
 function setup(props: Partial<React.ComponentProps<typeof EditableGrid<Row>>> = {}) {
-  return render(<EditableGrid columns={COLUMNS} label="Inventory" rows={ROWS} {...props} />)
+  return render(<EditableGrid columns={COLUMNS} label="Inventory" data={ROWS} {...props} />)
 }
 
 const cell = (row: number, col: number) =>
@@ -64,7 +64,7 @@ describe('EditableGrid · structure', () => {
   })
 
   it('marks non-editable cells aria-readonly', () => {
-    render(<EditableGrid columns={[{ key: 'name', header: 'Name' }]} label="RO" rows={ROWS} />)
+    render(<EditableGrid columns={[{ key: 'name', header: 'Name' }]} label="RO" data={ROWS} />)
     expect(screen.getAllByRole('gridcell')[0]).toHaveAttribute('aria-readonly', 'true')
   })
 })
@@ -209,7 +209,7 @@ describe('EditableGrid · editing', () => {
         columns={[{ key: 'name', header: 'Name', editable: true, parse: () => undefined }]}
         label="Validated"
         onCellChange={onCellChange}
-        rows={ROWS}
+        data={ROWS}
       />,
     )
     press(cell(0, 0), 'Enter')
@@ -219,7 +219,7 @@ describe('EditableGrid · editing', () => {
   })
 
   it('never edits a column that is not marked editable', () => {
-    render(<EditableGrid columns={[{ key: 'name', header: 'Name' }]} label="Locked" rows={ROWS} />)
+    render(<EditableGrid columns={[{ key: 'name', header: 'Name' }]} label="Locked" data={ROWS} />)
     press(cell(0, 0), 'Enter')
     expect(screen.queryByRole('textbox')).toBeNull()
   })
@@ -245,7 +245,7 @@ describe('EditableGrid · editing', () => {
           },
         ]}
         label="Prices"
-        rows={ROWS}
+        data={ROWS}
       />,
     )
     expect(screen.getByText('$4.00')).toBeInTheDocument()
@@ -265,13 +265,13 @@ describe('EditableGrid · editing', () => {
 
 describe('EditableGrid · edge cases', () => {
   it('renders with no rows without crashing', () => {
-    render(<EditableGrid columns={COLUMNS} label="Empty" rows={[]} />)
+    render(<EditableGrid columns={COLUMNS} label="Empty" data={[]} />)
     expect(screen.getByRole('grid')).toHaveAttribute('aria-rowcount', '1')
     expect(screen.queryAllByRole('gridcell')).toHaveLength(0)
   })
 
   it('renders with no columns without crashing', () => {
-    render(<EditableGrid columns={[]} label="No columns" rows={ROWS} />)
+    render(<EditableGrid columns={[]} label="No columns" data={ROWS} />)
     expect(screen.getByRole('grid')).toHaveAttribute('aria-colcount', '0')
   })
 
@@ -281,7 +281,7 @@ describe('EditableGrid · edge cases', () => {
       <EditableGrid
         columns={[{ key: 'missing', header: 'Missing' }]}
         label="Sparse"
-        rows={[{ id: 1, name: 'a', qty: 1 }]}
+        data={[{ id: 1, name: 'a', qty: 1 }]}
       />,
     )
     expect(screen.getAllByRole('gridcell')[0]).toHaveTextContent('')

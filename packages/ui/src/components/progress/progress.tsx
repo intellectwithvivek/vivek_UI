@@ -8,7 +8,12 @@ export interface ProgressProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
   size?: 'sm' | 'md' | 'lg'
   tone?: 'primary' | 'success' | 'warning' | 'danger'
   /** Accessible name, e.g. "Upload progress". */
-  label?: string
+  /**
+   * Required. A `role="progressbar"` with no accessible name is announced as a bare
+   * "progress bar" — the one thing a progress bar must communicate is what is progressing.
+   * This was the last widget in the library that could render an unlabelled live region.
+   */
+  label: string
 }
 
 /** A determinate or indeterminate progress bar. */

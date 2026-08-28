@@ -17,6 +17,16 @@
 }
 
 /*
+ * `lg` completes the sm/md/lg scale every other control already had. Before 1.0 a
+ * `size="lg"` form was impossible to compose: Input and Select had lg, Checkbox and Field
+ * did not, so the row came out mismatched. The internals are em-based, so one font-size
+ * scales the whole control.
+ */
+:where(.vk-checkbox[data-size="lg"]) {
+  font-size: var(--vk-text-lg);
+}
+
+/*
  * Visually hidden, not removed: display:none or visibility:hidden would take the
  * input out of the focus order and out of form submission.
  */

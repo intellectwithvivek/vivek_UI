@@ -2,7 +2,7 @@ import { forwardRef, type HTMLAttributes } from 'react'
 import { cx } from '../../utils/cx'
 
 export interface KbdProps extends HTMLAttributes<HTMLElement> {
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
 }
 
 /** A keyboard key, for documenting shortcuts. */

@@ -45,6 +45,17 @@
   --vk-typing-dot-size: 0.375rem;
 }
 
+/*
+ * `lg` completes the sm/md/lg scale every other control already had. Before 1.0 a
+ * `size="lg"` form was impossible to compose: Input and Select had lg, Checkbox and Field
+ * did not, so the row came out mismatched. The internals are em-based, so one font-size
+ * scales the whole control.
+ */
+:where(.vk-typing-indicator[data-size="lg"]) :where(.vk-typing-indicator__dot) {
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+}
+
 /* Visible to assistive tech, invisible on screen - unless asked for. */
 :where(.vk-typing-indicator__label) {
   position: absolute;

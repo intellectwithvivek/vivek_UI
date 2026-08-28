@@ -176,6 +176,66 @@ const CORE_EXAMPLES: ExampleSet = {
     },
   ],
 
+  segmented: [
+    {
+      title: 'A view switcher with real radio semantics',
+      description:
+        'This is not Tabs. A segmented control reveals nothing and hides nothing - it is one visible choice from a few, so it is a styled radiogroup: one tab stop, arrows move and select together, aria-checked on the active segment.',
+      name: 'default',
+      code: `const [view, setView] = useState('list')
+
+<Segmented
+  label="View"
+  value={view}
+  onValueChange={setView}
+  options={[
+    { value: 'list', label: 'List' },
+    { value: 'board', label: 'Board' },
+    { value: 'timeline', label: 'Timeline' },
+  ]}
+/>
+
+// fullWidth stretches segments evenly; disabled works per option:
+<Segmented fullWidth label="Range" defaultValue="30d" options={[
+  { value: '7d', label: '7 days' },
+  { value: '30d', label: '30 days' },
+  { value: 'all', label: 'All time', disabled: true },
+]} />`,
+    },
+    {
+      title: 'Three sizes',
+      description: 'sm, md and lg, matching every other control in the library.',
+      name: 'sizes',
+      code: `<Segmented size="sm" label="Zoom" defaultValue="day" options={options} />
+<Segmented size="md" label="Zoom" defaultValue="day" options={options} />
+<Segmented size="lg" label="Zoom" defaultValue="day" options={options} />`,
+    },
+  ],
+
+  'hover-card': [
+    {
+      title: 'A user card on a mention',
+      description:
+        'Opens on hover after an intent delay, and on focus immediately - a keyboard user gets the same preview a mouse user does. Not modal, not focus-trapping: the page behind stays interactive, and everything in the card must also be reachable somewhere else.',
+      name: 'default',
+      code: `<HoverCard>
+  <HoverCardTrigger href="/team/vivek">@vivek</HoverCardTrigger>
+  <HoverCardContent>
+    <Stack direction="horizontal" gap={3}>
+      <Avatar name="Vivek Kumar Singh" size="lg" />
+      <Stack gap={1}>
+        <Text weight="semibold">Vivek Kumar Singh</Text>
+        <Text size="sm" tone="muted">Author of VivekUI.</Text>
+      </Stack>
+    </Stack>
+  </HoverCardContent>
+</HoverCard>
+
+// Delays are tunable; moving from trigger into the card never closes it.
+<HoverCard openDelay={200} closeDelay={300}>...</HoverCard>`,
+    },
+  ],
+
   'kanban-board': [
     {
       title: 'A sprint board you can drive from the keyboard',
@@ -228,7 +288,7 @@ const events = [
   start={at(9)}
   end={at(18)}
   // Nothing is mutated for you - the board reports, your state decides.
-  onEventSelect={(event) => setSelected(event)}
+  onSelect={(event) => setSelected(event)}
 />`,
     },
     {
@@ -318,7 +378,7 @@ const events = [
       code: `const [rows, setRows] = useState(lines)
 
 <EditableGrid
-  rows={rows}
+  data={rows}
   label="Order lines"
   getRowKey={(row) => row.id}
   columns={[
@@ -355,7 +415,7 @@ const events = [
       title: 'Read only',
       description: 'readOnly overrides the columns, for a permissions-gated view.',
       name: 'readOnly',
-      code: `<EditableGrid rows={rows} columns={columns} label="Order lines" readOnly />`,
+      code: `<EditableGrid data={rows} columns={columns} label="Order lines" readOnly />`,
     },
   ],
 

@@ -33,9 +33,10 @@ export interface FAQProps extends Omit<SectionProps, 'title'> {
   items?: FaqItem[]
   /**
    * Index of the item to render open on first paint. Server-rendered as the native
-   * `open` attribute, so there is nothing to hydrate.
+   * `open` attribute, so there is nothing to hydrate. Named with `Index` because every
+   * other component's `defaultOpen` is a boolean — same name, different type, was a trap.
    */
-  defaultOpen?: number
+  defaultOpenIndex?: number
   /**
    * Shared `name` for every `<details>`, which makes the group mutually exclusive —
    * opening one closes the others, natively. Supply a value unique to the page; it is
@@ -107,7 +108,7 @@ function faqPageJson(items: FaqItem[]): string | null {
 export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
   {
     items = [],
-    defaultOpen,
+    defaultOpenIndex,
     name,
     eyebrow,
     title,
@@ -165,7 +166,7 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
                   className="vk-faq__item"
                   key={item.id ?? item.question}
                   name={name}
-                  open={index === defaultOpen || undefined}
+                  open={index === defaultOpenIndex || undefined}
                 >
                   <summary className="vk-faq__question">
                     <Heading level={itemLevel} size="md" className="vk-faq__question-text">

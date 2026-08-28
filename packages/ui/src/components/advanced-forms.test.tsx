@@ -593,7 +593,7 @@ describe('OTPInput', () => {
 
   it('works uncontrolled and advances as it fills', () => {
     const onChange = vi.fn()
-    render(<OTPInput aria-label="Code" length={4} onChange={onChange} />)
+    render(<OTPInput aria-label="Code" length={4} onValueChange={onChange} />)
     const boxes = otpBoxes()
     fireEvent.change(boxes[0] as HTMLInputElement, { target: { value: '1' } })
     expect(onChange).toHaveBeenLastCalledWith('1')
@@ -607,7 +607,7 @@ describe('OTPInput', () => {
   it('works controlled', () => {
     const onChange = vi.fn()
     const { rerender } = render(
-      <OTPInput aria-label="Code" length={4} value="12" onChange={onChange} />,
+      <OTPInput aria-label="Code" length={4} value="12" onValueChange={onChange} />,
     )
     const boxes = otpBoxes()
     expect(boxes[0]).toHaveValue('1')
@@ -615,20 +615,20 @@ describe('OTPInput', () => {
     fireEvent.change(boxes[2] as HTMLInputElement, { target: { value: '3' } })
     expect(onChange).toHaveBeenCalledWith('123')
     expect(boxes[2]).toHaveValue('')
-    rerender(<OTPInput aria-label="Code" length={4} value="123" onChange={onChange} />)
+    rerender(<OTPInput aria-label="Code" length={4} value="123" onValueChange={onChange} />)
     expect(boxes[2]).toHaveValue('3')
   })
 
   it('drops characters the type does not accept', () => {
     const onChange = vi.fn()
-    render(<OTPInput aria-label="Code" length={4} onChange={onChange} />)
+    render(<OTPInput aria-label="Code" length={4} onValueChange={onChange} />)
     fireEvent.change(otpBoxes()[0] as HTMLInputElement, { target: { value: 'a' } })
     expect(onChange).not.toHaveBeenCalled()
   })
 
   it('accepts letters when alphanumeric', () => {
     const onChange = vi.fn()
-    render(<OTPInput aria-label="Code" type="alphanumeric" length={4} onChange={onChange} />)
+    render(<OTPInput aria-label="Code" type="alphanumeric" length={4} onValueChange={onChange} />)
     fireEvent.change(otpBoxes()[0] as HTMLInputElement, { target: { value: 'a' } })
     expect(onChange).toHaveBeenLastCalledWith('a')
   })
@@ -636,7 +636,7 @@ describe('OTPInput', () => {
   it('distributes a pasted code across the boxes', () => {
     const onChange = vi.fn()
     const onComplete = vi.fn()
-    render(<OTPInput aria-label="Code" onChange={onChange} onComplete={onComplete} />)
+    render(<OTPInput aria-label="Code" onValueChange={onChange} onComplete={onComplete} />)
     const boxes = otpBoxes()
     fireEvent.paste(boxes[0] as HTMLInputElement, {
       clipboardData: { getData: () => '123456' },
@@ -649,7 +649,7 @@ describe('OTPInput', () => {
 
   it('strips separators and extra characters out of a paste', () => {
     const onChange = vi.fn()
-    render(<OTPInput aria-label="Code" onChange={onChange} />)
+    render(<OTPInput aria-label="Code" onValueChange={onChange} />)
     fireEvent.paste(otpBoxes()[0] as HTMLInputElement, {
       clipboardData: { getData: () => 'Code: 12-34 56 789' },
     })
@@ -659,7 +659,7 @@ describe('OTPInput', () => {
 
   it('replaces the whole field when the paste is a full code, wherever the caret is', () => {
     const onChange = vi.fn()
-    render(<OTPInput aria-label="Code" length={4} defaultValue="99" onChange={onChange} />)
+    render(<OTPInput aria-label="Code" length={4} defaultValue="99" onValueChange={onChange} />)
     const boxes = otpBoxes()
     fireEvent.paste(boxes[2] as HTMLInputElement, {
       clipboardData: { getData: () => '1234' },
@@ -669,7 +669,7 @@ describe('OTPInput', () => {
 
   it('distributes a multi-character value change, as autofill delivers it', () => {
     const onChange = vi.fn()
-    render(<OTPInput aria-label="Code" onChange={onChange} />)
+    render(<OTPInput aria-label="Code" onValueChange={onChange} />)
     fireEvent.change(otpBoxes()[0] as HTMLInputElement, { target: { value: '246810' } })
     expect(onChange).toHaveBeenLastCalledWith('246810')
   })
@@ -677,7 +677,7 @@ describe('OTPInput', () => {
   describe('keyboard', () => {
     it('Backspace removes the character under the caret', () => {
       const onChange = vi.fn()
-      render(<OTPInput aria-label="Code" length={4} defaultValue="1234" onChange={onChange} />)
+      render(<OTPInput aria-label="Code" length={4} defaultValue="1234" onValueChange={onChange} />)
       const boxes = otpBoxes()
       fireEvent.keyDown(boxes[1] as HTMLInputElement, { key: 'Backspace' })
       expect(onChange).toHaveBeenLastCalledWith('134')
@@ -685,7 +685,7 @@ describe('OTPInput', () => {
 
     it('Backspace on an empty box steps back and deletes there', () => {
       const onChange = vi.fn()
-      render(<OTPInput aria-label="Code" length={4} defaultValue="12" onChange={onChange} />)
+      render(<OTPInput aria-label="Code" length={4} defaultValue="12" onValueChange={onChange} />)
       const boxes = otpBoxes()
       fireEvent.keyDown(boxes[2] as HTMLInputElement, { key: 'Backspace' })
       expect(onChange).toHaveBeenLastCalledWith('1')
@@ -694,7 +694,7 @@ describe('OTPInput', () => {
 
     it('Delete removes forward without moving', () => {
       const onChange = vi.fn()
-      render(<OTPInput aria-label="Code" length={4} defaultValue="1234" onChange={onChange} />)
+      render(<OTPInput aria-label="Code" length={4} defaultValue="1234" onValueChange={onChange} />)
       const boxes = otpBoxes()
       fireEvent.keyDown(boxes[0] as HTMLInputElement, { key: 'Delete' })
       expect(onChange).toHaveBeenLastCalledWith('234')
@@ -898,7 +898,7 @@ describe('TagInput', () => {
 
   it('adds a tag on Enter, uncontrolled', () => {
     const onChange = vi.fn()
-    render(<TagInput aria-label="Tags" onChange={onChange} />)
+    render(<TagInput aria-label="Tags" onValueChange={onChange} />)
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: 'react' } })
     fireEvent.keyDown(input, { key: 'Enter' })
@@ -909,7 +909,7 @@ describe('TagInput', () => {
 
   it('adds a tag on comma', () => {
     const onChange = vi.fn()
-    render(<TagInput aria-label="Tags" onChange={onChange} />)
+    render(<TagInput aria-label="Tags" onValueChange={onChange} />)
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: 'vue' } })
     fireEvent.keyDown(input, { key: ',' })
@@ -918,21 +918,23 @@ describe('TagInput', () => {
 
   it('works controlled', () => {
     const onChange = vi.fn()
-    const { rerender } = render(<TagInput aria-label="Tags" value={['a']} onChange={onChange} />)
+    const { rerender } = render(
+      <TagInput aria-label="Tags" value={['a']} onValueChange={onChange} />,
+    )
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: 'b' } })
     fireEvent.keyDown(input, { key: 'Enter' })
     expect(onChange).toHaveBeenCalledWith(['a', 'b'])
     // Still one chip: the parent owns the list.
     expect(screen.getAllByRole('listitem')).toHaveLength(1)
-    rerender(<TagInput aria-label="Tags" value={['a', 'b']} onChange={onChange} />)
+    rerender(<TagInput aria-label="Tags" value={['a', 'b']} onValueChange={onChange} />)
     expect(screen.getAllByRole('listitem')).toHaveLength(2)
   })
 
   it('trims and rejects an empty tag', () => {
     const onChange = vi.fn()
     const onReject = vi.fn()
-    render(<TagInput aria-label="Tags" onChange={onChange} onReject={onReject} />)
+    render(<TagInput aria-label="Tags" onValueChange={onChange} onReject={onReject} />)
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: '   ' } })
     fireEvent.keyDown(input, { key: ',' })
@@ -942,14 +944,14 @@ describe('TagInput', () => {
 
   it('removes the last tag on Backspace in an empty field', () => {
     const onChange = vi.fn()
-    render(<TagInput aria-label="Tags" defaultValue={['a', 'b']} onChange={onChange} />)
+    render(<TagInput aria-label="Tags" defaultValue={['a', 'b']} onValueChange={onChange} />)
     fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Backspace' })
     expect(onChange).toHaveBeenCalledWith(['a'])
   })
 
   it('leaves the tags alone when Backspace has text to delete', () => {
     const onChange = vi.fn()
-    render(<TagInput aria-label="Tags" defaultValue={['a']} onChange={onChange} />)
+    render(<TagInput aria-label="Tags" defaultValue={['a']} onValueChange={onChange} />)
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: 'xy' } })
     fireEvent.keyDown(input, { key: 'Backspace' })
@@ -958,7 +960,7 @@ describe('TagInput', () => {
 
   it('gives every remove button an accessible name', () => {
     const onChange = vi.fn()
-    render(<TagInput aria-label="Tags" defaultValue={['react', 'vue']} onChange={onChange} />)
+    render(<TagInput aria-label="Tags" defaultValue={['react', 'vue']} onValueChange={onChange} />)
     fireEvent.click(screen.getByRole('button', { name: 'Remove react' }))
     expect(onChange).toHaveBeenCalledWith(['vue'])
   })
@@ -987,7 +989,12 @@ describe('TagInput', () => {
   it('permits duplicates when told to', () => {
     const onChange = vi.fn()
     render(
-      <TagInput aria-label="Tags" allowDuplicates defaultValue={['react']} onChange={onChange} />,
+      <TagInput
+        aria-label="Tags"
+        allowDuplicates
+        defaultValue={['react']}
+        onValueChange={onChange}
+      />,
     )
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: 'react' } })
@@ -1028,7 +1035,7 @@ describe('TagInput', () => {
 
   it('splits a multi-tag paste', () => {
     const onChange = vi.fn()
-    render(<TagInput aria-label="Tags" onChange={onChange} />)
+    render(<TagInput aria-label="Tags" onValueChange={onChange} />)
     fireEvent.paste(screen.getByRole('textbox'), {
       clipboardData: { getData: () => 'a, b\nc' },
     })
@@ -1037,7 +1044,7 @@ describe('TagInput', () => {
 
   it('commits on blur', () => {
     const onChange = vi.fn()
-    render(<TagInput aria-label="Tags" onChange={onChange} />)
+    render(<TagInput aria-label="Tags" onValueChange={onChange} />)
     const input = screen.getByRole('textbox')
     fireEvent.change(input, { target: { value: 'later' } })
     fireEvent.blur(input)

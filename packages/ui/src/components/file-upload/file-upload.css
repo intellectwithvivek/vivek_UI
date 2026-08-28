@@ -38,6 +38,17 @@
   padding: var(--vk-space-4) var(--vk-space-3);
 }
 
+/*
+ * `lg` completes the sm/md/lg scale every other control already had. Before 1.0 a
+ * `size="lg"` form was impossible to compose: Input and Select had lg, Checkbox and Field
+ * did not, so the row came out mismatched. The internals are em-based, so one font-size
+ * scales the whole control.
+ */
+:where(.vk-file-upload[data-size="lg"]) :where(.vk-file-upload__zone) {
+  padding: var(--vk-space-8) var(--vk-space-6);
+  font-size: var(--vk-text-lg);
+}
+
 :where(.vk-file-upload__zone:hover) {
   border-color: color-mix(in oklab, var(--vk-file-upload-accent) 50%, var(--vk-color-border));
 }

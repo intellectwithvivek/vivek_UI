@@ -50,7 +50,7 @@ export default function EditableGridPreview({ name }: { name: string }) {
         ]}
         label="Order lines, read only"
         readOnly
-        rows={rows}
+        data={rows}
       />
     )
   }
@@ -103,7 +103,7 @@ export default function EditableGridPreview({ name }: { name: string }) {
         getRowKey={(row) => row.id}
         label="Order lines"
         onCellChange={apply}
-        rows={rows}
+        data={rows}
       />
 
       <Stack direction="horizontal" gap={3} align="center" wrap>

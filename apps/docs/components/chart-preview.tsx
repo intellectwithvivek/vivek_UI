@@ -182,7 +182,7 @@ export function ChartPreview({ slug, variant = 'basic' }: { slug: string; varian
       return <ProgressRing label="Storage used" showValue value={68} />
     case 'progress-ring:custom':
       return (
-        <ProgressRing label="Onboarding" max={10} size={140} thickness={12} value={7}>
+        <ProgressRing label="Onboarding" max={10} diameter={140} thickness={12} value={7}>
           <strong>7/10</strong>
           <span>steps done</span>
         </ProgressRing>

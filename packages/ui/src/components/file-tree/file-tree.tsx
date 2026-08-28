@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  forwardRef,
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
   useCallback,
@@ -22,7 +23,7 @@ export interface TreeNode {
   meta?: unknown
 }
 
-export interface FileTreeProps {
+export interface FileTreeProps extends Omit<React.HTMLAttributes<HTMLUListElement>, 'onSelect'> {
   nodes: readonly TreeNode[]
   /** Required. A tree with no accessible name is unnavigable. */
   label: string
@@ -34,7 +35,11 @@ export interface FileTreeProps {
   onExpandedChange?: (ids: string[]) => void
   /** Show the connecting guide lines. Default `true`. */
   guides?: boolean
-  className?: string
+  /**
+   * Reports selection changes for a controlled tree — the id twin of `onSelect`, which
+   * hands you the whole node. Fires alongside it.
+   */
+  onSelectedIdChange?: (id: string) => void
 }
 
 interface FlatNode {
@@ -98,18 +103,24 @@ function flatten(
  * `aria-level`, `aria-posinset` and `aria-setsize` are set on every node, because a
  * collapsed tree gives a screen reader no other way to convey depth or position.
  */
-export function FileTree({
-  nodes,
-  label,
-  selectedId,
-  defaultSelectedId = null,
-  onSelect,
-  expandedIds,
-  defaultExpandedIds = [],
-  onExpandedChange,
-  guides = true,
-  className,
-}: FileTreeProps) {
+export const FileTree = forwardRef<HTMLUListElement, FileTreeProps>(function FileTree(
+  {
+    nodes,
+    label,
+    selectedId,
+    defaultSelectedId = null,
+    onSelect,
+    onSelectedIdChange,
+    expandedIds,
+    defaultExpandedIds = [],
+    onExpandedChange,
+    guides = true,
+    className,
+    style,
+    ...rest
+  }: FileTreeProps,
+  forwardedRef,
+) {
   const [selected, setSelected] = useControllableState<string | null>({
     value: selectedId,
     defaultValue: defaultSelectedId,
@@ -161,6 +172,7 @@ export function FileTree({
       if (entry.node.disabled) return
       setSelected(entry.node.id)
       onSelect?.(entry.node)
+      onSelectedIdChange?.(entry.node.id)
     },
     [onSelect, setSelected],
   )
@@ -243,7 +255,18 @@ export function FileTree({
 
   return (
     // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: role="tree" on a ul is the WAI-ARIA treeview pattern itself.
-    <ul aria-label={label} className={cx('vk-file-tree', className)} ref={treeRef} role="tree">
+    <ul
+      aria-label={label}
+      className={cx('vk-file-tree', className)}
+      ref={(node) => {
+        treeRef.current = node
+        if (typeof forwardedRef === 'function') forwardedRef(node)
+        else if (forwardedRef) forwardedRef.current = node
+      }}
+      role="tree"
+      style={style}
+      {...rest}
+    >
       {visible.map((entry, index) => {
         const { node, level, isFolder, expanded: isExpanded } = entry
         const isSelected = selected === node.id
@@ -297,4 +320,4 @@ export function FileTree({
       })}
     </ul>
   )
-}
+})

@@ -46,7 +46,7 @@ interface Wiring {
   required?: boolean
   value?: string
   defaultValue?: string
-  onChange?: (value: string) => void
+  onValueChange?: (value: string) => void
   controlled: boolean
 }
 
@@ -86,13 +86,13 @@ function wire(children: ReactNode, group: Wiring): ReactNode {
       ...selection,
       onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
         own.onChange?.(event)
-        group.onChange?.(event.target.value)
+        group.onValueChange?.(event.target.value)
       },
     })
   })
 }
 
-export interface RadioGroupProps extends Omit<HTMLAttributes<HTMLFieldSetElement>, 'onChange'> {
+export interface RadioGroupProps extends HTMLAttributes<HTMLFieldSetElement> {
   /** Shared `name` for the radios. Required for native grouping and form submission. */
   name: string
   /** Group label, rendered as the `<legend>`. */
@@ -103,9 +103,20 @@ export interface RadioGroupProps extends Omit<HTMLAttributes<HTMLFieldSetElement
   value?: string
   /** Uncontrolled initial selection. */
   defaultValue?: string
-  onChange?: (value: string) => void
+  /**
+   * Reports the selected value. Named `onValueChange`, not `onChange`, because the DOM
+   * already owns `onChange` with an event signature — redefining it breaks the mental
+   * model and the types for anyone spreading input props.
+   */
+  onValueChange?: (value: string) => void
   orientation?: 'vertical' | 'horizontal'
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
+  /**
+   * Marks the control invalid: sets `aria-invalid` and a `data-invalid` hook for styling.
+   * Every other form control in the library takes this; these two were the exceptions, so a
+   * form could not show a consistent error state across its rows.
+   */
+  invalid?: boolean
   disabled?: boolean
   required?: boolean
 }
@@ -125,9 +136,10 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(funct
     options,
     value,
     defaultValue,
-    onChange,
+    onValueChange,
     orientation = 'vertical',
     size = 'md',
+    invalid,
     disabled,
     required,
     className,
@@ -144,13 +156,15 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(funct
       className={cx('vk-radio-group', className)}
       data-orientation={orientation}
       data-size={size}
+      data-invalid={invalid || undefined}
+      aria-invalid={invalid || undefined}
       disabled={disabled}
       {...rest}
     >
       {label ? <legend className="vk-radio-group__legend">{label}</legend> : null}
       <div className="vk-radio-group__items">
         {children
-          ? wire(children, { name, required, value, defaultValue, onChange, controlled })
+          ? wire(children, { name, required, value, defaultValue, onValueChange, controlled })
           : options?.map((option) => (
               <Radio
                 key={option.value}
@@ -163,7 +177,7 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(funct
                 {...(controlled
                   ? { checked: value === option.value }
                   : { defaultChecked: defaultValue === option.value })}
-                onChange={onChange ? (event) => onChange(event.target.value) : undefined}
+                onChange={onValueChange ? (event) => onValueChange(event.target.value) : undefined}
               />
             ))}
       </div>

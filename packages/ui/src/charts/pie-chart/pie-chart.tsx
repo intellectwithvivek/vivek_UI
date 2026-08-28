@@ -21,12 +21,16 @@ export interface PieChartProps extends ChartRootProps {
   /** Punch out the middle. */
   donut?: boolean
   /**
-   * Hole size as a fraction of the outer radius, `0` to `0.95`. Only applies with
+   * Hole diameter as a fraction of the outer radius, `0` to `0.95`. Only applies with
    * `donut`; defaults to `0.6`.
    */
   innerRadius?: number
   /** Side of the square `viewBox`, in px, and the widest the chart will draw. */
-  size?: number
+  /**
+   * Rendered diameter in pixels. Named `diameter`, not `size`, because `size` is a
+   * sm/md/lg scale everywhere else in the library — same word, different type, was a trap.
+   */
+  diameter?: number
   /**
    * Show the legend. Defaults to `true`.
    *
@@ -63,7 +67,7 @@ export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(function PieCh
     data,
     donut = false,
     innerRadius = 0.6,
-    size = 240,
+    diameter = 240,
     showLegend = true,
     showLabels = false,
     startAngle = 0,
@@ -83,7 +87,7 @@ export const PieChart = forwardRef<HTMLDivElement, PieChartProps>(function PieCh
   },
   ref,
 ) {
-  const box = isNum(size) && size > 40 ? Math.round(size) : 240
+  const box = isNum(diameter) && diameter > 40 ? Math.round(diameter) : 240
   const slices = (data ?? []).filter(
     (d): d is PieDatum => !!d && isNum(d.value) && d.value > 0 && typeof d.label === 'string',
   )

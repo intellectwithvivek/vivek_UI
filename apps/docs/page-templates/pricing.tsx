@@ -166,7 +166,7 @@ export default function PricingPage() {
         actions={<Button size="lg">Start your trial</Button>}
         description="Fourteen days of the Team plan. No card up front."
         title="Try it on a real project"
-        variant="muted"
+        background="muted"
       />
     </>
   )

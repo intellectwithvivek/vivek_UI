@@ -30,7 +30,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
   layout="split"
   eyebrow={<Badge tone="primary">${LIBRARY_VERSION_LABEL}</Badge>}
   title="One package. No dependencies."
-  description="91 components, 6 charts and a token system your CSS can always override."
+  description="93 components, 6 charts and a token system your CSS can always override."
   actions={<Button>Get started</Button>}
   media={<img src="/screenshot.png" alt="" />}
 />`,
@@ -59,11 +59,11 @@ export const SECTION_EXAMPLES: ExampleSet = {
         'variant="primary" flips the whole band, including the text and border tokens, so contrast holds without you restating colours.',
       name: 'primary',
       code: `<CTA
-  variant="primary"
+  background="primary"
   eyebrow="Open source"
   title="Ship your next interface this week"
   description="Install once, style with tokens, override with a single class."
-  actions={<Button variant="outline">Read the docs</Button>}
+  actions={<Button background="outline">Read the docs</Button>}
 />`,
     },
   ],
@@ -83,7 +83,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
       name: 'Hobby',
       price: 'Free',
       description: 'For side projects and prototypes.',
-      features: ['All 91 components', 'All 6 charts', 'Design tokens'],
+      features: ['All 93 components', 'All 6 charts', 'Design tokens'],
       cta: <Button variant="outline">Start building</Button>,
     },
     {
@@ -111,7 +111,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
       code: `<FAQ
   eyebrow="FAQ"
   title="Questions people actually ask"
-  defaultOpen={0}
+  defaultOpenIndex={0}
   items={[
     {
       id: 'deps',
@@ -160,7 +160,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
     {
       title: 'Headline figures',
       description:
-        'value and label are announced together, so "91 components" is one fact rather than a number floating next to a word.',
+        'value and label are announced together, so "93 components" is one fact rather than a number floating next to a word.',
       name: 'basic',
       code: `<Stats
   eyebrow="By the numbers"
@@ -232,7 +232,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
   brand={
     <Stack gap={2}>
       <Text weight="semibold">VivekUI</Text>
-      <Text size="sm" tone="muted">91 components, 6 charts, zero runtime dependencies.</Text>
+      <Text size="sm" tone="muted">93 components, 6 charts, zero runtime dependencies.</Text>
     </Stack>
   }
   columns={[

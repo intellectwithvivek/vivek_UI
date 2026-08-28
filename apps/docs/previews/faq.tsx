@@ -33,7 +33,7 @@ export default function FAQPreview() {
       eyebrow="FAQ"
       title="Questions people actually ask"
       items={ITEMS}
-      defaultOpen={0}
+      defaultOpenIndex={0}
     />
   )
 }

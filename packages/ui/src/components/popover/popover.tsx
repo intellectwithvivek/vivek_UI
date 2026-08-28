@@ -21,6 +21,7 @@ import { getFocusableElements } from '../../hooks/use-focus-trap'
 import { useIsomorphicId } from '../../hooks/use-isomorphic-id'
 import { cx } from '../../utils/cx'
 import type { Align, Side } from '../../utils/position'
+import { Slot } from '../../utils/slot'
 import { Portal, type PortalContainer } from '../portal'
 
 interface PopoverContextValue {
@@ -139,31 +140,46 @@ export function Popover({
   return <PopoverContext.Provider value={value}>{children}</PopoverContext.Provider>
 }
 
-export type PopoverTriggerProps = ButtonHTMLAttributes<HTMLButtonElement>
+export interface PopoverTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /**
+   * Render the child element as the trigger instead of a `<button>` — the escape hatch a
+   * design-system Button or a router link needs. The ARIA wiring (`aria-haspopup`,
+   * `aria-expanded`, `aria-controls`) and the toggle handler land on the child, so it must
+   * be a single focusable element.
+   */
+  asChild?: boolean
+}
 
-/** The button that toggles the panel. A real `<button>`, so Enter and Space are free. */
+/** The button that toggles the panel. A real `<button>` by default, so Enter and Space are free. */
 export const PopoverTrigger = forwardRef<HTMLButtonElement, PopoverTriggerProps>(
-  function PopoverTrigger({ className, onClick, children, ...rest }, ref) {
+  function PopoverTrigger({ asChild, className, onClick, children, ...rest }, ref) {
     const ctx = usePopoverContext('Popover.Trigger')
     const setRef = useMergedRef(ctx.triggerRef, ref)
 
+    const shared = {
+      ref: setRef,
+      id: ctx.triggerId,
+      className: cx('vk-popover__trigger', className),
+      'aria-haspopup': 'dialog' as const,
+      'aria-expanded': ctx.open,
+      'aria-controls': ctx.open ? ctx.contentId : undefined,
+      'data-state': ctx.open ? 'open' : 'closed',
+      onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+        onClick?.(event)
+        if (event.defaultPrevented) return
+        ctx.setOpen(!ctx.open)
+      },
+    }
+
+    if (asChild) {
+      return (
+        <Slot {...shared} {...rest}>
+          {children}
+        </Slot>
+      )
+    }
     return (
-      <button
-        ref={setRef}
-        type="button"
-        id={ctx.triggerId}
-        className={cx('vk-popover__trigger', className)}
-        aria-haspopup="dialog"
-        aria-expanded={ctx.open}
-        aria-controls={ctx.open ? ctx.contentId : undefined}
-        data-state={ctx.open ? 'open' : 'closed'}
-        onClick={(event) => {
-          onClick?.(event)
-          if (event.defaultPrevented) return
-          ctx.setOpen(!ctx.open)
-        }}
-        {...rest}
-      >
+      <button type="button" {...shared} {...rest}>
         {children}
       </button>
     )

@@ -21,6 +21,7 @@ import { useIsomorphicId } from '../../hooks/use-isomorphic-id'
 import { ROVING_ITEM_ATTRIBUTE, useRovingTabIndex } from '../../hooks/use-roving-tab-index'
 import { cx } from '../../utils/cx'
 import type { Align, Side } from '../../utils/position'
+import { Slot } from '../../utils/slot'
 import { Portal, type PortalContainer } from '../portal'
 
 /** Which end of the menu takes focus when it opens. */
@@ -188,18 +189,26 @@ export function DropdownMenu({
   return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>
 }
 
-export type DropdownMenuTriggerProps = ButtonHTMLAttributes<HTMLButtonElement>
+export interface DropdownMenuTriggerProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /**
+   * Render the child element as the trigger instead of a `<button>` — so a styled Button,
+   * an IconButton, or an avatar chip can open the menu without a wrapper. The ARIA wiring
+   * and both handlers land on the child, which must be a single focusable element.
+   */
+  asChild?: boolean
+}
 
 /** The button that opens the menu. `aria-haspopup="menu"` plus a live `aria-expanded`. */
 export const DropdownMenuTrigger = forwardRef<HTMLButtonElement, DropdownMenuTriggerProps>(
-  function DropdownMenuTrigger({ className, onClick, onKeyDown, children, ...rest }, ref) {
+  function DropdownMenuTrigger({ asChild, className, onClick, onKeyDown, children, ...rest }, ref) {
     const ctx = useMenuContext('DropdownMenu.Trigger')
     const setRef = useMergedRef(ctx.triggerRef, ref)
+    const Component = asChild ? Slot : 'button'
 
     return (
-      <button
+      <Component
         ref={setRef}
-        type="button"
+        type={asChild ? undefined : 'button'}
         id={ctx.triggerId}
         className={cx('vk-dropdown-menu__trigger', className)}
         aria-haspopup="menu"
@@ -228,7 +237,7 @@ export const DropdownMenuTrigger = forwardRef<HTMLButtonElement, DropdownMenuTri
         {...rest}
       >
         {children}
-      </button>
+      </Component>
     )
   },
 )
@@ -441,6 +450,14 @@ export interface DropdownMenuItemProps
   closeOnSelect?: boolean
   /** Trailing hint, e.g. a keyboard shortcut. Not announced as part of the name. */
   shortcut?: ReactNode
+  /**
+   * Render the child element as the item — which is how a menu item becomes a real link.
+   * `<DropdownMenu.Item asChild><Link href="/settings">Settings</Link></DropdownMenu.Item>`
+   * keeps middle-click, cmd-click and "open in new tab" working, which an onClick that
+   * calls router.push silently breaks. The child receives `role="menuitem"`, the roving
+   * tabindex, and the activation handler.
+   */
+  asChild?: boolean
 }
 
 /**
@@ -449,15 +466,26 @@ export interface DropdownMenuItemProps
  */
 export const DropdownMenuItem = forwardRef<HTMLButtonElement, DropdownMenuItemProps>(
   function DropdownMenuItem(
-    { className, disabled, onSelect, onClick, closeOnSelect = true, shortcut, children, ...rest },
+    {
+      asChild,
+      className,
+      disabled,
+      onSelect,
+      onClick,
+      closeOnSelect = true,
+      shortcut,
+      children,
+      ...rest
+    },
     ref,
   ) {
     const activate = useItemBehaviour('DropdownMenu.Item', disabled, closeOnSelect)
+    const Component = asChild ? Slot : 'button'
 
     return (
-      <button
+      <Component
         ref={ref}
-        type="button"
+        type={asChild ? undefined : 'button'}
         role="menuitem"
         // Every item is tabIndex -1: the menu owns focus while it is open, and Tab
         // closes it rather than moving between items.
@@ -473,9 +501,15 @@ export const DropdownMenuItem = forwardRef<HTMLButtonElement, DropdownMenuItemPr
         }}
         {...rest}
       >
-        <span className="vk-dropdown-menu__item-label">{children}</span>
-        {shortcut ? <span className="vk-dropdown-menu__shortcut">{shortcut}</span> : null}
-      </button>
+        {asChild ? (
+          children
+        ) : (
+          <>
+            <span className="vk-dropdown-menu__item-label">{children}</span>
+            {shortcut ? <span className="vk-dropdown-menu__shortcut">{shortcut}</span> : null}
+          </>
+        )}
+      </Component>
     )
   },
 )

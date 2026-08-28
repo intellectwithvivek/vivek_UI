@@ -249,8 +249,15 @@ function resolvePrintTarget(target: PrintTarget): Element | null {
  * browser does the actual PDF writing. So: no server round trip, no bundle cost, and no
  * control over pagination beyond what CSS `break-*` gives us.
  *
- * Requires `styles/print.css` to be loaded, and returns `false` (never throws) when
- * there is no document, no element, or no `window.print`.
+ * Requires the print stylesheet to be loaded once, anywhere in the app:
+ *
+ * ```ts
+ * import '@the_viveksingh/vivek-ui/print.css'
+ * ```
+ *
+ * It is a separate import rather than part of `styles.css` so an app that never prints
+ * pays nothing for it. Returns `false` (never throws) when there is no document, no
+ * element, or no `window.print`.
  */
 export function printElement(target: PrintTarget, options: PrintElementOptions = {}): boolean {
   if (typeof document === 'undefined' || typeof window === 'undefined') return false

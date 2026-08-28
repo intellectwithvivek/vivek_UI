@@ -1,0 +1,63 @@
+/*
+ * Touch targets.
+ *
+ * Found by running the docs site through a real browser at a phone viewport: nine controls
+ * on the home page were under 44x44, including the navbar's own hamburger at 32x32 — the
+ * single most important control on a phone, and the hardest one there to hit.
+ *
+ * A pointer test, not a width test. `@media (pointer: coarse)` asks what the person is
+ * actually pointing with; a viewport width guesses, and guesses wrong for a touchscreen
+ * laptop, a tablet in landscape, or a phone in desktop mode. Nothing here applies to a
+ * mouse, so no desktop layout moves.
+ *
+ * 44px is the figure in WCAG 2.5.5, Apple's HIG and Material's guidance alike. WCAG 2.1 AA
+ * does not require it — 2.5.5 is AAA, and 2.2's AA rule asks only for 24x24 — so this is
+ * comfortably above what the library claims. It is here because a 32px control is genuinely
+ * unpleasant to hit with a thumb, not because a checklist demands it.
+ *
+ * `min-block-size` rather than `block-size`: the control grows to the minimum and no
+ * further, so a button with tall content keeps its own height.
+ */
+
+@media (pointer: coarse) {
+  /*
+   * Height only. These are wide already — a small button is short, not narrow — and forcing
+   * a minimum width would stretch "OK" to the same size as "Save and continue".
+   */
+  :where(.vk-button, .vk-tabs__tab, .vk-pagination__page, .vk-pagination__step) {
+    min-block-size: 44px;
+  }
+
+  /* Square controls, so both axes. Each of these is an icon with nothing to widen it. */
+  :where(
+    .vk-icon-button,
+    .vk-navbar__toggle,
+    .vk-theme-toggle,
+    .vk-pagination__chevron,
+    .vk-password__toggle
+  ) {
+    min-inline-size: 44px;
+    min-block-size: 44px;
+  }
+
+  /*
+   * Form controls are dragged and tapped rather than clicked precisely. The slider thumb in
+   * particular is the hardest control in any library to hit on a phone.
+   */
+  :where(.vk-input, .vk-select, .vk-password__input, .vk-otp__box) {
+    min-block-size: 44px;
+  }
+
+  :where(.vk-switch__track) {
+    min-block-size: 28px;
+  }
+
+  /*
+   * The checkbox and radio boxes stay their drawn size — enlarging them would look wrong —
+   * but their labels are the real target, and a label is as tall as its text. This gives the
+   * whole row a thumb-sized height without changing the mark.
+   */
+  :where(.vk-checkbox, .vk-radio) {
+    min-block-size: 44px;
+  }
+}

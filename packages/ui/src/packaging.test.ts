@@ -40,6 +40,14 @@ describe('package metadata', () => {
     expect(Object.keys(PKG.peerDependencies ?? {}).sort()).toEqual(['react', 'react-dom'])
   })
 
+  it('ships the print stylesheet printElement depends on', () => {
+    // printElement's docblock told people to load styles/print.css for a release in which
+    // no such file was bundled or exported - a shipped feature that could not work. The
+    // subpath plus this test keep the docblock honest.
+    expect(PKG.exports['./print.css']).toBe('./dist/print.css')
+    expect(PKG.scripts['build:css']).toContain('src/styles/print.css -o dist/print.css')
+  })
+
   it('ships only dist', () => {
     expect(PKG.files).toEqual(['dist'])
   })

@@ -97,9 +97,10 @@ Author: ${AUTHOR.name} (${AUTHOR.url})
   plain class from the consumer overrides it without \`!important\`.
 - Charts are inline SVG with no charting dependency, and each renders an accessible
   \`<table>\` fallback containing the underlying numbers.
-- Accessibility is tested, not claimed: every component has a \`vitest-axe\` assertion, and
-  the colour palette is verified against WCAG contrast ratios plus simulated protanopia,
-  deuteranopia and tritanopia.
+- Accessibility is tested, not claimed: every component has a \`vitest-axe\` assertion, the
+  token palette is verified arithmetically against WCAG contrast ratios in both themes, and
+  the chart palette is additionally checked under simulated protanopia, deuteranopia and
+  tritanopia.
 
 ${section('Guides', guides)}
 ${section('Components', components)}

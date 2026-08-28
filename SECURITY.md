@@ -32,7 +32,7 @@ Use one of these instead:
    [open a draft advisory](https://github.com/intellectwithvivek/vivek_UI/security/advisories/new).
    This is private to the maintainers and gives us a place to work with you on a fix and a
    CVE.
-2. **Email** — `intellectwithvivek@gmail.comom`, with `SECURITY` in the subject line.
+2. **Email** — `intellectwithvivek@gmail.com`, with `SECURITY` in the subject line.
 
 You do not need to have a fix, a CVE, or a proof-of-concept exploit. A clear description
 of the problem is enough to start.
@@ -135,7 +135,11 @@ Not vulnerabilities, but worth knowing:
   `+`, `-`, `@`, tab and CR so a cell cannot become a live formula. Do not pass
   `formulaGuard: false` on data you did not author.
 - **Content Security Policy.** The library needs no `script-src` allowances of its own: it
-  ships no inline scripts and evaluates no strings. Component styling is static CSS plus
+  ships no inline scripts and evaluates no strings. One audited `dangerouslySetInnerHTML`
+  exists — the FAQ component's JSON-LD block, which structured data requires (React escapes
+  script text children, which would corrupt the JSON). Its payload is `JSON.stringify` output
+  with `<` escaped to `<`, so item content cannot break out of the tag, and a test pins
+  the budget to that single file. Component styling is static CSS plus
   custom properties, so a strict `style-src` works, though inline `style` attributes
   (used for CSS custom properties like `--vk-cols`) mean you may need `'unsafe-inline'`
   for `style-src` or a nonce/hash strategy for them.

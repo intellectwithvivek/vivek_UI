@@ -413,6 +413,64 @@ describe('Testimonials', () => {
 /* ---------------------------------------------------------------------- FAQ */
 
 describe('FAQ', () => {
+  describe('structured data', () => {
+    const jsonOf = (container: HTMLElement) => {
+      const script = container.querySelector('script[type="application/ld+json"]')
+      return script ? JSON.parse(script.textContent ?? '') : null
+    }
+
+    it('emits FAQPage JSON-LD by default, derived from the visible items', () => {
+      // The markup an answer engine reads to quote a question directly. Emitted on the
+      // server, because several crawlers never run JavaScript.
+      const { container } = render(<FAQ title="FAQ" items={faqItems} />)
+      const data = jsonOf(container)
+      expect(data['@type']).toBe('FAQPage')
+      expect(data.mainEntity).toHaveLength(2)
+      expect(data.mainEntity[0]['@type']).toBe('Question')
+      expect(data.mainEntity[0].acceptedAnswer.text).toBeTruthy()
+    })
+
+    it('escapes </script> inside content, so CMS data cannot break out of the tag', () => {
+      // The classic JSON-LD injection: a string containing </script> closes the block
+      // early and everything after it parses as markup. FAQ content routinely comes
+      // from a CMS, so this is the load-bearing test for the feature.
+      const hostile = [
+        { question: 'Safe?</script><img src=x onerror=alert(1)>', answer: 'Yes </script> it is.' },
+      ]
+      const { container } = render(<FAQ items={hostile} />)
+      const raw = container.querySelector('script[type="application/ld+json"]')?.innerHTML ?? ''
+      expect(raw).not.toContain('</script>')
+      expect(raw).toContain('\\u003c')
+      // Still valid JSON, and the original text survives the round trip.
+      expect(JSON.parse(raw).mainEntity[0].name).toContain('</script>')
+      expect(container.querySelector('img')).toBeNull()
+    })
+
+    it('uses answerText for JSX answers, and omits items with neither', () => {
+      const items = [
+        { question: 'Plain?', answer: 'A string answer.' },
+        { question: 'Rich?', answer: <strong>bold</strong>, answerText: 'A bold answer.' },
+        { question: 'Node only?', answer: <em>no text given</em> },
+      ]
+      const { container } = render(<FAQ items={items} />)
+      const names = jsonOf(container).mainEntity.map((entry: { name: string }) => entry.name)
+      // All three render visibly; only the serialisable two enter the schema.
+      expect(container.querySelectorAll('details')).toHaveLength(3)
+      expect(names).toEqual(['Plain?', 'Rich?'])
+    })
+
+    it('emits nothing when opted out, when no item is serialisable, or when children replace the layout', () => {
+      // The children escape hatch replaces the visible list, and schema must describe
+      // what is actually visible - Google's structured-data policy is explicit on this.
+      const none = render(<FAQ items={faqItems} structuredData={false} />)
+      expect(none.container.querySelector('script')).toBeNull()
+      const jsxOnly = render(<FAQ items={[{ question: 'Q', answer: <em>x</em> }]} />)
+      expect(jsxOnly.container.querySelector('script')).toBeNull()
+      const custom = render(<FAQ items={faqItems}>custom layout</FAQ>)
+      expect(custom.container.querySelector('script')).toBeNull()
+    })
+  })
+
   it('renders native details/summary pairs, closed by default', () => {
     const { container } = render(<FAQ title="FAQ" items={faqItems} />)
     const details = container.querySelectorAll('details')

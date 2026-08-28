@@ -11,6 +11,8 @@
  *    forgot to update the test — which is the good kind of failure.
  */
 
+import { readdirSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { ChatThread } from './components/chat-thread'
@@ -272,5 +274,52 @@ describe('CSV export: formula injection', () => {
 
   it('formulaGuard: false is opt-in only', () => {
     expect(escapeCsvValue('=1+1', { formulaGuard: false })).toBe('=1+1')
+  })
+})
+
+/* ------------------------------------------------------------------ *
+ * The dangerouslySetInnerHTML budget: exactly one, and it must stay safe.
+ *
+ * The README states the library never turns data into markup. One API genuinely cannot
+ * exist without dangerouslySetInnerHTML - JSON-LD, whose payload must be a raw script
+ * body because React escapes text children - so the claim is "exactly one audited use"
+ * and this suite is what keeps it true. A second use anywhere in src fails here before
+ * any reviewer finds it.
+ * ------------------------------------------------------------------ */
+
+describe('the dangerouslySetInnerHTML budget', () => {
+  const files: string[] = []
+  const walk = (dir: string) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const path = join(dir, entry.name)
+      if (entry.isDirectory()) walk(path)
+      else if (/\.tsx?$/.test(entry.name) && !entry.name.includes('.test.')) files.push(path)
+    }
+  }
+  walk(join(__dirname))
+
+  /*
+   * Comments are stripped first: theme-provider's JSDoc shows consumers how to inline the
+   * anti-flash script with dangerouslySetInnerHTML in THEIR layout, which is documentation,
+   * not a use. Only code that actually passes the prop counts against the budget.
+   */
+  const uses = files.filter((file) => {
+    const code = readFileSync(file, 'utf8')
+      .replace(/\/\*[\s \S]*?\*\//g, '')
+      .replace(/^\s*\SLASH.*$/gm, '')
+    return /dangerouslySetInnerHTML=/.test(code)
+  })
+
+  it('is spent on exactly one file: the FAQ JSON-LD block', () => {
+    expect(uses.map((file) => file.replace(/\\/g, '/').split('/').slice(-2).join('/'))).toEqual([
+      'faq/faq.tsx',
+    ])
+  })
+
+  it('that file escapes < before anything reaches the script body', () => {
+    // Without the escape, item text containing </script> closes the tag early and the
+    // rest of the payload parses as markup - the classic JSON-LD injection.
+    const source = readFileSync(uses[0] ?? '', 'utf8')
+    expect(source).toContain(String.raw`replace(/</g, '\\u003c')`)
   })
 })

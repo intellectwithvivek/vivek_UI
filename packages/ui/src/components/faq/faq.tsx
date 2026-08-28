@@ -20,6 +20,13 @@ export interface FaqItem {
   id?: string | number
   question: string
   answer: ReactNode
+  /**
+   * Plain-text version of the answer, used only for the FAQPage structured data. Needed
+   * when `answer` is JSX — a ReactNode cannot be serialised into JSON-LD, so an item
+   * whose answer is not a string is silently left out of the emitted schema unless this
+   * is provided. Items with a string `answer` need nothing extra.
+   */
+  answerText?: string
 }
 
 export interface FAQProps extends Omit<SectionProps, 'title'> {
@@ -44,6 +51,45 @@ export interface FAQProps extends Omit<SectionProps, 'title'> {
    * below it — or at this level when the section has no title of its own.
    */
   headingLevel?: HeadingLevel
+  /**
+   * Emit schema.org `FAQPage` JSON-LD alongside the list. Default `true`.
+   *
+   * This is the markup an answer engine reads to quote a question and its answer
+   * directly, and it is derived 1:1 from the items rendered on the page — never from
+   * anything invisible, which is what Google's structured-data policy requires. Items
+   * whose `answer` is JSX are included only when they carry `answerText`. Nothing is
+   * emitted when the `children` escape hatch replaces the default layout, because the
+   * schema must describe what is actually visible.
+   */
+  structuredData?: boolean
+}
+
+/**
+ * FAQPage JSON-LD for the rendered items, or null when nothing is serialisable.
+ *
+ * `<` is escaped to `<` — still valid JSON — because a string containing
+ * `</script>` would otherwise close the tag early, which is the classic JSON-LD
+ * injection. This matters here more than most places: FAQ content routinely comes from
+ * a CMS.
+ */
+function faqPageJson(items: FaqItem[]): string | null {
+  const entries = items
+    .map((item) => ({
+      question: item.question,
+      answer: typeof item.answer === 'string' ? item.answer : item.answerText,
+    }))
+    .filter((entry): entry is { question: string; answer: string } => Boolean(entry.answer))
+  if (entries.length === 0) return null
+
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: entries.map((entry) => ({
+      '@type': 'Question',
+      name: entry.question,
+      acceptedAnswer: { '@type': 'Answer', text: entry.answer },
+    })),
+  }).replace(/</g, '\\u003c')
 }
 
 /**
@@ -67,6 +113,7 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
     title,
     description,
     headingLevel = 2,
+    structuredData = true,
     size = 'md',
     className,
     children,
@@ -76,6 +123,8 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
 ) {
   const hasHeader = Boolean(eyebrow || title || description)
   const itemLevel = hasHeader ? nextHeadingLevel(headingLevel) : headingLevel
+  // Only when the default layout renders: schema must describe what is visible.
+  const jsonLd = structuredData && !children ? faqPageJson(items) : null
 
   return (
     <Section
@@ -85,6 +134,20 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
       {...rest}
       aria-label={landmarkName(title, rest)}
     >
+      {jsonLd ? (
+        <script
+          type="application/ld+json"
+          /*
+           * The one dangerouslySetInnerHTML in the library, and the reason it is safe: a
+           * JSON-LD block has to be a raw script body (React escapes text children, which
+           * would corrupt the JSON), and the payload is JSON.stringify output with `<`
+           * escaped above — no markup can pass through it, whatever the items contain.
+           * security.test.tsx pins usage to this file and asserts the escaping.
+           */
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: serialised JSON with `<` escaped; see the comment above
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+        />
+      ) : null}
       {children ?? (
         <>
           {hasHeader ? (

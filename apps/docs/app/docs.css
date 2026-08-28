@@ -760,6 +760,8 @@ body {
   justify-content: center;
   inline-size: 2rem;
   block-size: 2rem;
+  /* Matches the library's coarse-pointer minimum. The dot inside stays 17px either way. */
+  min-inline-size: 2rem;
   padding: 0;
   background: none;
   border: 1px solid var(--vk-color-border);
@@ -834,4 +836,21 @@ body {
     min-block-size: 44px;
     min-inline-size: 44px;
   }
+}
+
+@media (pointer: coarse) {
+  .accent-trigger {
+    inline-size: 44px;
+    block-size: 44px;
+  }
+}
+
+/*
+ * The skip link is the first thing a keyboard user reaches and it was 37px tall — under the
+ * thumb-sized minimum, and it is also a touch target once it is focused on a tablet.
+ */
+.skip-link {
+  min-block-size: 44px;
+  display: inline-flex;
+  align-items: center;
 }

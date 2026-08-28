@@ -10,7 +10,8 @@
 
 <!-- hero-stats:start -->
 **91 accessible React components**, **6 SVG charts** and **12 ready-made pages** you can copy.
-No Tailwind, no PostCSS plugin, no Babel plugin, no required provider.
+No Tailwind, no PostCSS plugin, no Babel plugin, no provider required to render — only toasts
+and the theme hook use one, locally.
 Works in React 18 and 19, and in Next.js with both the Pages and App Router.
 <!-- hero-stats:end -->
 
@@ -230,8 +231,8 @@ the only shape that survives an optimistic update the server rejects.
 `ChatCodeBlock` &middot; `ChatInput` &middot; `ChatMessage` &middot; `ChatThread` &middot; `TypingIndicator`
 <!-- catalog-ai-chat:end -->
 
-Message content is always a `ReactNode`, never an HTML string — there is no
-`dangerouslySetInnerHTML` anywhere in the library, so model output cannot become markup. The
+Message content is always a `ReactNode`, never an HTML string — nothing in the chat path
+touches `dangerouslySetInnerHTML`, so model output cannot become markup. The
 transcript is a `role="log"` with `aria-relevant="additions"`, so new turns are announced without
 re-reading the thread, and auto-scroll sticks to the bottom **without** yanking the user back when
 they have scrolled up to read.
@@ -343,7 +344,7 @@ npm ls --omit=dev @the_viveksingh/vivek-ui
 `react` and `react-dom` are `peerDependencies` (`^18 || ^19`) and are never bundled, so you cannot
 end up with two copies of React and the duplicate-hooks errors that follow.
 
-Verified on every release against **npm, yarn and pnpm**, in **ESM and CJS**, under all three
+Verified on every release in **ESM and CJS**, under all three
 TypeScript `moduleResolution` modes (`bundler`, `node16`, legacy `node`).
 
 ## Responsive with no props
@@ -424,8 +425,9 @@ the accessible thing is the default:
 - `Divider` is a real `<hr>` unless labelled; `FAQ` is native `<details>`
 - Every animation respects `prefers-reduced-motion`
 
-**Known gap:** colour contrast is reasoned, not machine-verified — `axe`'s contrast rule cannot run
-without a browser. A Playwright pass is on the roadmap.
+Colour contrast is verified twice: arithmetically against the tokens (WCAG 2.1 ratios computed in
+`tokens.test.ts`, both themes), and by `axe` in a real browser against composed pages — including
+dark mode — in the Playwright suite, where contrast is measured on the pixels actually painted.
 
 ## Server Components
 
@@ -439,7 +441,10 @@ that all 55 client files still carry theirs in **both** the ESM and CJS output.
 
 ## Security
 
-- **No `dangerouslySetInnerHTML`, `innerHTML`, or `eval` anywhere** in the library
+- **No `innerHTML` or `eval` anywhere; `dangerouslySetInnerHTML` exactly once** — the FAQ's
+  opt-out JSON-LD block, whose payload is `JSON.stringify` output with `<` escaped to `<`,
+  so no markup can pass through it whatever the items contain. A test pins the budget to that
+  one file and asserts the escaping, so a second use anywhere fails CI
 - Consumer-supplied `href` values are **scheme-validated** in every link component. React 18 renders
   a `javascript:` URL verbatim (only React 19 blocks it) and `^18` is supported here, so a CMS-fed
   link would otherwise be a stored-XSS vector. Unsafe schemes are dropped, and `target="_blank"`
@@ -459,7 +464,8 @@ Report a vulnerability via [SECURITY.md](SECURITY.md).
 |---|---|
 | **Shipped** | Layout, typography, actions, forms, overlays, navigation, data, AI chat, sections, media, charts, theming |
 | **Shipped** | [Documentation site](https://ui.vivekkumarsingh.in) &mdash; a page per component with live previews, props tables and an in-browser playground |
-| Next | Built-in icon set; a Playwright pass for colour contrast and real-browser behaviour |
+| **Shipped** | Playwright suite: real-browser layout at phone/tablet/desktop, axe on composed pages in both themes, touch-target audit |
+| Next | Built-in icon set |
 | Later | `DataTable` virtualisation, richer chart types — driven by what people actually ask for |
 
 ## Contributing

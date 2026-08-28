@@ -38,7 +38,7 @@ export const TEMPLATES: TemplateMeta[] = [
     description:
       'A full marketing page: nav, hero, logos, features, stats, testimonials, pricing, FAQ, call to action and footer. Free and MIT licensed.',
     detail:
-      'The page most projects need first, and the one that takes longest to assemble by hand. Every section here is a single component with a data prop, so the whole page is roughly a hundred lines of content and no layout code. The FAQ emits FAQPage structured data on its own, which is the part people forget.',
+      'The page most projects need first, and the one that takes longest to assemble by hand. Every section here is a single component with a data prop, so the whole page is roughly a hundred lines of content and no layout code. The FAQ emits FAQPage structured data on its own — the markup an answer engine quotes from — which is the part people forget.',
     category: 'Marketing',
   },
   {
@@ -47,7 +47,7 @@ export const TEMPLATES: TemplateMeta[] = [
     description:
       'Three plans with a highlighted tier, a comparison table that stacks on a phone, and the questions buyers actually ask. Free and MIT licensed.',
     detail:
-      'Pricing pages fail in two places: the comparison table is unreadable on a phone, and the FAQ is an accordion with no keyboard support. The table here switches to a stacked layout below its breakpoint rather than scrolling sideways, and the FAQ is the library accordion, which follows the WAI-ARIA disclosure pattern.',
+      'Pricing pages fail in two places: the comparison table is unreadable on a phone, and the FAQ is an accordion with no keyboard support. The table here switches to a stacked layout below its breakpoint rather than scrolling sideways, and the FAQ is native details/summary — keyboard-operable and screen-reader-correct with zero ARIA and zero JavaScript.',
     category: 'Marketing',
   },
   {

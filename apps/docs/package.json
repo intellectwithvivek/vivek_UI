@@ -12,6 +12,8 @@
     "gen:registry": "node scripts/gen-registry.mjs",
     "gen:pages": "node scripts/gen-page-sources.mjs",
     "gen:favicons": "node scripts/gen-favicons.mjs",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
     "check:examples": "node scripts/check-examples.mjs",
     "test": "vitest run"
   },
@@ -23,10 +25,12 @@
     "sucrase": "^3.35.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
+    "axe-core": "^4.13.0",
     "jsdom": "^30.0.1",
     "typescript": "^5.9.3",
     "vitest": "^4.1.11"

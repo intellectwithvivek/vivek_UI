@@ -9089,6 +9089,13 @@
             "required": false,
             "description": "Level of the section's own `title`, defaulting to `2`. Questions render one level below it — or at this level when the section has no title of its own.",
             "default": ""
+          },
+          {
+            "name": "structuredData",
+            "type": "boolean",
+            "required": false,
+            "description": "Emit schema.org `FAQPage` JSON-LD alongside the list. Default `true`. This is the markup an answer engine reads to quote a question and its answer directly, and it is derived 1:1 from the items rendered on the page — never from anything invisible, which is what Google's structured-data policy requires. Items whose `answer` is JSX are included only when they carry `answerText`. Nothing is emitted when the `children` escape hatch replaces the default layout, because the schema must describe what is actually visible.",
+            "default": ""
           }
         ],
         "spreadsHostProps": false,

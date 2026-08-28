@@ -274,6 +274,99 @@ export default function Revenue() {
 </Card>`,
     },
   ],
+
+  'scatter-chart': [
+    {
+      title: 'A relationship, not a trend',
+      description:
+        'Both axes are measures. The chart answers "do these two things move together" - which a line chart, with its ordered category axis, cannot.',
+      variant: 'basic',
+      code: `<ScatterChart
+  title="Ad spend vs signups"
+  xLabel="Spend (k)"
+  yLabel="Signups"
+  data={[
+    { x: 12, y: 34 },
+    { x: 18, y: 41 },
+    { x: 31, y: 55 },
+    { x: 45, y: 68 },
+  ]}
+/>`,
+    },
+    {
+      title: 'Bubbles: a third measure, scaled honestly',
+      description:
+        'Any point carrying r turns the series into a bubble chart. r maps to the AREA of the mark, not its radius - radius scaling (the Chart.js default) squares every visual ratio and quietly exaggerates the data.',
+      variant: 'bubble',
+      code: `<ScatterChart
+  title="Spend vs revenue, sized by headcount"
+  data={[
+    { x: 10, y: 40, r: 12, label: 'Meridian' },
+    { x: 41, y: 72, r: 80, label: 'Northgate' },
+  ]}
+/>
+
+// r is any positive measure; the largest bubble gets maxBubbleSize px.`,
+    },
+  ],
+
+  'radar-chart': [
+    {
+      title: 'Several measures of one thing',
+      description:
+        'A polygon per series over shared axes. Series are separated by colour, dash and vertex shape, so two overlapping releases stay readable in greyscale - and every figure is in the accessible table, because polygon area is unreadable by design.',
+      variant: 'basic',
+      code: `<RadarChart
+  title="Release scorecard"
+  axes={['Speed', 'A11y', 'Size', 'Types', 'Docs']}
+  series={[
+    { name: 'v0.5', data: [70, 85, 90, 80, 60] },
+    { name: 'v1.0', data: [85, 96, 88, 95, 90] },
+  ]}
+/>`,
+    },
+  ],
+
+  gauge: [
+    {
+      title: 'One value against zones',
+      description:
+        'The needle against a coloured band answers "is it in the healthy zone" before the number is read. The accessible name carries the value, the range and the band label - the SVG is decoration around a figure.',
+      variant: 'basic',
+      code: `<Gauge
+  title="CPU load"
+  value={72}
+  caption="CPU"
+  bands={[
+    { to: 60, color: 'var(--vk-color-success)', label: 'healthy' },
+    { to: 85, color: 'var(--vk-color-warning)', label: 'elevated' },
+    { to: 100, color: 'var(--vk-color-danger)', label: 'critical' },
+  ]}
+/>
+
+// For plain percent-complete, ProgressRing is the lighter component.`,
+    },
+  ],
+
+  heatmap: [
+    {
+      title: 'Two categorical axes, intensity for the value',
+      description:
+        'The GitHub-contribution shape, generalised. Intensity is a lightness ramp mixed from the tokens with color-mix, so it holds in dark mode and survives every form of colour blindness - and the real numbers ship in the accessible table either way.',
+      variant: 'basic',
+      code: `<Heatmap
+  title="Errors by service and day"
+  showValues
+  columns={['Mon', 'Tue', 'Wed', 'Thu', 'Fri']}
+  data={[
+    { x: 'Mon', y: 'API', value: 12 },
+    { x: 'Tue', y: 'API', value: 41 },
+    { x: 'Mon', y: 'Web', value: 25 },
+    // ...one cell per (column, row) pair; gaps render as empty cells
+  ]}
+/>`,
+    },
+  ],
 }
 
 export function chartExamplesFor(slug: string): ChartExample[] {

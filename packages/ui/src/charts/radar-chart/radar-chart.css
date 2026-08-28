@@ -1,0 +1,25 @@
+/* RadarChart. */
+
+:where(.vk-radar-chart__ring) {
+  fill: none;
+  stroke: var(--vk-color-border-subtle);
+}
+
+:where(.vk-radar-chart__spoke) {
+  stroke: var(--vk-color-border-subtle);
+}
+
+:where(.vk-radar-chart__axis-label) {
+  font-size: 11px;
+  fill: var(--vk-color-muted);
+}
+
+:where(.vk-radar-chart__shape) {
+  fill: none;
+  stroke-width: 2;
+}
+
+/* The wash is quiet on purpose: two overlapping filled polygons must both stay legible. */
+:where(.vk-radar-chart__shape[data-filled]) {
+  fill-opacity: 0.12;
+}

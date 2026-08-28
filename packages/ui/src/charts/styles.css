@@ -12,3 +12,7 @@
 @import "./bar-chart/bar-chart.css";
 @import "./pie-chart/pie-chart.css";
 @import "./progress-ring/progress-ring.css";
+@import "./scatter-chart/scatter-chart.css";
+@import "./radar-chart/radar-chart.css";
+@import "./gauge/gauge.css";
+@import "./heatmap/heatmap.css";

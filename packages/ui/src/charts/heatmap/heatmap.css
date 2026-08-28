@@ -1,0 +1,68 @@
+/*
+ * Heatmap. HTML grid, not SVG: cells are text-bearing boxes, and CSS gives wrapping
+ * labels, container-width responsiveness and theme-aware mixing for free.
+ */
+
+:where(.vk-heatmap__grid) {
+  display: grid;
+  grid-template-columns: auto repeat(var(--vk-heatmap-cols, 1), minmax(0, 1fr));
+  gap: 2px;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-xs);
+}
+
+:where(.vk-heatmap__row) {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+:where(.vk-heatmap__col-label),
+:where(.vk-heatmap__row-label) {
+  color: var(--vk-color-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.vk-heatmap__col-label) {
+  text-align: center;
+  padding-block-end: var(--vk-space-1);
+}
+
+:where(.vk-heatmap__row-label) {
+  display: flex;
+  align-items: center;
+  padding-inline-end: var(--vk-space-2);
+}
+
+:where(.vk-heatmap__cell) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--vk-heatmap-cell, 32px);
+  border-radius: var(--vk-radius-sm);
+  /*
+   * The ramp: surface -> series colour, mixed per cell. Lightness carries the scale, so
+   * it survives every form of colour blindness - and because both endpoints are tokens,
+   * the same markup holds in dark mode with no second palette.
+   */
+  background: color-mix(
+    in oklab,
+    var(--vk-heatmap-color, var(--vk-chart-1)) var(--vk-heatmap-mix, 0%),
+    var(--vk-color-surface-sunken)
+  );
+  color: var(--vk-color-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+:where(.vk-heatmap__cell[data-empty]) {
+  background: transparent;
+  border: 1px dashed var(--vk-color-border-subtle);
+}
+
+:where(.vk-chart__caption) {
+  margin: var(--vk-space-2) 0 0;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}

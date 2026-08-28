@@ -9,7 +9,7 @@
 **Every building block of a website. One install, zero configuration, no dependencies.**
 
 <!-- hero-stats:start -->
-**93 accessible React components**, **6 SVG charts** and **12 ready-made pages** you can copy.
+**93 accessible React components**, **10 SVG charts** and **12 ready-made pages** you can copy.
 No Tailwind, no PostCSS plugin, no Babel plugin, no required provider.
 Works in React 18 and 19, and in Next.js with both the Pages and App Router.
 <!-- hero-stats:end -->
@@ -324,10 +324,10 @@ Measured with `size-limit`, minified and brotlied, React excluded:
 | `{ Button }` | **771 B** |
 | `{ Modal }` (focus trap + scroll lock + portal) | **2.9 kB** |
 | A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **2.9 kB** |
-| All six charts | **8.3 kB** |
+| All six charts | **10.6 kB** |
 | Every component, imported at once | **48.9 kB** |
 | `styles.css` | 197.0 kB raw, **27.7 kB gzipped** |
-| `charts.css` | 10.1 kB raw, **2.0 kB gzipped** |
+| `charts.css` | 12.2 kB raw, **2.5 kB gzipped** |
 <!-- size-table:end -->
 
 Per-file ESM plus `sideEffects: false` means you pay only for what you import: importing `Button`

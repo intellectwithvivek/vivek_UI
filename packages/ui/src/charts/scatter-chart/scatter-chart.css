@@ -1,0 +1,11 @@
+/* ScatterChart. The frame and legend come from the shared chart styles. */
+
+:where(.vk-scatter-chart__mark) {
+  stroke: var(--vk-color-surface);
+  stroke-width: 1;
+}
+
+/* Bubbles overlap by nature; translucency keeps the ones behind readable. */
+:where(.vk-scatter-chart[data-bubble] .vk-scatter-chart__mark) {
+  fill-opacity: 0.75;
+}

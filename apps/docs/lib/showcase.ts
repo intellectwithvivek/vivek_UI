@@ -111,7 +111,7 @@ export const SHOWCASE: ShowcaseSite[] = [
     repo: 'https://github.com/intellectwithvivek/Pulse-Analytics',
     highlights: [
       'Marketing site and app in one repo',
-      'All six charts in context',
+      'Six of the charts in context',
       'Sortable, searchable data table',
       'Keyboard-drivable kanban board',
     ],

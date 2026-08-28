@@ -2,9 +2,13 @@ import { Card, Heading, Text } from '@the_viveksingh/vivek-ui'
 import {
   AreaChart,
   BarChart,
+  Gauge,
+  Heatmap,
   LineChart,
   PieChart,
   ProgressRing,
+  RadarChart,
+  ScatterChart,
   Sparkline,
 } from '@the_viveksingh/vivek-ui/charts'
 
@@ -189,6 +193,87 @@ export function ChartPreview({ slug, variant = 'basic' }: { slug: string; varian
       )
 
     // --- sparkline ---
+    case 'scatter-chart:basic':
+      return (
+        <ScatterChart
+          data={[
+            { x: 12, y: 34 },
+            { x: 18, y: 41 },
+            { x: 24, y: 38 },
+            { x: 31, y: 55 },
+            { x: 38, y: 51 },
+            { x: 45, y: 68 },
+            { x: 52, y: 62 },
+          ]}
+          title="Ad spend vs signups"
+          xLabel="Spend (k)"
+          yLabel="Signups"
+        />
+      )
+    case 'scatter-chart:bubble':
+      return (
+        <ScatterChart
+          data={[
+            { x: 10, y: 40, r: 12, label: 'Meridian' },
+            { x: 22, y: 58, r: 45, label: 'Halcyon' },
+            { x: 30, y: 45, r: 20, label: 'Fieldwork' },
+            { x: 41, y: 72, r: 80, label: 'Northgate' },
+            { x: 52, y: 60, r: 33, label: 'Overtone' },
+          ]}
+          title="Spend vs revenue, sized by headcount"
+          xLabel="Spend (k)"
+          yLabel="Revenue (k)"
+        />
+      )
+    case 'radar-chart:basic':
+      return (
+        <RadarChart
+          axes={['Speed', 'A11y', 'Size', 'Types', 'Docs']}
+          series={[
+            { name: 'v0.5', data: [70, 85, 90, 80, 60] },
+            { name: 'v1.0', data: [85, 96, 88, 95, 90] },
+          ]}
+          title="Release scorecard"
+        />
+      )
+    case 'gauge:basic':
+      return (
+        <Gauge
+          bands={[
+            { to: 60, color: 'var(--vk-color-success)', label: 'healthy' },
+            { to: 85, color: 'var(--vk-color-warning)', label: 'elevated' },
+            { to: 100, color: 'var(--vk-color-danger)', label: 'critical' },
+          ]}
+          caption="CPU"
+          title="CPU load"
+          value={72}
+        />
+      )
+    case 'heatmap:basic':
+      return (
+        <Heatmap
+          columns={['Mon', 'Tue', 'Wed', 'Thu', 'Fri']}
+          data={[
+            { x: 'Mon', y: 'API', value: 12 },
+            { x: 'Tue', y: 'API', value: 41 },
+            { x: 'Wed', y: 'API', value: 30 },
+            { x: 'Thu', y: 'API', value: 18 },
+            { x: 'Fri', y: 'API', value: 8 },
+            { x: 'Mon', y: 'Web', value: 25 },
+            { x: 'Tue', y: 'Web', value: 15 },
+            { x: 'Wed', y: 'Web', value: 34 },
+            { x: 'Thu', y: 'Web', value: 21 },
+            { x: 'Fri', y: 'Web', value: 5 },
+            { x: 'Mon', y: 'Jobs', value: 3 },
+            { x: 'Tue', y: 'Jobs', value: 7 },
+            { x: 'Wed', y: 'Jobs', value: 11 },
+            { x: 'Thu', y: 'Jobs', value: 2 },
+            { x: 'Fri', y: 'Jobs', value: 16 },
+          ]}
+          showValues
+          title="Errors by service and day"
+        />
+      )
     case 'sparkline:basic':
       return <Sparkline data={TREND} title="Signups trend" />
     case 'sparkline:tile':

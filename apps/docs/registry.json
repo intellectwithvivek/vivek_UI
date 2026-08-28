@@ -15662,6 +15662,168 @@
       "compound": false
     },
     {
+      "slug": "gauge",
+      "title": "Gauge",
+      "kind": "chart",
+      "category": "Charts",
+      "exports": [
+        "Gauge"
+      ],
+      "typeExports": [
+        "GaugeBand",
+        "GaugeProps"
+      ],
+      "primary": "Gauge",
+      "description": "A gauge — one value against a bounded scale, with optional threshold bands.",
+      "isClient": false,
+      "api": {
+        "props": [
+          {
+            "name": "value",
+            "type": "number",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "min",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "bands",
+            "type": "readonly GaugeBand[]",
+            "required": false,
+            "description": "Threshold bands under the arc — the \"green / amber / red\" zones a dashboard gauge exists for. Without bands the track is a single neutral arc.",
+            "default": ""
+          },
+          {
+            "name": "diameter",
+            "type": "number",
+            "required": false,
+            "description": "Diameter of the `viewBox`, in px. The chart scales to its container width.",
+            "default": ""
+          },
+          {
+            "name": "thickness",
+            "type": "number",
+            "required": false,
+            "description": "Arc thickness in px.",
+            "default": ""
+          },
+          {
+            "name": "caption",
+            "type": "string",
+            "required": false,
+            "description": "Text under the value, e.g. a unit.",
+            "default": ""
+          },
+          {
+            "name": "showValue",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": false,
+        "extends": [
+          "Omit<ChartRootProps, 'xLabel' | 'yLabel'>"
+        ]
+      },
+      "compound": false
+    },
+    {
+      "slug": "heatmap",
+      "title": "Heatmap",
+      "kind": "chart",
+      "category": "Charts",
+      "exports": [
+        "Heatmap"
+      ],
+      "typeExports": [
+        "HeatmapCell",
+        "HeatmapProps"
+      ],
+      "primary": "Heatmap",
+      "description": "A matrix heatmap — two categorical axes, intensity for the value.",
+      "isClient": false,
+      "api": {
+        "props": [
+          {
+            "name": "data",
+            "type": "readonly HeatmapCell[]",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "columns",
+            "type": "readonly string[]",
+            "required": false,
+            "description": "Explicit column order. Also renders columns that have no data yet.",
+            "default": ""
+          },
+          {
+            "name": "rows",
+            "type": "readonly string[]",
+            "required": false,
+            "description": "Explicit row order. Also renders rows that have no data yet.",
+            "default": ""
+          },
+          {
+            "name": "min",
+            "type": "number",
+            "required": false,
+            "description": "Intensity scale bounds. Default to the data's own extent.",
+            "default": ""
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "color",
+            "type": "string",
+            "required": false,
+            "description": "Base colour of the ramp. Any CSS colour; defaults to the first chart token. The ramp runs from the surface colour to this, so it holds in both themes without a second palette — intensity is mixed in the browser with `color-mix`.",
+            "default": ""
+          },
+          {
+            "name": "cellSize",
+            "type": "number",
+            "required": false,
+            "description": "Height of one row in px. Cells are square-ish; width divides evenly.",
+            "default": ""
+          },
+          {
+            "name": "showValues",
+            "type": "boolean",
+            "required": false,
+            "description": "Print each value inside its cell. Off above 5% of cells being 4+ characters wide.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": false,
+        "extends": [
+          "ChartRootProps"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "line-chart",
       "title": "LineChart",
       "kind": "chart",
@@ -15975,6 +16137,182 @@
         "spreadsHostProps": true,
         "extends": [
           "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
+        ]
+      },
+      "compound": false
+    },
+    {
+      "slug": "radar-chart",
+      "title": "RadarChart",
+      "kind": "chart",
+      "category": "Charts",
+      "exports": [
+        "RadarChart"
+      ],
+      "typeExports": [
+        "RadarChartProps"
+      ],
+      "primary": "RadarChart",
+      "description": "A radar chart — several measures of one thing, drawn as a polygon per series.",
+      "isClient": false,
+      "api": {
+        "props": [
+          {
+            "name": "data",
+            "type": "ChartData",
+            "required": false,
+            "description": "Single series: one value per axis, in axis order.",
+            "default": ""
+          },
+          {
+            "name": "series",
+            "type": "readonly ChartSeries[]",
+            "required": false,
+            "description": "Multiple series. Takes precedence over `data` when both are given.",
+            "default": ""
+          },
+          {
+            "name": "axes",
+            "type": "readonly string[]",
+            "required": true,
+            "description": "Axis names, clockwise from the top. Values beyond the axis count are dropped.",
+            "default": ""
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "required": false,
+            "description": "Top of the scale. Defaults to the largest value across every series.",
+            "default": ""
+          },
+          {
+            "name": "diameter",
+            "type": "number",
+            "required": false,
+            "description": "Diameter of the `viewBox`, in px. The chart scales to its container width.",
+            "default": ""
+          },
+          {
+            "name": "rings",
+            "type": "number",
+            "required": false,
+            "description": "Concentric guide rings.",
+            "default": ""
+          },
+          {
+            "name": "fill",
+            "type": "boolean",
+            "required": false,
+            "description": "Fill each polygon with a translucent wash.",
+            "default": ""
+          },
+          {
+            "name": "showLegend",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "interactiveLegend",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": false,
+        "extends": [
+          "ChartRootProps"
+        ]
+      },
+      "compound": false
+    },
+    {
+      "slug": "scatter-chart",
+      "title": "ScatterChart",
+      "kind": "chart",
+      "category": "Charts",
+      "exports": [
+        "ScatterChart"
+      ],
+      "typeExports": [
+        "ScatterChartProps",
+        "ScatterDatum",
+        "ScatterSeries"
+      ],
+      "primary": "ScatterChart",
+      "description": "A scatter chart — and, the moment any point carries `r`, a bubble chart. One component for both because they are one picture: position encodes the relationship, and `r` optionally encodes a third measure.",
+      "isClient": false,
+      "api": {
+        "props": [
+          {
+            "name": "data",
+            "type": "readonly ScatterDatum[]",
+            "required": false,
+            "description": "Single series.",
+            "default": ""
+          },
+          {
+            "name": "series",
+            "type": "readonly ScatterSeries[]",
+            "required": false,
+            "description": "Multiple series. Takes precedence over `data` when both are given.",
+            "default": ""
+          },
+          {
+            "name": "height",
+            "type": "number",
+            "required": false,
+            "description": "Height of the `viewBox`, in px. The chart scales to its container width.",
+            "default": ""
+          },
+          {
+            "name": "showGrid",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "showAxes",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "showLegend",
+            "type": "boolean",
+            "required": false,
+            "description": "Defaults to on for more than one series.",
+            "default": ""
+          },
+          {
+            "name": "interactiveLegend",
+            "type": "boolean",
+            "required": false,
+            "description": "Real checkboxes plus `:has()` — see LineChart. No client boundary.",
+            "default": ""
+          },
+          {
+            "name": "markSize",
+            "type": "number",
+            "required": false,
+            "description": "Mark radius in px when no point carries `r`.",
+            "default": ""
+          },
+          {
+            "name": "maxBubbleSize",
+            "type": "number",
+            "required": false,
+            "description": "Largest bubble radius in px, reached by the largest `r` in the data.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": false,
+        "extends": [
+          "ChartRootProps"
         ]
       },
       "compound": false

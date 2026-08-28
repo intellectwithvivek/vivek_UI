@@ -1,0 +1,31 @@
+/* Gauge. */
+
+:where(.vk-gauge__track) {
+  fill: var(--vk-color-surface-sunken);
+}
+
+:where(.vk-gauge__value-arc) {
+  fill: var(--vk-chart-1);
+}
+
+:where(.vk-gauge__needle) {
+  stroke: var(--vk-color-fg);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+:where(.vk-gauge__hub) {
+  fill: var(--vk-color-fg);
+}
+
+:where(.vk-gauge__value) {
+  font-size: 22px;
+  font-weight: 650;
+  fill: var(--vk-color-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+:where(.vk-gauge__caption) {
+  font-size: 11px;
+  fill: var(--vk-color-muted);
+}

@@ -20,7 +20,7 @@ export const FAQ_ENTRIES: FaqEntry[] = [
   {
     question: 'What is VivekUI?',
     answer:
-      'VivekUI is a free, MIT-licensed React component library with 93 accessible components and 6 SVG charts. It has zero runtime dependencies: React and React DOM are peer dependencies, and everything else is written in-house. It is installed as @the_viveksingh/vivek-ui from npm.',
+      'VivekUI is a free, MIT-licensed React component library with 93 accessible components and 10 SVG charts. It has zero runtime dependencies: React and React DOM are peer dependencies, and everything else is written in-house. It is installed as @the_viveksingh/vivek-ui from npm.',
   },
   {
     question: 'Is VivekUI free for commercial use?',

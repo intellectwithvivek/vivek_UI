@@ -17,9 +17,18 @@
 
 export { AreaChart, type AreaChartProps } from './area-chart'
 export { BarChart, type BarChartProps } from './bar-chart'
+export { Gauge, type GaugeBand, type GaugeProps } from './gauge'
+export { Heatmap, type HeatmapCell, type HeatmapProps } from './heatmap'
 export type { MarkerShape } from './internal/palette'
 export type { ChartData, ChartDatum, ChartRootProps, ChartSeries } from './internal/types'
 export { LineChart, type LineChartProps } from './line-chart'
 export { PieChart, type PieChartProps, type PieDatum } from './pie-chart'
 export { ProgressRing, type ProgressRingProps } from './progress-ring'
+export { RadarChart, type RadarChartProps } from './radar-chart'
+export {
+  ScatterChart,
+  type ScatterChartProps,
+  type ScatterDatum,
+  type ScatterSeries,
+} from './scatter-chart'
 export { Sparkline, type SparklineProps } from './sparkline'

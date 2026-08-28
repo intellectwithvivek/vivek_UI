@@ -772,6 +772,40 @@ const events = [
     },
   ],
 
+  lightbox: [
+    {
+      title: 'A gallery',
+      description:
+        'Built on the same dialog core as Modal: focus trapped and returned, the page inert, scroll locked, Escape and backdrop click to close. The dialog is named with the position ("Landscapes, 2 of 5") and the counter is a live region. Arrows wrap, Home/End jump, a horizontal swipe moves, thumbnails carry aria-current. alt is required: the image is the content.',
+      name: 'default',
+      code: `<Lightbox
+  label="Landscapes"
+  items={[
+    { src: '/photos/ridge.jpg', thumbnail: '/photos/ridge-s.jpg', alt: 'Snow-covered ridge at dawn', caption: 'Dawn on the ridge' },
+    { src: '/photos/pines.jpg', thumbnail: '/photos/pines-s.jpg', alt: 'Fog in a pine forest' },
+    { src: '/photos/lake.jpg', thumbnail: '/photos/lake-s.jpg', alt: 'A still lake at golden hour' },
+  ]}
+  open={open}
+  onOpenChange={setOpen}
+  index={index}
+  onIndexChange={setIndex}
+/>`,
+    },
+    {
+      title: 'One image, no wrap',
+      description:
+        'A single image shows no arrows or thumbnails. With more than one and loop={false}, the arrows at either end are announced aria-disabled instead of vanishing, so focus never jumps. thumbnails={false} hides the strip; closeOnOverlayClick={false} keeps a backdrop tap from closing.',
+      name: 'single',
+      code: `<Lightbox
+  items={[{ src: '/diagrams/architecture.png', alt: 'System architecture diagram' }]}
+  defaultOpen
+  onOpenChange={(open) => !open && router.back()}
+/>
+
+<Lightbox items={steps} loop={false} thumbnails={false} open={open} onOpenChange={setOpen} />`,
+    },
+  ],
+
   modal: [
     {
       title: 'Focus, scroll lock and inert',

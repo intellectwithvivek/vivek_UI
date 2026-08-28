@@ -20,7 +20,7 @@ export const FAQ_ENTRIES: FaqEntry[] = [
   {
     question: 'What is VivekUI?',
     answer:
-      'VivekUI is a free, MIT-licensed React component library with 105 accessible components and 10 SVG charts. It has zero runtime dependencies: React and React DOM are peer dependencies, and everything else is written in-house. It is installed as @the_viveksingh/vivek-ui from npm.',
+      'VivekUI is a free, MIT-licensed React component library with 106 accessible components and 10 SVG charts. It has zero runtime dependencies: React and React DOM are peer dependencies, and everything else is written in-house. It is installed as @the_viveksingh/vivek-ui from npm.',
   },
   {
     question: 'Is VivekUI free for commercial use?',
@@ -45,7 +45,7 @@ export const FAQ_ENTRIES: FaqEntry[] = [
   {
     question: 'Does VivekUI work with React Server Components and the Next.js App Router?',
     answer:
-      'Yes. 49 of the 105 components render in a Server Component with no client boundary, so they add nothing to your JavaScript bundle. The rest declare their own use client directive, which the unbundled per-file build preserves in both the ESM and CommonJS output. No wrapper or provider is required for a component to work on the server.',
+      'Yes. 49 of the 106 components render in a Server Component with no client boundary, so they add nothing to your JavaScript bundle. The rest declare their own use client directive, which the unbundled per-file build preserves in both the ESM and CommonJS output. No wrapper or provider is required for a component to work on the server.',
   },
   {
     question: 'How accessible is VivekUI?',

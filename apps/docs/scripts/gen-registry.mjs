@@ -67,6 +67,7 @@ const CATEGORIES = {
   ],
   Overlays: [
     'modal',
+    'lightbox',
     'drawer',
     'tabs',
     'accordion',

@@ -234,6 +234,7 @@ export {
 } from './components/kanban-board'
 export { Kbd, type KbdProps } from './components/kbd'
 export { Label, type LabelProps } from './components/label'
+export { Lightbox, type LightboxItem, type LightboxProps } from './components/lightbox'
 export {
   Listbox,
   type ListboxMultipleProps,

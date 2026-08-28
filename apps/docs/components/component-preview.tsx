@@ -68,6 +68,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   'logo-cloud': dynamic(() => import('../previews/logo-cloud')),
   marquee: dynamic(() => import('../previews/marquee')),
   modal: dynamic(() => import('../previews/modal')),
+  lightbox: dynamic(() => import('../previews/lightbox')),
   navbar: dynamic(() => import('../previews/navbar')),
   'otp-input': dynamic(() => import('../previews/otp-input')),
   'time-picker': dynamic(() => import('../previews/time-picker')),

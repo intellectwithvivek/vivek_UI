@@ -56,6 +56,7 @@ import { Image } from './components/image'
 import { InfiniteScroll } from './components/infinite-scroll'
 import { Input } from './components/input'
 import { KanbanBoard } from './components/kanban-board'
+import { Lightbox } from './components/lightbox'
 import { Listbox } from './components/listbox'
 import { MapEmbed } from './components/map-embed'
 import { Modal } from './components/modal'
@@ -157,6 +158,7 @@ const SWEEP: Record<string, () => ReactElement> = {
   'audio-player': () => <AudioPlayer src="/a.mp3" title="Track" />,
   'qr-code': () => <QRCode value="https://vivek-ui.dev" />,
   'anchor-nav': () => <AnchorNav items={[{ id: 'a', label: 'A' }]} />,
+  lightbox: () => <Lightbox items={[{ src: '/a.jpg', alt: 'A' }]} />,
   'command-palette': () => <CommandPalette items={[{ id: 'x', label: 'Open' }]} />,
   'context-menu': () => (
     <ContextMenu>

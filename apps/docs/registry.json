@@ -10853,6 +10853,122 @@
       "compound": false
     },
     {
+      "slug": "lightbox",
+      "title": "Lightbox",
+      "kind": "component",
+      "category": "Overlays",
+      "exports": [
+        "Lightbox"
+      ],
+      "typeExports": [
+        "LightboxItem",
+        "LightboxProps"
+      ],
+      "primary": "Lightbox",
+      "description": "A full-screen image viewer — click a thumbnail, see the picture, move through the set.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "items",
+            "type": "LightboxItem[]",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "index",
+            "type": "number",
+            "required": false,
+            "description": "Controlled index of the shown image.",
+            "default": ""
+          },
+          {
+            "name": "defaultIndex",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onIndexChange",
+            "type": "(index: number) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "loop",
+            "type": "boolean",
+            "required": false,
+            "description": "Next after the last wraps to the first. Default `true`.",
+            "default": ""
+          },
+          {
+            "name": "thumbnails",
+            "type": "boolean",
+            "required": false,
+            "description": "Show the thumbnail strip. Default: when there is more than one image.",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Accessible name of the viewer; the position is appended (\"…, 2 of 5\"). Default `'Image viewer'`.",
+            "default": ""
+          },
+          {
+            "name": "closeOnOverlayClick",
+            "type": "boolean",
+            "required": false,
+            "description": "Clicking the dark backdrop closes. Default `true`.",
+            "default": ""
+          },
+          {
+            "name": "swipeThreshold",
+            "type": "number",
+            "required": false,
+            "description": "Horizontal drag, in px, that counts as a swipe. Default `48`.",
+            "default": ""
+          },
+          {
+            "name": "container",
+            "type": "PortalContainer",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "listbox",
       "title": "Listbox",
       "kind": "component",

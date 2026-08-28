@@ -40,3 +40,8 @@ pnpm-debug.log*
 # apps/docs, which is the documentation website and must be committed.
 /CLAUDE.md
 /docs/
+
+# Playwright run artifacts: failure screenshots, traces and error contexts are debugging
+# output, not source. They are binary-heavy and carry page snapshots into history.
+apps/docs/test-results/
+apps/docs/playwright-report/

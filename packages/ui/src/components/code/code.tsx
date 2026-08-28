@@ -9,12 +9,26 @@ export interface CodeProps extends HTMLAttributes<HTMLElement> {
 
 /** Monospaced code. Inline by default; `block` wraps it in a scrollable `pre`. */
 export const Code = forwardRef<HTMLElement, CodeProps>(function Code(
-  { block, size = 'sm', className, children, ...rest },
+  { block, size = 'sm', className, 'aria-label': ariaLabel, children, ...rest },
   ref,
 ) {
   if (block) {
     return (
-      <pre className={cx('vk-code', 'vk-code--block', className)} data-size={size} {...rest}>
+      <pre
+        className={cx('vk-code', 'vk-code--block', className)}
+        data-size={size}
+        /*
+         * A code block overflows sideways on narrow viewports, which makes it a scrollable
+         * region - and a scrollable region a keyboard cannot reach strands its content
+         * (WCAG 2.1.1; axe: scrollable-region-focusable). The tab stop plus a named region
+         * is the standard fix; on wide screens where nothing scrolls, the stop is a
+         * harmless brief visit announced by its label.
+         */
+        tabIndex={0}
+        role="region"
+        aria-label={ariaLabel ?? 'Code sample'}
+        {...rest}
+      >
         <code ref={ref as Ref<HTMLElement>} className="vk-code__inner">
           {children}
         </code>

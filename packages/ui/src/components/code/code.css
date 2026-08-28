@@ -58,3 +58,8 @@
   font: inherit;
   white-space: pre;
 }
+
+:where(.vk-code--block:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: 2px;
+}

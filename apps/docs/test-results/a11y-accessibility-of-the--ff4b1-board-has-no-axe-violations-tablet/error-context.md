@@ -15,11 +15,12 @@
 Error: 
   [serious] scrollable-region-focusable: Scrollable region must have keyboard access
     <pre class="vk-code vk-code--block" data-size="sm">
+    <pre class="vk-code vk-code--block" data-size="sm">
 
 expect(received).toEqual(expected) // deep equality
 
 - Expected  -  1
-+ Received  + 10
++ Received  + 11
 
 - Array []
 + Array [
@@ -28,6 +29,7 @@ expect(received).toEqual(expected) // deep equality
 +     "id": "scrollable-region-focusable",
 +     "impact": "serious",
 +     "nodes": Array [
++       "<pre class=\"vk-code vk-code--block\" data-size=\"sm\">",
 +       "<pre class=\"vk-code vk-code--block\" data-size=\"sm\">",
 +     ],
 +   },
@@ -42,73 +44,68 @@ expect(received).toEqual(expected) // deep equality
     - /url: "#content"
   - navigation "Main" [ref=e3]:
     - generic [ref=e4]:
-      - link "VivekUI v0.5.0" [ref=e5] [cursor=pointer]:
+      - link "VivekUI" [ref=e5] [cursor=pointer]:
         - /url: /
-        - generic [ref=e6]: VivekUI
-        - generic [ref=e7]: v0.5.0
-      - list [ref=e8]:
-        - listitem [ref=e9]:
-          - link "Docs" [ref=e10] [cursor=pointer]:
+      - list [ref=e7]:
+        - listitem [ref=e8]:
+          - link "Docs" [ref=e9] [cursor=pointer]:
             - /url: /docs
-        - listitem [ref=e11]:
-          - link "Components" [ref=e12] [cursor=pointer]:
+        - listitem [ref=e10]:
+          - link "Components" [ref=e11] [cursor=pointer]:
             - /url: /docs/components
-        - listitem [ref=e13]:
-          - link "Charts" [ref=e14] [cursor=pointer]:
+        - listitem [ref=e12]:
+          - link "Charts" [ref=e13] [cursor=pointer]:
             - /url: /docs/charts
-        - listitem [ref=e15]:
-          - link "Showcase" [ref=e16] [cursor=pointer]:
+        - listitem [ref=e14]:
+          - link "Showcase" [ref=e15] [cursor=pointer]:
             - /url: /showcase
-        - listitem [ref=e17]:
-          - link "Pages" [ref=e18] [cursor=pointer]:
+        - listitem [ref=e16]:
+          - link "Pages" [ref=e17] [cursor=pointer]:
             - /url: /pages
-        - listitem [ref=e19]:
-          - link "Playground" [ref=e20] [cursor=pointer]:
+        - listitem [ref=e18]:
+          - link "Playground" [ref=e19] [cursor=pointer]:
             - /url: /playground
-      - generic [ref=e21]:
-        - 'button "Accent colour: Blue" [ref=e22] [cursor=pointer]'
-        - button "Switch to light theme" [ref=e24] [cursor=pointer]
-        - link "Buy me a coffee" [ref=e28] [cursor=pointer]:
-          - /url: https://www.buymeacoffee.com/theviveksingh
-          - text: ☕
-        - link "GitHub" [ref=e29] [cursor=pointer]:
+      - generic [ref=e20]:
+        - 'button "Accent colour: Blue" [ref=e21] [cursor=pointer]'
+        - button "Switch to light theme" [ref=e23] [cursor=pointer]
+        - link "GitHub" [ref=e27] [cursor=pointer]:
           - /url: https://github.com/intellectwithvivek/vivek_UI
-  - main [ref=e30]:
-    - generic [ref=e31]:
-      - navigation "Breadcrumb" [ref=e32]:
-        - list [ref=e33]:
-          - listitem [ref=e34]:
-            - link "Home" [ref=e35] [cursor=pointer]:
+  - main [ref=e28]:
+    - generic [ref=e29]:
+      - navigation "Breadcrumb" [ref=e30]:
+        - list [ref=e31]:
+          - listitem [ref=e32]:
+            - link "Home" [ref=e33] [cursor=pointer]:
               - /url: /
-          - listitem [ref=e36]
-          - listitem [ref=e39]:
-            - link "Page templates" [ref=e40] [cursor=pointer]:
+          - listitem [ref=e34]
+          - listitem [ref=e37]:
+            - link "Page templates" [ref=e38] [cursor=pointer]:
               - /url: /pages
-          - listitem [ref=e41]
-          - listitem [ref=e44]:
-            - generic [ref=e45]: App dashboard
-      - generic [ref=e46]:
-        - paragraph [ref=e47]: Application
-        - heading "App dashboard" [level=1] [ref=e48]
-        - paragraph [ref=e49]: A collapsible sidebar, KPI cards, an accessible chart, and a table that sorts, searches and paginates. Free and MIT licensed.
-        - generic [ref=e50]:
-          - generic [ref=e51]: 13 components
-          - generic [ref=e52]: 325 lines
-          - generic "Declares 'use client'" [ref=e53]: Client component
-          - link "Source on GitHub" [ref=e54] [cursor=pointer]:
+          - listitem [ref=e39]
+          - listitem [ref=e42]:
+            - generic [ref=e43]: App dashboard
+      - generic [ref=e44]:
+        - paragraph [ref=e45]: Application
+        - heading "App dashboard" [level=1] [ref=e46]
+        - paragraph [ref=e47]: A collapsible sidebar, KPI cards, an accessible chart, and a table that sorts, searches and paginates. Free and MIT licensed.
+        - generic [ref=e48]:
+          - generic [ref=e49]: 13 components
+          - generic [ref=e50]: 325 lines
+          - generic "Declares 'use client'" [ref=e51]: Client component
+          - link "Source on GitHub" [ref=e52] [cursor=pointer]:
             - /url: https://github.com/intellectwithvivek/vivek_UI/blob/main/apps/docs/page-templates/dashboard.tsx
-      - paragraph [ref=e56]: The shell every internal tool starts from. The sidebar collapses to an icon rail, the table sorts and searches and paginates without a data library, and the chart ships an accessible data table alongside the SVG so the figures are readable by something other than an eye.
-      - generic [ref=e57]:
-        - heading "Live demo" [level=2] [ref=e58]
-        - generic [ref=e59]:
-          - generic [ref=e60]:
-            - group "Preview width" [ref=e61]:
-              - generic [ref=e62]:
-                - button "Phone" [ref=e63] [cursor=pointer]
-                - button "Tablet" [ref=e64] [cursor=pointer]
-                - button "Desktop" [pressed] [ref=e65] [cursor=pointer]
-            - paragraph [ref=e66]: Full width · the frame has its own viewport, so the breakpoints are real
-          - iframe [ref=e68]:
+      - paragraph [ref=e54]: The shell every internal tool starts from. The sidebar collapses to an icon rail, the table sorts and searches and paginates without a data library, and the chart ships an accessible data table alongside the SVG so the figures are readable by something other than an eye.
+      - generic [ref=e55]:
+        - heading "Live demo" [level=2] [ref=e56]
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - group "Preview width" [ref=e59]:
+              - generic [ref=e60]:
+                - button "Phone" [ref=e61] [cursor=pointer]
+                - button "Tablet" [ref=e62] [cursor=pointer]
+                - button "Desktop" [pressed] [ref=e63] [cursor=pointer]
+            - paragraph [ref=e64]: Full width · the frame has its own viewport, so the breakpoints are real
+          - iframe [ref=e66]:
             - generic [ref=f1e2]:
               - navigation "Main navigation" [ref=f1e3]:
                 - generic [ref=f1e4]:
@@ -228,39 +225,49 @@ expect(received).toEqual(expected) // deep equality
                       - rowgroup [ref=f1e165]:
                         - row [ref=f1e166]:
                           - rowheader "INV-2048" [ref=f1e167]
-                          - cell "Larkfield" [ref=f1e168]
-                          - cell "Scale" [ref=f1e169]
-                          - cell "£4,800" [ref=f1e170]
-                          - cell "Paid" [ref=f1e171]
-                          - cell "2026-08-14" [ref=f1e173]
+                          - cell "Customer Larkfield" [ref=f1e168]
+                          - cell "Plan Scale" [ref=f1e169]
+                          - cell "Amount £4,800" [ref=f1e170]
+                          - cell "Status Paid" [ref=f1e171]:
+                            - text: Status
+                            - generic [ref=f1e172]: Paid
+                          - cell "Issued 2026-08-14" [ref=f1e173]
                         - row [ref=f1e174]:
                           - rowheader "INV-2047" [ref=f1e175]
-                          - cell "Kestrel" [ref=f1e176]
-                          - cell "Starter" [ref=f1e177]
-                          - cell "£290" [ref=f1e178]
-                          - cell "Paid" [ref=f1e179]
-                          - cell "2026-08-11" [ref=f1e181]
+                          - cell "Customer Kestrel" [ref=f1e176]
+                          - cell "Plan Starter" [ref=f1e177]
+                          - cell "Amount £290" [ref=f1e178]
+                          - cell "Status Paid" [ref=f1e179]:
+                            - text: Status
+                            - generic [ref=f1e180]: Paid
+                          - cell "Issued 2026-08-11" [ref=f1e181]
                         - row [ref=f1e182]:
                           - rowheader "INV-2046" [ref=f1e183]
-                          - cell "Palisade" [ref=f1e184]
-                          - cell "Team" [ref=f1e185]
-                          - cell "£1,200" [ref=f1e186]
-                          - cell "Pending" [ref=f1e187]
-                          - cell "2026-08-09" [ref=f1e189]
+                          - cell "Customer Palisade" [ref=f1e184]
+                          - cell "Plan Team" [ref=f1e185]
+                          - cell "Amount £1,200" [ref=f1e186]
+                          - cell "Status Pending" [ref=f1e187]:
+                            - text: Status
+                            - generic [ref=f1e188]: Pending
+                          - cell "Issued 2026-08-09" [ref=f1e189]
                         - row [ref=f1e190]:
                           - rowheader "INV-2045" [ref=f1e191]
-                          - cell "Overtone" [ref=f1e192]
-                          - cell "Starter" [ref=f1e193]
-                          - cell "£290" [ref=f1e194]
-                          - cell "Paid" [ref=f1e195]
-                          - cell "2026-08-07" [ref=f1e197]
+                          - cell "Customer Overtone" [ref=f1e192]
+                          - cell "Plan Starter" [ref=f1e193]
+                          - cell "Amount £290" [ref=f1e194]
+                          - cell "Status Paid" [ref=f1e195]:
+                            - text: Status
+                            - generic [ref=f1e196]: Paid
+                          - cell "Issued 2026-08-07" [ref=f1e197]
                         - row [ref=f1e198]:
                           - rowheader "INV-2043" [ref=f1e199]
-                          - cell "Fieldwork" [ref=f1e200]
-                          - cell "Team" [ref=f1e201]
-                          - cell "£1,200" [ref=f1e202]
-                          - cell "Pending" [ref=f1e203]
-                          - cell "2026-08-04" [ref=f1e205]
+                          - cell "Customer Fieldwork" [ref=f1e200]
+                          - cell "Plan Team" [ref=f1e201]
+                          - cell "Amount £1,200" [ref=f1e202]
+                          - cell "Status Pending" [ref=f1e203]:
+                            - text: Status
+                            - generic [ref=f1e204]: Pending
+                          - cell "Issued 2026-08-04" [ref=f1e205]
                     - generic [ref=f1e206]:
                       - status [ref=f1e207]: Showing 1 to 5 of 8 rows, sorted by Issued descending
                       - navigation "Pagination" [ref=f1e208]:
@@ -269,79 +276,79 @@ expect(received).toEqual(expected) // deep equality
                         - generic [ref=f1e211]: Page 1 of 2
                         - button "Next page" [ref=f1e212] [cursor=pointer]:
                           - generic [ref=f1e213]: ›
-      - generic [ref=e69]:
-        - heading "What it uses" [level=2] [ref=e70]
-        - paragraph [ref=e71]: "Every one of these is an export of the published package. Nothing on this page is hand-rolled, which is the point of the gallery: if a page needed something the library does not have, the library would be missing a component."
-        - generic [ref=e72]:
-          - link "Badge" [ref=e73] [cursor=pointer]:
+      - generic [ref=e67]:
+        - heading "What it uses" [level=2] [ref=e68]
+        - paragraph [ref=e69]: "Every one of these is an export of the published package. Nothing on this page is hand-rolled, which is the point of the gallery: if a page needed something the library does not have, the library would be missing a component."
+        - generic [ref=e70]:
+          - link "Badge" [ref=e71] [cursor=pointer]:
             - /url: /docs/components/badge
-          - link "Button" [ref=e74] [cursor=pointer]:
+          - link "Button" [ref=e72] [cursor=pointer]:
             - /url: /docs/components/button
-          - link "Card" [ref=e75] [cursor=pointer]:
+          - link "Card" [ref=e73] [cursor=pointer]:
             - /url: /docs/components/card
-          - link "DataTable" [ref=e76] [cursor=pointer]:
+          - link "DataTable" [ref=e74] [cursor=pointer]:
             - /url: /docs/components/data-table
-          - link "Grid" [ref=e77] [cursor=pointer]:
+          - link "Grid" [ref=e75] [cursor=pointer]:
             - /url: /docs/components/grid
-          - link "Heading" [ref=e78] [cursor=pointer]:
+          - link "Heading" [ref=e76] [cursor=pointer]:
             - /url: /docs/components/heading
-          - link "Sidebar" [ref=e79] [cursor=pointer]:
+          - link "Sidebar" [ref=e77] [cursor=pointer]:
             - /url: /docs/components/sidebar
-          - link "SidebarItem" [ref=e80] [cursor=pointer]:
+          - link "SidebarItem" [ref=e78] [cursor=pointer]:
             - /url: /docs/components/sidebar
-          - link "SidebarSection" [ref=e81] [cursor=pointer]:
+          - link "SidebarSection" [ref=e79] [cursor=pointer]:
             - /url: /docs/components/sidebar
-          - link "SidebarToggle" [ref=e82] [cursor=pointer]:
+          - link "SidebarToggle" [ref=e80] [cursor=pointer]:
             - /url: /docs/components/sidebar
-          - link "Stack" [ref=e83] [cursor=pointer]:
+          - link "Stack" [ref=e81] [cursor=pointer]:
             - /url: /docs/components/stack
-          - link "Text" [ref=e84] [cursor=pointer]:
+          - link "Text" [ref=e82] [cursor=pointer]:
             - /url: /docs/components/text
-          - link "AreaChart" [ref=e85] [cursor=pointer]:
+          - link "AreaChart" [ref=e83] [cursor=pointer]:
             - /url: /docs/charts/area-chart
-      - generic [ref=e86]:
-        - heading "Imports" [level=2] [ref=e87]
-        - generic [ref=e88]:
-          - generic [ref=e89]:
-            - radiogroup "Code language" [ref=e90]:
-              - radio "TS" [checked] [ref=e92] [cursor=pointer]
-              - radio "JS" [ref=e94] [cursor=pointer]
-            - generic [ref=e96]:
-              - button "Copy" [ref=e97] [cursor=pointer]
-              - status [ref=e98]
-          - code [ref=e100]: "import { Badge, Button, Card, DataTable, Grid, Heading, Sidebar, SidebarItem, SidebarSection, SidebarToggle, Stack, Text } from '@the_viveksingh/vivek-ui' import { AreaChart } from '@the_viveksingh/vivek-ui/charts'"
-      - generic [ref=e101]:
-        - heading "The whole page" [level=2] [ref=e102]
-        - paragraph [ref=e103]:
+      - generic [ref=e84]:
+        - heading "Imports" [level=2] [ref=e85]
+        - generic [ref=e86]:
+          - generic [ref=e87]:
+            - radiogroup "Code language" [ref=e88]:
+              - radio "TS" [checked] [ref=e90] [cursor=pointer]
+              - radio "JS" [ref=e92] [cursor=pointer]
+            - generic [ref=e94]:
+              - button "Copy" [ref=e95] [cursor=pointer]
+              - status [ref=e96]
+          - code [ref=e98]: "import { Badge, Button, Card, DataTable, Grid, Heading, Sidebar, SidebarItem, SidebarSection, SidebarToggle, Stack, Text } from '@the_viveksingh/vivek-ui' import { AreaChart } from '@the_viveksingh/vivek-ui/charts'"
+      - generic [ref=e99]:
+        - heading "The whole page" [level=2] [ref=e100]
+        - paragraph [ref=e101]:
           - text: This is the file that renders the demo above, read at build time. Copy it into your project, change the words, and it runs — the only thing it needs is
-          - code [ref=e104]: "@the_viveksingh/vivek-ui"
+          - code [ref=e102]: "@the_viveksingh/vivek-ui"
           - text: and its stylesheet.
-        - alert [ref=e105]:
-          - generic [ref=e106]: "!"
-          - generic [ref=e107]:
-            - generic [ref=e108]: This one is a client component
-            - paragraph [ref=e110]:
+        - alert [ref=e103]:
+          - generic [ref=e104]: "!"
+          - generic [ref=e105]:
+            - generic [ref=e106]: This one is a client component
+            - paragraph [ref=e108]:
               - text: It opens with
-              - code [ref=e111]: "'use client'"
+              - code [ref=e109]: "'use client'"
               - text: because it holds state. Everything above it in your tree stays on the server.
-        - generic [ref=e112]:
-          - generic [ref=e113]:
-            - radiogroup "Code language" [ref=e114]:
-              - radio "TS" [checked] [ref=e116] [cursor=pointer]
-              - radio "JS" [ref=e118] [cursor=pointer]
-            - generic [ref=e120]:
-              - button "Copy" [ref=e121] [cursor=pointer]
-              - status [ref=e122]
-          - code [ref=e124]: "'use client' import { Badge, Button, Card, DataTable, Grid, Heading, Sidebar, SidebarItem, SidebarSection, SidebarToggle, Stack, Text, } from '@the_viveksingh/vivek-ui' import { AreaChart } from '@the_viveksingh/vivek-ui/charts' import type { ReactNode } from 'react' /* * The shell most internal tools start from: a rail on the left, figures across the top, a * trend line, and a table that has to sort, search and paginate without pulling in a data * library. * * Icons are not decoration in a collapsible sidebar - collapsing clips every label, so the * icon is all that is left. A rail of unlabelled squares is the usual result. */ const Glyph = ({ children }: { children: ReactNode }) => ( <svg aria-hidden=\"true\" fill=\"none\" height=\"18\" viewBox=\"0 0 24 24\" width=\"18\"> {children} </svg> ) const stroke = { stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, } interface Invoice { id: string customer: string plan: string amount: number status: 'Paid' | 'Pending' | 'Overdue' issued: string } const INVOICES: Invoice[] = [ { id: 'INV-2041', customer: 'Meridian', plan: 'Scale', amount: 4800, status: 'Paid', issued: '2026-08-01', }, { id: 'INV-2042', customer: 'Halcyon', plan: 'Team', amount: 1200, status: 'Paid', issued: '2026-08-02', }, { id: 'INV-2043', customer: 'Fieldwork', plan: 'Team', amount: 1200, status: 'Pending', issued: '2026-08-04', }, { id: 'INV-2044', customer: 'Northgate', plan: 'Scale', amount: 4800, status: 'Overdue', issued: '2026-07-12', }, { id: 'INV-2045', customer: 'Overtone', plan: 'Starter', amount: 290, status: 'Paid', issued: '2026-08-07', }, { id: 'INV-2046', customer: 'Palisade', plan: 'Team', amount: 1200, status: 'Pending', issued: '2026-08-09', }, { id: 'INV-2047', customer: 'Kestrel', plan: 'Starter', amount: 290, status: 'Paid', issued: '2026-08-11', }, { id: 'INV-2048', customer: 'Larkfield', plan: 'Scale', amount: 4800, status: 'Paid', issued: '2026-08-14', }, ] const REVENUE = [ { x: 'Mar', y: 41200 }, { x: 'Apr', y: 44800 }, { x: 'May', y: 47100 }, { x: 'Jun', y: 51600 }, { x: 'Jul', y: 55900 }, { x: 'Aug', y: 62300 }, ] const KPIS = [ { label: 'Monthly revenue', value: '£62,300', change: '+11.4%', good: true }, { label: 'Active accounts', value: '1,284', change: '+64', good: true }, { label: 'Churn', value: '1.9%', change: '−0.3pt', good: true }, { label: 'Open tickets', value: '17', change: '+5', good: false }, ] const money = (value: number) => `£${value.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` export default function DashboardPage() { return ( <div style={{ display: 'flex', minHeight: '100%', alignItems: 'stretch' }}> <Sidebar collapsible label=\"Main navigation\"> <SidebarSection title=\"Overview\"> <SidebarItem active href=\"#\" icon={ <Glyph> <path d=\"M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-8.5Z\" {...stroke} /> </Glyph> } > Dashboard </SidebarItem> <SidebarItem href=\"#\" icon={ <Glyph> <path d=\"M4 20V7M10 20V11M16 20v-6M22 20H2\" {...stroke} /> </Glyph> } > Analytics </SidebarItem> </SidebarSection> <SidebarSection title=\"Revenue\"> <SidebarItem href=\"#\" icon={ <Glyph> <path d=\"M6 3h9l4 4v14H6V3ZM15 3v4h4M9 12h7M9 16h5\" {...stroke} /> </Glyph> } > Invoices </SidebarItem> <SidebarItem href=\"#\" icon={ <Glyph> <path d=\"M2 8h20v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8ZM2 11h20\" {...stroke} /> </Glyph> } > Payments </SidebarItem> </SidebarSection> <SidebarSection title=\"Settings\"> <SidebarItem href=\"#\" icon={ <Glyph> <path d=\"M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-3-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.2-3l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 2.9-1.2V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 3 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a2 2 0 1 1 0 4H21a1.7 1.7 0 0 0-1.6 1Z\" {...stroke} /> </Glyph> } > Preferences </SidebarItem> </SidebarSection> </Sidebar> <div style={{ flex: 1, minWidth: 0, padding: 'var(--vk-space-6)' }}> <Stack gap={6}> <Stack align=\"center\" direction=\"horizontal\" gap={3} justify=\"between\" wrap> <Stack direction=\"horizontal\" gap={3} align=\"center\"> <SidebarToggle /> <Stack gap={1}> <Heading level={1} size=\"xl\"> Dashboard </Heading> <Text size=\"sm\" tone=\"muted\"> August 2026 · updated 4 minutes ago </Text> </Stack> </Stack> <Stack direction=\"horizontal\" gap={2}> <Button size=\"sm\" variant=\"outline\"> Export </Button> <Button size=\"sm\">New invoice</Button> </Stack> </Stack> <Grid gap={4} minItemWidth=\"13rem\"> {KPIS.map((kpi) => ( <Card key={kpi.label} padding=\"md\"> <Stack gap={1}> <Text size=\"sm\" tone=\"muted\"> {kpi.label} </Text> <Heading level={2} size=\"lg\"> {kpi.value} </Heading> <Badge size=\"sm\" tone={kpi.good ? 'success' : 'warning'} variant=\"soft\"> {kpi.change} vs July </Badge> </Stack> </Card> ))} </Grid> <Card padding=\"lg\"> <Stack gap={4}> <Heading level={2} size=\"md\"> Revenue, last six months </Heading> {/* Every chart renders an accessible data table alongside the SVG, so the figures are readable by something other than an eye. A chart that is only a picture is a chart most of your users cannot read. */} <AreaChart formatValue={money} height={220} series={[{ name: 'Revenue', data: REVENUE }]} title=\"Monthly revenue, March to August 2026\" xLabel=\"Month\" yLabel=\"Revenue\" /> </Stack> </Card> <Card padding=\"lg\"> <Stack gap={4}> <Heading level={2} size=\"md\"> Recent invoices </Heading> <DataTable caption=\"Invoices issued in the last 60 days\" columns={[ { key: 'id', header: 'Invoice', sortable: true }, { key: 'customer', header: 'Customer', sortable: true }, { key: 'plan', header: 'Plan', sortable: true }, { key: 'amount', header: 'Amount', sortable: true, numeric: true, render: (row: Invoice) => money(row.amount), }, { key: 'status', header: 'Status', sortable: true, render: (row: Invoice) => ( <Badge size=\"sm\" tone={ row.status === 'Paid' ? 'success' : row.status === 'Pending' ? 'warning' : 'danger' } variant=\"soft\" > {row.status} </Badge> ), }, { key: 'issued', header: 'Issued', sortable: true }, ]} data={INVOICES} defaultSort={{ key: 'issued', direction: 'desc' }} pageSize={5} // Below its breakpoint the table stacks into cards instead of scrolling // sideways, which is the difference between usable and not on a phone. responsive=\"stack\" rowHeader=\"id\" rowKey=\"id\" searchable searchKeys={['customer', 'id', 'plan']} /> </Stack> </Card> </Stack> </div> </div> ) }"
-      - separator [ref=e125]
-      - navigation "Adjacent templates" [ref=e126]:
-        - link "← Create account" [ref=e127] [cursor=pointer]:
+        - generic [ref=e110]:
+          - generic [ref=e111]:
+            - radiogroup "Code language" [ref=e112]:
+              - radio "TS" [checked] [ref=e114] [cursor=pointer]
+              - radio "JS" [ref=e116] [cursor=pointer]
+            - generic [ref=e118]:
+              - button "Copy" [ref=e119] [cursor=pointer]
+              - status [ref=e120]
+          - code [ref=e122]: "'use client' import { Badge, Button, Card, DataTable, Grid, Heading, Sidebar, SidebarItem, SidebarSection, SidebarToggle, Stack, Text, } from '@the_viveksingh/vivek-ui' import { AreaChart } from '@the_viveksingh/vivek-ui/charts' import type { ReactNode } from 'react' /* * The shell most internal tools start from: a rail on the left, figures across the top, a * trend line, and a table that has to sort, search and paginate without pulling in a data * library. * * Icons are not decoration in a collapsible sidebar - collapsing clips every label, so the * icon is all that is left. A rail of unlabelled squares is the usual result. */ const Glyph = ({ children }: { children: ReactNode }) => ( <svg aria-hidden=\"true\" fill=\"none\" height=\"18\" viewBox=\"0 0 24 24\" width=\"18\"> {children} </svg> ) const stroke = { stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, } interface Invoice { id: string customer: string plan: string amount: number status: 'Paid' | 'Pending' | 'Overdue' issued: string } const INVOICES: Invoice[] = [ { id: 'INV-2041', customer: 'Meridian', plan: 'Scale', amount: 4800, status: 'Paid', issued: '2026-08-01', }, { id: 'INV-2042', customer: 'Halcyon', plan: 'Team', amount: 1200, status: 'Paid', issued: '2026-08-02', }, { id: 'INV-2043', customer: 'Fieldwork', plan: 'Team', amount: 1200, status: 'Pending', issued: '2026-08-04', }, { id: 'INV-2044', customer: 'Northgate', plan: 'Scale', amount: 4800, status: 'Overdue', issued: '2026-07-12', }, { id: 'INV-2045', customer: 'Overtone', plan: 'Starter', amount: 290, status: 'Paid', issued: '2026-08-07', }, { id: 'INV-2046', customer: 'Palisade', plan: 'Team', amount: 1200, status: 'Pending', issued: '2026-08-09', }, { id: 'INV-2047', customer: 'Kestrel', plan: 'Starter', amount: 290, status: 'Paid', issued: '2026-08-11', }, { id: 'INV-2048', customer: 'Larkfield', plan: 'Scale', amount: 4800, status: 'Paid', issued: '2026-08-14', }, ] const REVENUE = [ { x: 'Mar', y: 41200 }, { x: 'Apr', y: 44800 }, { x: 'May', y: 47100 }, { x: 'Jun', y: 51600 }, { x: 'Jul', y: 55900 }, { x: 'Aug', y: 62300 }, ] const KPIS = [ { label: 'Monthly revenue', value: '£62,300', change: '+11.4%', good: true }, { label: 'Active accounts', value: '1,284', change: '+64', good: true }, { label: 'Churn', value: '1.9%', change: '−0.3pt', good: true }, { label: 'Open tickets', value: '17', change: '+5', good: false }, ] const money = (value: number) => `£${value.toLocaleString('en-GB', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` export default function DashboardPage() { return ( <div style={{ display: 'flex', minHeight: '100%', alignItems: 'stretch' }}> <Sidebar collapsible label=\"Main navigation\"> <SidebarSection title=\"Overview\"> <SidebarItem active href=\"#\" icon={ <Glyph> <path d=\"M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-8.5Z\" {...stroke} /> </Glyph> } > Dashboard </SidebarItem> <SidebarItem href=\"#\" icon={ <Glyph> <path d=\"M4 20V7M10 20V11M16 20v-6M22 20H2\" {...stroke} /> </Glyph> } > Analytics </SidebarItem> </SidebarSection> <SidebarSection title=\"Revenue\"> <SidebarItem href=\"#\" icon={ <Glyph> <path d=\"M6 3h9l4 4v14H6V3ZM15 3v4h4M9 12h7M9 16h5\" {...stroke} /> </Glyph> } > Invoices </SidebarItem> <SidebarItem href=\"#\" icon={ <Glyph> <path d=\"M2 8h20v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8ZM2 11h20\" {...stroke} /> </Glyph> } > Payments </SidebarItem> </SidebarSection> <SidebarSection title=\"Settings\"> <SidebarItem href=\"#\" icon={ <Glyph> <path d=\"M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-3-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.2-3l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 2.9-1.2V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 3 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a2 2 0 1 1 0 4H21a1.7 1.7 0 0 0-1.6 1Z\" {...stroke} /> </Glyph> } > Preferences </SidebarItem> </SidebarSection> </Sidebar> <div style={{ flex: 1, minWidth: 0, padding: 'var(--vk-space-6)' }}> <Stack gap={6}> <Stack align=\"center\" direction=\"horizontal\" gap={3} justify=\"between\" wrap> <Stack direction=\"horizontal\" gap={3} align=\"center\"> <SidebarToggle /> <Stack gap={1}> <Heading level={1} size=\"xl\"> Dashboard </Heading> <Text size=\"sm\" tone=\"muted\"> August 2026 · updated 4 minutes ago </Text> </Stack> </Stack> <Stack direction=\"horizontal\" gap={2}> <Button size=\"sm\" variant=\"outline\"> Export </Button> <Button size=\"sm\">New invoice</Button> </Stack> </Stack> <Grid gap={4} minItemWidth=\"13rem\"> {KPIS.map((kpi) => ( <Card key={kpi.label} padding=\"md\"> <Stack gap={1}> <Text size=\"sm\" tone=\"muted\"> {kpi.label} </Text> <Heading level={2} size=\"lg\"> {kpi.value} </Heading> <Badge size=\"sm\" tone={kpi.good ? 'success' : 'warning'} variant=\"soft\"> {kpi.change} vs July </Badge> </Stack> </Card> ))} </Grid> <Card padding=\"lg\"> <Stack gap={4}> <Heading level={2} size=\"md\"> Revenue, last six months </Heading> {/* Every chart renders an accessible data table alongside the SVG, so the figures are readable by something other than an eye. A chart that is only a picture is a chart most of your users cannot read. */} <AreaChart formatValue={money} height={220} series={[{ name: 'Revenue', data: REVENUE }]} title=\"Monthly revenue, March to August 2026\" xLabel=\"Month\" yLabel=\"Revenue\" /> </Stack> </Card> <Card padding=\"lg\"> <Stack gap={4}> <Heading level={2} size=\"md\"> Recent invoices </Heading> <DataTable caption=\"Invoices issued in the last 60 days\" columns={[ { key: 'id', header: 'Invoice', sortable: true }, { key: 'customer', header: 'Customer', sortable: true }, { key: 'plan', header: 'Plan', sortable: true }, { key: 'amount', header: 'Amount', sortable: true, numeric: true, render: (row: Invoice) => money(row.amount), }, { key: 'status', header: 'Status', sortable: true, render: (row: Invoice) => ( <Badge size=\"sm\" tone={ row.status === 'Paid' ? 'success' : row.status === 'Pending' ? 'warning' : 'danger' } variant=\"soft\" > {row.status} </Badge> ), }, { key: 'issued', header: 'Issued', sortable: true }, ]} data={INVOICES} defaultSort={{ key: 'issued', direction: 'desc' }} pageSize={5} // Below its breakpoint the table stacks into cards instead of scrolling // sideways, which is the difference between usable and not on a phone. responsive=\"stack\" rowHeader=\"id\" rowKey=\"id\" searchable searchKeys={['customer', 'id', 'plan']} /> </Stack> </Card> </Stack> </div> </div> ) }"
+      - separator [ref=e123]
+      - navigation "Adjacent templates" [ref=e124]:
+        - link "← Create account" [ref=e125] [cursor=pointer]:
           - /url: /pages/signup
-        - link "Settings →" [ref=e128] [cursor=pointer]:
+        - link "Settings →" [ref=e126] [cursor=pointer]:
           - /url: /pages/settings
-      - link "← All 12 page templates" [ref=e130] [cursor=pointer]:
+      - link "← All 12 page templates" [ref=e128] [cursor=pointer]:
         - /url: /pages
-  - alert [ref=e131]
+  - alert [ref=e129]
 ```
 
 # Test source

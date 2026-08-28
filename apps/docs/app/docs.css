@@ -854,3 +854,31 @@ body {
   display: inline-flex;
   align-items: center;
 }
+
+/*
+ * Bare anchors — links that are content, not Buttons.
+ *
+ * Nothing styled these, so the showcase card headings rendered in the browser's default
+ * link blue: unreadable on the dark surface (axe: serious), and visited-purple on light.
+ * `primary-subtle-fg` is the accent tuned to survive tinted surfaces in both themes;
+ * the underline keeps the affordance for colour-blind readers, per WCAG 1.4.1.
+ */
+.docs-shell a:not([class]),
+.showcase-card a:not([class]) {
+  color: var(--vk-color-primary-subtle-fg);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, currentcolor 45%, transparent);
+  text-underline-offset: 0.15em;
+}
+
+.docs-shell a:not([class]):hover,
+.showcase-card a:not([class]):hover {
+  text-decoration-color: currentcolor;
+}
+
+.docs-shell a:not([class]):focus-visible,
+.showcase-card a:not([class]):focus-visible {
+  outline: 2px solid var(--vk-color-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}

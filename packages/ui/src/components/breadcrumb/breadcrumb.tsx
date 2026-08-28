@@ -177,8 +177,15 @@ const BreadcrumbItem = forwardRef<HTMLLIElement, BreadcrumbItemProps>(function B
       ) : (
         <Component
           className="vk-breadcrumb__link"
-          href={safe}
           {...linkProps}
+          /*
+           * href and rel come AFTER the spread, deliberately. linkProps is typed as full
+           * AnchorHTMLAttributes, so it can carry an href — and spread after `href={safe}`
+           * it replaced the sanitised value with a raw one, re-opening the javascript:
+           * hole safeHref exists to close. Order is the fix: the spread can add rels and
+           * targets, never the URL.
+           */
+          href={safe}
           rel={safeRel(linkProps?.target, linkProps?.rel)}
         >
           {glyph}

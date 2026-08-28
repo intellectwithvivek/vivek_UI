@@ -1,5 +1,6 @@
 import { type AnchorHTMLAttributes, type ElementType, forwardRef, type HTMLAttributes } from 'react'
 import { cx } from '../../utils/cx'
+import { HTTP_SCHEMES_ONLY, isSafeHref } from '../../utils/safe-href'
 
 export interface ProseProps extends HTMLAttributes<HTMLDivElement> {
   /** Root element. Defaults to `div`. */
@@ -14,30 +15,6 @@ export interface ProseProps extends HTMLAttributes<HTMLDivElement> {
  * `blob:` - is refused. Model output is untrusted input, and a `javascript:` href is a
  * one-click XSS.
  */
-const ALLOWED_SCHEMES = new Set(['http:', 'https:'])
-
-/** Does the value start with a URL scheme at all? */
-const HAS_SCHEME = /^[a-z][a-z0-9+.-]*:/i
-
-/**
- * Is this href safe to put in an `<a href>`?
- *
- * Whitespace and C0 control characters are stripped **before** the test, because
- * browsers strip them when resolving a URL: `java\tscript:alert(1)` navigates exactly
- * like `javascript:alert(1)`, and a naive `startsWith('javascript:')` check misses it.
- *
- * A value with no scheme at all - `/docs`, `./x`, `#top`, `?q=1`, `//host/path` - is
- * allowed: it resolves against the current document and cannot introduce a new scheme.
- * A relative path that happens to contain a colon in its first segment (`weird:file`)
- * parses as a scheme and is therefore refused; write `./weird:file` instead.
- */
-export function isSafeHref(href: string): boolean {
-  // biome-ignore lint/suspicious/noControlCharactersInRegex: stripping C0 controls is the point - browsers strip them too, so the check has to see the URL the browser will.
-  const stripped = href.replace(/[\u0000-\u0020]+/g, '')
-  if (!HAS_SCHEME.test(stripped)) return true
-  const scheme = stripped.slice(0, stripped.indexOf(':') + 1).toLowerCase()
-  return ALLOWED_SCHEMES.has(scheme)
-}
 
 /**
  * A styled wrapper for rich text, with no parser.
@@ -88,7 +65,7 @@ const ProseLink = forwardRef<HTMLAnchorElement, ProseLinkProps>(function ProseLi
   { href, target, rel, className, children, ...rest },
   ref,
 ) {
-  if (href === undefined || !isSafeHref(href)) {
+  if (href === undefined || !isSafeHref(href, HTTP_SCHEMES_ONLY)) {
     return (
       <span
         className={cx('vk-prose__blocked-link', className)}
@@ -125,3 +102,5 @@ const ProseLink = forwardRef<HTMLAnchorElement, ProseLinkProps>(function ProseLi
 
 /** Compound component: `Prose` and `Prose.Link`. */
 export const Prose = Object.assign(ProseRoot, { Link: ProseLink })
+
+export { isSafeHref } from '../../utils/safe-href'

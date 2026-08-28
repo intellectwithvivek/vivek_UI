@@ -19,18 +19,87 @@ permissions:
   id-token: write
 
 jobs:
-  release:
-    name: Version or publish
+  version:
+    name: Version or hand off to publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      # 'false' means the version PR has just been merged and a publish is due.
+      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
+    steps:
+      # persist-credentials must stay at its default (true). The changesets action pushes
+      # the version branch with the plain git CLI, using the credentials checkout writes
+      # into .git/config - GITHUB_TOKEN below is only used for the GitHub API. Setting
+      # persist-credentials: false is a common hardening step and it would break this
+      # workflow with "could not read Username".
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # The library has to exist before the tests run: apps/docs imports it by package name,
+      # so its tests resolve through the exports map to dist/. See the same note in ci.yml.
+      - name: Build the library
+        run: pnpm --filter @the_viveksingh/vivek-ui build
+
+      - name: Test
+        run: pnpm -r test
+
+      # Versioning only. The `publish` input is deliberately NOT passed.
+      #
+      # Given a publish script, this action writes $HOME/.npmrc before publishing:
+      #
+      #   `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`
+      #
+      # That is a JS template literal evaluated at runtime, so with no NPM_TOKEN it writes
+      # the LITERAL text `_authToken=undefined` - not an inert placeholder, but a credential
+      # npm will find and try to use. There is no input to turn that off. The action's own
+      # `hasChangesets` output is documented for exactly this case ("useful if you want to
+      # create your own publishing functionality"), so publishing is the separate job below.
+      #
+      # With changesets present this opens or updates the "Version Packages" PR. Note the PR
+      # body will say to "publish to npm yourself" - a side effect of omitting the publish
+      # input. Merging it does publish, via the publish job.
+      - name: Create or update the version PR
+        id: changesets
+        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
+        with:
+          version: pnpm changeset version
+          commit: 'chore: version packages'
+          title: 'chore: version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    name: Publish to npm
+    needs: version
+    if: needs.version.outputs.hasChangesets == 'false'
     runs-on: ubuntu-latest
     # npm trusted publishing does not support self-hosted runners. Keep this on a
     # GitHub-hosted runner or the OIDC exchange is rejected.
     timeout-minutes: 20
+    #
+    # A protected environment, and the reason publish is its own job: `environment:` is a
+    # job-level key, so the approval gate could not be attached to a publish *step*. Without
+    # this gate, anyone with push access to main - a compromised laptop, a leaked PAT, a
+    # malicious editor extension running git - could land a pre-versioned commit and have CI
+    # publish it WITH a valid provenance attestation, laundering the compromise. The
+    # environment's required-reviewer rule puts a human between "code on main" and "code on
+    # npm".
+    #
+    # One-time setup (Settings -> Environments): create `npm-publish` and add the maintainer
+    # as a required reviewer. This job pauses until approved.
+    environment: npm-publish
     steps:
-      # persist-credentials must stay at its default (true). The changesets action pushes
-      # the version branch and the release tags with the plain git CLI, using the
-      # credentials checkout writes into .git/config - GITHUB_TOKEN below is only used for
-      # the GitHub API. Setting persist-credentials: false is a common hardening step and
-      # it would break this workflow with "could not read Username".
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
         with:
           fetch-depth: 0
@@ -64,50 +133,30 @@ jobs:
           npm install -g npm@^11.5.1
           echo "npm $(npm --version) / node $(node --version)"
 
+      # --ignore-scripts: this is the one job holding a publish-capable credential, and
+      # pnpm 9 runs dependency lifecycle scripts by default - so without the flag every
+      # devDependency's postinstall executes with that credential in reach. One dependency
+      # genuinely needs its script: esbuild's postinstall downloads its platform binary, and
+      # tsup fails without it. `pnpm rebuild esbuild` runs that one script by name - an
+      # allowlist of exactly one, instead of open season for a whole dependency tree.
       - name: Install
-        run: pnpm install --frozen-lockfile
+        run: |
+          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm rebuild esbuild
 
-      # The library has to exist before the tests run: apps/docs imports it by package name,
-      # so its tests resolve through the exports map to dist/. See the same note in ci.yml.
       - name: Build the library
         run: pnpm --filter @the_viveksingh/vivek-ui build
 
+      # Belt and braces: the tarball about to be published is re-tested in this job, not
+      # trusted from the sibling job's run.
       - name: Test
-        run: pnpm -r test
+        run: pnpm --filter @the_viveksingh/vivek-ui test
 
-      # Versioning only. The `publish` input is deliberately NOT passed.
-      #
-      # Given a publish script, this action writes $HOME/.npmrc before publishing:
-      #
-      #   `//registry.npmjs.org/:_authToken=${process.env.NPM_TOKEN}`
-      #
-      # That is a JS template literal evaluated at runtime, so with no NPM_TOKEN it writes
-      # the LITERAL text `_authToken=undefined` - not an inert placeholder, but a credential
-      # npm will find and try to use. There is no input to turn that off. The action's own
-      # `hasChangesets` output is documented for exactly this case ("useful if you want to
-      # create your own publishing functionality"), so the publish is a separate step below.
-      #
-      # With changesets present this opens or updates the "Version Packages" PR. Note the PR
-      # body will say to "publish to npm yourself" - a side effect of omitting the publish
-      # input. Merging it does publish, via the step after this one.
-      - name: Create or update the version PR
-        id: changesets
-        uses: changesets/action@e0145edc7d9d8679003495b11f87bd8ef63c0cba # v1.5.3
-        with:
-          version: pnpm changeset version
-          commit: 'chore: version packages'
-          title: 'chore: version packages'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # No changesets left means the version PR has just been merged: publish.
-      #
       # No NPM_TOKEN anywhere. The package is configured on npm to require 2FA and disallow
       # tokens, so token auth would be rejected outright. Authentication is the OIDC exchange
       # that `id-token: write` enables, and npm attaches the provenance attestation
       # automatically for a trusted-publisher publish - NPM_CONFIG_PROVENANCE is redundant.
       - name: Publish to npm via Trusted Publishing
-        if: steps.changesets.outputs.hasChangesets == 'false'
         run: pnpm release
 
       # `changeset publish` creates the git tags locally (--git-tag defaults to true) but
@@ -117,12 +166,14 @@ jobs:
       # `|| true` on the release: a re-run after a partial failure would otherwise fail on a
       # tag that already has a release, turning a successful publish into a red run.
       - name: Push tags and create GitHub Releases
-        if: steps.changesets.outputs.hasChangesets == 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git push origin --tags
+          # Only tags matching the package's release pattern - `--tags` pushed every local
+          # tag, which on a maintainer clone can include experiments.
+          git push origin 'refs/tags/@the_viveksingh/vivek-ui@*'
           for tag in $(git tag --points-at HEAD); do
             echo "Creating release for $tag"
-            gh release create "$tag" --title "$tag" --generate-notes               || echo "  release for $tag already exists, skipping"
+            gh release create "$tag" --title "$tag" --generate-notes \
+              || echo "  release for $tag already exists, skipping"
           done

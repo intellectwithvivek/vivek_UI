@@ -1,6 +1,6 @@
 'use client'
 
-import { Code, CopyButton, Tabs } from '@the_viveksingh/vivek-ui'
+import { Code, CopyButton, Segmented } from '@the_viveksingh/vivek-ui'
 import { useEffect, useState } from 'react'
 import { toJavaScript } from '../lib/to-javascript'
 
@@ -63,12 +63,22 @@ export function CodeBlock({ code, language = 'tsx', filename, plain }: CodeBlock
     <div className="code-block">
       <div className="code-block__bar">
         {filename ? <span className="code-block__name">{filename}</span> : null}
-        <Tabs value={lang} onValueChange={choose} variant="pill" size="sm">
-          <Tabs.List>
-            <Tabs.Tab value="ts">TS</Tabs.Tab>
-            <Tabs.Tab value="js">JS</Tabs.Tab>
-          </Tabs.List>
-        </Tabs>
+        {/*
+          Segmented, not Tabs. This is exactly why Segmented exists: rendering Tabs here
+          shipped role="tab" with aria-controls pointing at panels that were never rendered
+          - twelve dangling references per docs page, on ~100 pages. A language toggle
+          reveals nothing; it is one choice from two, which is a radiogroup.
+        */}
+        <Segmented
+          label="Code language"
+          onValueChange={(next) => choose(next as 'ts' | 'js')}
+          options={[
+            { value: 'ts', label: 'TS' },
+            { value: 'js', label: 'JS' },
+          ]}
+          size="sm"
+          value={lang}
+        />
         <CopyButton value={shown} size="sm" variant="ghost" />
       </div>
       <Code block>{shown}</Code>

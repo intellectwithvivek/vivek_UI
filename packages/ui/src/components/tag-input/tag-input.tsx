@@ -227,13 +227,28 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(function Tag
       const text = event.clipboardData.getData('text')
       // Split on every configured delimiter plus newlines, so pasting a column from a
       // spreadsheet does the obvious thing.
-      const parts = text
-        .split(new RegExp(`[\\n\\r${delimiters.map((d) => `\\${d}`).join('')}]+`))
-        .map((part) => part.trim())
-        .filter(Boolean)
-      if (parts.length < 2) return
+      /*
+       * Delimiters are split on literally, never compiled into a RegExp. The previous
+       * version built a character class from them with only the FIRST character escaped —
+       * so a multi-character delimiter like "x]" closed the class early and threw inside
+       * the paste handler, and a crafted one could build a catastrophic-backtracking
+       * pattern run against attacker-controlled clipboard text. Splitting by scanning has
+       * no pattern to poison.
+       */
+      const isDelimiter = (ch: string) => ch === '\n' || ch === '\r' || delimiters.includes(ch)
+      const parts: string[] = []
+      let current = ''
+      for (const ch of text) {
+        if (isDelimiter(ch)) {
+          parts.push(current)
+          current = ''
+        } else current += ch
+      }
+      parts.push(current)
+      const cleaned = parts.map((part) => part.trim()).filter(Boolean)
+      if (cleaned.length < 2) return
       event.preventDefault()
-      commitMany(parts)
+      commitMany(cleaned)
     },
     [commitMany, delimiters],
   )

@@ -21,6 +21,14 @@
  */
 const ALLOWED_SCHEMES = new Set(['http:', 'https:', 'mailto:', 'tel:'])
 
+/**
+ * The stricter policy Prose uses for links inside long-form content: no mailto/tel, because
+ * prose links routinely come from CMS-authored markdown where a tel: link is more likely a
+ * mistake or a lure than a feature. Exported so the two policies are two SETS, not two
+ * diverging implementations of the check.
+ */
+export const HTTP_SCHEMES_ONLY: ReadonlySet<string> = new Set(['http:', 'https:'])
+
 /** Does the value start with a URL scheme at all? */
 const HAS_SCHEME = /^[a-z][a-z0-9+.-]*:/i
 
@@ -36,7 +44,7 @@ const HAS_SCHEME = /^[a-z][a-z0-9+.-]*:/i
  * A relative path whose first segment contains a colon (`weird:file`) parses as a scheme
  * and is therefore refused; write `./weird:file` instead.
  */
-export function isSafeHref(href: string): boolean {
+export function isSafeHref(href: string, allow: ReadonlySet<string> = ALLOWED_SCHEMES): boolean {
   // Browsers strip C0 controls and spaces while resolving a URL, so the check has to
   // see the same string they will: `java<TAB>script:alert(1)` navigates exactly like
   // `javascript:alert(1)`. Done as a codepoint filter rather than a regex so the
@@ -48,7 +56,7 @@ export function isSafeHref(href: string): boolean {
   }
   if (!HAS_SCHEME.test(stripped)) return true
   const scheme = stripped.slice(0, stripped.indexOf(':') + 1).toLowerCase()
-  return ALLOWED_SCHEMES.has(scheme)
+  return allow.has(scheme)
 }
 
 /**

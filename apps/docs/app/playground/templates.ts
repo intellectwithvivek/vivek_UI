@@ -23,7 +23,7 @@ export const TEMPLATES: Template[] = [
 
   return (
     <Stack gap={6}>
-      <Heading level={1}>Hello from the playground</Heading>
+      <Heading level={2}>Hello from the playground</Heading>
       <Text tone="muted">
         Every export is already in scope. Edit this and it re-renders.
       </Text>

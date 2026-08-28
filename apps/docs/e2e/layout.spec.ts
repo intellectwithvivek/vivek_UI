@@ -21,7 +21,7 @@ test.describe('every key page', () => {
       // The most common responsive failure there is, and invisible on a desktop with an
       // overlay scrollbar — which is why it survives review so often.
       await page.goto(route)
-      await page.waitForLoadState('networkidle')
+      await page.waitForLoadState('load')
 
       const overflow = await horizontalOverflow(page)
       const offenders = overflow > 0 ? await elementsPastViewport(page) : []
@@ -40,7 +40,7 @@ test.describe('the header', () => {
        * those elements the same 0×0 box.
        */
       await page.goto(route)
-      await page.waitForLoadState('networkidle')
+      await page.waitForLoadState('load')
 
       const boxes = await page.$$eval(
         '.vk-navbar__brand, .vk-navbar__link, .vk-navbar__actions > *, .vk-navbar__toggle',
@@ -72,7 +72,7 @@ test.describe('the header', () => {
      * to suggest they existed.
      */
     await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
 
     const firstLink = page.locator('.vk-navbar__link').first()
     if (await isReallyVisible(firstLink)) return // wide: links are in the bar
@@ -102,7 +102,7 @@ test.describe('touch targets', () => {
     // WCAG 2.5.5. Only meaningful on a touch viewport — a mouse hits a 24px icon fine.
     test.skip(testInfo.project.name !== 'phone', 'touch viewports only')
     await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
 
     const small = await smallTouchTargets(page)
     expect(small, `below 44x44:\n  ${small.join('\n  ')}`).toEqual([])
@@ -155,7 +155,7 @@ test.describe('the accent picker', () => {
     // It has been in three places in three days. This asserts the only thing that matters:
     // a person can find it and it works.
     await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
 
     const trigger = page.locator('.accent-trigger')
     await expect(trigger).toBeVisible()

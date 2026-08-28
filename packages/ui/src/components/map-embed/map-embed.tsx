@@ -128,7 +128,7 @@ export const MapEmbed = forwardRef<HTMLDivElement, MapEmbedProps>(function MapEm
           loading="lazy"
           // No `allow-same-origin`: the map does not need access to this origin, and
           // withholding it stops the frame reading cookies or storage belonging to the page.
-          referrerPolicy="no-referrer-when-downgrade"
+          referrerPolicy="strict-origin-when-cross-origin"
           sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
           src={src}
           title={title}

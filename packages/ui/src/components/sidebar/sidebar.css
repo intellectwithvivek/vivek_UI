@@ -110,7 +110,12 @@
 
 :where(.vk-sidebar__link[data-active]) {
   background: var(--vk-color-primary-subtle);
-  color: var(--vk-color-primary);
+  /*
+   * primary-subtle-fg, not primary: the accent itself measures ~4.0:1 against the subtle
+   * wash — under AA for text this size, and browser axe caught it on the docs sidebar.
+   * The -subtle-fg token exists precisely as the text partner for the -subtle surface.
+   */
+  color: var(--vk-color-primary-subtle-fg);
   font-weight: 600;
 }
 

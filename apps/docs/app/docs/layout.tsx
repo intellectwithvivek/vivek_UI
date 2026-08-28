@@ -71,9 +71,14 @@ export default function DocsLayout({ children }: { children: ReactNode }) {
         <DocsSearch rows={searchIndex} />
       </div>
       <div className="docs-shell__grid">
-        <nav aria-label="Documentation" className="docs-shell__nav">
+        {/*
+          A div, not a nav: the library Sidebar inside renders its own labelled <nav>, and
+          wrapping it in a second one gave a screen-reader user two identical landmarks
+          for the same list - axe's landmark-unique finding on every docs page.
+        */}
+        <div className="docs-shell__nav">
           <DocsSidebar groups={NAV} />
-        </nav>
+        </div>
         <article className="docs-shell__content">{children}</article>
       </div>
     </Container>

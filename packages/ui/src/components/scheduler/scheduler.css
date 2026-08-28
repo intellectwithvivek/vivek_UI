@@ -264,8 +264,12 @@
 }
 
 :where(.vk-scheduler__event[data-tone]:not([data-tone="default"])) :where(.vk-scheduler__time) {
+  /*
+   * Full-contrast inherit, no opacity. The previous 0.75 blended the subtle-fg colour into
+   * its wash and landed near 3.4:1 - browser axe caught it. The size difference against
+   * the title is differentiation enough; contrast is not the knob to turn.
+   */
   color: inherit;
-  opacity: 0.75;
 }
 
 /* --- now marker ------------------------------------------------------------------- */

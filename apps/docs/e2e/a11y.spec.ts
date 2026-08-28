@@ -35,7 +35,9 @@ test.describe('accessibility of the composed pages', () => {
   for (const route of KEY_ROUTES) {
     test(`${route} has no axe violations`, async ({ page }) => {
       await page.goto(route)
-      await page.waitForLoadState('networkidle')
+      // 'load', never 'networkidle': the showcase page lazy-loads twelve live iframes that
+      // trickle requests indefinitely, so networkidle times the test out on a healthy page.
+      await page.waitForLoadState('load')
 
       const violations = await axeViolations(page, NOT_OURS)
       const report = violations
@@ -53,7 +55,7 @@ test.describe('accessibility in dark mode', () => {
     test(`${route} has no axe violations in dark mode`, async ({ page }) => {
       await page.goto(route)
       await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'))
-      await page.waitForLoadState('networkidle')
+      await page.waitForLoadState('load')
 
       const violations = await axeViolations(page, NOT_OURS)
       const report = violations
@@ -86,7 +88,7 @@ test.describe('keyboard reachability', () => {
      * the element is present, enabled and correctly labelled.
      */
     await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
 
     const invisible: string[] = []
     for (let step = 0; step < 12; step++) {

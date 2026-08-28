@@ -48,6 +48,20 @@ describe('package metadata', () => {
     expect(PKG.scripts['build:css']).toContain('src/styles/print.css -o dist/print.css')
   })
 
+  it('excludes every stylesheet export from the are-the-types-wrong check in CI', () => {
+    // attw models JS and type resolution only; a .css subpath reports NoResolution, which
+    // is a tool limitation and not a defect. The exclusion list in ci.yml is hand-written,
+    // and ./print.css was added to exports without extending it - CI went red for a whole
+    // push. Now the list cannot fall behind the exports map.
+    const ci = readFileSync(join(ROOT, '..', '..', '.github', 'workflows', 'ci.yml'), 'utf8')
+    const flag = ci.match(/--exclude-entrypoints (.*)/)?.[1] ?? ''
+    const cssExports = Object.keys(PKG.exports).filter((key) => key.endsWith('.css'))
+    expect(cssExports.length).toBeGreaterThan(0)
+    for (const subpath of cssExports) {
+      expect(flag, `${subpath} missing from attw --exclude-entrypoints`).toContain(subpath)
+    }
+  })
+
   it('ships only dist', () => {
     expect(PKG.files).toEqual(['dist'])
   })

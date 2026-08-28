@@ -322,8 +322,8 @@ Measured with `size-limit`, minified and brotlied, React excluded:
 | `{ Modal }` (focus trap + scroll lock + portal) | **2.9 kB** |
 | A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **2.9 kB** |
 | All six charts | **10.5 kB** |
-| Every component, imported at once | **58.0 kB** |
-| `styles.css` | 224.2 kB raw, **31.2 kB gzipped** |
+| Every component, imported at once | **61.0 kB** |
+| `styles.css` | 224.3 kB raw, **31.2 kB gzipped** |
 | `charts.css` | 12.2 kB raw, **2.5 kB gzipped** |
 <!-- size-table:end -->
 

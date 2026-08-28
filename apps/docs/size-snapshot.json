@@ -1,16 +1,16 @@
 {
   "bundles": {
     "Button only": 772,
-    "Modal (focus trap + scroll lock + portal)": 2937,
+    "Modal (focus trap + scroll lock + portal)": 2932,
     "A landing page (Hero+Features+Pricing+FAQ+CTA+Footer)": 2901,
     "All charts": 10516,
-    "Whole core library": 57953
+    "Whole core library": 60972
   },
   "css": {
     "styles.css": {
-      "raw": 224196,
-      "gzip": 31167,
-      "brotli": 24798
+      "raw": 224301,
+      "gzip": 31185,
+      "brotli": 24801
     },
     "charts.css": {
       "raw": 12213,

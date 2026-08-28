@@ -553,6 +553,107 @@ export function Tracked({ event, ...rest }: TrackedProps) {
       </>
     ),
   },
+  migration: {
+    title: 'Migrating to 1.0',
+    description:
+      'Every prop renamed in VivekUI 1.0 with its replacement and the reason, plus what landed alongside: asChild, size lg, invalid and the component contract.',
+    summary: 'One naming convention, applied everywhere. This is the list.',
+    body: (
+      <>
+        <section>
+          <Heading level={2} size="lg">
+            Why anything changed at all
+          </Heading>
+          <Text tone="muted">
+            1.0 is the last release in which a public prop can be renamed without a major version,
+            so the eight inconsistencies the 0.x line had accumulated were fixed now rather than
+            frozen forever. Each one below is a single-attribute rename. There are no behavioural
+            changes hidden in this list.
+          </Text>
+        </section>
+        <section>
+          <Heading level={2} size="lg">
+            Renamed props
+          </Heading>
+          <CodeBlock
+            code={`// RadioGroup, OTPInput, TagInput - the DOM already owns onChange
+- <RadioGroup onChange={setPlan} />
++ <RadioGroup onValueChange={setPlan} />
+
+// Scheduler - verb names for actions
+- <Scheduler onEventSelect={open} />
++ <Scheduler onSelect={open} />
+
+// FAQ - every other defaultOpen in the library is a boolean
+- <FAQ defaultOpen={0} />
++ <FAQ defaultOpenIndex={0} />
+
+// EditableGrid - tabular row sets are 'data', matching DataTable
+- <EditableGrid rows={lines} />
++ <EditableGrid data={lines} />
+
+// PieChart, ProgressRing - 'size' is a sm/md/lg scale everywhere else
+- <ProgressRing size={96} />
++ <ProgressRing diameter={96} />
+
+// CTA - it was Section's background vocabulary under another name
+- <CTA variant="primary" />
++ <CTA background="primary" />
+
+// Text - one tone vocabulary: neutral | muted | primary | danger
+- <Text tone="default" />
++ <Text tone="neutral" />
+
+// Progress - the last widget that could render an unlabelled progressbar
+- <Progress value={40} />
++ <Progress value={40} label="Upload" />`}
+          />
+          <Text tone="muted">
+            A project-wide find-and-replace on the left-hand side of each line is the whole
+            migration. TypeScript reports every remaining site as a compile error, so nothing can be
+            missed silently.
+          </Text>
+        </section>
+        <section>
+          <Heading level={2} size="lg">
+            What arrived with it
+          </Heading>
+          <Text tone="muted">
+            None of these require a change, but each removes a workaround you may have written.
+          </Text>
+          <CodeBlock
+            code={`// asChild, where a router needs to get in
+<DropdownMenu.Item asChild><Link href="/settings">Settings</Link></DropdownMenu.Item>
+<PopoverTrigger asChild><Button variant="outline">Filters</Button></PopoverTrigger>
+<IconButton asChild aria-label="Settings"><Link href="/settings">{gear}</Link></IconButton>
+
+// size="lg" on Badge, Breadcrumb, Checkbox, Code, Field, FileUpload, Kbd, Label,
+// RadioGroup, Switch and TypingIndicator - a large form now composes
+<Checkbox size="lg" label="Remember me" />
+
+// invalid on Switch and RadioGroup, like every other form control
+<Switch invalid label="Notifications" />
+
+// Navbar collapseAt, for a bar with six links and actions
+<Navbar collapseAt="lg">...</Navbar>`}
+          />
+        </section>
+        <section>
+          <Heading level={2} size="lg">
+            The component contract
+          </Heading>
+          <Text tone="muted">
+            Every component now forwards its <Code>ref</Code> to its root element, merges an
+            incoming <Code>className</Code> and <Code>style</Code>, and spreads the remaining props
+            onto that root. Four data widgets - <Code>EditableGrid</Code>, <Code>FileTree</Code>,{' '}
+            <Code>KanbanBoard</Code> and <Code>Scheduler</Code> - did not, so a test id or an inline
+            style needed a wrapper element. Those wrappers can go. A test suite now keeps the
+            contract true for every component.
+          </Text>
+        </section>
+      </>
+    ),
+  },
 } satisfies Record<string, Guide>
 
 export type GuideSlug = keyof typeof GUIDES

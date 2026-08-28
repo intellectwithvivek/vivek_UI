@@ -78,7 +78,7 @@ export default function TeamPage() {
                 title="Forms and overlays"
               />
               <Timeline.Item
-                description="Ninety-seven components, ten charts, and a props table generated from the type declarations so it cannot drift."
+                description="Ninety-eight components, ten charts, and a props table generated from the type declarations so it cannot drift."
                 status="complete"
                 timestamp="November 2025"
                 title="v1.0 and the docs site"

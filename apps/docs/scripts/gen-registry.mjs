@@ -61,6 +61,7 @@ const CATEGORIES = {
     'combobox',
     'calendar',
     'date-picker',
+    'date-range-picker',
   ],
   Overlays: [
     'modal',

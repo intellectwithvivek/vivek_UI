@@ -8766,6 +8766,198 @@
       "compound": false
     },
     {
+      "slug": "date-range-picker",
+      "title": "Date range picker",
+      "kind": "component",
+      "category": "Forms",
+      "exports": [
+        "DateRangePicker"
+      ],
+      "typeExports": [
+        "DateRangePickerProps"
+      ],
+      "primary": "DateRangePicker",
+      "description": "A date-range field: one trigger showing \"start – end\", a popover hosting `Calendar` in range mode.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "value",
+            "type": "DateRange | null",
+            "required": false,
+            "description": "Controlled range. `end` is `null` while the user has picked only a start.",
+            "default": ""
+          },
+          {
+            "name": "defaultValue",
+            "type": "DateRange | null",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: DateRange | null) => void",
+            "required": false,
+            "description": "Fires on every change, including the half-selected `{ start, end: null }` step, so a consumer can react to the first click. Read `end !== null` for \"complete\".",
+            "default": ""
+          },
+          {
+            "name": "min",
+            "type": "Date | null",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "max",
+            "type": "Date | null",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "disabledDates",
+            "type": "DisabledDates",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "weekStartsOn",
+            "type": "WeekStart",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "locale",
+            "type": "DateLocale",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "size",
+            "type": "'sm' | 'md' | 'lg'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "required": false,
+            "description": "Sets `aria-invalid` on the trigger. Injected by `Field`.",
+            "default": ""
+          },
+          {
+            "name": "required",
+            "type": "boolean",
+            "required": false,
+            "description": "Injected by `Field`.",
+            "default": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "required": false,
+            "description": "Submits two hidden fields, `{name}-start` and `{name}-end`, as ISO dates — the same convention `Calendar` uses in range mode, so a form does not care which rendered it.",
+            "default": ""
+          },
+          {
+            "name": "placeholder",
+            "type": "{ start?: string; end?: string; }",
+            "required": false,
+            "description": "Shown in place of a missing start or end. Default `'Start date'` / `'End date'`.",
+            "default": ""
+          },
+          {
+            "name": "format",
+            "type": "(date: Date) => string",
+            "required": false,
+            "description": "Renders a date as the trigger's text. Default `YYYY-MM-DD`, which is deterministic — `Intl` output differs between Node builds and browsers, so a locale-aware default would hydrate differently for two of your users.",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "The control's name, spoken before the current range: \"Stay: 12 Mar 2026 to 15 Mar 2026\". Default `'Date range'`. Prefer `aria-labelledby` (via rest) when a visible label exists.",
+            "default": ""
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "description": "Controlled popup state.",
+            "default": ""
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "side",
+            "type": "Side",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "align",
+            "type": "Align",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "padding",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "container",
+            "type": "PortalContainer",
+            "required": false,
+            "description": "Where the popup portals. Defaults to `document.body`.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "divider",
       "title": "Divider",
       "kind": "component",

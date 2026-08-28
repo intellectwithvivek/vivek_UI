@@ -40,6 +40,7 @@ export const GUIDES: Array<{ slug: string; label: string }> = [
   { slug: 'accessibility', label: 'Accessibility' },
   { slug: 'security', label: 'Security' },
   { slug: 'faq', label: 'FAQ' },
+  { slug: 'migration', label: 'Migrating to 1.0' },
 ]
 
 export const TOP_ROUTES: Route[] = [

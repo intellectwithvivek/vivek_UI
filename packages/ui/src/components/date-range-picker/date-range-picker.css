@@ -1,0 +1,169 @@
+/*
+ * DateRangePicker. A trigger button showing "start – end", and the popup shell that hosts
+ * Calendar in range mode. The Calendar styles itself; this file is the field and the panel,
+ * kept deliberately in step with date-picker.css so the two read as one control family.
+ */
+
+:where(.vk-date-range-picker) {
+  --vk-date-range-picker-icon: 1rem;
+  --vk-date-range-picker-accent: var(--vk-color-primary);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-1);
+  width: 100%;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-fg);
+}
+
+/* --- trigger ------------------------------------------------------------------ */
+
+:where(.vk-date-range-picker__trigger) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+  inline-size: 100%;
+  min-block-size: 2.5rem;
+  padding: 0 var(--vk-space-3);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  text-align: start;
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  cursor: pointer;
+  transition:
+    border-color var(--vk-duration-fast) var(--vk-ease),
+    box-shadow var(--vk-duration-fast) var(--vk-ease);
+}
+
+:where(.vk-date-range-picker__trigger[data-size="sm"]) {
+  min-block-size: 2rem;
+  font-size: var(--vk-text-xs);
+}
+
+:where(.vk-date-range-picker__trigger[data-size="lg"]) {
+  min-block-size: 3rem;
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-date-range-picker__trigger:hover:not(:disabled)) {
+  border-color: var(--vk-color-border-strong);
+}
+
+:where(.vk-date-range-picker__trigger:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: 2px;
+}
+
+:where(.vk-date-range-picker[data-open] .vk-date-range-picker__trigger) {
+  border-color: var(--vk-date-range-picker-accent);
+}
+
+:where(.vk-date-range-picker__trigger[aria-invalid="true"]) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-date-range-picker__trigger:disabled) {
+  color: var(--vk-color-muted);
+  background: var(--vk-color-surface-subtle);
+  cursor: not-allowed;
+}
+
+:where(.vk-date-range-picker__part) {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A placeholder reads as a hint, not a value. */
+:where(.vk-date-range-picker__part[data-placeholder]) {
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-date-range-picker__separator) {
+  flex: none;
+  color: var(--vk-color-muted);
+}
+
+/* --- icon: the same calendar glyph DatePicker draws, so the family matches -------- */
+
+:where(.vk-date-range-picker__icon) {
+  position: relative;
+  flex: none;
+  inline-size: var(--vk-date-range-picker-icon);
+  block-size: var(--vk-date-range-picker-icon);
+  color: var(--vk-color-muted);
+  border: 1.5px solid currentcolor;
+  border-radius: 2px;
+}
+
+:where(.vk-date-range-picker__icon)::before {
+  content: "";
+  position: absolute;
+  inset-inline: -1.5px;
+  inset-block-start: 0.15rem;
+  block-size: 1.5px;
+  background: currentcolor;
+}
+
+:where(.vk-date-range-picker__icon)::after {
+  content: "";
+  position: absolute;
+  inset-block-start: -0.15rem;
+  inset-inline-start: 0.15rem;
+  inline-size: 0.5rem;
+  block-size: 1.5px;
+  background: currentcolor;
+  box-shadow: 0.15rem 0 0 -0.05rem currentcolor;
+}
+
+/* --- popup ------------------------------------------------------------------- */
+
+/*
+ * `position: fixed` because the positioning hook reports viewport coordinates, and
+ * transparent until measured so it never flashes at 0,0. The coordinates themselves are
+ * set inline from the hook.
+ */
+:where(.vk-date-range-picker__popup) {
+  position: fixed;
+  z-index: var(--vk-z-overlay);
+  opacity: 0;
+  background: var(--vk-color-surface);
+  border-radius: var(--vk-radius-lg);
+  box-shadow: var(--vk-shadow-lg);
+}
+
+:where(.vk-date-range-picker__popup[data-positioned]) {
+  opacity: 1;
+  animation: vk-date-range-picker-in var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-date-range-picker__popup:focus-visible) {
+  outline: none;
+}
+
+@keyframes vk-date-range-picker-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-date-range-picker__popup[data-positioned]) {
+    animation: none;
+  }
+
+  :where(.vk-date-range-picker__trigger) {
+    transition: none;
+  }
+}

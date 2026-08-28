@@ -128,6 +128,7 @@ export {
   type SortValue,
 } from './components/data-table'
 export { DatePicker, type DatePickerProps } from './components/date-picker'
+export { DateRangePicker, type DateRangePickerProps } from './components/date-range-picker'
 export { Divider, type DividerProps } from './components/divider'
 export {
   Drawer,

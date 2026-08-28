@@ -431,6 +431,36 @@ export const FORM_EXAMPLES: ExampleSet = {
     },
   ],
 
+  'date-range-picker': [
+    {
+      title: 'A stay',
+      description:
+        'One trigger reading start – end, a popup hosting Calendar in range mode. It closes on the second date and returns focus to the field; Escape after a first click restores the last complete range instead of leaving one date of two in the form.',
+      name: 'default',
+      code: `const [stay, setStay] = useState({ start: null, end: null })
+
+<Field label="Stay">
+  <DateRangePicker name="stay" value={stay} onValueChange={setStay} />
+</Field>
+
+// The form receives two ISO fields: stay-start and stay-end.
+// The trigger's accessible name reads the range in words:
+// "Stay: March 12, 2026 to March 15, 2026".`,
+    },
+    {
+      title: 'Bounded, weekends refused',
+      description:
+        'min, max and disabledDates pass straight through to Calendar, where a disabled day is unreachable by keyboard rather than merely unclickable.',
+      name: 'bounded',
+      code: `<DateRangePicker
+  min={new Date(2026, 2, 1)}
+  max={new Date(2026, 2, 31)}
+  disabledDates={(d) => d.getDay() === 0 || d.getDay() === 6}
+  name="workshop"
+/>`,
+    },
+  ],
+
   'date-picker': [
     {
       title: 'A text field with a calendar',

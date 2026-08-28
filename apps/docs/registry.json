@@ -8703,6 +8703,20 @@
             "default": ""
           },
           {
+            "name": "inset",
+            "type": "boolean",
+            "required": false,
+            "description": "Paint the background on a rounded card inside the container instead of a full-bleed band.",
+            "default": ""
+          },
+          {
+            "name": "layout",
+            "type": "'stack' | 'split'",
+            "required": false,
+            "description": "`split` puts the actions beside the copy on wide screens whatever the alignment. Default `stack`.",
+            "default": ""
+          },
+          {
             "name": "headingLevel",
             "type": "HeadingLevel",
             "required": false,
@@ -9819,6 +9833,20 @@
             "required": false,
             "description": "Emit schema.org `FAQPage` JSON-LD alongside the list. Default `true`. This is the markup an answer engine reads to quote a question and its answer directly, and it is derived 1:1 from the items rendered on the page — never from anything invisible, which is what Google's structured-data policy requires. Items whose `answer` is JSX are included only when they carry `answerText`. Nothing is emitted when the `children` escape hatch replaces the default layout, because the schema must describe what is actually visible.",
             "default": ""
+          },
+          {
+            "name": "columns",
+            "type": "1 | 2",
+            "required": false,
+            "description": "Lay the questions out in two columns once the section is wide enough. Default `1`.",
+            "default": ""
+          },
+          {
+            "name": "layout",
+            "type": "'stack' | 'side'",
+            "required": false,
+            "description": "`side` puts the header beside the list on wide screens instead of above it. Default `stack`.",
+            "default": ""
           }
         ],
         "spreadsHostProps": false,
@@ -10487,6 +10515,34 @@
             "type": "ReactNode",
             "required": false,
             "description": "Screenshot or illustration. Sits beside the copy in the `split` layout.",
+            "default": ""
+          },
+          {
+            "name": "mediaPosition",
+            "type": "'start' | 'end'",
+            "required": false,
+            "description": "In the split layout, which side the media sits on. Default `end`.",
+            "default": ""
+          },
+          {
+            "name": "backdrop",
+            "type": "ReactNode",
+            "required": false,
+            "description": "A full-bleed layer behind the copy — an `<img>`, a `<video>`, a gradient `<div>`. It is decorative (`aria-hidden`) and covers the whole section.",
+            "default": ""
+          },
+          {
+            "name": "overlay",
+            "type": "'none' | 'light' | 'dark' | 'gradient'",
+            "required": false,
+            "description": "A scrim over the backdrop so the copy stays legible. `dark` and `gradient` also switch the text to light. Default `none`.",
+            "default": ""
+          },
+          {
+            "name": "minHeight",
+            "type": "'auto' | 'half' | 'screen'",
+            "required": false,
+            "description": "`half` and `screen` give the hero at least half or all of the viewport, copy centred.",
             "default": ""
           },
           {
@@ -13597,6 +13653,20 @@
             "type": "'md' | 'lg'",
             "required": false,
             "description": "The container width at which the links leave the sheet and line up in the bar. `md` (48rem, the default) suits four or five links; `lg` (64rem) is for a bar that also carries actions, where six links plus a theme toggle do not fit at 768px once fonts are a few pixels wider than the ones they were designed against - Linux and Android fallback faces, for instance.",
+            "default": ""
+          },
+          {
+            "name": "variant",
+            "type": "'solid' | 'transparent' | 'floating'",
+            "required": false,
+            "description": "`solid` is a surface with a border; `transparent` sits over a hero with no background; `floating` is an inset, rounded, shadowed bar. Default `solid`.",
+            "default": ""
+          },
+          {
+            "name": "layout",
+            "type": "'start' | 'center' | 'end'",
+            "required": false,
+            "description": "Where the links sit on a wide bar: after the brand, centred, or pushed to the actions. Default `start`.",
             "default": ""
           }
         ],

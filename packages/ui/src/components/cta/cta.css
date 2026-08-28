@@ -21,14 +21,42 @@
  * end edge, beside the copy. Centred CTAs keep stacking on purpose.
  */
 @container vk-section (min-width: 44rem) {
-  :where(.vk-cta[data-align="start"]) :where(.vk-cta__inner) {
+  :where(.vk-cta[data-align="start"], .vk-cta[data-layout="split"]) :where(.vk-cta__inner) {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: var(--vk-space-8);
   }
 
-  :where(.vk-cta[data-align="start"]) :where(.vk-cta__actions) {
+  :where(.vk-cta[data-align="start"], .vk-cta[data-layout="split"]) :where(.vk-cta__actions) {
     flex: none;
   }
+
+  :where(.vk-cta[data-layout="split"]) :where(.vk-cta__content) {
+    text-align: start;
+  }
+}
+
+/*
+ * Inset: the band becomes a card inside the container. The section stays on the page
+ * background and the tone moves to the inner box, palette re-pointed the same way
+ * section.css does for a primary band.
+ */
+:where(.vk-cta[data-inset]) :where(.vk-cta__inner) {
+  padding: var(--vk-space-8);
+  border-radius: var(--vk-radius-lg);
+}
+
+:where(.vk-cta[data-inset][data-tone="muted"]) :where(.vk-cta__inner) {
+  background: color-mix(in oklab, var(--vk-color-bg) 94%, var(--vk-color-fg));
+  border: 1px solid var(--vk-color-border);
+}
+
+:where(.vk-cta[data-inset][data-tone="primary"]) :where(.vk-cta__inner) {
+  --vk-color-bg: var(--vk-color-primary);
+  --vk-color-fg: var(--vk-color-primary-fg);
+  --vk-color-muted: color-mix(in oklab, var(--vk-color-primary-fg) 78%, var(--vk-color-primary));
+  --vk-color-border: color-mix(in oklab, var(--vk-color-primary-fg) 28%, transparent);
+  background: var(--vk-color-bg);
+  color: var(--vk-color-fg);
 }

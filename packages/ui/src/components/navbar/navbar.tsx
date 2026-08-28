@@ -80,6 +80,13 @@ export interface NavbarProps extends HTMLAttributes<HTMLElement> {
    * fallback faces, for instance.
    */
   collapseAt?: 'md' | 'lg'
+  /**
+   * `solid` is a surface with a border; `transparent` sits over a hero with no background;
+   * `floating` is an inset, rounded, shadowed bar. Default `solid`.
+   */
+  variant?: 'solid' | 'transparent' | 'floating'
+  /** Where the links sit on a wide bar: after the brand, centred, or pushed to the actions. Default `start`. */
+  layout?: 'start' | 'center' | 'end'
 }
 
 /**
@@ -122,6 +129,8 @@ const NavbarRoot = forwardRef<HTMLElement, NavbarProps>(function Navbar(
     size = 'md',
     container = 'lg',
     collapseAt = 'md',
+    variant = 'solid',
+    layout = 'start',
     open,
     defaultOpen = false,
     onOpenChange,
@@ -213,6 +222,8 @@ const NavbarRoot = forwardRef<HTMLElement, NavbarProps>(function Navbar(
       data-bordered={bordered || undefined}
       data-size={size}
       data-collapse={collapseAt}
+      data-variant={variant}
+      data-layout={layout}
       data-open={isOpen || undefined}
       {...rest}
     >

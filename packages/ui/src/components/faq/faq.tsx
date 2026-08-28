@@ -63,6 +63,10 @@ export interface FAQProps extends Omit<SectionProps, 'title'> {
    * schema must describe what is actually visible.
    */
   structuredData?: boolean
+  /** Lay the questions out in two columns once the section is wide enough. Default `1`. */
+  columns?: 1 | 2
+  /** `side` puts the header beside the list on wide screens instead of above it. Default `stack`. */
+  layout?: 'stack' | 'side'
 }
 
 /**
@@ -115,6 +119,8 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
     description,
     headingLevel = 2,
     structuredData = true,
+    columns = 1,
+    layout = 'stack',
     size = 'md',
     className,
     children,
@@ -150,7 +156,7 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
         />
       ) : null}
       {children ?? (
-        <>
+        <div className="vk-faq__body" data-layout={layout}>
           {hasHeader ? (
             <Section.Header
               eyebrow={eyebrow}
@@ -160,7 +166,7 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
             />
           ) : null}
           {items.length > 0 ? (
-            <div className="vk-faq__list">
+            <div className="vk-faq__list" data-columns={columns}>
               {items.map((item, index) => (
                 <details
                   className="vk-faq__item"
@@ -182,7 +188,7 @@ export const FAQ = forwardRef<HTMLElement, FAQProps>(function FAQ(
               ))}
             </div>
           ) : null}
-        </>
+        </div>
       )}
     </Section>
   )

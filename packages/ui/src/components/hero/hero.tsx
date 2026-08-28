@@ -12,6 +12,20 @@ export interface HeroProps extends Omit<SectionProps, 'align' | 'title'> {
   actions?: ReactNode
   /** Screenshot or illustration. Sits beside the copy in the `split` layout. */
   media?: ReactNode
+  /** In the split layout, which side the media sits on. Default `end`. */
+  mediaPosition?: 'start' | 'end'
+  /**
+   * A full-bleed layer behind the copy — an `<img>`, a `<video>`, a gradient `<div>`. It is
+   * decorative (`aria-hidden`) and covers the whole section.
+   */
+  backdrop?: ReactNode
+  /**
+   * A scrim over the backdrop so the copy stays legible. `dark` and `gradient` also switch
+   * the text to light. Default `none`.
+   */
+  overlay?: 'none' | 'light' | 'dark' | 'gradient'
+  /** `half` and `screen` give the hero at least half or all of the viewport, copy centred. */
+  minHeight?: 'auto' | 'half' | 'screen'
   align?: 'start' | 'center'
   /** `centered` stacks and centres; `split` puts `media` beside the copy when there is room. */
   layout?: 'centered' | 'split'
@@ -34,6 +48,10 @@ export const Hero = forwardRef<HTMLElement, HeroProps>(function Hero(
     description,
     actions,
     media,
+    mediaPosition = 'end',
+    backdrop,
+    overlay = 'none',
+    minHeight = 'auto',
     align,
     layout = 'centered',
     headingLevel = 1,
@@ -55,9 +73,17 @@ export const Hero = forwardRef<HTMLElement, HeroProps>(function Hero(
       padding={padding}
       align={resolvedAlign}
       data-layout={layout}
+      data-media={media ? mediaPosition : undefined}
+      data-overlay={backdrop ? overlay : undefined}
+      data-height={minHeight === 'auto' ? undefined : minHeight}
       {...rest}
       aria-label={landmarkName(title, rest)}
     >
+      {backdrop ? (
+        <div className="vk-hero__backdrop" aria-hidden="true">
+          {backdrop}
+        </div>
+      ) : null}
       {children ?? (
         <div className="vk-hero__inner">
           <Section.Header

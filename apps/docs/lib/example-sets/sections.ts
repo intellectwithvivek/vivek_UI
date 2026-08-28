@@ -35,6 +35,35 @@ export const SECTION_EXAMPLES: ExampleSet = {
   media={<img src="/screenshot.png" alt="" />}
 />`,
     },
+    {
+      title: 'Over a photo, full height',
+      description:
+        'backdrop is a full-bleed layer behind the copy - an img, a video, a gradient div - marked decorative. overlay puts a scrim over it; dark and gradient also switch the copy to light. minHeight="screen" gives the hero the viewport with the copy centred.',
+      name: 'backdrop',
+      code: `<Hero
+  minHeight="screen"
+  overlay="gradient"
+  backdrop={<img src="/photos/summit.jpg" alt="" />}
+  eyebrow="Season 2026"
+  title="Higher, lighter, further"
+  description="The pack that disappears on your back and reappears in the photos."
+  actions={<Button size="lg">Shop the range</Button>}
+/>`,
+    },
+    {
+      title: 'Media first',
+      description:
+        'mediaPosition="start" puts split-layout media before the copy on wide screens. It still stacks under the text on narrow ones.',
+      name: 'media-start',
+      code: `<Hero
+  layout="split"
+  mediaPosition="start"
+  title="See it before you read about it"
+  description="A product shot, a chart, a screenshot - whatever earns the first glance."
+  media={<Image src="/dashboard.png" alt="The analytics dashboard" ratio={4 / 3} rounded="lg" />}
+  actions={<Button>Start free</Button>}
+/>`,
+    },
   ],
 
   cta: [
@@ -64,6 +93,20 @@ export const SECTION_EXAMPLES: ExampleSet = {
   title="Ship your next interface this week"
   description="Install once, style with tokens, override with a single class."
   actions={<Button background="outline">Read the docs</Button>}
+/>`,
+    },
+    {
+      title: 'Inset card, actions beside the copy',
+      description:
+        'inset paints the tone on a rounded card inside the container instead of a full-bleed band, which sits better between two white sections. layout="split" puts the actions beside the copy on wide screens whatever the alignment.',
+      name: 'inset',
+      code: `<CTA
+  inset
+  layout="split"
+  background="primary"
+  title="Ready when you are"
+  description="Install the package and import the stylesheet. There is no step three."
+  actions={<Button size="lg" variant="outline">Get started</Button>}
 />`,
     },
   ],
@@ -124,6 +167,20 @@ export const SECTION_EXAMPLES: ExampleSet = {
       answer: 'Every selector is wrapped in :where(), so one flat class of yours wins.',
     },
   ]}
+/>`,
+    },
+    {
+      title: 'Two columns, header beside',
+      description:
+        'columns={2} splits the list once the section is wide enough; layout="side" puts the header in a narrow start column with the questions beside it. Both fall back to one stack below 48rem.',
+      name: 'side',
+      code: `<FAQ
+  layout="side"
+  columns={2}
+  eyebrow="Support"
+  title="Before you write in"
+  description="The answers to the questions we get every week."
+  items={faqs}
 />`,
     },
   ],

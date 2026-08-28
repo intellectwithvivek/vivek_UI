@@ -17,6 +17,10 @@ export interface CTAProps extends Omit<SectionProps, 'title' | 'background'> {
    * existed, and Section already calls this vocabulary `background`.
    */
   background?: 'default' | 'muted' | 'primary'
+  /** Paint the background on a rounded card inside the container instead of a full-bleed band. */
+  inset?: boolean
+  /** `split` puts the actions beside the copy on wide screens whatever the alignment. Default `stack`. */
+  layout?: 'stack' | 'split'
   /** Level of `title`. Defaults to `2`. */
   headingLevel?: HeadingLevel
 }
@@ -36,6 +40,8 @@ export const CTA = forwardRef<HTMLElement, CTAProps>(function CTA(
     description,
     actions,
     background = 'muted',
+    inset = false,
+    layout = 'stack',
     align = 'center',
     headingLevel = 2,
     padding = 'lg',
@@ -49,9 +55,12 @@ export const CTA = forwardRef<HTMLElement, CTAProps>(function CTA(
     <Section
       ref={ref}
       className={cx('vk-cta', className)}
-      background={background}
+      background={inset ? 'default' : background}
       align={align}
       padding={padding}
+      data-inset={inset || undefined}
+      data-tone={inset ? background : undefined}
+      data-layout={layout}
       {...rest}
       aria-label={landmarkName(title, rest)}
     >

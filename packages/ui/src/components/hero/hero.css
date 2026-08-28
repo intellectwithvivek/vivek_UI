@@ -1,3 +1,65 @@
+:where(.vk-hero) {
+  position: relative;
+  isolation: isolate;
+}
+
+:where(.vk-hero[data-overlay]) {
+  overflow: hidden;
+}
+
+/* Full-bleed layer behind the copy; negative z-index inside the hero's own stacking context. */
+:where(.vk-hero__backdrop) {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+:where(.vk-hero__backdrop) > :where(img, video, picture) {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+:where(.vk-hero__backdrop)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+:where(.vk-hero[data-overlay="light"] .vk-hero__backdrop)::after {
+  background: rgb(255 255 255 / 0.72);
+}
+
+:where(.vk-hero[data-overlay="dark"] .vk-hero__backdrop)::after {
+  background: rgb(0 0 0 / 0.6);
+}
+
+:where(.vk-hero[data-overlay="gradient"] .vk-hero__backdrop)::after {
+  background: linear-gradient(to top, rgb(0 0 0 / 0.85), rgb(0 0 0 / 0.25));
+}
+
+/* Over a dark scrim the copy goes light: re-point the palette for the subtree. */
+:where(.vk-hero[data-overlay="dark"], .vk-hero[data-overlay="gradient"]) {
+  --vk-color-fg: #fff;
+  --vk-color-muted: rgb(255 255 255 / 0.82);
+  --vk-color-border: rgb(255 255 255 / 0.3);
+  color: #fff;
+}
+
+:where(.vk-hero[data-height="half"]) {
+  display: grid;
+  align-content: center;
+  min-block-size: 50svh;
+}
+
+:where(.vk-hero[data-height="screen"]) {
+  display: grid;
+  align-content: center;
+  min-block-size: 100svh;
+}
+
 :where(.vk-hero__inner) {
   display: grid;
   gap: var(--vk-space-8);
@@ -26,6 +88,10 @@
   :where(.vk-hero[data-layout="split"]) :where(.vk-hero__inner:has(.vk-hero__media)) {
     grid-template-columns: 1fr 1fr;
     gap: var(--vk-space-12);
+  }
+
+  :where(.vk-hero[data-layout="split"][data-media="start"]) :where(.vk-hero__media) {
+    order: -1;
   }
 }
 

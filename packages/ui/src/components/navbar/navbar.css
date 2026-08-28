@@ -331,3 +331,51 @@
     transition: none;
   }
 }
+
+/* --- variants ------------------------------------------------------ */
+
+/* Over a hero: no surface, no border, and no blur when sticky. */
+:where(.vk-navbar[data-variant="transparent"]) {
+  background: transparent;
+  border-block-end-color: transparent;
+}
+
+:where(.vk-navbar[data-variant="transparent"][data-sticky]) {
+  background: transparent;
+  backdrop-filter: none;
+}
+
+/* Inset and lifted: a bar that floats over the page rather than capping it. */
+:where(.vk-navbar[data-variant="floating"]) {
+  margin: var(--vk-space-3);
+  background: var(--vk-color-surface);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-lg);
+  box-shadow: var(--vk-shadow-md);
+}
+
+:where(.vk-navbar[data-variant="floating"][data-sticky]) {
+  inset-block-start: var(--vk-space-3);
+}
+
+/* --- link placement on a wide bar -------------------------------- */
+
+@container vk-navbar (min-width: 48rem) {
+  :where(.vk-navbar[data-collapse="md"][data-layout="center"]) :where(.vk-navbar__links) {
+    justify-content: center;
+  }
+
+  :where(.vk-navbar[data-collapse="md"][data-layout="end"]) :where(.vk-navbar__links) {
+    justify-content: flex-end;
+  }
+}
+
+@container vk-navbar (min-width: 64rem) {
+  :where(.vk-navbar[data-collapse="lg"][data-layout="center"]) :where(.vk-navbar__links) {
+    justify-content: center;
+  }
+
+  :where(.vk-navbar[data-collapse="lg"][data-layout="end"]) :where(.vk-navbar__links) {
+    justify-content: flex-end;
+  }
+}

@@ -432,6 +432,28 @@ toast({ tone: 'danger', title: 'Payment failed', duration: null })`,
   {/* same parts */}
 </Navbar>`,
     },
+    {
+      title: 'Transparent over a hero, links centred',
+      description:
+        'variant="transparent" drops the surface and border so the bar sits over a hero backdrop; layout="center" centres the links on a wide bar. variant="floating" is the third option: an inset, rounded, shadowed bar with a sticky offset to match.',
+      name: 'variants',
+      code: `<Navbar variant="transparent" layout="center" sticky>
+  <NavbarBrand href="/">Summit</NavbarBrand>
+  <NavbarToggle />
+  <NavbarLinks>
+    <NavbarLink href="/range">Range</NavbarLink>
+    <NavbarLink href="/stories">Stories</NavbarLink>
+    <NavbarLink href="/stockists">Stockists</NavbarLink>
+  </NavbarLinks>
+  <NavbarActions>
+    <Button size="sm">Shop</Button>
+  </NavbarActions>
+</Navbar>
+
+<Navbar variant="floating" layout="end" sticky>
+  ...
+</Navbar>`,
+    },
   ],
 
   sidebar: [

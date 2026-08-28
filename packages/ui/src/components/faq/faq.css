@@ -1,3 +1,8 @@
+:where(.vk-faq__body) {
+  display: grid;
+  gap: var(--vk-space-8);
+}
+
 :where(.vk-faq__list) {
   display: flex;
   flex-direction: column;
@@ -58,5 +63,33 @@
 @media (prefers-reduced-motion: reduce) {
   :where(.vk-faq__question)::after {
     transition: none;
+  }
+}
+
+/*
+ * Wide layouts. `side` puts the header in a narrow start column with the list beside it;
+ * `columns="2"` splits the list itself. Both fall back to a single stack below 48rem.
+ */
+@container vk-section (min-width: 48rem) {
+  :where(.vk-faq__body[data-layout="side"]) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    align-items: start;
+  }
+
+  :where(.vk-faq__body[data-layout="side"]) > :where(.vk-section__header) {
+    margin-block-end: 0;
+    text-align: start;
+  }
+
+  :where(.vk-faq__list[data-columns="2"]) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--vk-space-8);
+    border-block-start: 0;
+  }
+
+  :where(.vk-faq__list[data-columns="2"]) > :where(.vk-faq__item) {
+    border-block-start: 1px solid var(--vk-color-border);
+    border-block-end: 0;
   }
 }

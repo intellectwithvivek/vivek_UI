@@ -73,6 +73,7 @@ import { Portal } from './components/portal'
 import { QRCode } from './components/qr-code'
 import { Rating } from './components/rating'
 import { RelativeTime } from './components/relative-time'
+import { Resizable } from './components/resizable'
 import { Scheduler } from './components/scheduler'
 import { Segmented } from './components/segmented'
 import { Sidebar } from './components/sidebar'
@@ -161,6 +162,13 @@ const SWEEP: Record<string, () => ReactElement> = {
   'qr-code': () => <QRCode value="https://vivek-ui.dev" />,
   'anchor-nav': () => <AnchorNav items={[{ id: 'a', label: 'A' }]} />,
   lightbox: () => <Lightbox items={[{ src: '/a.jpg', alt: 'A' }]} />,
+  resizable: () => (
+    <Resizable defaultSizes={[30, 70]}>
+      <Resizable.Panel>a</Resizable.Panel>
+      <Resizable.Handle />
+      <Resizable.Panel>b</Resizable.Panel>
+    </Resizable>
+  ),
   'color-picker': () => <ColorPicker defaultValue="#ff0000" presets={['#fff']} />,
   masonry: () => (
     <Masonry columns={2}>

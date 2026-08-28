@@ -242,10 +242,45 @@ export const LAYOUT_EXAMPLES: ExampleSet = {
       name: 'dense',
       code: `<BentoGrid cols={4} gap={3} rowHeight="6rem" dense>
   <BentoGrid.Item colSpan={2}>Zero dependencies</BentoGrid.Item>
-  <BentoGrid.Item>108 components</BentoGrid.Item>
+  <BentoGrid.Item>109 components</BentoGrid.Item>
   <BentoGrid.Item>MIT</BentoGrid.Item>
   <BentoGrid.Item colSpan={3}>Server-safe</BentoGrid.Item>
 </BentoGrid>`,
+    },
+  ],
+
+  resizable: [
+    {
+      title: 'Editor and sidebar',
+      description:
+        'Each handle is a role="separator" with a value: aria-valuenow is the share of the panel before it, arrows move it by step percent (Shift x 5), Home/End go to the limits, Enter or a double-click resets. Dragging uses pointer capture. Shares always sum to 100 and are remembered per storageKey.',
+      name: 'default',
+      code: `<Resizable defaultSizes={[25, 75]} storageKey="workspace-split">
+  <Resizable.Panel minSize={15} maxSize={50}>
+    <FileTree nodes={files} label="Files" />
+  </Resizable.Panel>
+  <Resizable.Handle label="Resize the file list" />
+  <Resizable.Panel>
+    <Editor />
+  </Resizable.Panel>
+</Resizable>`,
+    },
+    {
+      title: 'Nested and controlled',
+      description:
+        'orientation="vertical" stacks panels; a Resizable inside a panel nests. sizes / onSizesChange make it controlled - here the terminal share is kept in state so a "Hide terminal" button can set it to its minimum.',
+      name: 'nested',
+      code: `<Resizable orientation="vertical" sizes={split} onSizesChange={setSplit}>
+  <Resizable.Panel minSize={30}>
+    <Editor />
+  </Resizable.Panel>
+  <Resizable.Handle label="Resize the terminal" />
+  <Resizable.Panel minSize={10}>
+    <Terminal />
+  </Resizable.Panel>
+</Resizable>
+
+<Button variant="ghost" onClick={() => setSplit([90, 10])}>Hide terminal</Button>`,
     },
   ],
 

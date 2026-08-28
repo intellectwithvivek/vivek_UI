@@ -1,0 +1,93 @@
+/*
+ * Resizable. The root is a flex row (or column); each panel's share is
+ * `--vk-resizable-size`, set by the component, and the handle is a thin separator with a
+ * grip that widens its hit area with a transparent pseudo-element so a finger can find it.
+ * While dragging, the root carries `data-dragging`: selection and transitions are off.
+ */
+:where(.vk-resizable) {
+  --vk-resizable-handle: 0.5rem;
+  --vk-resizable-rail: var(--vk-color-border);
+  --vk-resizable-accent: var(--vk-color-primary);
+
+  display: flex;
+  inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+}
+
+:where(.vk-resizable[data-orientation="vertical"]) {
+  flex-direction: column;
+  block-size: 100%;
+}
+
+:where(.vk-resizable[data-dragging]) {
+  cursor: col-resize;
+  user-select: none;
+}
+
+:where(.vk-resizable[data-orientation="vertical"][data-dragging]) {
+  cursor: row-resize;
+}
+
+:where(.vk-resizable__panel) {
+  flex: 0 0 calc(var(--vk-resizable-size, 50%) - var(--vk-resizable-handle) / 2);
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: auto;
+}
+
+/* The handle. */
+:where(.vk-resizable__handle) {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 var(--vk-resizable-handle);
+  inline-size: var(--vk-resizable-handle);
+  background: var(--vk-resizable-rail);
+  cursor: col-resize;
+  touch-action: none;
+  outline: none;
+  transition: background var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-resizable[data-orientation="vertical"] .vk-resizable__handle) {
+  inline-size: auto;
+  block-size: var(--vk-resizable-handle);
+  cursor: row-resize;
+}
+
+/* A wider invisible hit area than the visible rail. */
+:where(.vk-resizable__handle)::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline: -0.375rem;
+}
+
+:where(.vk-resizable[data-orientation="vertical"] .vk-resizable__handle)::before {
+  inset-block: -0.375rem;
+  inset-inline: 0;
+}
+
+:where(.vk-resizable__grip) {
+  inline-size: 2px;
+  block-size: 1.5rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--vk-color-fg) 35%, transparent);
+  pointer-events: none;
+}
+
+:where(.vk-resizable[data-orientation="vertical"] .vk-resizable__grip) {
+  inline-size: 1.5rem;
+  block-size: 2px;
+}
+
+:where(.vk-resizable__handle:hover),
+:where(.vk-resizable[data-dragging] .vk-resizable__handle) {
+  background: color-mix(in oklab, var(--vk-resizable-accent) 45%, var(--vk-resizable-rail));
+}
+
+:where(.vk-resizable__handle:focus-visible) {
+  background: var(--vk-resizable-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-resizable-accent) 32%, transparent);
+}

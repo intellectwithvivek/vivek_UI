@@ -36,6 +36,7 @@ const CATEGORIES = {
     'aspect-ratio',
     'bento-grid',
     'scroll-area',
+    'resizable',
     'infinite-scroll',
   ],
   Typography: ['heading', 'text', 'code', 'kbd', 'prose'],

@@ -84,6 +84,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   rating: dynamic(() => import('../previews/rating')),
   'relative-time': dynamic(() => import('../previews/relative-time')),
   'scroll-area': dynamic(() => import('../previews/scroll-area')),
+  resizable: dynamic(() => import('../previews/resizable')),
   section: dynamic(() => import('../previews/section')),
   listbox: dynamic(() => import('../previews/listbox')),
   select: dynamic(() => import('../previews/select')),

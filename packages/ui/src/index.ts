@@ -318,6 +318,15 @@ export {
 export { Rating, type RatingProps } from './components/rating'
 export { RelativeTime, type RelativeTimeProps } from './components/relative-time'
 export {
+  Resizable,
+  ResizableHandle,
+  type ResizableHandleProps,
+  type ResizableOrientation,
+  ResizablePanel,
+  type ResizablePanelProps,
+  type ResizableProps,
+} from './components/resizable'
+export {
   Scheduler,
   type SchedulerEvent,
   type SchedulerProps,

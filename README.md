@@ -9,7 +9,7 @@
 **Every building block of a website. One install, zero configuration, no dependencies.**
 
 <!-- hero-stats:start -->
-**108 accessible React components**, **10 SVG charts** and **12 ready-made pages** you can copy.
+**109 accessible React components**, **10 SVG charts** and **12 ready-made pages** you can copy.
 No Tailwind, no PostCSS plugin, no Babel plugin, no required provider.
 Works in React 18 and 19, and in Next.js with both the Pages and App Router.
 <!-- hero-stats:end -->
@@ -18,7 +18,7 @@ Works in React 18 and 19, and in Next.js with both the Pages and App Router.
 [![license](https://img.shields.io/npm/l/@the_viveksingh/vivek-ui?color=4f46e5)](LICENSE)
 [![runtime deps](https://img.shields.io/badge/runtime%20deps-0-4f46e5)](#zero-dependencies-verifiable)
 <!-- size-badge:start -->
-[![one component](https://img.shields.io/badge/one%20component-782%20B-4f46e5)](#how-small-actually)
+[![one component](https://img.shields.io/badge/one%20component-780%20B-4f46e5)](#how-small-actually)
 <!-- size-badge:end -->
 [![axe tested](https://img.shields.io/badge/axe-tested%20per%20component-4f46e5)](#accessibility)
 [![provenance](https://img.shields.io/badge/npm-signed%20provenance-4f46e5)](#security)
@@ -122,14 +122,14 @@ drifted. VivekUI is a normal dependency: `npm update` and you have the fixes.
 | Runtime dependencies | **0** | Tailwind + Radix + CVA + clsx | Emotion or styled-components |
 | Updates | `npm update` | Re-copy each file by hand | `npm update` |
 | Overrides | One flat class wins (zero specificity) | Edit the source you own | `sx`, `!important`, specificity fights |
-| Server Components | 49 of 108 need no client boundary | Depends what you copied | Often needs a client boundary |
+| Server Components | 49 of 109 need no client boundary | Depends what you copied | Often needs a client boundary |
 | Charts | Built in, pure SVG, 0 deps | Wraps Recharts (~100 kB) | Separate package |
 | Theming | Plain CSS custom properties | Tailwind config | Theme object / JS API |
 
 ## Components
 
 <!-- component-stats:start -->
-**108 components. 165 runtime exports.** Every one is covered by tests including
+**109 components. 168 runtime exports.** Every one is covered by tests including
 automated `axe` assertions, and **50 need no `'use client'`** — they render directly in React
 Server Components.
 <!-- component-stats:end -->
@@ -137,7 +137,7 @@ Server Components.
 ### Layout
 
 <!-- catalog-layout:start -->
-`AspectRatio` &middot; `BentoGrid` &middot; `Box` &middot; `Container` &middot; `Divider` &middot; `Grid` &middot; `InfiniteScroll` &middot; `Masonry` &middot; `ScrollArea` &middot; `Section` &middot; `Flex` &middot; `Stack`
+`AspectRatio` &middot; `BentoGrid` &middot; `Box` &middot; `Container` &middot; `Divider` &middot; `Grid` &middot; `InfiniteScroll` &middot; `Masonry` &middot; `Resizable` &middot; `ScrollArea` &middot; `Section` &middot; `Flex` &middot; `Stack`
 <!-- catalog-layout:end -->
 
 ### Typography
@@ -318,12 +318,12 @@ Measured with `size-limit`, minified and brotlied, React excluded:
 <!-- size-table:start -->
 | Import | Cost |
 |---|---|
-| `{ Button }` | **782 B** |
+| `{ Button }` | **780 B** |
 | `{ Modal }` (focus trap + scroll lock + portal) | **2.9 kB** |
 | A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **2.9 kB** |
 | All six charts | **10.5 kB** |
-| Every component, imported at once | **64.8 kB** |
-| `styles.css` | 235.6 kB raw, **32.9 kB gzipped** |
+| Every component, imported at once | **66.3 kB** |
+| `styles.css` | 237.5 kB raw, **33.1 kB gzipped** |
 | `charts.css` | 12.2 kB raw, **2.5 kB gzipped** |
 <!-- size-table:end -->
 
@@ -432,11 +432,11 @@ dark mode — in the Playwright suite, where contrast is measured on the pixels 
 ## Server Components
 
 <!-- server-components:start -->
-**50 of the 108 components carry no `'use client'`** and render directly in React Server Components.
+**50 of the 109 components carry no `'use client'`** and render directly in React Server Components.
 Only genuinely interactive ones declare it, per file.
 
 The build is unbundled precisely so each file keeps its own directive, and CI asserts on every build
-that all 71 client files still carry theirs in **both** the ESM and CJS output.
+that all 72 client files still carry theirs in **both** the ESM and CJS output.
 <!-- server-components:end -->
 
 ## Security

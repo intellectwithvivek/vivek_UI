@@ -14828,6 +14828,84 @@
       "compound": false
     },
     {
+      "slug": "resizable",
+      "title": "Resizable",
+      "kind": "component",
+      "category": "Layout",
+      "exports": [
+        "Resizable",
+        "ResizableHandle",
+        "ResizablePanel"
+      ],
+      "typeExports": [
+        "ResizableHandleProps",
+        "ResizableOrientation",
+        "ResizablePanelProps",
+        "ResizableProps"
+      ],
+      "primary": "Resizable",
+      "description": "Split panes — panels side by side (or stacked) with draggable, keyboard-operable boundaries between them. The editor/preview layout, the sidebar you can widen, the inspector you can shrink.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "orientation",
+            "type": "ResizableOrientation",
+            "required": false,
+            "description": "`horizontal` lays panels side by side (the default); `vertical` stacks them.",
+            "default": ""
+          },
+          {
+            "name": "sizes",
+            "type": "number[]",
+            "required": false,
+            "description": "Controlled panel shares, in percent. Normalised to sum to 100.",
+            "default": ""
+          },
+          {
+            "name": "defaultSizes",
+            "type": "number[]",
+            "required": false,
+            "description": "Initial shares. Default: an equal split.",
+            "default": ""
+          },
+          {
+            "name": "onSizesChange",
+            "type": "(sizes: number[]) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "step",
+            "type": "number",
+            "required": false,
+            "description": "Percent moved per arrow key. Shift multiplies by five. Default `2`.",
+            "default": ""
+          },
+          {
+            "name": "storageKey",
+            "type": "string",
+            "required": false,
+            "description": "Persist the layout in `localStorage` under this key.",
+            "default": ""
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
+      },
+      "compound": true
+    },
+    {
       "slug": "scheduler",
       "title": "Scheduler",
       "kind": "component",

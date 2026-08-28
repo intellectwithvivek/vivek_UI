@@ -20,7 +20,7 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { act } from '@testing-library/react'
-import type { ReactElement, ReactNode } from 'react'
+import type { ReactElement } from 'react'
 import { hydrateRoot } from 'react-dom/client'
 import { renderToString } from 'react-dom/server'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -118,7 +118,7 @@ const fixed = new Date(2026, 0, 15)
  * document.body on the client and renders nothing on the server, so its open state is not
  * a hydration question — the trigger and the shell are.
  */
-const SWEEP: Record<string, () => ReactNode> = {
+const SWEEP: Record<string, () => ReactElement> = {
   accordion: () => (
     <Accordion type="single">
       <Accordion.Item value="a">
@@ -137,7 +137,10 @@ const SWEEP: Record<string, () => ReactNode> = {
   ),
   'chat-code-block': () => <ChatCodeBlock code="const x = 1" language="ts" />,
   'chat-input': () => <ChatInput />,
-  'chat-message': () => <ChatMessage content="hello" role="assistant" />,
+  'chat-message': () => (
+    // biome-ignore lint/a11y/useValidAriaRole: ChatMessage's `role` is the speaker (user | assistant), a component prop that is not an ARIA role.
+    <ChatMessage content="hello" role="assistant" />
+  ),
   'chat-thread': () => <ChatThread />,
   chip: () => <Chip>tag</Chip>,
   clock: () => <Clock />,
@@ -292,7 +295,7 @@ const SWEEP: Record<string, () => ReactNode> = {
 describe('every client component hydrates its own server markup cleanly', () => {
   for (const [slug, make] of Object.entries(SWEEP)) {
     it(slug, () => {
-      expectHydrationClean(<>{make()}</>)
+      expectHydrationClean(make())
     })
   }
 })

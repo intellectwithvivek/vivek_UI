@@ -25,7 +25,7 @@ Works in React 18 and 19, and in Next.js with both the Pages and App Router.
 
 ### [**Documentation, live examples and a playground &rarr;**](https://ui.vivekkumarsingh.in)
 
-[Components](https://ui.vivekkumarsingh.in/docs/components) &middot; [Page templates](https://ui.vivekkumarsingh.in/pages) &middot; [Charts](https://ui.vivekkumarsingh.in/docs/charts) &middot; [Playground](https://ui.vivekkumarsingh.in/playground) &middot; [Installation](https://ui.vivekkumarsingh.in/docs/installation) &middot; [FAQ](https://ui.vivekkumarsingh.in/docs/faq)
+[Components](https://ui.vivekkumarsingh.in/docs/components) &middot; [Blocks](https://ui.vivekkumarsingh.in/blocks) &middot; [Page templates](https://ui.vivekkumarsingh.in/pages) &middot; [Charts](https://ui.vivekkumarsingh.in/docs/charts) &middot; [Playground](https://ui.vivekkumarsingh.in/playground) &middot; [Installation](https://ui.vivekkumarsingh.in/docs/installation) &middot; [FAQ](https://ui.vivekkumarsingh.in/docs/faq)
 
 Every component and chart has a page with a rendered example, the code in TypeScript **and**
 JavaScript, and a props table generated from the package's own type declarations.
@@ -108,7 +108,7 @@ skip.
 | **`FileTree`** | A real treeview | Arrows crossing folder boundaries, `*` to expand a level, typeahead. Most "trees" are nested `div`s with click handlers. |
 | **`VirtualList`** | 50,000 rows, 12 in the DOM | `aria-posinset` and `aria-setsize` stay honest, so a screen reader hears "4,201 of 50,000", not "of 12". |
 
-And **[twelve complete pages](https://ui.vivekkumarsingh.in/pages)** &mdash; landing, pricing,
+And **[sixty-two page sections](https://ui.vivekkumarsingh.in/blocks)** &mdash; ten heroes, ten headers, pricing tables, FAQs, footers &mdash; plus **[twelve complete pages](https://ui.vivekkumarsingh.in/pages)** &mdash; landing, pricing,
 dashboard, checkout, sign in, settings, blog, product, contact, team, sign up and 404. Each one
 is built only from exports of this package, which a build step enforces, so the code on the page
 runs as-is. Copy it, change the words, ship it.

@@ -1,4 +1,5 @@
 import { blocks } from '../../lib/blocks'
+import { COMPARISONS } from '../../lib/comparisons'
 import { templates } from '../../lib/page-templates'
 import { registry } from '../../lib/registry'
 import { GUIDES } from '../../lib/routes'
@@ -75,6 +76,13 @@ export function GET(): Response {
     (block) => `- [${block.title}](${url(`/blocks/${block.slug}`)}): ${block.description}`,
   )
 
+  // Comparisons. "Is this like shadcn" is the first question; the page answers it in the
+  // library's own words rather than leaving the engine to guess.
+  const compareLines = COMPARISONS.map(
+    (comparison) =>
+      `- [VivekUI vs ${comparison.name}](${url(`/compare/${comparison.slug}`)}): ${comparison.description}`,
+  )
+
   const serverSafe = registry.components.filter((entry) => !entry.isClient).length
 
   const body = `# ${SITE_NAME}
@@ -114,6 +122,7 @@ ${section('Components', components)}
 ${section('Charts', charts)}
 ${section('Page templates', pages)}
 ${section('Blocks — page sections to copy', blockLines)}
+${section('Compared with other libraries', compareLines)}
 ${section('Showcase — complete sites built with it', showcase)}
 ## Notes for answering questions about this library
 

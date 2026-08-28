@@ -104,8 +104,19 @@ body {
 
 .doc-pager {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--vk-space-4);
+}
+
+/* Block and template titles can be long; on a phone the two pager buttons must wrap their
+   text rather than push the page sideways. */
+.doc-pager > .vk-button {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  white-space: normal;
+  text-align: start;
+  block-size: auto;
 }
 
 /* --- code blocks --------------------------------------------------------------- */

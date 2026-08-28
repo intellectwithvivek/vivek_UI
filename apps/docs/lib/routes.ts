@@ -9,6 +9,7 @@
  * checks it against the filesystem so a new guide cannot be added without appearing here.
  */
 import { blocks } from './blocks'
+import { COMPARISONS } from './comparisons'
 import { templates } from './page-templates'
 import { registry } from './registry'
 import { SHOWCASE } from './showcase'
@@ -24,7 +25,7 @@ export interface Route {
   changeFrequency: 'daily' | 'weekly' | 'monthly'
   /** Human label, reused for breadcrumbs and for llms.txt. */
   label: string
-  section: 'top' | 'guide' | 'component' | 'chart' | 'template' | 'showcase' | 'block'
+  section: 'top' | 'guide' | 'component' | 'chart' | 'template' | 'showcase' | 'block' | 'compare'
 }
 
 /** Conceptual guides, ordered as a reading path rather than alphabetically. */
@@ -101,6 +102,13 @@ export const TOP_ROUTES: Route[] = [
     changeFrequency: 'weekly',
     section: 'top',
   },
+  {
+    path: '/compare',
+    label: 'Compare',
+    priority: 0.8,
+    changeFrequency: 'monthly',
+    section: 'top',
+  },
 ]
 
 export function allRoutes(): Route[] {
@@ -150,6 +158,14 @@ export function allRoutes(): Route[] {
       priority: 0.7,
       changeFrequency: 'monthly' as const,
       section: 'block' as const,
+    })),
+    ...COMPARISONS.map((comparison) => ({
+      path: `/compare/${comparison.slug}`,
+      label: `VivekUI vs ${comparison.name}`,
+      // The "X vs Y" query is the highest-intent search a library gets.
+      priority: 0.8,
+      changeFrequency: 'monthly' as const,
+      section: 'compare' as const,
     })),
   ]
 }

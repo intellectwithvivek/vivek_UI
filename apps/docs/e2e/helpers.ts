@@ -195,5 +195,8 @@ export const KEY_ROUTES = [
   '/showcase/pulse-analytics',
   '/pages',
   '/pages/dashboard',
+  '/blocks',
+  '/blocks/hero-backdrop-gradient',
+  '/compare/shadcn-ui',
   '/playground',
 ] as const

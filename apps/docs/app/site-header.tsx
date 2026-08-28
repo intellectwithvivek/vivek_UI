@@ -55,9 +55,6 @@ export function SiteHeader() {
         <Navbar.Link asChild active={isActive('/blocks')}>
           <Link href="/blocks">Blocks</Link>
         </Navbar.Link>
-        <Navbar.Link asChild active={isActive('/playground')}>
-          <Link href="/playground">Playground</Link>
-        </Navbar.Link>
       </Navbar.Links>
 
       <Navbar.Actions>
@@ -92,7 +89,7 @@ export function SiteHeader() {
 
         Without a toggle at all the header had no mobile navigation: the library hides
         `Navbar.Links` below its breakpoint and shows this instead, so omitting it left Docs,
-        Components, Charts, Showcase, Pages and Playground unreachable on every phone. They
+        Components, Charts, Showcase, Pages and Blocks unreachable on every phone. They
         were not cramped — they were gone.
       */}
       <Navbar.Toggle />

@@ -36,6 +36,7 @@ import { Chip } from './components/chip'
 import { Clock } from './components/clock'
 import { Combobox } from './components/combobox'
 import { CommandPalette } from './components/command-palette'
+import { ContextMenu } from './components/context-menu'
 import { CopyButton } from './components/copy-button'
 import { Countdown } from './components/countdown'
 import { DataTable } from './components/data-table'
@@ -147,6 +148,14 @@ const SWEEP: Record<string, () => ReactElement> = {
   clock: () => <Clock />,
   combobox: () => <Combobox aria-label="Fruit" options={[{ value: 'a', label: 'Apple' }]} />,
   'command-palette': () => <CommandPalette items={[{ id: 'x', label: 'Open' }]} />,
+  'context-menu': () => (
+    <ContextMenu>
+      <ContextMenu.Trigger>surface</ContextMenu.Trigger>
+      <ContextMenu.Content>
+        <ContextMenu.Item>one</ContextMenu.Item>
+      </ContextMenu.Content>
+    </ContextMenu>
+  ),
   'copy-button': () => <CopyButton value="x" />,
   countdown: () => <Countdown to={new Date(2027, 0, 1)} />,
   'data-table': () => (

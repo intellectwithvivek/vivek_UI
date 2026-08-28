@@ -47,6 +47,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   'date-range-picker': dynamic(() => import('../previews/date-range-picker')),
   divider: dynamic(() => import('../previews/divider')),
   drawer: dynamic(() => import('../previews/drawer')),
+  'context-menu': dynamic(() => import('../previews/context-menu')),
   'dropdown-menu': dynamic(() => import('../previews/dropdown-menu')),
   'empty-state': dynamic(() => import('../previews/empty-state')),
   faq: dynamic(() => import('../previews/faq')),

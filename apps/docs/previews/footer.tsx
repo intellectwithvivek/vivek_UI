@@ -36,7 +36,7 @@ export default function FooterPreview() {
         <Stack gap={2}>
           <Text weight="semibold">VivekUI</Text>
           <Text size="sm" tone="muted">
-            99 components, 10 charts, zero runtime dependencies.
+            100 components, 10 charts, zero runtime dependencies.
           </Text>
         </Stack>
       }

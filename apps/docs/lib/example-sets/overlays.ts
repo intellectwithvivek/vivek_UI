@@ -95,6 +95,30 @@ export const OVERLAY_EXAMPLES: ExampleSet = {
     },
   ],
 
+  'context-menu': [
+    {
+      title: 'Right-click, or Shift+F10',
+      description:
+        'contextmenu is a pointer event, so a menu that opens only on it does not exist for keyboard users. The surface is focusable and opens on Shift+F10 and the ContextMenu key at its own centre; closing returns focus to wherever it was. Inside, it is DropdownMenu: roving arrows, typeahead, aria-disabled items that stay announced.',
+      name: 'default',
+      code: `<ContextMenu>
+  <ContextMenu.Trigger>Right-click here</ContextMenu.Trigger>
+  <ContextMenu.Content>
+    <ContextMenu.Label>Report</ContextMenu.Label>
+    <ContextMenu.Item onSelect={duplicate} shortcut="⌘D">Duplicate</ContextMenu.Item>
+    <ContextMenu.Item onSelect={rename} shortcut="F2">Rename</ContextMenu.Item>
+    <ContextMenu.Item disabled shortcut="⌘P">Print</ContextMenu.Item>
+    <ContextMenu.Separator />
+    <ContextMenu.Item onSelect={trash}>Move to trash</ContextMenu.Item>
+  </ContextMenu.Content>
+</ContextMenu>
+
+// Any element can be the surface, and an item can be a real link:
+<ContextMenu.Trigger asChild><tr>...</tr></ContextMenu.Trigger>
+<ContextMenu.Item asChild><Link href="/reports/42">Open</Link></ContextMenu.Item>`,
+    },
+  ],
+
   'dropdown-menu': [
     {
       title: 'A menu of actions',

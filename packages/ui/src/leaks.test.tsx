@@ -22,6 +22,7 @@ import { AnimatedCounter } from './components/animated-counter'
 import { Carousel } from './components/carousel'
 import { ChatCodeBlock } from './components/chat-code-block'
 import { Clock } from './components/clock'
+import { ContextMenu } from './components/context-menu'
 import { CopyButton } from './components/copy-button'
 import { Countdown } from './components/countdown'
 import { DropdownMenu } from './components/dropdown-menu'
@@ -157,6 +158,24 @@ describe('every timer/observer component is quiet after unmount', () => {
     })
   })
 
+  it('ContextMenu, open with a typeahead buffer pending', () => {
+    assertQuietAfterUnmount(
+      <ContextMenu>
+        <ContextMenu.Trigger data-testid="s">surface</ContextMenu.Trigger>
+        <ContextMenu.Content>
+          <ContextMenu.Item>one</ContextMenu.Item>
+          <ContextMenu.Item>two</ContextMenu.Item>
+        </ContextMenu.Content>
+      </ContextMenu>,
+      (c) => {
+        const s = c.querySelector('[data-testid="s"]')
+        if (s) fireEvent.contextMenu(s, { clientX: 10, clientY: 10 })
+        const menu = document.querySelector('[role="menu"]')
+        if (menu) fireEvent.keyDown(menu, { key: 't' })
+      },
+    )
+  })
+
   it('DropdownMenu, open', () => {
     assertQuietAfterUnmount(
       <DropdownMenu defaultOpen>
@@ -255,6 +274,7 @@ describe('the sweep covers every component that touches timers or observers', ()
       'carousel',
       'chat-code-block',
       'clock',
+      'context-menu',
       'copy-button',
       'countdown',
       'dropdown-menu',

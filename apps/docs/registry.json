@@ -8020,6 +8020,73 @@
       "compound": false
     },
     {
+      "slug": "context-menu",
+      "title": "Context menu",
+      "kind": "component",
+      "category": "Overlays",
+      "exports": [
+        "ContextMenu",
+        "ContextMenuContent",
+        "ContextMenuItem",
+        "ContextMenuLabel",
+        "ContextMenuSeparator",
+        "ContextMenuTrigger"
+      ],
+      "typeExports": [
+        "ContextMenuContentProps",
+        "ContextMenuItemProps",
+        "ContextMenuLabelProps",
+        "ContextMenuProps",
+        "ContextMenuSeparatorProps",
+        "ContextMenuTriggerProps"
+      ],
+      "primary": "ContextMenu",
+      "description": "A right-click menu — `DropdownMenu`'s behaviour, anchored to a point instead of a button.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "container",
+            "type": "PortalContainer",
+            "required": false,
+            "description": "Where the menu portals. Defaults to `document.body`.",
+            "default": ""
+          },
+          {
+            "name": "loop",
+            "type": "boolean",
+            "required": false,
+            "description": "Arrow keys wrap at the ends. Default `true`.",
+            "default": ""
+          },
+          {
+            "name": "typeahead",
+            "type": "boolean",
+            "required": false,
+            "description": "Typing a letter jumps to the next matching item. Default `true`.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": false,
+        "extends": []
+      },
+      "compound": true
+    },
+    {
       "slug": "copy-button",
       "title": "Copy button",
       "kind": "component",

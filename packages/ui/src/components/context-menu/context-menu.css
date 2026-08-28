@@ -1,0 +1,119 @@
+/*
+ * ContextMenu. The same panel and item language as DropdownMenu - the two are one idea with
+ * different anchors - so a right-click menu and a button menu on the same page look like
+ * siblings, not cousins. Coordinates come from the solver and are set inline; this file
+ * never positions anything.
+ */
+
+:where(.vk-context-menu) {
+  position: fixed;
+  z-index: calc(var(--vk-z-overlay, 50) + 1);
+  box-sizing: border-box;
+  min-inline-size: 10rem;
+  max-inline-size: min(20rem, calc(100vw - var(--vk-space-4)));
+  padding: var(--vk-space-1);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  background: var(--vk-color-surface);
+  color: var(--vk-color-fg);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  box-shadow: var(--vk-shadow-lg);
+  /* Invisible until measured, so it is never seen at 0,0. */
+  opacity: 0;
+}
+
+:where(.vk-context-menu[data-positioned]) {
+  opacity: 1;
+  animation: vk-context-menu-in var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-context-menu:focus-visible) {
+  outline: none;
+}
+
+/* The surface. Focusable for the keyboard path, so it needs a visible ring. */
+:where(.vk-context-menu__trigger:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: 2px;
+}
+
+:where(.vk-context-menu__item) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+  inline-size: 100%;
+  padding: var(--vk-space-2) var(--vk-space-3);
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  :where(.vk-context-menu__item:hover:not([data-disabled])) {
+    background: var(--vk-color-surface-hover);
+  }
+}
+
+:where(.vk-context-menu__item:focus) {
+  outline: none;
+  background: var(--vk-color-primary-subtle);
+}
+
+:where(.vk-context-menu__item:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: -2px;
+}
+
+:where(.vk-context-menu__item[data-disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+:where(.vk-context-menu__item-label) {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+:where(.vk-context-menu__shortcut) {
+  margin-inline-start: auto;
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+:where(.vk-context-menu__separator) {
+  block-size: 1px;
+  margin: var(--vk-space-1) 0;
+  border: 0;
+  background: var(--vk-color-border);
+}
+
+:where(.vk-context-menu__label) {
+  padding: var(--vk-space-2) var(--vk-space-3) var(--vk-space-1);
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+  font-weight: 500;
+}
+
+@keyframes vk-context-menu-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-context-menu[data-positioned]) {
+    animation: none;
+  }
+}

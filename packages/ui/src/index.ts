@@ -112,6 +112,20 @@ export {
   type CommandPaletteProps,
 } from './components/command-palette'
 export { Container, type ContainerProps } from './components/container'
+export {
+  ContextMenu,
+  ContextMenuContent,
+  type ContextMenuContentProps,
+  ContextMenuItem,
+  type ContextMenuItemProps,
+  ContextMenuLabel,
+  type ContextMenuLabelProps,
+  type ContextMenuProps,
+  ContextMenuSeparator,
+  type ContextMenuSeparatorProps,
+  ContextMenuTrigger,
+  type ContextMenuTriggerProps,
+} from './components/context-menu'
 export { CopyButton, type CopyButtonProps, type CopyState } from './components/copy-button'
 export { Countdown, type CountdownProps, type CountdownUnit } from './components/countdown'
 export { CTA, type CTAProps } from './components/cta'

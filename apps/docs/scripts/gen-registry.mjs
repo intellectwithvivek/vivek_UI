@@ -73,6 +73,7 @@ const CATEGORIES = {
     'hover-card',
     'popover',
     'dropdown-menu',
+    'context-menu',
     'toast',
     'portal',
   ],

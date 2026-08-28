@@ -25,6 +25,7 @@ import { hydrateRoot } from 'react-dom/client'
 import { renderToString } from 'react-dom/server'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Accordion } from './components/accordion'
+import { AnchorNav } from './components/anchor-nav'
 import { AnimatedCounter } from './components/animated-counter'
 import { AudioPlayer } from './components/audio-player'
 import { Calendar } from './components/calendar'
@@ -155,6 +156,7 @@ const SWEEP: Record<string, () => ReactElement> = {
   'video-player': () => <VideoPlayer src="/v.mp4" poster="/p.jpg" />,
   'audio-player': () => <AudioPlayer src="/a.mp3" title="Track" />,
   'qr-code': () => <QRCode value="https://vivek-ui.dev" />,
+  'anchor-nav': () => <AnchorNav items={[{ id: 'a', label: 'A' }]} />,
   'command-palette': () => <CommandPalette items={[{ id: 'x', label: 'Open' }]} />,
   'context-menu': () => (
     <ContextMenu>

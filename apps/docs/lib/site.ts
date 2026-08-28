@@ -54,10 +54,10 @@ export const SITE_NAME = 'VivekUI'
  * page: it leads with the category, then the number, then the differentiator.
  */
 export const SITE_TAGLINE =
-  'VivekUI is a free, MIT-licensed React component library with 104 accessible components and 10 SVG charts, and zero runtime dependencies.'
+  'VivekUI is a free, MIT-licensed React component library with 105 accessible components and 10 SVG charts, and zero runtime dependencies.'
 
 export const SITE_DESCRIPTION =
-  'A free React component library with zero dependencies: 104 accessible, server-safe components and 10 SVG charts. One install, one CSS import, no Tailwind. MIT.'
+  'A free React component library with zero dependencies: 105 accessible, server-safe components and 10 SVG charts. One install, one CSS import, no Tailwind. MIT.'
 
 export const PACKAGE_NAME = '@the_viveksingh/vivek-ui'
 export const NPM_URL = `https://www.npmjs.com/package/${PACKAGE_NAME}`

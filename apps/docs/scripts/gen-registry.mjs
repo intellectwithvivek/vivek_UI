@@ -78,7 +78,7 @@ const CATEGORIES = {
     'toast',
     'portal',
   ],
-  Navigation: ['navbar', 'sidebar', 'breadcrumb', 'pagination', 'command-palette'],
+  Navigation: ['navbar', 'sidebar', 'breadcrumb', 'anchor-nav', 'pagination', 'command-palette'],
   'Data display': [
     'table',
     'data-table',

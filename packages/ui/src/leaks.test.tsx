@@ -18,6 +18,7 @@ import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { act, fireEvent, render } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { AnchorNav } from './components/anchor-nav'
 import { AnimatedCounter } from './components/animated-counter'
 import { Carousel } from './components/carousel'
 import { ChatCodeBlock } from './components/chat-code-block'
@@ -204,6 +205,15 @@ describe('every timer/observer component is quiet after unmount', () => {
     })
   })
 
+  it('AnchorNav, observing its targets', () => {
+    assertQuietAfterUnmount(
+      <>
+        <AnchorNav items={[{ id: 'leak-a', label: 'A' }]} />
+        <h2 id="leak-a">A</h2>
+      </>,
+    )
+  })
+
   it('DropdownMenu, open', () => {
     assertQuietAfterUnmount(
       <DropdownMenu defaultOpen>
@@ -303,6 +313,7 @@ describe('the sweep covers every component that touches timers or observers', ()
       'chat-code-block',
       'clock',
       'context-menu',
+      'anchor-nav',
       'listbox',
       'video-player',
       'copy-button',

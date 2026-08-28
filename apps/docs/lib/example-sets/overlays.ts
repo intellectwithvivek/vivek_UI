@@ -256,6 +256,49 @@ toast({ tone: 'danger', title: 'Payment failed', duration: null })`,
     },
   ],
 
+  'anchor-nav': [
+    {
+      title: 'On this page',
+      description:
+        'Real hash links that work before JavaScript, then an IntersectionObserver marks the section in view with aria-current="location". offset accounts for a fixed header in both the spy and the jump. Clicking scrolls smoothly (instantly under prefers-reduced-motion), replaces the hash without a history entry, and moves focus to the section.',
+      name: 'default',
+      code: `<AnchorNav
+  title="On this page"
+  offset={64}
+  items={[
+    { id: 'overview', label: 'Overview' },
+    {
+      id: 'install',
+      label: 'Installation',
+      children: [
+        { id: 'npm', label: 'With npm' },
+        { id: 'pnpm', label: 'With pnpm' },
+      ],
+    },
+    { id: 'usage', label: 'Usage' },
+  ]}
+  style={{ position: 'sticky', top: '5rem' }}
+/>`,
+    },
+    {
+      title: 'Horizontal, under a page header',
+      description:
+        'orientation="horizontal" turns the rail into one scrolling row with an underline; nested items are hidden there. onActiveChange reports the current id; pass activeId to drive it yourself.',
+      name: 'horizontal',
+      code: `<AnchorNav
+  orientation="horizontal"
+  label="Sections"
+  items={[
+    { id: 'summary', label: 'Summary' },
+    { id: 'activity', label: 'Activity' },
+    { id: 'billing', label: 'Billing' },
+    { id: 'members', label: 'Members' },
+  ]}
+  onActiveChange={(id) => track('section_view', { id })}
+/>`,
+    },
+  ],
+
   breadcrumb: [
     {
       title: 'From data',

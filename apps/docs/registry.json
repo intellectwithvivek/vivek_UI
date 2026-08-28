@@ -2137,6 +2137,101 @@
       "compound": false
     },
     {
+      "slug": "anchor-nav",
+      "title": "Anchor nav",
+      "kind": "component",
+      "category": "Navigation",
+      "exports": [
+        "AnchorNav"
+      ],
+      "typeExports": [
+        "AnchorNavItem",
+        "AnchorNavProps"
+      ],
+      "primary": "AnchorNav",
+      "description": "A table of contents that knows where you are — the \"On this page\" column.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "items",
+            "type": "AnchorNavItem[]",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Accessible name. Defaults to `title` when it is a string, else `'On this page'`.",
+            "default": ""
+          },
+          {
+            "name": "title",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Visible heading above the list.",
+            "default": ""
+          },
+          {
+            "name": "offset",
+            "type": "number",
+            "required": false,
+            "description": "Pixels covered by a fixed header, so jumps and the active section account for it. Default `0`.",
+            "default": ""
+          },
+          {
+            "name": "smooth",
+            "type": "boolean",
+            "required": false,
+            "description": "Animate the jump. Ignored — instant — when the user prefers reduced motion. Default `true`.",
+            "default": ""
+          },
+          {
+            "name": "activeId",
+            "type": "string",
+            "required": false,
+            "description": "Controlled active `id`.",
+            "default": ""
+          },
+          {
+            "name": "defaultActiveId",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onActiveChange",
+            "type": "(id: string) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "orientation",
+            "type": "'vertical' | 'horizontal'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "size",
+            "type": "'sm' | 'md'",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLElement>, 'title'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "animated-counter",
       "title": "Animated counter",
       "kind": "component",

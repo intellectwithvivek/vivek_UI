@@ -30,7 +30,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
   layout="split"
   eyebrow={<Badge tone="primary">${LIBRARY_VERSION_LABEL}</Badge>}
   title="One package. No dependencies."
-  description="104 components, 10 charts and a token system your CSS can always override."
+  description="105 components, 10 charts and a token system your CSS can always override."
   actions={<Button>Get started</Button>}
   media={<img src="/screenshot.png" alt="" />}
 />`,
@@ -83,7 +83,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
       name: 'Hobby',
       price: 'Free',
       description: 'For side projects and prototypes.',
-      features: ['All 104 components', 'All 10 charts', 'Design tokens'],
+      features: ['All 105 components', 'All 10 charts', 'Design tokens'],
       cta: <Button variant="outline">Start building</Button>,
     },
     {
@@ -160,7 +160,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
     {
       title: 'Headline figures',
       description:
-        'value and label are announced together, so "104 components" is one fact rather than a number floating next to a word.',
+        'value and label are announced together, so "105 components" is one fact rather than a number floating next to a word.',
       name: 'basic',
       code: `<Stats
   eyebrow="By the numbers"
@@ -232,7 +232,7 @@ export const SECTION_EXAMPLES: ExampleSet = {
   brand={
     <Stack gap={2}>
       <Text weight="semibold">VivekUI</Text>
-      <Text size="sm" tone="muted">104 components, 10 charts, zero runtime dependencies.</Text>
+      <Text size="sm" tone="muted">105 components, 10 charts, zero runtime dependencies.</Text>
     </Stack>
   }
   columns={[

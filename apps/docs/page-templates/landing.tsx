@@ -92,7 +92,7 @@ const PLANS = [
     price: '$0',
     period: 'forever',
     description: 'Everything in the library, under MIT.',
-    features: ['All 104 components', 'All 10 charts', 'Full source on GitHub', 'MIT licence'],
+    features: ['All 105 components', 'All 10 charts', 'Full source on GitHub', 'MIT licence'],
     cta: (
       <Button fullWidth variant="outline">
         Install it
@@ -161,7 +161,7 @@ export default function LandingPage() {
             </Button>
           </>
         }
-        description="One hundred and four components and ten charts, with no runtime dependencies, no CSS-in-JS, and no build plugin. Install one package and import a stylesheet."
+        description="One hundred and five components and ten charts, with no runtime dependencies, no CSS-in-JS, and no build plugin. Install one package and import a stylesheet."
         eyebrow={<Badge variant="soft">v1.0 is out</Badge>}
         title="Ship the interface, not the infrastructure"
       />

@@ -24,6 +24,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   'qr-code': dynamic(() => import('../previews/qr-code')),
   'bento-grid': dynamic(() => import('../previews/bento-grid')),
   box: dynamic(() => import('../previews/box')),
+  'anchor-nav': dynamic(() => import('../previews/anchor-nav')),
   breadcrumb: dynamic(() => import('../previews/breadcrumb')),
   button: dynamic(() => import('../previews/button')),
   'button-group': dynamic(() => import('../previews/button-group')),

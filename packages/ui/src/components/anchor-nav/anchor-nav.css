@@ -1,0 +1,104 @@
+/*
+ * AnchorNav. Vertical: a hairline rail on the inline-start edge, the current link's
+ * segment painted in the accent. Horizontal: one scrolling row with an underline. Depth
+ * is expressed by `data-depth` on the link, so nested lists need no extra selectors.
+ */
+:where(.vk-anchor-nav) {
+  --vk-anchor-nav-accent: var(--vk-color-primary);
+  --vk-anchor-nav-rail: var(--vk-color-border);
+
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  line-height: 1.5;
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-anchor-nav[data-size="sm"]) {
+  font-size: var(--vk-text-xs);
+}
+
+:where(.vk-anchor-nav__title) {
+  margin: 0 0 var(--vk-space-2);
+  font-size: var(--vk-text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-anchor-nav__list) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.vk-anchor-nav__item) {
+  margin: 0;
+}
+
+:where(.vk-anchor-nav__link) {
+  display: block;
+  padding-block: var(--vk-space-1);
+  padding-inline: var(--vk-space-3) var(--vk-space-2);
+  color: inherit;
+  text-decoration: none;
+  border-inline-start: 2px solid var(--vk-anchor-nav-rail);
+  transition:
+    color var(--vk-duration) var(--vk-ease),
+    border-color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-anchor-nav__link[data-depth="1"]) {
+  padding-inline-start: calc(var(--vk-space-3) + var(--vk-space-4));
+}
+
+:where(.vk-anchor-nav__link[data-depth="2"]) {
+  padding-inline-start: calc(var(--vk-space-3) + var(--vk-space-8));
+}
+
+:where(.vk-anchor-nav__link:hover) {
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-anchor-nav__link:focus-visible) {
+  outline: 2px solid var(--vk-color-ring);
+  outline-offset: -2px;
+  border-radius: var(--vk-radius-sm);
+}
+
+:where(.vk-anchor-nav__link[aria-current="location"]) {
+  color: var(--vk-anchor-nav-accent);
+  font-weight: 600;
+  border-inline-start-color: var(--vk-anchor-nav-accent);
+}
+
+/* Horizontal: a single scrolling row with the rail underneath. */
+:where(.vk-anchor-nav[data-orientation="horizontal"]) {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+:where(.vk-anchor-nav[data-orientation="horizontal"] .vk-anchor-nav__list) {
+  display: flex;
+  gap: var(--vk-space-1);
+  border-block-end: 2px solid var(--vk-anchor-nav-rail);
+}
+
+:where(.vk-anchor-nav[data-orientation="horizontal"] .vk-anchor-nav__list[data-depth="1"]) {
+  display: none;
+}
+
+:where(.vk-anchor-nav[data-orientation="horizontal"] .vk-anchor-nav__link) {
+  padding-block: var(--vk-space-2);
+  padding-inline: var(--vk-space-3);
+  margin-block-end: -2px;
+  white-space: nowrap;
+  border-inline-start: 0;
+  border-block-end: 2px solid transparent;
+}
+
+:where(
+  .vk-anchor-nav[data-orientation="horizontal"] .vk-anchor-nav__link[aria-current="location"]
+) {
+  border-block-end-color: var(--vk-anchor-nav-accent);
+}

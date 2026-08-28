@@ -33,6 +33,7 @@ export {
   type AccordionVariant,
 } from './components/accordion'
 export { Alert, type AlertProps } from './components/alert'
+export { AnchorNav, type AnchorNavItem, type AnchorNavProps } from './components/anchor-nav'
 export {
   AnimatedCounter,
   type AnimatedCounterProps,

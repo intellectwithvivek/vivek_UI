@@ -20,8 +20,22 @@ import ts from 'typescript'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const DOCS = resolve(HERE, '..')
-const DIR = join(DOCS, 'page-templates')
-const OUT = join(DOCS, 'page-sources.json')
+
+/**
+ * `--dir <name>` / `--out <file>` point the same generator at another gallery. The block
+ * gallery (`blocks/` -> `block-sources.json`) is held to exactly the rules the page
+ * templates are, so it reuses this file rather than growing a copy of it.
+ */
+function argValue(flag, fallback) {
+  const index = process.argv.indexOf(flag)
+  return index !== -1 && process.argv[index + 1] ? process.argv[index + 1] : fallback
+}
+const DIR_NAME = argValue('--dir', 'page-templates')
+const DIR = join(DOCS, DIR_NAME)
+const OUT = join(DOCS, argValue('--out', 'page-sources.json'))
+const OUT_NAME = OUT.slice(DOCS.length + 1)
+const NOUN = DIR_NAME === 'blocks' ? 'block' : 'template'
+const REGEN = DIR_NAME === 'blocks' ? 'pnpm gen:blocks' : 'pnpm gen:pages'
 
 const PACKAGE = '@the_viveksingh/vivek-ui'
 const CHARTS = `${PACKAGE}/charts`
@@ -40,7 +54,7 @@ function importsOf(source, file) {
 
     if (!ALLOWED.has(from.text)) {
       problems.push(
-        `${file}: imports from "${from.text}". A template may only import from ` +
+        `${file}: imports from "${from.text}". A ${NOUN} may only import from ` +
           `"${PACKAGE}", "${CHARTS}" and "react" — otherwise the code on the page is not ` +
           'something a reader can paste into their own project and run.',
       )
@@ -99,12 +113,12 @@ const declared = new Set(
 
 for (const slug of Object.keys(out)) {
   if (!declared.has(slug)) {
-    problems.push(`page-templates/${slug}.tsx has no entry in page-templates/index.ts.`)
+    problems.push(`${DIR_NAME}/${slug}.tsx has no entry in ${DIR_NAME}/index.ts.`)
   }
 }
 for (const slug of declared) {
   if (!out[slug]) {
-    problems.push(`page-templates/index.ts declares "${slug}", but there is no ${slug}.tsx.`)
+    problems.push(`${DIR_NAME}/index.ts declares "${slug}", but there is no ${slug}.tsx.`)
   }
 }
 
@@ -124,12 +138,12 @@ if (process.argv.includes('--check')) {
     existing = ''
   }
   if (existing !== json) {
-    console.error('gen-page-sources: page-sources.json is out of date. Run `pnpm gen:pages`.')
+    console.error(`gen-page-sources: ${OUT_NAME} is out of date. Run \`${REGEN}\`.`)
     process.exit(1)
   }
-  console.log(`gen-page-sources: OK - ${Object.keys(out).length} templates, up to date.`)
+  console.log(`gen-page-sources: OK - ${Object.keys(out).length} ${NOUN}s, up to date.`)
 } else {
   writeFileSync(OUT, json)
   const total = Object.values(out).reduce((sum, entry) => sum + entry.lines, 0)
-  console.log(`gen-page-sources: ${Object.keys(out).length} templates, ${total} lines.`)
+  console.log(`gen-page-sources: ${Object.keys(out).length} ${NOUN}s, ${total} lines.`)
 }

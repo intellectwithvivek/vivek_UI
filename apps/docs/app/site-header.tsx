@@ -52,6 +52,9 @@ export function SiteHeader() {
         <Navbar.Link asChild active={isActive('/pages')}>
           <Link href="/pages">Pages</Link>
         </Navbar.Link>
+        <Navbar.Link asChild active={isActive('/blocks')}>
+          <Link href="/blocks">Blocks</Link>
+        </Navbar.Link>
         <Navbar.Link asChild active={isActive('/playground')}>
           <Link href="/playground">Playground</Link>
         </Navbar.Link>

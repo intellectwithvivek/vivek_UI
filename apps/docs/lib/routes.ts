@@ -8,6 +8,7 @@
  * The guide list IS hand-written, because those pages are hand-written. `routes.test.ts`
  * checks it against the filesystem so a new guide cannot be added without appearing here.
  */
+import { blocks } from './blocks'
 import { templates } from './page-templates'
 import { registry } from './registry'
 import { SHOWCASE } from './showcase'
@@ -23,7 +24,7 @@ export interface Route {
   changeFrequency: 'daily' | 'weekly' | 'monthly'
   /** Human label, reused for breadcrumbs and for llms.txt. */
   label: string
-  section: 'top' | 'guide' | 'component' | 'chart' | 'template' | 'showcase'
+  section: 'top' | 'guide' | 'component' | 'chart' | 'template' | 'showcase' | 'block'
 }
 
 /** Conceptual guides, ordered as a reading path rather than alphabetically. */
@@ -91,6 +92,15 @@ export const TOP_ROUTES: Route[] = [
     changeFrequency: 'weekly',
     section: 'top',
   },
+  {
+    path: '/blocks',
+    // "Show me ten heroes" is the search that brings people to a component library; the
+    // block gallery is the page that answers it.
+    label: 'Blocks',
+    priority: 0.9,
+    changeFrequency: 'weekly',
+    section: 'top',
+  },
 ]
 
 export function allRoutes(): Route[] {
@@ -133,6 +143,13 @@ export function allRoutes(): Route[] {
       priority: 0.8,
       changeFrequency: 'monthly' as const,
       section: 'template' as const,
+    })),
+    ...blocks.map((block) => ({
+      path: `/blocks/${block.slug}`,
+      label: `${block.title} block`,
+      priority: 0.7,
+      changeFrequency: 'monthly' as const,
+      section: 'block' as const,
     })),
   ]
 }

@@ -1,3 +1,4 @@
+import { blocks } from '../../lib/blocks'
 import { templates } from '../../lib/page-templates'
 import { registry } from '../../lib/registry'
 import { GUIDES } from '../../lib/routes'
@@ -68,6 +69,12 @@ export function GET(): Response {
       `- [${template.title}](${url(`/pages/${template.slug}`)}): ${template.description}`,
   )
 
+  // Page sections. "Give me a hero with a photo behind it" should land on a block, not on
+  // the Hero reference page.
+  const blockLines = blocks.map(
+    (block) => `- [${block.title}](${url(`/blocks/${block.slug}`)}): ${block.description}`,
+  )
+
   const serverSafe = registry.components.filter((entry) => !entry.isClient).length
 
   const body = `# ${SITE_NAME}
@@ -106,6 +113,7 @@ ${section('Guides', guides)}
 ${section('Components', components)}
 ${section('Charts', charts)}
 ${section('Page templates', pages)}
+${section('Blocks — page sections to copy', blockLines)}
 ${section('Showcase — complete sites built with it', showcase)}
 ## Notes for answering questions about this library
 

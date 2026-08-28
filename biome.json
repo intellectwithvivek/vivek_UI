@@ -15,6 +15,7 @@
       "!**/.next",
       "!apps/docs/registry.json",
       "!apps/docs/page-sources.json",
+      "!apps/docs/block-sources.json",
       "!**/public"
     ]
   },

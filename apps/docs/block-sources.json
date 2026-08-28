@@ -1,0 +1,776 @@
+{
+  "cta-app-download": {
+    "source": "import {\n  Button,\n  Container,\n  Grid,\n  Heading,\n  Image,\n  Section,\n  Stack,\n  Text,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function CtaAppDownload() {\n  return (\n    <Section>\n      <Container>\n        <Grid\n          cols={{ base: 1, md: 2 }}\n          gap={6}\n          style={{\n            alignItems: 'center',\n            padding: '2rem',\n            borderRadius: 'var(--vk-radius-lg)',\n            background: 'var(--vk-color-surface)',\n            border: '1px solid var(--vk-color-border)',\n          }}\n        >\n          <Stack gap={4}>\n            <Heading level={2} size=\"lg\">\n              Take it with you\n            </Heading>\n            <Text tone=\"muted\">\n              Everything on the web app, offline on your phone, synced the moment you are back.\n            </Text>\n            <Stack direction=\"horizontal\" gap={3} wrap>\n              <Button variant=\"outline\">App Store</Button>\n              <Button variant=\"outline\">Google Play</Button>\n            </Stack>\n          </Stack>\n          <Image\n            src=\"https://picsum.photos/seed/vk-app/900/700\"\n            alt=\"The app on a phone\"\n            ratio={9 / 7}\n            rounded=\"md\"\n          />\n        </Grid>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Container",
+      "Grid",
+      "Heading",
+      "Image",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 49
+  },
+  "cta-band-primary": {
+    "source": "import { Button, CTA } from '@the_viveksingh/vivek-ui'\n\nexport default function CtaBandPrimary() {\n  return (\n    <CTA\n      background=\"primary\"\n      title=\"Start with a Button and see how far it goes\"\n      description=\"One npm install and one stylesheet import. There is no configuration step.\"\n      actions={\n        <>\n          <Button size=\"lg\">Install the package</Button>\n          <Button size=\"lg\" variant=\"outline\">\n            Browse components\n          </Button>\n        </>\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Button",
+      "CTA"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 19
+  },
+  "cta-inset-card": {
+    "source": "import { Button, CTA } from '@the_viveksingh/vivek-ui'\n\nexport default function CtaInsetCard() {\n  return (\n    <CTA\n      inset\n      background=\"primary\"\n      eyebrow=\"Ready when you are\"\n      title=\"Ship your first page this afternoon\"\n      description=\"The templates are free, the components are typed, and the docs assume you are busy.\"\n      actions={\n        <Button size=\"lg\" variant=\"outline\">\n          Get started\n        </Button>\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Button",
+      "CTA"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 18
+  },
+  "cta-muted-bordered": {
+    "source": "import { Button, CTA } from '@the_viveksingh/vivek-ui'\n\nexport default function CtaMutedBordered() {\n  return (\n    <CTA\n      inset\n      layout=\"split\"\n      background=\"muted\"\n      padding=\"md\"\n      title=\"Still reading?\"\n      description=\"The docs are shorter than this page. Start with the quick start.\"\n      actions={<Button variant=\"link\">Quick start →</Button>}\n    />\n  )\n}\n",
+    "uses": [
+      "Button",
+      "CTA"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 15
+  },
+  "cta-split": {
+    "source": "import { Button, CTA } from '@the_viveksingh/vivek-ui'\n\nexport default function CtaSplit() {\n  return (\n    <CTA\n      layout=\"split\"\n      background=\"muted\"\n      title=\"Questions before you commit?\"\n      description=\"Book twenty minutes with an engineer, not a salesperson.\"\n      actions={\n        <>\n          <Button>Book a call</Button>\n          <Button variant=\"ghost\">Email us</Button>\n        </>\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Button",
+      "CTA"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 18
+  },
+  "cta-with-newsletter": {
+    "source": "import { Newsletter } from '@the_viveksingh/vivek-ui'\n\nexport default function CtaWithNewsletter() {\n  return (\n    <Newsletter\n      title=\"Get the changelog in your inbox\"\n      description=\"One email per release. What changed, what broke, what to do about it.\"\n      buttonLabel=\"Subscribe\"\n      note=\"No marketing, ever. Unsubscribe in one click.\"\n      layout=\"inline\"\n    />\n  )\n}\n",
+    "uses": [
+      "Newsletter"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 13
+  },
+  "faq-categorised": {
+    "source": "import { Container, FAQ, Section } from '@the_viveksingh/vivek-ui'\n\nconst FAQS = [\n  {\n    id: 'deps',\n    question: 'Really no runtime dependencies?',\n    answer:\n      'None. The package.json has no dependencies field at all. React and React DOM are peers you already have.',\n  },\n  {\n    id: 'tailwind',\n    question: 'Does it work alongside Tailwind?',\n    answer:\n      'Yes. Every selector is wrapped in :where(), so any utility class you add wins without !important.',\n  },\n  {\n    id: 'rsc',\n    question: 'Does it work with React Server Components?',\n    answer: \"Yes. The build is unbundled, so each file keeps its own 'use client' directive.\",\n  },\n  {\n    id: 'licence',\n    question: 'What is the catch with the licence?',\n    answer:\n      'There is none. MIT, including commercial use, with no attribution beyond the licence text.',\n  },\n  {\n    id: 'browsers',\n    question: 'Which browsers?',\n    answer:\n      'The last two versions of everything evergreen. Container queries and :has() are the floor.',\n  },\n  {\n    id: 'a11y',\n    question: 'How is accessibility tested?',\n    answer:\n      'Every component test has an axe assertion, and the browser suite runs axe on the composed pages in three viewports.',\n  },\n]\n\nexport default function FaqCategorised() {\n  return (\n    <Section>\n      <Container>\n        <Section.Header eyebrow=\"Help centre\" title=\"Answers by topic\" align=\"center\" />\n      </Container>\n      <FAQ\n        padding=\"sm\"\n        title=\"Getting started\"\n        headingLevel={3}\n        items={FAQS.slice(0, 3)}\n        name=\"start\"\n      />\n      <FAQ\n        padding=\"sm\"\n        title=\"Compatibility\"\n        headingLevel={3}\n        items={FAQS.slice(3)}\n        name=\"compat\"\n      />\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Container",
+      "FAQ",
+      "Section"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 63
+  },
+  "faq-side": {
+    "source": "import { FAQ } from '@the_viveksingh/vivek-ui'\n\nconst FAQS = [\n  {\n    id: 'deps',\n    question: 'Really no runtime dependencies?',\n    answer:\n      'None. The package.json has no dependencies field at all. React and React DOM are peers you already have.',\n  },\n  {\n    id: 'tailwind',\n    question: 'Does it work alongside Tailwind?',\n    answer:\n      'Yes. Every selector is wrapped in :where(), so any utility class you add wins without !important.',\n  },\n  {\n    id: 'rsc',\n    question: 'Does it work with React Server Components?',\n    answer: \"Yes. The build is unbundled, so each file keeps its own 'use client' directive.\",\n  },\n  {\n    id: 'licence',\n    question: 'What is the catch with the licence?',\n    answer:\n      'There is none. MIT, including commercial use, with no attribution beyond the licence text.',\n  },\n  {\n    id: 'browsers',\n    question: 'Which browsers?',\n    answer:\n      'The last two versions of everything evergreen. Container queries and :has() are the floor.',\n  },\n  {\n    id: 'a11y',\n    question: 'How is accessibility tested?',\n    answer:\n      'Every component test has an axe assertion, and the browser suite runs axe on the composed pages in three viewports.',\n  },\n]\n\nexport default function FaqSide() {\n  return (\n    <FAQ\n      layout=\"side\"\n      eyebrow=\"Support\"\n      title=\"Before you write in\"\n      description=\"The answers to the questions we get every week. If yours is not here, the form is at the bottom.\"\n      items={FAQS}\n    />\n  )\n}\n",
+    "uses": [
+      "FAQ"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 51
+  },
+  "faq-stack": {
+    "source": "import { FAQ } from '@the_viveksingh/vivek-ui'\n\nconst FAQS = [\n  {\n    id: 'deps',\n    question: 'Really no runtime dependencies?',\n    answer:\n      'None. The package.json has no dependencies field at all. React and React DOM are peers you already have.',\n  },\n  {\n    id: 'tailwind',\n    question: 'Does it work alongside Tailwind?',\n    answer:\n      'Yes. Every selector is wrapped in :where(), so any utility class you add wins without !important.',\n  },\n  {\n    id: 'rsc',\n    question: 'Does it work with React Server Components?',\n    answer: \"Yes. The build is unbundled, so each file keeps its own 'use client' directive.\",\n  },\n  {\n    id: 'licence',\n    question: 'What is the catch with the licence?',\n    answer:\n      'There is none. MIT, including commercial use, with no attribution beyond the licence text.',\n  },\n  {\n    id: 'browsers',\n    question: 'Which browsers?',\n    answer:\n      'The last two versions of everything evergreen. Container queries and :has() are the floor.',\n  },\n  {\n    id: 'a11y',\n    question: 'How is accessibility tested?',\n    answer:\n      'Every component test has an axe assertion, and the browser suite runs axe on the composed pages in three viewports.',\n  },\n]\n\nexport default function FaqStack() {\n  return (\n    <FAQ\n      eyebrow=\"FAQ\"\n      title=\"The ones people actually ask\"\n      items={FAQS}\n      defaultOpenIndex={0}\n      name=\"faq\"\n    />\n  )\n}\n",
+    "uses": [
+      "FAQ"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 51
+  },
+  "faq-two-columns": {
+    "source": "import { FAQ } from '@the_viveksingh/vivek-ui'\n\nconst FAQS = [\n  {\n    id: 'deps',\n    question: 'Really no runtime dependencies?',\n    answer:\n      'None. The package.json has no dependencies field at all. React and React DOM are peers you already have.',\n  },\n  {\n    id: 'tailwind',\n    question: 'Does it work alongside Tailwind?',\n    answer:\n      'Yes. Every selector is wrapped in :where(), so any utility class you add wins without !important.',\n  },\n  {\n    id: 'rsc',\n    question: 'Does it work with React Server Components?',\n    answer: \"Yes. The build is unbundled, so each file keeps its own 'use client' directive.\",\n  },\n  {\n    id: 'licence',\n    question: 'What is the catch with the licence?',\n    answer:\n      'There is none. MIT, including commercial use, with no attribution beyond the licence text.',\n  },\n  {\n    id: 'browsers',\n    question: 'Which browsers?',\n    answer:\n      'The last two versions of everything evergreen. Container queries and :has() are the floor.',\n  },\n  {\n    id: 'a11y',\n    question: 'How is accessibility tested?',\n    answer:\n      'Every component test has an axe assertion, and the browser suite runs axe on the composed pages in three viewports.',\n  },\n]\n\nexport default function FaqTwoColumns() {\n  return (\n    <FAQ\n      columns={2}\n      title=\"Frequently asked\"\n      description=\"Six answers, two columns.\"\n      items={FAQS}\n    />\n  )\n}\n",
+    "uses": [
+      "FAQ"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 50
+  },
+  "faq-with-contact": {
+    "source": "import { Button, Card, Container, FAQ, Heading, Stack, Text } from '@the_viveksingh/vivek-ui'\n\nconst FAQS = [\n  {\n    id: 'deps',\n    question: 'Really no runtime dependencies?',\n    answer:\n      'None. The package.json has no dependencies field at all. React and React DOM are peers you already have.',\n  },\n  {\n    id: 'tailwind',\n    question: 'Does it work alongside Tailwind?',\n    answer:\n      'Yes. Every selector is wrapped in :where(), so any utility class you add wins without !important.',\n  },\n  {\n    id: 'rsc',\n    question: 'Does it work with React Server Components?',\n    answer: \"Yes. The build is unbundled, so each file keeps its own 'use client' directive.\",\n  },\n  {\n    id: 'licence',\n    question: 'What is the catch with the licence?',\n    answer:\n      'There is none. MIT, including commercial use, with no attribution beyond the licence text.',\n  },\n  {\n    id: 'browsers',\n    question: 'Which browsers?',\n    answer:\n      'The last two versions of everything evergreen. Container queries and :has() are the floor.',\n  },\n  {\n    id: 'a11y',\n    question: 'How is accessibility tested?',\n    answer:\n      'Every component test has an axe assertion, and the browser suite runs axe on the composed pages in three viewports.',\n  },\n]\n\nexport default function FaqWithContact() {\n  return (\n    <>\n      <FAQ title=\"Questions\" items={FAQS.slice(0, 4)} padding=\"md\" />\n      <Container size=\"md\" style={{ paddingBlockEnd: '3rem' }}>\n        <Card padding=\"lg\" variant=\"outline\">\n          <Stack direction=\"horizontal\" gap={4} wrap align=\"center\" justify=\"between\">\n            <Stack gap={1}>\n              <Heading level={3} size=\"sm\">\n                Still have a question?\n              </Heading>\n              <Text size=\"sm\" tone=\"muted\">\n                A person replies within one working day.\n              </Text>\n            </Stack>\n            <Button>Contact support</Button>\n          </Stack>\n        </Card>\n      </Container>\n    </>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Card",
+      "Container",
+      "FAQ",
+      "Heading",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 62
+  },
+  "features-bento": {
+    "source": "import {\n  Badge,\n  BentoGrid,\n  Card,\n  Container,\n  Heading,\n  Section,\n  Stack,\n  Text,\n} from '@the_viveksingh/vivek-ui'\n\nfunction Tile({ title, body, badge }: { title: string; body: string; badge?: string }) {\n  return (\n    <Card padding=\"lg\" style={{ blockSize: '100%' }}>\n      <Stack gap={2}>\n        {badge ? (\n          <Badge size=\"sm\" variant=\"soft\">\n            {badge}\n          </Badge>\n        ) : null}\n        <Heading level={3} size=\"sm\">\n          {title}\n        </Heading>\n        <Text size=\"sm\" tone=\"muted\">\n          {body}\n        </Text>\n      </Stack>\n    </Card>\n  )\n}\n\nexport default function FeaturesBento() {\n  return (\n    <Section>\n      <Container>\n        <Section.Header\n          eyebrow=\"Platform\"\n          title=\"One tool, the whole loop\"\n          description=\"Plan, build, review and measure without leaving the tab.\"\n        />\n        <BentoGrid cols={{ base: 1, md: 3 }} rowHeight=\"11rem\" gap={4}>\n          <BentoGrid.Item colSpan={{ base: 1, md: 2 }} rowSpan={2}>\n            <Tile\n              badge=\"New\"\n              title=\"Review that keeps up\"\n              body=\"Every pull request gets a summary, the risky files first, and a checklist generated from your own conventions. Reviewers read less and catch more.\"\n            />\n          </BentoGrid.Item>\n          <BentoGrid.Item>\n            <Tile\n              title=\"Plan\"\n              body=\"Issues, cycles and roadmaps in the same keyboard-first interface.\"\n            />\n          </BentoGrid.Item>\n          <BentoGrid.Item>\n            <Tile\n              title=\"Measure\"\n              body=\"Cycle time, review latency and deploy frequency, per team.\"\n            />\n          </BentoGrid.Item>\n          <BentoGrid.Item colSpan={{ base: 1, md: 3 }}>\n            <Tile\n              title=\"Integrates with what you have\"\n              body=\"GitHub, GitLab, Slack, Linear, Jira, PagerDuty — two-way, and a webhook for everything else.\"\n            />\n          </BentoGrid.Item>\n        </BentoGrid>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Badge",
+      "BentoGrid",
+      "Card",
+      "Container",
+      "Heading",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 71
+  },
+  "features-grid-3": {
+    "source": "import { FeatureGrid } from '@the_viveksingh/vivek-ui'\n\nconst stroke = {\n  fill: 'none',\n  stroke: 'currentColor',\n  strokeWidth: 1.7,\n  strokeLinecap: 'round' as const,\n  strokeLinejoin: 'round' as const,\n}\n\nconst Icon = ({ d }: { d: string }) => (\n  <svg aria-hidden=\"true\" height=\"22\" viewBox=\"0 0 24 24\" width=\"22\">\n    <path d={d} {...stroke} />\n  </svg>\n)\n\nconst FEATURES = [\n  {\n    id: 'speed',\n    icon: <Icon d=\"M13 2 4 14h6l-1 8 9-12h-6l1-8Z\" />,\n    title: 'Fast by default',\n    description:\n      'Static CSS and no runtime styling engine, so nothing recomputes while your user waits.',\n  },\n  {\n    id: 'a11y',\n    icon: <Icon d=\"M12 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM4 8h16M12 8v6m0 0-3 8m3-8 3 8\" />,\n    title: 'Accessible on arrival',\n    description: 'Keyboard maps from the WAI-ARIA practices and an axe assertion in every test.',\n  },\n  {\n    id: 'deps',\n    icon: <Icon d=\"M12 3 3 8v8l9 5 9-5V8l-9-5Zm0 0v18M3 8l9 5 9-5\" />,\n    title: 'Zero dependencies',\n    description: 'One package, nothing underneath it. No transitive advisories to chase.',\n  },\n  {\n    id: 'themes',\n    icon: <Icon d=\"M12 3a9 9 0 1 0 0 18 3 3 0 0 0 0-6 3 3 0 0 1 0-6 3 3 0 0 0 0-6Z\" />,\n    title: 'Themed with variables',\n    description: 'Change one custom property and the whole system moves with it.',\n  },\n  {\n    id: 'rsc',\n    icon: <Icon d=\"M4 6h16M4 12h16M4 18h10\" />,\n    title: 'Server components first',\n    description: \"Only the components that hold state carry 'use client'. The rest ship no JS.\",\n  },\n  {\n    id: 'types',\n    icon: <Icon d=\"m8 6-6 6 6 6M16 6l6 6-6 6\" />,\n    title: 'Types that mean something',\n    description: 'Strict TypeScript throughout, with props tables generated from the declarations.',\n  },\n]\n\nexport default function FeaturesGrid3() {\n  return (\n    <FeatureGrid\n      eyebrow=\"Why this one\"\n      title=\"Everything a product needs, nothing it does not\"\n      description=\"The parts you would otherwise rebuild on every project, done once and done properly.\"\n      features={FEATURES}\n      columns={{ base: 1, sm: 2, lg: 3 }}\n    />\n  )\n}\n",
+    "uses": [
+      "FeatureGrid"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 67
+  },
+  "features-grid-4-icons": {
+    "source": "import { FeatureGrid } from '@the_viveksingh/vivek-ui'\n\nconst stroke = {\n  fill: 'none',\n  stroke: 'currentColor',\n  strokeWidth: 1.7,\n  strokeLinecap: 'round' as const,\n  strokeLinejoin: 'round' as const,\n}\n\nconst Icon = ({ d }: { d: string }) => (\n  <svg aria-hidden=\"true\" height=\"22\" viewBox=\"0 0 24 24\" width=\"22\">\n    <path d={d} {...stroke} />\n  </svg>\n)\n\nconst STEPS = [\n  {\n    id: 'connect',\n    icon: <Icon d=\"M4 12h16M12 4v16\" />,\n    title: 'Connect',\n    description: 'Point it at your repository. Read-only, revocable, thirty seconds.',\n  },\n  {\n    id: 'build',\n    icon: <Icon d=\"M4 6h16v12H4z\" />,\n    title: 'Build',\n    description: 'Every push gets a preview URL with its own database.',\n  },\n  {\n    id: 'test',\n    icon: <Icon d=\"M5 12l5 5L20 7\" />,\n    title: 'Test',\n    description: 'Your suite, our machines, in parallel. Flaky tests are quarantined, not ignored.',\n  },\n  {\n    id: 'ship',\n    icon: <Icon d=\"M13 2 4 14h6l-1 8 9-12h-6l1-8Z\" />,\n    title: 'Ship',\n    description: 'Promote a preview to production with one click, or none.',\n  },\n]\n\nexport default function FeaturesGrid4Icons() {\n  return (\n    <FeatureGrid\n      align=\"start\"\n      background=\"muted\"\n      eyebrow=\"How it works\"\n      title=\"From push to production in four steps\"\n      features={STEPS}\n      columns={{ base: 1, sm: 2, lg: 4 }}\n    />\n  )\n}\n",
+    "uses": [
+      "FeatureGrid"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 55
+  },
+  "features-list-checks": {
+    "source": "import { Container, Grid, Section, Stack, Text } from '@the_viveksingh/vivek-ui'\n\nconst INCLUDED = [\n  'Unlimited projects and collaborators',\n  'Preview deployments for every branch',\n  'Custom domains with automatic TLS',\n  'Edge caching in 35 regions',\n  'Log drains and OpenTelemetry export',\n  'Role-based access control',\n  'Audit log with 400-day retention',\n  'SAML single sign-on',\n  '99.99% uptime SLA',\n  'Priority support, 1-hour response',\n]\n\nconst Check = () => (\n  <svg aria-hidden=\"true\" height=\"18\" viewBox=\"0 0 24 24\" width=\"18\" style={{ flex: 'none' }}>\n    <path\n      d=\"M5 12l5 5L20 7\"\n      fill=\"none\"\n      stroke=\"var(--vk-color-success)\"\n      strokeWidth=\"2.5\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n    />\n  </svg>\n)\n\nexport default function FeaturesListChecks() {\n  return (\n    <Section background=\"muted\">\n      <Container size=\"md\">\n        <Section.Header eyebrow=\"Included\" title=\"Everything in every plan\" align=\"center\" />\n        <Grid cols={{ base: 1, sm: 2 }} gap={3}>\n          {INCLUDED.map((item) => (\n            <Stack key={item} direction=\"horizontal\" gap={2} align=\"center\">\n              <Check />\n              <Text size=\"sm\">{item}</Text>\n            </Stack>\n          ))}\n        </Grid>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Container",
+      "Grid",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 45
+  },
+  "features-split-image": {
+    "source": "import {\n  Button,\n  Container,\n  Grid,\n  Heading,\n  Image,\n  Section,\n  Stack,\n  Text,\n} from '@the_viveksingh/vivek-ui'\n\nconst POINTS = [\n  'Suggested replies drafted from your own past answers',\n  'Every conversation tagged and routed before a human reads it',\n  'A weekly digest of what customers asked that you could not answer',\n]\n\nexport default function FeaturesSplitImage() {\n  return (\n    <Section>\n      <Container>\n        <Grid cols={{ base: 1, md: 2 }} gap={8} style={{ alignItems: 'center' }}>\n          <Stack gap={4}>\n            <Text size=\"sm\" tone=\"muted\" weight=\"medium\">\n              Inbox\n            </Text>\n            <Heading level={2} size=\"xl\">\n              Answer in minutes, not by Monday\n            </Heading>\n            <Text tone=\"muted\">\n              A shared inbox that reads every message first, so your team opens the ones that need a\n              person and the rest are already handled.\n            </Text>\n            <ul\n              style={{ margin: 0, paddingInlineStart: '1.25rem', display: 'grid', gap: '0.5rem' }}\n            >\n              {POINTS.map((point) => (\n                <li key={point}>\n                  <Text as=\"span\" size=\"sm\">\n                    {point}\n                  </Text>\n                </li>\n              ))}\n            </ul>\n            <div>\n              <Button>See the inbox</Button>\n            </div>\n          </Stack>\n          <Image\n            src=\"https://picsum.photos/seed/vk-inbox/1200/900\"\n            alt=\"The shared inbox with a suggested reply open\"\n            ratio={4 / 3}\n            rounded=\"lg\"\n          />\n        </Grid>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Container",
+      "Grid",
+      "Heading",
+      "Image",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 59
+  },
+  "features-tabs": {
+    "source": "import {\n  Container,\n  Grid,\n  Heading,\n  Image,\n  Section,\n  Stack,\n  Tabs,\n  Text,\n} from '@the_viveksingh/vivek-ui'\n\nconst AREAS = [\n  {\n    id: 'design',\n    label: 'Design',\n    title: 'Design in the browser',\n    body: 'Tokens, components and pages in one canvas that is already your production CSS.',\n  },\n  {\n    id: 'build',\n    label: 'Build',\n    title: 'Build without handoff',\n    body: 'The design is the code. Export a component and it compiles.',\n  },\n  {\n    id: 'ship',\n    label: 'Ship',\n    title: 'Ship with confidence',\n    body: 'Visual diffs on every change, so a spacing regression never reaches a customer.',\n  },\n]\n\nexport default function FeaturesTabs() {\n  return (\n    <Section>\n      <Container>\n        <Section.Header\n          eyebrow=\"Workflow\"\n          title=\"From idea to production, one surface\"\n          align=\"center\"\n        />\n        <Tabs defaultValue=\"design\">\n          <Tabs.List aria-label=\"Product areas\">\n            {AREAS.map((area) => (\n              <Tabs.Tab key={area.id} value={area.id}>\n                {area.label}\n              </Tabs.Tab>\n            ))}\n          </Tabs.List>\n          <Tabs.Panels>\n            {AREAS.map((area) => (\n              <Tabs.Panel key={area.id} value={area.id}>\n                <Grid\n                  cols={{ base: 1, md: 2 }}\n                  gap={6}\n                  style={{ alignItems: 'center', paddingBlockStart: '1.5rem' }}\n                >\n                  <Stack gap={3}>\n                    <Heading level={3} size=\"lg\">\n                      {area.title}\n                    </Heading>\n                    <Text tone=\"muted\">{area.body}</Text>\n                  </Stack>\n                  <Image\n                    src={`https://picsum.photos/seed/vk-${area.id}/1200/800`}\n                    alt=\"\"\n                    ratio={3 / 2}\n                    rounded=\"lg\"\n                  />\n                </Grid>\n              </Tabs.Panel>\n            ))}\n          </Tabs.Panels>\n        </Tabs>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Container",
+      "Grid",
+      "Heading",
+      "Image",
+      "Section",
+      "Stack",
+      "Tabs",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 78
+  },
+  "footer-centered": {
+    "source": "import { Container, Heading, Section, Stack, Text } from '@the_viveksingh/vivek-ui'\n\nconst LINKS = [\n  { label: 'Docs', href: '/docs' },\n  { label: 'Pricing', href: '/pricing' },\n  { label: 'Blog', href: '/blog' },\n  { label: 'Privacy', href: '/privacy' },\n  { label: 'Terms', href: '/terms' },\n]\n\nexport default function FooterCentered() {\n  return (\n    <Section as=\"footer\" padding=\"md\" background=\"muted\">\n      <Container>\n        <Stack align=\"center\" gap={3}>\n          <Heading level={2} size=\"sm\">\n            Overtone\n          </Heading>\n          <nav aria-label=\"Footer\">\n            <Stack direction=\"horizontal\" gap={4} wrap justify=\"center\">\n              {LINKS.map((link) => (\n                <a\n                  key={link.href}\n                  href={link.href}\n                  style={{ color: 'var(--vk-color-muted)', textDecoration: 'none' }}\n                >\n                  <Text as=\"span\" size=\"sm\">\n                    {link.label}\n                  </Text>\n                </a>\n              ))}\n            </Stack>\n          </nav>\n          <Text size=\"sm\" tone=\"muted\">\n            © 2026 Overtone. All rights reserved.\n          </Text>\n        </Stack>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Container",
+      "Heading",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 41
+  },
+  "footer-columns": {
+    "source": "import { Footer } from '@the_viveksingh/vivek-ui'\n\nconst COLUMNS = [\n  {\n    title: 'Product',\n    links: [\n      { label: 'Components', href: '#' },\n      { label: 'Charts', href: '#' },\n      { label: 'Templates', href: '#' },\n      { label: 'Changelog', href: '#' },\n    ],\n  },\n  {\n    title: 'Docs',\n    links: [\n      { label: 'Installation', href: '#' },\n      { label: 'Theming', href: '#' },\n      { label: 'Accessibility', href: '#' },\n      { label: 'TypeScript', href: '#' },\n    ],\n  },\n  {\n    title: 'Company',\n    links: [\n      { label: 'About', href: '#' },\n      { label: 'Blog', href: '#' },\n      { label: 'Careers', href: '#' },\n      { label: 'Contact', href: '#' },\n    ],\n  },\n]\n\nexport default function FooterColumns() {\n  return <Footer brand=\"Northwind\" columns={COLUMNS} copyright=\"© 2026 Northwind. MIT licensed.\" />\n}\n",
+    "uses": [
+      "Footer"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 35
+  },
+  "footer-minimal": {
+    "source": "import { Footer } from '@the_viveksingh/vivek-ui'\n\nexport default function FooterMinimal() {\n  return (\n    <Footer\n      padding=\"sm\"\n      brand=\"Ledger\"\n      columns={[\n        {\n          title: 'Links',\n          links: [\n            { label: 'Privacy', href: '#' },\n            { label: 'Terms', href: '#' },\n            { label: 'Status', href: '#' },\n          ],\n        },\n      ]}\n      copyright=\"© 2026 Ledger Ltd.\"\n    />\n  )\n}\n",
+    "uses": [
+      "Footer"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 21
+  },
+  "footer-social": {
+    "source": "import { Footer, IconButton, Stack } from '@the_viveksingh/vivek-ui'\n\nconst COLUMNS = [\n  {\n    title: 'Product',\n    links: [\n      { label: 'Components', href: '#' },\n      { label: 'Charts', href: '#' },\n      { label: 'Templates', href: '#' },\n      { label: 'Changelog', href: '#' },\n    ],\n  },\n  {\n    title: 'Docs',\n    links: [\n      { label: 'Installation', href: '#' },\n      { label: 'Theming', href: '#' },\n      { label: 'Accessibility', href: '#' },\n      { label: 'TypeScript', href: '#' },\n    ],\n  },\n  {\n    title: 'Company',\n    links: [\n      { label: 'About', href: '#' },\n      { label: 'Blog', href: '#' },\n      { label: 'Careers', href: '#' },\n      { label: 'Contact', href: '#' },\n    ],\n  },\n]\n\nconst Glyph = ({ d }: { d: string }) => (\n  <svg aria-hidden=\"true\" height=\"18\" viewBox=\"0 0 24 24\" width=\"18\">\n    <path d={d} fill=\"currentColor\" />\n  </svg>\n)\n\nexport default function FooterSocial() {\n  return (\n    <Footer\n      brand=\"Halcyon\"\n      columns={COLUMNS}\n      copyright=\"© 2026 Halcyon.\"\n      social={\n        <Stack direction=\"horizontal\" gap={1}>\n          <IconButton asChild aria-label=\"Halcyon on GitHub\" variant=\"ghost\" size=\"sm\">\n            <a href=\"https://github.com/halcyon\">\n              <Glyph d=\"M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.7s.8-.3 2.8 1a9.5 9.5 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1a3.6 3.6 0 0 1 .1 2.7 3.9 3.9 0 0 1 1 2.7c0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2Z\" />\n            </a>\n          </IconButton>\n          <IconButton asChild aria-label=\"Halcyon on LinkedIn\" variant=\"ghost\" size=\"sm\">\n            <a href=\"https://www.linkedin.com/company/halcyon\">\n              <Glyph d=\"M4 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM2.5 8.5h3V21h-3zM9 8.5h2.9v1.7h.1c.4-.8 1.4-1.9 3.3-1.9 3.5 0 4.2 2.3 4.2 5.3V21h-3v-5.7c0-1.4 0-3.1-1.9-3.1s-2.2 1.5-2.2 3V21H9z\" />\n            </a>\n          </IconButton>\n          <IconButton asChild aria-label=\"Halcyon on YouTube\" variant=\"ghost\" size=\"sm\">\n            <a href=\"https://www.youtube.com/@halcyon\">\n              <Glyph d=\"M23 12s0-3.4-.4-5a2.7 2.7 0 0 0-1.9-1.9C19 4.7 12 4.7 12 4.7s-7 0-8.7.4A2.7 2.7 0 0 0 1.4 7C1 8.6 1 12 1 12s0 3.4.4 5a2.7 2.7 0 0 0 1.9 1.9c1.7.4 8.7.4 8.7.4s7 0 8.7-.4a2.7 2.7 0 0 0 1.9-1.9c.4-1.6.4-5 .4-5ZM9.8 15.2V8.8l5.7 3.2z\" />\n            </a>\n          </IconButton>\n        </Stack>\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Footer",
+      "IconButton",
+      "Stack"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 66
+  },
+  "footer-with-badges": {
+    "source": "import { Badge, Footer, Stack, Text } from '@the_viveksingh/vivek-ui'\n\nconst COLUMNS = [\n  {\n    title: 'Product',\n    links: [\n      { label: 'Components', href: '#' },\n      { label: 'Charts', href: '#' },\n      { label: 'Templates', href: '#' },\n      { label: 'Changelog', href: '#' },\n    ],\n  },\n  {\n    title: 'Docs',\n    links: [\n      { label: 'Installation', href: '#' },\n      { label: 'Theming', href: '#' },\n      { label: 'Accessibility', href: '#' },\n      { label: 'TypeScript', href: '#' },\n    ],\n  },\n  {\n    title: 'Company',\n    links: [\n      { label: 'About', href: '#' },\n      { label: 'Blog', href: '#' },\n      { label: 'Careers', href: '#' },\n      { label: 'Contact', href: '#' },\n    ],\n  },\n]\n\nexport default function FooterWithBadges() {\n  return (\n    <Footer\n      brand=\"Palisade\"\n      columns={COLUMNS}\n      copyright={\n        <Stack direction=\"horizontal\" gap={2} wrap align=\"center\">\n          <Text as=\"span\" size=\"sm\" tone=\"muted\">\n            © 2026 Palisade Security.\n          </Text>\n          <Badge size=\"sm\" variant=\"outline\">\n            SOC 2 Type II\n          </Badge>\n          <Badge size=\"sm\" variant=\"outline\">\n            ISO 27001\n          </Badge>\n          <Badge size=\"sm\" variant=\"outline\">\n            GDPR\n          </Badge>\n        </Stack>\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Badge",
+      "Footer",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 56
+  },
+  "footer-with-newsletter": {
+    "source": "import { Footer, Newsletter } from '@the_viveksingh/vivek-ui'\n\nconst COLUMNS = [\n  {\n    title: 'Product',\n    links: [\n      { label: 'Components', href: '#' },\n      { label: 'Charts', href: '#' },\n      { label: 'Templates', href: '#' },\n      { label: 'Changelog', href: '#' },\n    ],\n  },\n  {\n    title: 'Docs',\n    links: [\n      { label: 'Installation', href: '#' },\n      { label: 'Theming', href: '#' },\n      { label: 'Accessibility', href: '#' },\n      { label: 'TypeScript', href: '#' },\n    ],\n  },\n  {\n    title: 'Company',\n    links: [\n      { label: 'About', href: '#' },\n      { label: 'Blog', href: '#' },\n      { label: 'Careers', href: '#' },\n      { label: 'Contact', href: '#' },\n    ],\n  },\n]\n\nexport default function FooterWithNewsletter() {\n  return (\n    <Footer\n      brand={\n        <Newsletter\n          title=\"Northwind\"\n          description=\"Release notes, once a month.\"\n          layout=\"stacked\"\n          buttonLabel=\"Subscribe\"\n        />\n      }\n      columns={COLUMNS}\n      copyright=\"© 2026 Northwind.\"\n    />\n  )\n}\n",
+    "uses": [
+      "Footer",
+      "Newsletter"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 48
+  },
+  "form-contact": {
+    "source": "import {\n  Button,\n  Container,\n  Field,\n  Input,\n  Section,\n  Select,\n  Stack,\n  Textarea,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function FormContact() {\n  return (\n    <Section>\n      <Container size=\"sm\">\n        <Section.Header\n          eyebrow=\"Contact\"\n          title=\"Tell us what you need\"\n          description=\"A person replies within one working day.\"\n        />\n        <form onSubmit={(event) => event.preventDefault()}>\n          <Stack gap={4}>\n            <Field label=\"Your name\" required>\n              <Input autoComplete=\"name\" />\n            </Field>\n            <Field label=\"Work email\" required help=\"We only use it to reply.\">\n              <Input type=\"email\" autoComplete=\"email\" />\n            </Field>\n            <Field label=\"Topic\">\n              <Select\n                options={[\n                  { value: 'sales', label: 'Sales' },\n                  { value: 'support', label: 'Support' },\n                  { value: 'partnership', label: 'Partnership' },\n                ]}\n                placeholder=\"Choose one\"\n              />\n            </Field>\n            <Field label=\"Message\" required>\n              <Textarea rows={5} />\n            </Field>\n            <div>\n              <Button type=\"submit\">Send message</Button>\n            </div>\n          </Stack>\n        </form>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Container",
+      "Field",
+      "Input",
+      "Section",
+      "Select",
+      "Stack",
+      "Textarea"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 50
+  },
+  "form-newsletter-inline": {
+    "source": "import { Newsletter } from '@the_viveksingh/vivek-ui'\n\nexport default function FormNewsletterInline() {\n  return (\n    <Newsletter\n      title=\"Stay in the loop\"\n      description=\"A short note when something ships.\"\n      layout=\"inline\"\n      buttonLabel=\"Sign up\"\n      note=\"No spam. Unsubscribe any time.\"\n    />\n  )\n}\n",
+    "uses": [
+      "Newsletter"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 13
+  },
+  "form-settings-row": {
+    "source": "import {\n  Card,\n  Container,\n  Divider,\n  Heading,\n  Section,\n  Stack,\n  Switch,\n  Text,\n} from '@the_viveksingh/vivek-ui'\n\nconst PREFS = [\n  {\n    id: 'digest',\n    label: 'Weekly digest',\n    description: 'A summary of activity every Monday morning.',\n    on: true,\n  },\n  {\n    id: 'mentions',\n    label: 'Mentions',\n    description: 'Email me when someone mentions me.',\n    on: true,\n  },\n  {\n    id: 'marketing',\n    label: 'Product news',\n    description: 'Occasional updates about new features.',\n    on: false,\n  },\n]\n\nexport default function FormSettingsRow() {\n  return (\n    <Section padding=\"md\">\n      <Container size=\"md\">\n        <Card padding=\"lg\" variant=\"outline\">\n          <Stack gap={4}>\n            <Heading level={2} size=\"md\">\n              Notifications\n            </Heading>\n            {PREFS.map((pref, index) => (\n              <Stack key={pref.id} gap={4}>\n                {index > 0 ? <Divider /> : null}\n                <Stack direction=\"horizontal\" gap={4} align=\"center\" justify=\"between\">\n                  <Stack gap={1}>\n                    <Text weight=\"medium\">{pref.label}</Text>\n                    <Text size=\"sm\" tone=\"muted\">\n                      {pref.description}\n                    </Text>\n                  </Stack>\n                  <Switch aria-label={pref.label} defaultChecked={pref.on} />\n                </Stack>\n              </Stack>\n            ))}\n          </Stack>\n        </Card>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Card",
+      "Container",
+      "Divider",
+      "Heading",
+      "Section",
+      "Stack",
+      "Switch",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 61
+  },
+  "form-signup-card": {
+    "source": "import {\n  Button,\n  Card,\n  Checkbox,\n  Container,\n  Field,\n  Heading,\n  Input,\n  PasswordInput,\n  Section,\n  Stack,\n  Text,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function FormSignupCard() {\n  return (\n    <Section background=\"muted\">\n      <Container size=\"sm\">\n        <Card padding=\"lg\" variant=\"elevated\">\n          <form onSubmit={(event) => event.preventDefault()}>\n            <Stack gap={4}>\n              <Stack gap={1}>\n                <Heading level={2} size=\"md\">\n                  Create your account\n                </Heading>\n                <Text size=\"sm\" tone=\"muted\">\n                  Free for 14 days. No card needed.\n                </Text>\n              </Stack>\n              <Field label=\"Email\" required>\n                <Input type=\"email\" autoComplete=\"email\" />\n              </Field>\n              <Field label=\"Password\" required help=\"At least 12 characters.\">\n                <PasswordInput autoComplete=\"new-password\" />\n              </Field>\n              <Checkbox label=\"Email me product updates (about one a month)\" />\n              <Button type=\"submit\" fullWidth>\n                Create account\n              </Button>\n              <Text size=\"sm\" tone=\"muted\">\n                By continuing you agree to the terms and privacy policy.\n              </Text>\n            </Stack>\n          </form>\n        </Card>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Card",
+      "Checkbox",
+      "Container",
+      "Field",
+      "Heading",
+      "Input",
+      "PasswordInput",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 49
+  },
+  "header-announcement": {
+    "source": "import {\n  Button,\n  Navbar,\n  NavbarActions,\n  NavbarBrand,\n  NavbarLink,\n  NavbarLinks,\n  NavbarToggle,\n  Text,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function HeaderAnnouncement() {\n  return (\n    <>\n      <div\n        style={{\n          padding: '0.5rem 1rem',\n          textAlign: 'center',\n          background: 'var(--vk-color-primary)',\n          color: 'var(--vk-color-primary-fg)',\n        }}\n      >\n        <Text as=\"span\" size=\"sm\">\n          Version 1.0 is out — 109 components, zero dependencies.{' '}\n          <a href=\"/blog/v1\" style={{ color: 'inherit', fontWeight: 600 }}>\n            Read the announcement →\n          </a>\n        </Text>\n      </div>\n      <Navbar bordered container=\"lg\">\n        <NavbarBrand href=\"#\">VivekUI</NavbarBrand>\n        <NavbarToggle />\n        <NavbarLinks>\n          <NavbarLink active href=\"#\">\n            Product\n          </NavbarLink>\n          <NavbarLink href=\"#\">Pricing</NavbarLink>\n          <NavbarLink href=\"#\">Docs</NavbarLink>\n          <NavbarLink href=\"#\">Blog</NavbarLink>\n        </NavbarLinks>\n        <NavbarActions>\n          <Button size=\"sm\">Install</Button>\n        </NavbarActions>\n      </Navbar>\n    </>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Navbar",
+      "NavbarActions",
+      "NavbarBrand",
+      "NavbarLink",
+      "NavbarLinks",
+      "NavbarToggle",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 47
+  },
+  "header-centered-links": {
+    "source": "import {\n  Button,\n  Navbar,\n  NavbarActions,\n  NavbarBrand,\n  NavbarLink,\n  NavbarLinks,\n  NavbarToggle,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function HeaderCenteredLinks() {\n  return (\n    <Navbar bordered container=\"lg\" layout=\"center\">\n      <NavbarBrand href=\"#\">Halcyon</NavbarBrand>\n      <NavbarToggle />\n      <NavbarLinks>\n        <NavbarLink active href=\"#\">\n          Product\n        </NavbarLink>\n        <NavbarLink href=\"#\">Pricing</NavbarLink>\n        <NavbarLink href=\"#\">Docs</NavbarLink>\n        <NavbarLink href=\"#\">Blog</NavbarLink>\n      </NavbarLinks>\n      <NavbarActions>\n        <Button size=\"sm\">Book a demo</Button>\n      </NavbarActions>\n    </Navbar>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Navbar",
+      "NavbarActions",
+      "NavbarBrand",
+      "NavbarLink",
+      "NavbarLinks",
+      "NavbarToggle"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 29
+  },
+  "header-floating": {
+    "source": "import {\n  Button,\n  Navbar,\n  NavbarActions,\n  NavbarBrand,\n  NavbarLink,\n  NavbarLinks,\n  NavbarToggle,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function HeaderFloating() {\n  return (\n    <div style={{ background: 'var(--vk-color-surface)', paddingBlockEnd: '1rem' }}>\n      <Navbar variant=\"floating\" layout=\"center\" container=\"lg\" sticky>\n        <NavbarBrand href=\"#\">Overtone</NavbarBrand>\n        <NavbarToggle />\n        <NavbarLinks>\n          <NavbarLink active href=\"#\">\n            Product\n          </NavbarLink>\n          <NavbarLink href=\"#\">Pricing</NavbarLink>\n          <NavbarLink href=\"#\">Docs</NavbarLink>\n          <NavbarLink href=\"#\">Blog</NavbarLink>\n        </NavbarLinks>\n        <NavbarActions>\n          <Button size=\"sm\">Start free</Button>\n        </NavbarActions>\n      </Navbar>\n    </div>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Navbar",
+      "NavbarActions",
+      "NavbarBrand",
+      "NavbarLink",
+      "NavbarLinks",
+      "NavbarToggle"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 31
+  },
+  "header-large-brand": {
+    "source": "import {\n  Button,\n  Navbar,\n  NavbarActions,\n  NavbarBrand,\n  NavbarLink,\n  NavbarLinks,\n  NavbarToggle,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function HeaderLargeBrand() {\n  return (\n    <Navbar bordered container=\"lg\" size=\"lg\" layout=\"end\">\n      <NavbarBrand href=\"#\">\n        <svg aria-hidden=\"true\" height=\"28\" viewBox=\"0 0 28 28\" width=\"28\">\n          <rect fill=\"var(--vk-color-primary)\" height=\"28\" rx=\"8\" width=\"28\" />\n          <path d=\"M8 18l6-10 6 10\" fill=\"none\" stroke=\"#fff\" strokeWidth=\"2.5\" />\n        </svg>\n        <span>Atelier &amp; Co.</span>\n      </NavbarBrand>\n      <NavbarToggle />\n      <NavbarLinks>\n        <NavbarLink active href=\"#\">\n          Product\n        </NavbarLink>\n        <NavbarLink href=\"#\">Pricing</NavbarLink>\n        <NavbarLink href=\"#\">Docs</NavbarLink>\n        <NavbarLink href=\"#\">Blog</NavbarLink>\n      </NavbarLinks>\n      <NavbarActions>\n        <Button variant=\"outline\">Start a project</Button>\n      </NavbarActions>\n    </Navbar>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Navbar",
+      "NavbarActions",
+      "NavbarBrand",
+      "NavbarLink",
+      "NavbarLinks",
+      "NavbarToggle"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 35
+  },
+  "header-links-end": {
+    "source": "import {\n  Button,\n  Navbar,\n  NavbarActions,\n  NavbarBrand,\n  NavbarLink,\n  NavbarLinks,\n  NavbarToggle,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function HeaderLinksEnd() {\n  return (\n    <Navbar bordered container=\"xl\" layout=\"end\">\n      <NavbarBrand href=\"#\">Fieldwork</NavbarBrand>\n      <NavbarToggle />\n      <NavbarLinks>\n        <NavbarLink active href=\"#\">\n          Product\n        </NavbarLink>\n        <NavbarLink href=\"#\">Pricing</NavbarLink>\n        <NavbarLink href=\"#\">Docs</NavbarLink>\n        <NavbarLink href=\"#\">Blog</NavbarLink>\n      </NavbarLinks>\n      <NavbarActions>\n        <Button size=\"sm\" variant=\"outline\">\n          Log in\n        </Button>\n      </NavbarActions>\n    </Navbar>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Navbar",
+      "NavbarActions",
+      "NavbarBrand",
+      "NavbarLink",
+      "NavbarLinks",
+      "NavbarToggle"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 31
+  },
+  "header-simple": {
+    "source": "import {\n  Button,\n  Navbar,\n  NavbarActions,\n  NavbarBrand,\n  NavbarLink,\n  NavbarLinks,\n  NavbarToggle,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function HeaderSimple() {\n  return (\n    <Navbar bordered container=\"lg\">\n      <NavbarBrand href=\"#\">Northwind</NavbarBrand>\n      <NavbarToggle />\n      <NavbarLinks>\n        <NavbarLink active href=\"#\">\n          Product\n        </NavbarLink>\n        <NavbarLink href=\"#\">Pricing</NavbarLink>\n        <NavbarLink href=\"#\">Docs</NavbarLink>\n        <NavbarLink href=\"#\">Blog</NavbarLink>\n      </NavbarLinks>\n      <NavbarActions>\n        <Button size=\"sm\" variant=\"ghost\">\n          Sign in\n        </Button>\n        <Button size=\"sm\">Get started</Button>\n      </NavbarActions>\n    </Navbar>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Navbar",
+      "NavbarActions",
+      "NavbarBrand",
+      "NavbarLink",
+      "NavbarLinks",
+      "NavbarToggle"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 32
+  },
+  "header-transparent": {
+    "source": "import {\n  Button,\n  Hero,\n  Navbar,\n  NavbarActions,\n  NavbarBrand,\n  NavbarLink,\n  NavbarLinks,\n  NavbarToggle,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function HeaderTransparent() {\n  return (\n    <div style={{ position: 'relative', isolation: 'isolate' }}>\n      <div style={{ position: 'absolute', insetInline: 0, insetBlockStart: 0, zIndex: 1 }}>\n        <Navbar variant=\"transparent\" container=\"lg\" style={{ color: '#fff' }}>\n          <NavbarBrand href=\"#\" style={{ color: 'inherit' }}>\n            Summit\n          </NavbarBrand>\n          <NavbarToggle />\n          <NavbarLinks>\n            <NavbarLink active href=\"#\">\n              Product\n            </NavbarLink>\n            <NavbarLink href=\"#\">Pricing</NavbarLink>\n            <NavbarLink href=\"#\">Docs</NavbarLink>\n            <NavbarLink href=\"#\">Blog</NavbarLink>\n          </NavbarLinks>\n          <NavbarActions>\n            <Button size=\"sm\" variant=\"outline\">\n              Shop\n            </Button>\n          </NavbarActions>\n        </Navbar>\n      </div>\n      <Hero\n        overlay=\"dark\"\n        minHeight=\"half\"\n        backdrop={<img src=\"https://picsum.photos/seed/vk-ridge/1800/1000\" alt=\"\" />}\n        title=\"Built for the days the forecast was wrong\"\n        description=\"Shells, mid-layers and packs tested where the weather does not read the brochure.\"\n        actions={<Button size=\"lg\">Explore the range</Button>}\n      />\n    </div>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Hero",
+      "Navbar",
+      "NavbarActions",
+      "NavbarBrand",
+      "NavbarLink",
+      "NavbarLinks",
+      "NavbarToggle"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 46
+  },
+  "header-with-avatar": {
+    "source": "import {\n  Avatar,\n  Button,\n  DropdownMenu,\n  Navbar,\n  NavbarActions,\n  NavbarBrand,\n  NavbarLink,\n  NavbarLinks,\n  NavbarToggle,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function HeaderWithAvatar() {\n  return (\n    <Navbar bordered container=\"full\" size=\"sm\">\n      <NavbarBrand href=\"#\">Ledger</NavbarBrand>\n      <NavbarToggle />\n      <NavbarLinks>\n        <NavbarLink active href=\"#\">\n          Overview\n        </NavbarLink>\n        <NavbarLink href=\"#\">Invoices</NavbarLink>\n        <NavbarLink href=\"#\">Customers</NavbarLink>\n        <NavbarLink href=\"#\">Reports</NavbarLink>\n      </NavbarLinks>\n      <NavbarActions>\n        <Button size=\"sm\" variant=\"ghost\">\n          Feedback\n        </Button>\n        <DropdownMenu align=\"end\">\n          <DropdownMenu.Trigger aria-label=\"Account menu\" style={{ borderRadius: '50%' }}>\n            <Avatar name=\"Priya Raman\" size=\"sm\" />\n          </DropdownMenu.Trigger>\n          <DropdownMenu.Content>\n            <DropdownMenu.Item>Profile</DropdownMenu.Item>\n            <DropdownMenu.Item>Billing</DropdownMenu.Item>\n            <DropdownMenu.Separator />\n            <DropdownMenu.Item>Sign out</DropdownMenu.Item>\n          </DropdownMenu.Content>\n        </DropdownMenu>\n      </NavbarActions>\n    </Navbar>\n  )\n}\n",
+    "uses": [
+      "Avatar",
+      "Button",
+      "DropdownMenu",
+      "Navbar",
+      "NavbarActions",
+      "NavbarBrand",
+      "NavbarLink",
+      "NavbarLinks",
+      "NavbarToggle"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 44
+  },
+  "header-with-search": {
+    "source": "import {\n  Button,\n  Input,\n  Kbd,\n  Navbar,\n  NavbarActions,\n  NavbarBrand,\n  NavbarLink,\n  NavbarLinks,\n  NavbarToggle,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function HeaderWithSearch() {\n  return (\n    <Navbar bordered container=\"xl\">\n      <NavbarBrand href=\"#\">Docs</NavbarBrand>\n      <NavbarToggle />\n      <NavbarLinks>\n        <NavbarLink active href=\"#\">\n          Guides\n        </NavbarLink>\n        <NavbarLink href=\"#\">API</NavbarLink>\n        <NavbarLink href=\"#\">Examples</NavbarLink>\n      </NavbarLinks>\n      <NavbarActions>\n        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>\n          <Input aria-label=\"Search the docs\" placeholder=\"Search…\" size=\"sm\" type=\"search\" />\n          <Kbd style={{ position: 'absolute', insetInlineEnd: '0.5rem' }}>⌘K</Kbd>\n        </div>\n        <Button size=\"sm\" variant=\"ghost\">\n          GitHub\n        </Button>\n      </NavbarActions>\n    </Navbar>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Input",
+      "Kbd",
+      "Navbar",
+      "NavbarActions",
+      "NavbarBrand",
+      "NavbarLink",
+      "NavbarLinks",
+      "NavbarToggle"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 36
+  },
+  "header-with-theme-toggle": {
+    "source": "import {\n  Button,\n  Navbar,\n  NavbarActions,\n  NavbarBrand,\n  NavbarLink,\n  NavbarLinks,\n  NavbarToggle,\n  ThemeProvider,\n  ThemeToggle,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function HeaderWithThemeToggle() {\n  return (\n    <ThemeProvider>\n      <Navbar bordered container=\"lg\">\n        <NavbarBrand href=\"#\">Palisade</NavbarBrand>\n        <NavbarToggle />\n        <NavbarLinks>\n          <NavbarLink active href=\"#\">\n            Product\n          </NavbarLink>\n          <NavbarLink href=\"#\">Pricing</NavbarLink>\n          <NavbarLink href=\"#\">Docs</NavbarLink>\n          <NavbarLink href=\"#\">Blog</NavbarLink>\n        </NavbarLinks>\n        <NavbarActions>\n          <ThemeToggle size=\"sm\" />\n          <Button size=\"sm\">Sign up</Button>\n        </NavbarActions>\n      </Navbar>\n    </ThemeProvider>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Navbar",
+      "NavbarActions",
+      "NavbarBrand",
+      "NavbarLink",
+      "NavbarLinks",
+      "NavbarToggle",
+      "ThemeProvider",
+      "ThemeToggle"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 34
+  },
+  "hero-app-store": {
+    "source": "import { Button, Hero, Image, Stack, Text } from '@the_viveksingh/vivek-ui'\n\nexport default function HeroAppStore() {\n  return (\n    <Hero\n      layout=\"split\"\n      eyebrow=\"Personal finance\"\n      title=\"Know where every rupee went\"\n      description=\"Connect your bank once. We sort every transaction, flag the subscriptions you forgot, and tell you what is left to spend.\"\n      actions={\n        <Stack gap={2}>\n          <Stack direction=\"horizontal\" gap={3} wrap>\n            <Button size=\"lg\" variant=\"outline\">\n              Download on the App Store\n            </Button>\n            <Button size=\"lg\" variant=\"outline\">\n              Get it on Google Play\n            </Button>\n          </Stack>\n          <Text size=\"sm\" tone=\"muted\">\n            Free for one account. 4.8 ★ from 21,000 reviews.\n          </Text>\n        </Stack>\n      }\n      media={\n        <Image\n          src=\"https://picsum.photos/seed/vk-phone/900/1200\"\n          alt=\"The app's home screen on a phone\"\n          ratio={3 / 4}\n          rounded=\"lg\"\n          fit=\"cover\"\n        />\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Hero",
+      "Image",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 36
+  },
+  "hero-backdrop-gradient": {
+    "source": "import { Button, Hero } from '@the_viveksingh/vivek-ui'\n\nexport default function HeroBackdropGradient() {\n  return (\n    <Hero\n      overlay=\"gradient\"\n      minHeight=\"half\"\n      backdrop={<img src=\"https://picsum.photos/seed/vk-summit/1800/1000\" alt=\"\" />}\n      eyebrow=\"Season 2026\"\n      title=\"Higher, lighter, further\"\n      description=\"The pack that disappears on your back and reappears in the photos.\"\n      actions={\n        <>\n          <Button size=\"lg\">Shop the range</Button>\n          <Button size=\"lg\" variant=\"outline\">\n            Find a stockist\n          </Button>\n        </>\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Hero"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 22
+  },
+  "hero-centered": {
+    "source": "import { Badge, Button, Hero } from '@the_viveksingh/vivek-ui'\n\nexport default function HeroCentered() {\n  return (\n    <Hero\n      eyebrow={<Badge variant=\"soft\">Now in public beta</Badge>}\n      title=\"Ship the interface, not the infrastructure\"\n      description=\"One hundred and nine components with no runtime dependencies, no CSS-in-JS and no build plugin. Install one package and import a stylesheet.\"\n      actions={\n        <>\n          <Button size=\"lg\">Start building</Button>\n          <Button size=\"lg\" variant=\"outline\">\n            Read the docs\n          </Button>\n        </>\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Badge",
+      "Button",
+      "Hero"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 19
+  },
+  "hero-fullscreen-dark": {
+    "source": "import { Badge, Button, Hero } from '@the_viveksingh/vivek-ui'\n\nexport default function HeroFullscreenDark() {\n  return (\n    <Hero\n      minHeight=\"screen\"\n      overlay=\"dark\"\n      backdrop={\n        <div\n          style={{\n            blockSize: '100%',\n            background: 'radial-gradient(circle at 30% 20%, #3b82f6 0%, #0f172a 55%, #020617 100%)',\n          }}\n        />\n      }\n      eyebrow={<Badge variant=\"outline\">Launching 12 September</Badge>}\n      title=\"The last deploy button you will ever click\"\n      description=\"Push to main. We build, test, preview and ship — and roll back on our own if the error rate moves.\"\n      actions={\n        <>\n          <Button size=\"lg\">Join the waitlist</Button>\n          <Button size=\"lg\" variant=\"ghost\">\n            How it works\n          </Button>\n        </>\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Badge",
+      "Button",
+      "Hero"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 29
+  },
+  "hero-media-first": {
+    "source": "import { Button, Hero, Image } from '@the_viveksingh/vivek-ui'\n\nexport default function HeroMediaFirst() {\n  return (\n    <Hero\n      layout=\"split\"\n      mediaPosition=\"start\"\n      eyebrow=\"Hardware\"\n      title=\"A keyboard you can hear yourself think on\"\n      description=\"Low-profile switches, a case machined from one block, and a battery measured in months.\"\n      actions={<Button size=\"lg\">Pre-order — ₹14,900</Button>}\n      media={\n        <Image\n          src=\"https://picsum.photos/seed/vk-keys/1200/900\"\n          alt=\"The keyboard photographed from above\"\n          ratio={4 / 3}\n          rounded=\"lg\"\n        />\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Hero",
+      "Image"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 22
+  },
+  "hero-newsletter": {
+    "source": "import { Button, Hero, Input, Stack, Text } from '@the_viveksingh/vivek-ui'\n\nexport default function HeroNewsletter() {\n  return (\n    <Hero\n      eyebrow=\"Weekly, on Thursdays\"\n      title=\"The five things that mattered in frontend this week\"\n      description=\"No sponsors, no roundup of roundups. Read by 40,000 engineers who would rather not scroll.\"\n      actions={\n        <Stack gap={2} style={{ inlineSize: '100%', maxInlineSize: '28rem' }}>\n          <form\n            onSubmit={(event) => event.preventDefault()}\n            style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}\n          >\n            <Input\n              aria-label=\"Email address\"\n              type=\"email\"\n              placeholder=\"you@company.com\"\n              required\n              size=\"lg\"\n              style={{ flex: '1 1 14rem' }}\n            />\n            <Button size=\"lg\" type=\"submit\">\n              Subscribe\n            </Button>\n          </form>\n          <Text size=\"sm\" tone=\"muted\">\n            One email a week. Unsubscribe in one click.\n          </Text>\n        </Stack>\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Hero",
+      "Input",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 34
+  },
+  "hero-product-launch": {
+    "source": "import { Badge, Button, Container, Hero, Image, Stack } from '@the_viveksingh/vivek-ui'\n\nexport default function HeroProductLaunch() {\n  return (\n    <>\n      <Hero\n        padding=\"lg\"\n        eyebrow={\n          <Badge pill tone=\"success\" variant=\"soft\">\n            New · Version 4 is here\n          </Badge>\n        }\n        title=\"Meet the editor that finishes your sentences\"\n        description=\"Inline suggestions, a command palette that knows your project, and a diff view you will actually read.\"\n        actions={\n          <>\n            <Button size=\"lg\">Download for macOS</Button>\n            <Button size=\"lg\" variant=\"link\">\n              Other platforms →\n            </Button>\n          </>\n        }\n      />\n      <Container size=\"lg\">\n        <Stack\n          style={{\n            padding: '1.5rem',\n            borderRadius: 'var(--vk-radius-lg)',\n            background: 'linear-gradient(135deg, #dbeafe, #ede9fe)',\n          }}\n        >\n          <Image\n            src=\"https://picsum.photos/seed/vk-editor/1600/900\"\n            alt=\"The editor showing an inline suggestion\"\n            ratio={16 / 9}\n            rounded=\"md\"\n          />\n        </Stack>\n      </Container>\n    </>\n  )\n}\n",
+    "uses": [
+      "Badge",
+      "Button",
+      "Container",
+      "Hero",
+      "Image",
+      "Stack"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 42
+  },
+  "hero-split-media": {
+    "source": "import { Badge, Button, Hero, Image } from '@the_viveksingh/vivek-ui'\n\nexport default function HeroSplitMedia() {\n  return (\n    <Hero\n      layout=\"split\"\n      eyebrow={<Badge tone=\"primary\">v1.0</Badge>}\n      title=\"Analytics your whole team can read\"\n      description=\"Dashboards that load in one request and explain themselves. No query language, no training day.\"\n      actions={\n        <>\n          <Button size=\"lg\">Try it free</Button>\n          <Button size=\"lg\" variant=\"ghost\">\n            Watch the demo\n          </Button>\n        </>\n      }\n      media={\n        <Image\n          src=\"https://picsum.photos/seed/vk-dash/1200/900\"\n          alt=\"The analytics dashboard showing weekly revenue\"\n          ratio={4 / 3}\n          rounded=\"lg\"\n        />\n      }\n    />\n  )\n}\n",
+    "uses": [
+      "Badge",
+      "Button",
+      "Hero",
+      "Image"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 28
+  },
+  "hero-with-logos": {
+    "source": "import { Button, Hero, LogoCloud } from '@the_viveksingh/vivek-ui'\n\nexport default function HeroWithLogos() {\n  return (\n    <>\n      <Hero\n        padding=\"lg\"\n        eyebrow=\"Payments\"\n        title=\"Accept payments in every country you sell to\"\n        description=\"One integration, 135 currencies, payouts in yours. Pricing that does not need a call.\"\n        actions={\n          <>\n            <Button size=\"lg\">Create an account</Button>\n            <Button size=\"lg\" variant=\"outline\">\n              Talk to sales\n            </Button>\n          </>\n        }\n      />\n      <LogoCloud\n        padding=\"sm\"\n        title=\"Trusted by finance teams at\"\n        logos={[\n          { alt: 'Meridian' },\n          { alt: 'Halcyon' },\n          { alt: 'Fieldwork' },\n          { alt: 'Northgate' },\n          { alt: 'Overtone' },\n          { alt: 'Palisade' },\n        ]}\n      />\n    </>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Hero",
+      "LogoCloud"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 34
+  },
+  "hero-with-stats": {
+    "source": "import { Button, Hero, Stats } from '@the_viveksingh/vivek-ui'\n\nexport default function HeroWithStats() {\n  return (\n    <>\n      <Hero\n        align=\"start\"\n        padding=\"lg\"\n        eyebrow=\"Logistics\"\n        title=\"Deliveries that arrive when the app said they would\"\n        description=\"Route planning, live tracking and proof of delivery in one tool your drivers will actually open.\"\n        actions={\n          <>\n            <Button size=\"lg\">Book a demo</Button>\n            <Button size=\"lg\" variant=\"ghost\">\n              See pricing\n            </Button>\n          </>\n        }\n      />\n      <Stats\n        padding=\"sm\"\n        items={[\n          { id: 'ontime', value: '98.4%', label: 'On-time deliveries' },\n          { id: 'drivers', value: '12,000', label: 'Drivers on the road' },\n          { id: 'cities', value: '140', label: 'Cities', description: 'Across 11 countries' },\n        ]}\n      />\n    </>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Hero",
+      "Stats"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 31
+  },
+  "pricing-comparison-table": {
+    "source": "import { Container, Section, Table } from '@the_viveksingh/vivek-ui'\n\nconst PLANS = ['starter', 'pro', 'scale'] as const\nconst ROWS = [\n  { feature: 'Projects', starter: '1', pro: 'Unlimited', scale: 'Unlimited' },\n  { feature: 'Events per day', starter: '1,000', pro: '1,000,000', scale: '10,000,000' },\n  { feature: 'Data retention', starter: '7 days', pro: '90 days', scale: '400 days' },\n  { feature: 'Custom domains', starter: '—', pro: '✓', scale: '✓' },\n  { feature: 'SAML SSO', starter: '—', pro: '—', scale: '✓' },\n  { feature: 'Support', starter: 'Community', pro: 'Email', scale: 'Priority, 1-hour' },\n]\n\nexport default function PricingComparisonTable() {\n  return (\n    <Section>\n      <Container size=\"lg\">\n        <Section.Header eyebrow=\"Compare\" title=\"What each plan includes\" align=\"center\" />\n        <Table stickyHeader striped scrollLabel=\"Plan comparison\">\n          <Table.Caption>Features by plan</Table.Caption>\n          <Table.Head>\n            <Table.Row>\n              <Table.HeaderCell scope=\"col\">Feature</Table.HeaderCell>\n              <Table.HeaderCell scope=\"col\">Starter</Table.HeaderCell>\n              <Table.HeaderCell scope=\"col\">Pro</Table.HeaderCell>\n              <Table.HeaderCell scope=\"col\">Scale</Table.HeaderCell>\n            </Table.Row>\n          </Table.Head>\n          <Table.Body>\n            {ROWS.map((row) => (\n              <Table.Row key={row.feature}>\n                <Table.HeaderCell scope=\"row\">{row.feature}</Table.HeaderCell>\n                {PLANS.map((plan) => (\n                  <Table.Cell key={plan}>{row[plan]}</Table.Cell>\n                ))}\n              </Table.Row>\n            ))}\n          </Table.Body>\n        </Table>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Container",
+      "Section",
+      "Table"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 42
+  },
+  "pricing-single": {
+    "source": "import {\n  Badge,\n  Button,\n  Card,\n  Container,\n  Heading,\n  Section,\n  Stack,\n  Text,\n} from '@the_viveksingh/vivek-ui'\n\nexport default function PricingSingle() {\n  return (\n    <Section background=\"muted\">\n      <Container size=\"sm\">\n        <Card padding=\"lg\" variant=\"elevated\">\n          <Stack align=\"center\" gap={4} style={{ textAlign: 'center' }}>\n            <Badge pill variant=\"soft\">\n              One plan\n            </Badge>\n            <Heading level={2} size=\"lg\">\n              Everything, for everyone\n            </Heading>\n            <Stack direction=\"horizontal\" align=\"baseline\" gap={1} justify=\"center\">\n              <Heading level={3} size=\"hero\">\n                $19\n              </Heading>\n              <Text tone=\"muted\">/month</Text>\n            </Stack>\n            <Text tone=\"muted\">\n              Unlimited projects, unlimited collaborators, every feature we ship. No tiers, no\n              surprise upgrade prompts.\n            </Text>\n            <Button size=\"lg\" fullWidth>\n              Start a 14-day trial\n            </Button>\n            <Text size=\"sm\" tone=\"muted\">\n              No card needed. Cancel in one click.\n            </Text>\n          </Stack>\n        </Card>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Badge",
+      "Button",
+      "Card",
+      "Container",
+      "Heading",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 45
+  },
+  "pricing-three": {
+    "source": "import { Button, Pricing } from '@the_viveksingh/vivek-ui'\n\nconst PLANS = [\n  {\n    id: 'starter',\n    name: 'Starter',\n    price: '$0',\n    period: '/month',\n    description: 'For side projects and trying it out.',\n    features: ['1 project', '1,000 events a day', 'Community support'],\n    cta: (\n      <Button fullWidth variant=\"outline\">\n        Start free\n      </Button>\n    ),\n  },\n  {\n    id: 'pro',\n    name: 'Pro',\n    price: '$29',\n    period: '/month',\n    description: 'For teams shipping to real users.',\n    features: ['Unlimited projects', '1M events a day', 'Email support', 'Custom domains'],\n    cta: <Button fullWidth>Start a trial</Button>,\n    highlighted: true,\n    badge: 'Most popular',\n  },\n  {\n    id: 'scale',\n    name: 'Scale',\n    price: '$99',\n    period: '/month',\n    description: 'For products with a team behind them.',\n    features: ['Everything in Pro', '10M events a day', 'SAML SSO', 'Priority support'],\n    cta: (\n      <Button fullWidth variant=\"outline\">\n        Talk to sales\n      </Button>\n    ),\n  },\n]\n\nexport default function PricingThree() {\n  return (\n    <Pricing\n      eyebrow=\"Pricing\"\n      title=\"Simple, per month, cancel any time\"\n      description=\"Every plan includes every feature. The tiers are about volume, not access.\"\n      plans={PLANS}\n    />\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Pricing"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 52
+  },
+  "pricing-two": {
+    "source": "import { Button, Container, Pricing, Text } from '@the_viveksingh/vivek-ui'\n\nconst PLANS = [\n  {\n    id: 'free',\n    name: 'Personal',\n    price: '$0',\n    period: 'forever',\n    description: 'For one person and one device.',\n    features: ['Unlimited notes', 'Sync on one device', 'Export to Markdown'],\n    cta: (\n      <Button fullWidth variant=\"outline\">\n        Download\n      </Button>\n    ),\n  },\n  {\n    id: 'plus',\n    name: 'Plus',\n    price: '$6',\n    period: '/month',\n    description: 'For every device you own.',\n    features: ['Everything in Personal', 'Sync everywhere', 'Version history', 'Shared notebooks'],\n    cta: <Button fullWidth>Upgrade</Button>,\n    highlighted: true,\n  },\n]\n\nexport default function PricingTwo() {\n  return (\n    <>\n      <Pricing title=\"Two plans, no tiers to decode\" plans={PLANS} columns={{ base: 1, sm: 2 }} />\n      <Container size=\"md\" style={{ paddingBlockEnd: '2rem', textAlign: 'center' }}>\n        <Text size=\"sm\" tone=\"muted\">\n          Students and teachers get Plus free. Prices exclude VAT where it applies.\n        </Text>\n      </Container>\n    </>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Container",
+      "Pricing",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 40
+  },
+  "pricing-with-faq": {
+    "source": "import { Button, FAQ, Pricing } from '@the_viveksingh/vivek-ui'\n\nconst PLANS = [\n  {\n    id: 'starter',\n    name: 'Starter',\n    price: '$0',\n    period: '/month',\n    description: 'For side projects and trying it out.',\n    features: ['1 project', '1,000 events a day', 'Community support'],\n    cta: (\n      <Button fullWidth variant=\"outline\">\n        Start free\n      </Button>\n    ),\n  },\n  {\n    id: 'pro',\n    name: 'Pro',\n    price: '$29',\n    period: '/month',\n    description: 'For teams shipping to real users.',\n    features: ['Unlimited projects', '1M events a day', 'Email support', 'Custom domains'],\n    cta: <Button fullWidth>Start a trial</Button>,\n    highlighted: true,\n    badge: 'Most popular',\n  },\n  {\n    id: 'scale',\n    name: 'Scale',\n    price: '$99',\n    period: '/month',\n    description: 'For products with a team behind them.',\n    features: ['Everything in Pro', '10M events a day', 'SAML SSO', 'Priority support'],\n    cta: (\n      <Button fullWidth variant=\"outline\">\n        Talk to sales\n      </Button>\n    ),\n  },\n]\n\nexport default function PricingWithFaq() {\n  return (\n    <>\n      <Pricing eyebrow=\"Pricing\" title=\"Plans for every stage\" plans={PLANS} />\n      <FAQ\n        padding=\"md\"\n        columns={2}\n        title=\"Billing questions\"\n        items={[\n          {\n            id: 'trial',\n            question: 'Is there a free trial?',\n            answer: 'Every paid plan starts with 14 days free. No card until you decide.',\n          },\n          {\n            id: 'change',\n            question: 'Can I change plans later?',\n            answer: 'Yes, at any time. Upgrades apply immediately; downgrades at the next renewal.',\n          },\n          {\n            id: 'invoice',\n            question: 'Do you invoice annually?',\n            answer: 'Yes. Annual plans are billed once and are 20% cheaper.',\n          },\n          {\n            id: 'cancel',\n            question: 'How do I cancel?',\n            answer:\n              'From Settings → Billing, in one click. Your data stays exportable for 90 days.',\n          },\n        ]}\n      />\n    </>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "FAQ",
+      "Pricing"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 77
+  },
+  "pricing-with-toggle": {
+    "source": "'use client'\n\nimport { Button, Container, Pricing, Stack, Switch, Text } from '@the_viveksingh/vivek-ui'\nimport { useState } from 'react'\n\nconst BASE = [\n  {\n    id: 'starter',\n    name: 'Starter',\n    monthly: 12,\n    description: 'For solo makers.',\n    features: ['1 seat', '5 GB storage', 'Email support'],\n  },\n  {\n    id: 'team',\n    name: 'Team',\n    monthly: 39,\n    description: 'For small teams.',\n    features: ['10 seats', '100 GB storage', 'Shared workspaces', 'Priority support'],\n    highlighted: true,\n    badge: 'Best value',\n  },\n  {\n    id: 'business',\n    name: 'Business',\n    monthly: 99,\n    description: 'For whole companies.',\n    features: ['Unlimited seats', '1 TB storage', 'SSO and audit log', 'Dedicated manager'],\n  },\n]\n\nexport default function PricingWithToggle() {\n  const [yearly, setYearly] = useState(false)\n  const plans = BASE.map((plan) => ({\n    ...plan,\n    price: `$${yearly ? Math.round(plan.monthly * 0.8) : plan.monthly}`,\n    period: yearly ? '/month, billed yearly' : '/month',\n    cta: (\n      <Button fullWidth variant={plan.highlighted ? 'solid' : 'outline'}>\n        Choose {plan.name}\n      </Button>\n    ),\n  }))\n\n  return (\n    <>\n      <Container size=\"md\" style={{ paddingBlockStart: '3rem' }}>\n        <Stack align=\"center\" gap={2}>\n          <Switch\n            label={yearly ? 'Billed yearly — saving 20%' : 'Bill yearly and save 20%'}\n            checked={yearly}\n            onChange={(event) => setYearly(event.target.checked)}\n          />\n          <Text size=\"sm\" tone=\"muted\">\n            Switch any time. Yearly plans are refundable for 30 days.\n          </Text>\n        </Stack>\n      </Container>\n      <Pricing padding=\"md\" title=\"Pick a plan\" plans={plans} />\n    </>\n  )\n}\n",
+    "uses": [
+      "Button",
+      "Container",
+      "Pricing",
+      "Stack",
+      "Switch",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": true,
+    "lines": 62
+  },
+  "stats-band": {
+    "source": "import { Stats } from '@the_viveksingh/vivek-ui'\n\nexport default function StatsBand() {\n  return (\n    <Stats\n      background=\"muted\"\n      items={[\n        { id: 'uptime', value: '99.99%', label: 'Uptime', description: 'Last 12 months' },\n        { id: 'requests', value: '4.2B', label: 'Requests a month' },\n        { id: 'regions', value: '35', label: 'Edge regions' },\n        { id: 'p99', value: '38 ms', label: 'p99 latency' },\n      ]}\n    />\n  )\n}\n",
+    "uses": [
+      "Stats"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 15
+  },
+  "stats-in-cards": {
+    "source": "import { Card, Container, Grid, Heading, Section, Stack, Text } from '@the_viveksingh/vivek-ui'\n\nconst KPIS = [\n  { id: 'mrr', label: 'Monthly revenue', value: '₹42.8L', trend: '+12% vs last month' },\n  { id: 'customers', label: 'Customers', value: '1,284', trend: '+86 this month' },\n  { id: 'churn', label: 'Churn', value: '1.1%', trend: '−0.3 pts' },\n  { id: 'nps', label: 'NPS', value: '71', trend: 'Up from 64' },\n]\n\nexport default function StatsInCards() {\n  return (\n    <Section padding=\"md\">\n      <Container>\n        <Grid cols={{ base: 1, sm: 2, lg: 4 }} gap={4}>\n          {KPIS.map((kpi) => (\n            <Card key={kpi.id} padding=\"md\" variant=\"outline\">\n              <Stack gap={1}>\n                <Text size=\"sm\" tone=\"muted\">\n                  {kpi.label}\n                </Text>\n                <Heading level={3} size=\"lg\">\n                  {kpi.value}\n                </Heading>\n                <Text size=\"sm\" tone=\"muted\">\n                  {kpi.trend}\n                </Text>\n              </Stack>\n            </Card>\n          ))}\n        </Grid>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Card",
+      "Container",
+      "Grid",
+      "Heading",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 34
+  },
+  "stats-primary": {
+    "source": "import { Stats } from '@the_viveksingh/vivek-ui'\n\nexport default function StatsPrimary() {\n  return (\n    <Stats\n      background=\"primary\"\n      items={[\n        { id: 'teams', value: '2,000+', label: 'Teams' },\n        { id: 'countries', value: '61', label: 'Countries' },\n        {\n          id: 'saved',\n          value: '3 weeks',\n          label: 'Saved per project',\n          description: 'Median, self-reported',\n        },\n      ]}\n      columns={{ base: 1, sm: 3 }}\n    />\n  )\n}\n",
+    "uses": [
+      "Stats"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 20
+  },
+  "stats-with-title": {
+    "source": "import { Stats } from '@the_viveksingh/vivek-ui'\n\nexport default function StatsWithTitle() {\n  return (\n    <Stats\n      eyebrow=\"By the numbers\"\n      title=\"What a year of shipping looks like\"\n      description=\"Every figure is from the public status page and the changelog.\"\n      items={[\n        { id: 'releases', value: '52', label: 'Releases', description: 'One a week, on Tuesdays' },\n        { id: 'components', value: '109', label: 'Components' },\n        { id: 'downloads', value: '1.8M', label: 'Downloads' },\n      ]}\n      columns={{ base: 1, sm: 3 }}\n    />\n  )\n}\n",
+    "uses": [
+      "Stats"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 17
+  },
+  "testimonials-grid": {
+    "source": "import { Avatar, Testimonials } from '@the_viveksingh/vivek-ui'\n\nconst QUOTES = [\n  {\n    id: 'a',\n    quote: 'We removed four dependencies the week we switched. The audit noise just stopped.',\n    author: 'Priya Raman',\n    role: 'Staff engineer, Meridian',\n  },\n  {\n    id: 'b',\n    quote:\n      'The keyboard support is the part I did not expect. Our accessibility audit came back clean first time.',\n    author: 'Tom Okafor',\n    role: 'Frontend lead, Halcyon',\n  },\n  {\n    id: 'c',\n    quote: 'Theming is one CSS variable. I rebranded the whole admin panel on a Friday afternoon.',\n    author: 'Elena Vasquez',\n    role: 'Design engineer, Fieldwork',\n  },\n]\n\nexport default function TestimonialsGrid() {\n  return (\n    <Testimonials\n      eyebrow=\"What people say\"\n      title=\"Teams that stopped fighting their component library\"\n      items={QUOTES.map((q) => ({ ...q, avatar: <Avatar name={q.author} size=\"sm\" /> }))}\n    />\n  )\n}\n",
+    "uses": [
+      "Avatar",
+      "Testimonials"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 33
+  },
+  "testimonials-marquee": {
+    "source": "import { Card, Container, Marquee, Section, Stack, Text } from '@the_viveksingh/vivek-ui'\n\nconst QUOTES = [\n  {\n    id: 'a',\n    quote: 'We removed four dependencies the week we switched. The audit noise just stopped.',\n    author: 'Priya Raman',\n    role: 'Staff engineer, Meridian',\n  },\n  {\n    id: 'b',\n    quote:\n      'The keyboard support is the part I did not expect. Our accessibility audit came back clean first time.',\n    author: 'Tom Okafor',\n    role: 'Frontend lead, Halcyon',\n  },\n  {\n    id: 'c',\n    quote: 'Theming is one CSS variable. I rebranded the whole admin panel on a Friday afternoon.',\n    author: 'Elena Vasquez',\n    role: 'Design engineer, Fieldwork',\n  },\n]\n\nexport default function TestimonialsMarquee() {\n  return (\n    <Section>\n      <Container>\n        <Section.Header eyebrow=\"Loved by\" title=\"Two thousand teams and counting\" align=\"center\" />\n      </Container>\n      <Marquee gradient pauseOnHover gap={4}>\n        {[...QUOTES, ...QUOTES].map((q, i) => (\n          <Card\n            key={`${q.id}-${i < QUOTES.length ? 'a' : 'b'}`}\n            padding=\"md\"\n            style={{ inlineSize: '20rem' }}\n          >\n            <Stack gap={3}>\n              <Text size=\"sm\">“{q.quote}”</Text>\n              <Text size=\"sm\" tone=\"muted\">\n                {q.author} · {q.role}\n              </Text>\n            </Stack>\n          </Card>\n        ))}\n      </Marquee>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Card",
+      "Container",
+      "Marquee",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 49
+  },
+  "testimonials-single-quote": {
+    "source": "import { Avatar, Container, Heading, Section, Stack, Text } from '@the_viveksingh/vivek-ui'\n\nexport default function TestimonialsSingleQuote() {\n  return (\n    <Section background=\"muted\">\n      <Container size=\"md\">\n        <Stack align=\"center\" gap={6} style={{ textAlign: 'center' }}>\n          <Heading level={2} size=\"xl\" style={{ fontWeight: 500 }}>\n            “We shipped the redesign in six weeks instead of the quarter we had budgeted. The\n            library did the part of the work nobody enjoys.”\n          </Heading>\n          <Stack align=\"center\" gap={2}>\n            <Avatar name=\"Aditi Menon\" size=\"lg\" />\n            <Text weight=\"medium\">Aditi Menon</Text>\n            <Text size=\"sm\" tone=\"muted\">\n              VP Engineering, Northgate\n            </Text>\n          </Stack>\n        </Stack>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Avatar",
+      "Container",
+      "Heading",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 23
+  },
+  "testimonials-two-column": {
+    "source": "import { Card, Container, Grid, Section, Stack, Text } from '@the_viveksingh/vivek-ui'\n\nconst QUOTES = [\n  {\n    id: 'a',\n    quote: 'We removed four dependencies the week we switched. The audit noise just stopped.',\n    author: 'Priya Raman',\n    role: 'Staff engineer, Meridian',\n  },\n  {\n    id: 'b',\n    quote:\n      'The keyboard support is the part I did not expect. Our accessibility audit came back clean first time.',\n    author: 'Tom Okafor',\n    role: 'Frontend lead, Halcyon',\n  },\n  {\n    id: 'c',\n    quote: 'Theming is one CSS variable. I rebranded the whole admin panel on a Friday afternoon.',\n    author: 'Elena Vasquez',\n    role: 'Design engineer, Fieldwork',\n  },\n]\n\nexport default function TestimonialsTwoColumn() {\n  return (\n    <Section>\n      <Container>\n        <Grid cols={{ base: 1, md: 3 }} gap={8}>\n          <Section.Header\n            eyebrow=\"Customers\"\n            title=\"Why teams stay\"\n            description=\"Retention is the honest metric. These are the reasons they give.\"\n            align=\"start\"\n          />\n          <div style={{ gridColumn: 'span 2 / span 2' }}>\n            <Stack gap={4}>\n              {QUOTES.map((q) => (\n                <Card key={q.id} padding=\"md\" variant=\"ghost\">\n                  <Stack gap={2}>\n                    <Text>“{q.quote}”</Text>\n                    <Text size=\"sm\" tone=\"muted\">\n                      — {q.author}, {q.role}\n                    </Text>\n                  </Stack>\n                </Card>\n              ))}\n            </Stack>\n          </div>\n        </Grid>\n      </Container>\n    </Section>\n  )\n}\n",
+    "uses": [
+      "Card",
+      "Container",
+      "Grid",
+      "Section",
+      "Stack",
+      "Text"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 54
+  },
+  "testimonials-with-logos": {
+    "source": "import { LogoCloud, Testimonials } from '@the_viveksingh/vivek-ui'\n\nconst QUOTES = [\n  {\n    id: 'a',\n    quote: 'We removed four dependencies the week we switched. The audit noise just stopped.',\n    author: 'Priya Raman',\n    role: 'Staff engineer, Meridian',\n  },\n  {\n    id: 'b',\n    quote:\n      'The keyboard support is the part I did not expect. Our accessibility audit came back clean first time.',\n    author: 'Tom Okafor',\n    role: 'Frontend lead, Halcyon',\n  },\n  {\n    id: 'c',\n    quote: 'Theming is one CSS variable. I rebranded the whole admin panel on a Friday afternoon.',\n    author: 'Elena Vasquez',\n    role: 'Design engineer, Fieldwork',\n  },\n]\n\nexport default function TestimonialsWithLogos() {\n  return (\n    <>\n      <Testimonials title=\"In their words\" items={QUOTES} padding=\"md\" />\n      <LogoCloud\n        padding=\"sm\"\n        logos={[\n          { alt: 'Meridian' },\n          { alt: 'Halcyon' },\n          { alt: 'Fieldwork' },\n          { alt: 'Northgate' },\n          { alt: 'Overtone' },\n        ]}\n      />\n    </>\n  )\n}\n",
+    "uses": [
+      "LogoCloud",
+      "Testimonials"
+    ],
+    "chartUses": [],
+    "isClient": false,
+    "lines": 41
+  }
+}

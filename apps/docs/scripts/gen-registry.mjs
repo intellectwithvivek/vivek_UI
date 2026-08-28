@@ -46,6 +46,7 @@ const CATEGORIES = {
     'input',
     'textarea',
     'select',
+    'listbox',
     'checkbox',
     'radio-group',
     'segmented',

@@ -154,6 +154,45 @@ export const FORM_EXAMPLES: ExampleSet = {
     },
   ],
 
+  listbox: [
+    {
+      title: 'Single select: selection follows focus',
+      description:
+        'The WAI-ARIA listbox pattern with roving focus. One option is in the tab order; arrows move between them and, like a native select, the focused option is the selected one. Home and End jump, typing a letter jumps to the next matching label. Disabled options stay listed and announced, and the keyboard skips them.',
+      name: 'single',
+      code: `<Listbox
+  label="Deploy region"
+  options={[
+    { value: 'ap-south-1', label: 'Mumbai', description: 'ap-south-1' },
+    { value: 'eu-west-1', label: 'Ireland', description: 'eu-west-1' },
+    { value: 'eu-central-1', label: 'Frankfurt', disabled: true },
+    { value: 'us-east-1', label: 'N. Virginia', description: 'us-east-1' },
+  ]}
+  value={region}
+  onValueChange={setRegion}
+/>`,
+    },
+    {
+      title: 'Multiple select',
+      description:
+        'Focus and selection are separate, so moving changes nothing. Space toggles the focused option, Shift+Arrow moves and toggles, Ctrl/⌘+A selects every enabled option, and Shift+click selects the range from the last click. onValueChange receives a string[]; with name, one hidden input per value is emitted so the list posts with a plain form.',
+      name: 'multiple',
+      code: `<Listbox
+  label="Alert channels"
+  multiple
+  name="channels"
+  options={[
+    { value: 'email', label: 'Email' },
+    { value: 'sms', label: 'SMS' },
+    { value: 'push', label: 'Push notification' },
+    { value: 'slack', label: 'Slack' },
+  ]}
+  defaultValue={['email', 'push']}
+  onValueChange={setChannels}
+/>`,
+    },
+  ],
+
   select: [
     {
       title: 'Sizes',

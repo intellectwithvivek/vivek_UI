@@ -81,6 +81,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   'relative-time': dynamic(() => import('../previews/relative-time')),
   'scroll-area': dynamic(() => import('../previews/scroll-area')),
   section: dynamic(() => import('../previews/section')),
+  listbox: dynamic(() => import('../previews/listbox')),
   select: dynamic(() => import('../previews/select')),
   sidebar: dynamic(() => import('../previews/sidebar')),
   skeleton: dynamic(() => import('../previews/skeleton')),

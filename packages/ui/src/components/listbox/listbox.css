@@ -1,0 +1,158 @@
+/*
+ * Listbox. An always-open list of options in a bordered box that reads as a form control:
+ * the same border, radius and focus ring as `.vk-input`, scrolling inside itself past
+ * `--vk-listbox-max-height`.
+ *
+ * Focus lives on an option, not the box, so the box's ring is driven by `:has()`. Selection
+ * and focus are painted separately - in multi-select mode they are different things and a
+ * user needs to see both at once.
+ */
+:where(.vk-listbox) {
+  --vk-listbox-max-height: 16rem;
+  --vk-listbox-accent: var(--vk-color-primary);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  box-sizing: border-box;
+  max-block-size: var(--vk-listbox-max-height);
+  margin: 0;
+  padding: var(--vk-space-1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-md);
+  line-height: 1.4;
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  transition:
+    border-color var(--vk-duration) var(--vk-ease),
+    box-shadow var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-listbox[data-size="sm"]) {
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-listbox[data-size="lg"]) {
+  font-size: var(--vk-text-lg);
+}
+
+:where(.vk-listbox:has(.vk-listbox__option:focus-visible)) {
+  border-color: var(--vk-color-ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-ring) 32%, transparent);
+}
+
+:where(.vk-listbox[data-invalid]) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-listbox[data-invalid]:has(.vk-listbox__option:focus-visible)) {
+  border-color: var(--vk-color-danger);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-danger) 25%, transparent);
+}
+
+:where(.vk-listbox[data-disabled]) {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+:where(.vk-listbox__option) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+  padding-block: var(--vk-space-2);
+  padding-inline: var(--vk-space-3);
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+:where(.vk-listbox__option:hover) {
+  background: color-mix(in oklab, var(--vk-listbox-accent) 8%, transparent);
+}
+
+/* The keyboard's option: visible whether or not a pointer is anywhere near it. */
+:where(.vk-listbox__option:focus-visible) {
+  background: color-mix(in oklab, var(--vk-listbox-accent) 14%, transparent);
+}
+
+:where(.vk-listbox__option[aria-selected="true"]) {
+  font-weight: 600;
+}
+
+:where(.vk-listbox:not([aria-multiselectable]) .vk-listbox__option[aria-selected="true"]) {
+  color: var(--vk-color-primary-fg);
+  background: var(--vk-listbox-accent);
+}
+
+:where(.vk-listbox:not([aria-multiselectable]) .vk-listbox__option[aria-selected="true"])
+  :where(.vk-listbox__description) {
+  color: inherit;
+  opacity: 0.8;
+}
+
+:where(.vk-listbox__option[aria-disabled="true"]) {
+  color: var(--vk-color-muted);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+:where(.vk-listbox[data-disabled] .vk-listbox__option) {
+  cursor: not-allowed;
+}
+
+:where(.vk-listbox__text) {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+:where(.vk-listbox__label) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.vk-listbox__description) {
+  font-size: var(--vk-text-sm);
+  font-weight: 400;
+  color: var(--vk-color-muted);
+}
+
+/* Multi-select: a checkbox-shaped mark, so the affordance says "toggle" not "pick one". */
+:where(.vk-listbox__check) {
+  position: relative;
+  flex: none;
+  inline-size: 1em;
+  block-size: 1em;
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+}
+
+:where(.vk-listbox__check[data-checked]) {
+  background: var(--vk-listbox-accent);
+  border-color: var(--vk-listbox-accent);
+}
+
+:where(.vk-listbox__check[data-checked])::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 46%;
+  inline-size: 0.28em;
+  block-size: 0.5em;
+  border-inline-end: 2px solid var(--vk-color-primary-fg);
+  border-block-end: 2px solid var(--vk-color-primary-fg);
+  transform: translate(-50%, -55%) rotate(45deg);
+}
+
+:where(.vk-listbox__empty) {
+  padding: var(--vk-space-3);
+  color: var(--vk-color-muted);
+  font-size: var(--vk-text-sm);
+  text-align: center;
+}

@@ -232,6 +232,13 @@ export {
 } from './components/kanban-board'
 export { Kbd, type KbdProps } from './components/kbd'
 export { Label, type LabelProps } from './components/label'
+export {
+  Listbox,
+  type ListboxMultipleProps,
+  type ListboxOption,
+  type ListboxProps,
+  type ListboxSingleProps,
+} from './components/listbox'
 export { type Logo, LogoCloud, type LogoCloudProps } from './components/logo-cloud'
 export { MapEmbed, type MapEmbedProps, type MapProvider } from './components/map-embed'
 export { Marquee, type MarqueeDirection, type MarqueeProps } from './components/marquee'

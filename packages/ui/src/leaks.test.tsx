@@ -28,6 +28,7 @@ import { Countdown } from './components/countdown'
 import { DropdownMenu } from './components/dropdown-menu'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './components/hover-card'
 import { InfiniteScroll } from './components/infinite-scroll'
+import { Listbox } from './components/listbox'
 import { Marquee } from './components/marquee'
 import { NumberInput } from './components/number-input'
 import { RelativeTime } from './components/relative-time'
@@ -176,6 +177,23 @@ describe('every timer/observer component is quiet after unmount', () => {
     )
   })
 
+  it('Listbox, with a typeahead buffer pending', () => {
+    assertQuietAfterUnmount(
+      <Listbox
+        label="Fruit"
+        options={[
+          { value: 'a', label: 'Apple' },
+          { value: 'b', label: 'Banana' },
+        ]}
+      />,
+      (c) => {
+        const first = c.querySelector<HTMLElement>('[role="option"]')
+        first?.focus()
+        if (first) fireEvent.keyDown(first, { key: 'b' })
+      },
+    )
+  })
+
   it('DropdownMenu, open', () => {
     assertQuietAfterUnmount(
       <DropdownMenu defaultOpen>
@@ -275,6 +293,7 @@ describe('the sweep covers every component that touches timers or observers', ()
       'chat-code-block',
       'clock',
       'context-menu',
+      'listbox',
       'copy-button',
       'countdown',
       'dropdown-menu',

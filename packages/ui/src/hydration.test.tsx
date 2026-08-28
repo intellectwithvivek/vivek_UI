@@ -54,6 +54,7 @@ import { Image } from './components/image'
 import { InfiniteScroll } from './components/infinite-scroll'
 import { Input } from './components/input'
 import { KanbanBoard } from './components/kanban-board'
+import { Listbox } from './components/listbox'
 import { MapEmbed } from './components/map-embed'
 import { Modal } from './components/modal'
 import { Navbar } from './components/navbar'
@@ -147,6 +148,7 @@ const SWEEP: Record<string, () => ReactElement> = {
   chip: () => <Chip>tag</Chip>,
   clock: () => <Clock />,
   combobox: () => <Combobox aria-label="Fruit" options={[{ value: 'a', label: 'Apple' }]} />,
+  listbox: () => <Listbox label="Fruit" options={[{ value: 'a', label: 'Apple' }]} />,
   'command-palette': () => <CommandPalette items={[{ id: 'x', label: 'Open' }]} />,
   'context-menu': () => (
     <ContextMenu>

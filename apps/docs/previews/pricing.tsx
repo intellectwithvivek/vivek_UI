@@ -6,7 +6,7 @@ const PLANS = [
     name: 'Hobby',
     price: 'Free',
     description: 'For side projects and prototypes.',
-    features: ['All 100 components', 'All 10 charts', 'Design tokens', 'Community support'],
+    features: ['All 101 components', 'All 10 charts', 'Design tokens', 'Community support'],
     cta: <Button variant="outline">Start building</Button>,
   },
   {

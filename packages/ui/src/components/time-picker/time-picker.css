@@ -1,0 +1,101 @@
+/*
+ * TimePicker. Spinbutton segments in one bordered field, so it reads as a single control
+ * rather than a row of tiny inputs. The visual language is OTPInput's box - same tokens,
+ * same focus treatment - because the two are one family: a value entered one part at a time.
+ */
+
+:where(.vk-time-picker) {
+  --vk-time-picker-segment: 2.25rem;
+  --vk-time-picker-accent: var(--vk-color-primary);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: var(--vk-space-1);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  transition: border-color var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-time-picker[data-size="sm"]) {
+  --vk-time-picker-segment: 1.875rem;
+  font-size: var(--vk-text-xs);
+}
+
+:where(.vk-time-picker[data-size="lg"]) {
+  --vk-time-picker-segment: 2.75rem;
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-time-picker:focus-within) {
+  border-color: var(--vk-time-picker-accent);
+}
+
+:where(.vk-time-picker[data-invalid]) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-time-picker[data-disabled]) {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-bg));
+}
+
+:where(.vk-time-picker__segment-wrap) {
+  display: inline-flex;
+  align-items: center;
+}
+
+:where(.vk-time-picker__colon) {
+  padding-inline: 1px;
+  color: var(--vk-color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * The segment is an <input readOnly> driven entirely by keydown, so the caret never shows
+ * and the mobile keyboard stays numeric via inputmode. Width fits two digits or "AM".
+ */
+:where(.vk-time-picker__segment) {
+  inline-size: var(--vk-time-picker-segment);
+  block-size: calc(var(--vk-time-picker-segment) - var(--vk-space-1));
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: var(--vk-color-fg);
+  background: transparent;
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  caret-color: transparent;
+  cursor: default;
+}
+
+/* An unfilled segment reads as a hint, not a value. */
+:where(.vk-time-picker__segment:not([data-filled])) {
+  color: var(--vk-color-muted);
+}
+
+:where(.vk-time-picker__segment:focus-visible) {
+  outline: none;
+  background: color-mix(in oklab, var(--vk-time-picker-accent) 14%, transparent);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-time-picker__segment[data-segment="period"]) {
+  inline-size: calc(var(--vk-time-picker-segment) + var(--vk-space-1));
+  margin-inline-start: var(--vk-space-1);
+  font-size: 0.85em;
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-time-picker) {
+    transition: none;
+  }
+}

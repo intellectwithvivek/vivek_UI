@@ -396,6 +396,7 @@ export {
   type ThemeToggleMode,
   type ThemeToggleProps,
 } from './components/theme-toggle'
+export { TimePicker, type TimePickerProps } from './components/time-picker'
 export {
   Timeline,
   type TimelineAlign,

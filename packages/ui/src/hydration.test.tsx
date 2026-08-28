@@ -75,6 +75,7 @@ import { Tabs } from './components/tabs'
 import { TagInput } from './components/tag-input'
 import { ThemeProvider } from './components/theme-provider'
 import { ThemeToggle } from './components/theme-toggle'
+import { TimePicker } from './components/time-picker'
 import { ToastProvider } from './components/toast'
 import { Tooltip } from './components/tooltip'
 import { VirtualList } from './components/virtual-list'
@@ -275,6 +276,7 @@ const SWEEP: Record<string, () => ReactElement> = {
     </ThemeProvider>
   ),
   'theme-toggle': () => <ThemeToggle />,
+  'time-picker': () => <TimePicker aria-label="Start" defaultValue="09:30" />,
   toast: () => (
     <ToastProvider>
       <span>app</span>

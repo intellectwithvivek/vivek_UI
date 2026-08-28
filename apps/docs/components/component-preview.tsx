@@ -67,6 +67,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   modal: dynamic(() => import('../previews/modal')),
   navbar: dynamic(() => import('../previews/navbar')),
   'otp-input': dynamic(() => import('../previews/otp-input')),
+  'time-picker': dynamic(() => import('../previews/time-picker')),
   pagination: dynamic(() => import('../previews/pagination')),
   'password-input': dynamic(() => import('../previews/password-input')),
   popover: dynamic(() => import('../previews/popover')),

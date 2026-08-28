@@ -290,6 +290,32 @@ export const FORM_EXAMPLES: ExampleSet = {
     },
   ],
 
+  'time-picker': [
+    {
+      title: 'Office hours',
+      description:
+        'Hours and minutes as spinbutton segments. Typed digits accumulate and focus advances, arrows step and wrap, and a committed value is clamped into min/max rather than refused - refusing makes typing 9 impossible when the minimum is 09:30. A half-entered time is null, never a guess.',
+      name: 'default',
+      code: `const [start, setStart] = useState<string | null>('09:30')
+
+<Field label="Start" help="Office hours only">
+  <TimePicker name="start" min="09:00" max="17:30" value={start} onValueChange={setStart} />
+</Field>
+
+// The form receives start=09:30. The value is always 24-hour 'HH:mm'.`,
+    },
+    {
+      title: '12-hour display, 24-hour value',
+      description:
+        'hourCycle changes what is shown and how AM/PM is entered; onValueChange still receives 14:30. Chosen explicitly rather than from Intl, because a field that renders 24-hour on the server and 12-hour in the browser is a hydration mismatch.',
+      name: 'twelveHour',
+      code: `<TimePicker defaultValue="14:30" hourCycle={12} withSeconds name="kickoff" />
+
+// Displays 02 : 30 : 00 PM. Type A or P on the period segment to switch.
+// onValueChange -> '14:30:00'`,
+    },
+  ],
+
   'otp-input': [
     {
       title: 'A verification code',

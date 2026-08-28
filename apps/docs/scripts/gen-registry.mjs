@@ -53,6 +53,7 @@ const CATEGORIES = {
     'slider',
     'password-input',
     'otp-input',
+    'time-picker',
     'number-input',
     'rating',
     'tag-input',

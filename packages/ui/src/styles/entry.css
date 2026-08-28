@@ -112,6 +112,7 @@
 @import "../components/textarea/textarea.css";
 @import "../components/theme-provider/theme-provider.css";
 @import "../components/theme-toggle/theme-toggle.css";
+@import "../components/time-picker/time-picker.css";
 @import "../components/timeline/timeline.css";
 @import "../components/toast/toast.css";
 @import "../components/tooltip/tooltip.css";

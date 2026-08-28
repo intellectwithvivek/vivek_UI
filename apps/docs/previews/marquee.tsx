@@ -2,7 +2,7 @@ import { Marquee, Text } from '@the_viveksingh/vivek-ui'
 
 const ITEMS = [
   'Zero runtime dependencies',
-  '98 components',
+  '99 components',
   '10 charts',
   'MIT licensed',
   'Server-safe by default',

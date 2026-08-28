@@ -15591,6 +15591,121 @@
       "compound": false
     },
     {
+      "slug": "time-picker",
+      "title": "Time picker",
+      "kind": "component",
+      "category": "Forms",
+      "exports": [
+        "TimePicker"
+      ],
+      "typeExports": [
+        "TimePickerProps"
+      ],
+      "primary": "TimePicker",
+      "description": "A time field made of spinbutton segments — hours, minutes, optional seconds, optional AM/PM — rather than a free-text box or a scrolling list of every quarter hour.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "value",
+            "type": "string | null",
+            "required": false,
+            "description": "Controlled value, always in 24-hour form: `'HH:mm'`, or `'HH:mm:ss'` with `withSeconds`. `null` while any required segment is empty. The 12-hour display never leaks into the value — `hourCycle` is presentation, the canonical string is the data.",
+            "default": ""
+          },
+          {
+            "name": "defaultValue",
+            "type": "string | null",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: string | null) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "withSeconds",
+            "type": "boolean",
+            "required": false,
+            "description": "Add a seconds segment. Default `false`.",
+            "default": ""
+          },
+          {
+            "name": "hourCycle",
+            "type": "12 | 24",
+            "required": false,
+            "description": "`24` (default) or `12` with an AM/PM segment. Deterministic on purpose: `Intl` would pick per machine, and a field that shows 24-hour to the server and 12-hour to the browser is a hydration mismatch waiting to happen. Choose it for your audience.",
+            "default": ""
+          },
+          {
+            "name": "min",
+            "type": "string",
+            "required": false,
+            "description": "Inclusive bounds in the same canonical form. A committed value is clamped into them.",
+            "default": ""
+          },
+          {
+            "name": "max",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "size",
+            "type": "'sm' | 'md' | 'lg'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "readOnly",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "required",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "required": false,
+            "description": "One hidden field carrying the canonical value, so a form never sees the segments.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange' | 'children'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "timeline",
       "title": "Timeline",
       "kind": "component",

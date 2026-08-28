@@ -245,6 +245,7 @@ export {
 export { type Logo, LogoCloud, type LogoCloudProps } from './components/logo-cloud'
 export { MapEmbed, type MapEmbedProps, type MapProvider } from './components/map-embed'
 export { Marquee, type MarqueeDirection, type MarqueeProps } from './components/marquee'
+export { Masonry, type MasonryGap, type MasonryProps } from './components/masonry'
 export {
   Modal,
   ModalBody,

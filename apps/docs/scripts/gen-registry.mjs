@@ -29,6 +29,7 @@ const CATEGORIES = {
     'box',
     'stack',
     'grid',
+    'masonry',
     'container',
     'section',
     'divider',

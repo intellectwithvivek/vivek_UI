@@ -58,6 +58,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   'file-upload': dynamic(() => import('../previews/file-upload')),
   footer: dynamic(() => import('../previews/footer')),
   grid: dynamic(() => import('../previews/grid')),
+  masonry: dynamic(() => import('../previews/masonry')),
   heading: dynamic(() => import('../previews/heading')),
   hero: dynamic(() => import('../previews/hero')),
   'icon-button': dynamic(() => import('../previews/icon-button')),

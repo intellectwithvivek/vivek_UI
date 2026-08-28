@@ -23,7 +23,7 @@ export default function HoverCardPreview() {
               <Stack gap={1}>
                 <Text weight="semibold">Vivek Kumar Singh</Text>
                 <Text size="sm" tone="muted">
-                  Author of VivekUI. 106 components, zero dependencies.
+                  Author of VivekUI. 107 components, zero dependencies.
                 </Text>
                 <Stack direction="horizontal" gap={2}>
                   <Badge size="sm" variant="soft">

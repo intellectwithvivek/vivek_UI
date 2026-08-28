@@ -31,6 +31,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from './components/hove
 import { InfiniteScroll } from './components/infinite-scroll'
 import { Listbox } from './components/listbox'
 import { Marquee } from './components/marquee'
+import { Masonry } from './components/masonry'
 import { NumberInput } from './components/number-input'
 import { RelativeTime } from './components/relative-time'
 import { Scheduler } from './components/scheduler'
@@ -214,6 +215,16 @@ describe('every timer/observer component is quiet after unmount', () => {
     )
   })
 
+  it('Masonry, measuring its container and items', () => {
+    assertQuietAfterUnmount(
+      <Masonry columns={2}>
+        <p>one</p>
+        <p>two</p>
+        <p>three</p>
+      </Masonry>,
+    )
+  })
+
   it('DropdownMenu, open', () => {
     assertQuietAfterUnmount(
       <DropdownMenu defaultOpen>
@@ -315,6 +326,7 @@ describe('the sweep covers every component that touches timers or observers', ()
       'context-menu',
       'anchor-nav',
       'listbox',
+      'masonry',
       'video-player',
       'copy-button',
       'countdown',

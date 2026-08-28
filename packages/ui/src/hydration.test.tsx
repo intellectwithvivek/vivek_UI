@@ -59,6 +59,7 @@ import { KanbanBoard } from './components/kanban-board'
 import { Lightbox } from './components/lightbox'
 import { Listbox } from './components/listbox'
 import { MapEmbed } from './components/map-embed'
+import { Masonry } from './components/masonry'
 import { Modal } from './components/modal'
 import { Navbar } from './components/navbar'
 import { Newsletter } from './components/newsletter'
@@ -159,6 +160,13 @@ const SWEEP: Record<string, () => ReactElement> = {
   'qr-code': () => <QRCode value="https://vivek-ui.dev" />,
   'anchor-nav': () => <AnchorNav items={[{ id: 'a', label: 'A' }]} />,
   lightbox: () => <Lightbox items={[{ src: '/a.jpg', alt: 'A' }]} />,
+  masonry: () => (
+    <Masonry columns={2}>
+      <p>one</p>
+      <p>two</p>
+      <p>three</p>
+    </Masonry>
+  ),
   'command-palette': () => <CommandPalette items={[{ id: 'x', label: 'Open' }]} />,
   'context-menu': () => (
     <ContextMenu>

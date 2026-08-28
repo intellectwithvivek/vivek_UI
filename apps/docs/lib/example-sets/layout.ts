@@ -185,6 +185,35 @@ export const LAYOUT_EXAMPLES: ExampleSet = {
     },
   ],
 
+  masonry: [
+    {
+      title: 'Cards of different heights',
+      description:
+        "A ResizeObserver on the container decides how many columns fit (columnWidth, capped at columns); one shared observer reports each item's height so the next item goes into the shortest column. Before measurement - and on the server - items are dealt round-robin, so the first paint is already a grid.",
+      name: 'default',
+      code: `<Masonry columns={3} columnWidth={220} gap={4}>
+  {posts.map((post) => (
+    <Card key={post.id}>
+      <Image src={post.cover} alt={post.coverAlt} ratio={post.ratio} />
+      <Heading level={3} size="sm">{post.title}</Heading>
+      <Text size="sm" tone="muted">{post.excerpt}</Text>
+    </Card>
+  ))}
+</Masonry>`,
+    },
+    {
+      title: 'Strict reading order',
+      description:
+        'DOM order follows columns, not visual rows, so keep Masonry for content where order is not the point - photos, cards, quotes - and reach for Grid when it is. balance={false} deals items round-robin, which keeps left-to-right order at the cost of ragged column ends.',
+      name: 'unbalanced',
+      code: `<Masonry columns={4} columnWidth={160} gap={2} balance={false}>
+  {photos.map((photo) => (
+    <Image key={photo.src} src={photo.src} alt={photo.alt} rounded="md" />
+  ))}
+</Masonry>`,
+    },
+  ],
+
   'bento-grid': [
     {
       title: 'Feature mosaic',
@@ -213,7 +242,7 @@ export const LAYOUT_EXAMPLES: ExampleSet = {
       name: 'dense',
       code: `<BentoGrid cols={4} gap={3} rowHeight="6rem" dense>
   <BentoGrid.Item colSpan={2}>Zero dependencies</BentoGrid.Item>
-  <BentoGrid.Item>106 components</BentoGrid.Item>
+  <BentoGrid.Item>107 components</BentoGrid.Item>
   <BentoGrid.Item>MIT</BentoGrid.Item>
   <BentoGrid.Item colSpan={3}>Server-safe</BentoGrid.Item>
 </BentoGrid>`,

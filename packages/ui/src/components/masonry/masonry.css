@@ -1,0 +1,34 @@
+/*
+ * Masonry. Columns are equal-width flex tracks; each is a vertical stack. The component
+ * sets `--vk-masonry-columns` and `--vk-masonry-gap`; `column-gap` on the root is what it
+ * reads back to decide how many columns fit, so keep gap on this property.
+ */
+:where(.vk-masonry) {
+  --vk-masonry-columns: 3;
+  --vk-masonry-gap: var(--vk-space-4);
+
+  display: grid;
+  grid-template-columns: repeat(var(--vk-masonry-columns), minmax(0, 1fr));
+  column-gap: var(--vk-masonry-gap);
+  align-items: start;
+  inline-size: 100%;
+}
+
+:where(.vk-masonry__column) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-masonry-gap);
+  min-inline-size: 0;
+}
+
+:where(.vk-masonry__item) {
+  min-inline-size: 0;
+}
+
+:where(.vk-masonry__item > img),
+:where(.vk-masonry__item > picture),
+:where(.vk-masonry__item > video) {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}

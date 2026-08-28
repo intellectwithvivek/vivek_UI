@@ -10,7 +10,7 @@ export default function HeroPreview({ name }: { name: string }) {
         padding="md"
         eyebrow={<Badge tone="primary">{LIBRARY_VERSION_LABEL}</Badge>}
         title="One package. No dependencies."
-        description="106 components, 10 charts and a token system that your CSS can always override."
+        description="107 components, 10 charts and a token system that your CSS can always override."
         actions={
           <Stack direction="horizontal" gap={3} wrap>
             <Button>Get started</Button>

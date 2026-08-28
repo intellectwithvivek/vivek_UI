@@ -13295,6 +13295,66 @@
       "compound": false
     },
     {
+      "slug": "masonry",
+      "title": "Masonry",
+      "kind": "component",
+      "category": "Layout",
+      "exports": [
+        "Masonry"
+      ],
+      "typeExports": [
+        "MasonryGap",
+        "MasonryProps"
+      ],
+      "primary": "Masonry",
+      "description": "A masonry layout — Pinterest's grid: items of different heights packed into columns with no gaps under the short ones.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "columns",
+            "type": "number",
+            "required": false,
+            "description": "Most columns to lay out. Default `3`.",
+            "default": ""
+          },
+          {
+            "name": "columnWidth",
+            "type": "number",
+            "required": false,
+            "description": "Narrowest a column may get, in px; fewer columns are used below it. Default `240`.",
+            "default": ""
+          },
+          {
+            "name": "gap",
+            "type": "MasonryGap",
+            "required": false,
+            "description": "Space between items, in spacing steps. Default `4`.",
+            "default": ""
+          },
+          {
+            "name": "balance",
+            "type": "boolean",
+            "required": false,
+            "description": "Place each item in the currently shortest column, using measured heights. Default `true`. `false` deals items round-robin, which keeps reading order strictly left-to-right at the cost of ragged column ends.",
+            "default": ""
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "modal",
       "title": "Modal",
       "kind": "component",

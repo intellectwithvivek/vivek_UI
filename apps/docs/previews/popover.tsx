@@ -36,7 +36,7 @@ export default function PopoverPreview({ name }: { name: string }) {
         <Stack gap={2} style={{ maxWidth: '18rem' }}>
           <Text weight="semibold">Everything, at no cost</Text>
           <Text size="sm" tone="muted">
-            All 106 components, all ten charts and the design tokens ship in one MIT-licensed
+            All 107 components, all ten charts and the design tokens ship in one MIT-licensed
             package. There is no paid tier to upgrade to.
           </Text>
         </Stack>

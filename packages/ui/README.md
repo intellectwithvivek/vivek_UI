@@ -132,7 +132,7 @@ drifted. VivekUI is a normal dependency: `npm update` and you have the fixes.
 ## Components
 
 <!-- component-stats:start -->
-**98 components. 149 runtime exports.** Every one is covered by tests including
+**98 components. 150 runtime exports.** Every one is covered by tests including
 automated `axe` assertions, and **49 need no `'use client'`** — they render directly in React
 Server Components.
 <!-- component-stats:end -->
@@ -158,7 +158,7 @@ Server Components.
 ### Forms
 
 <!-- catalog-forms:start -->
-`Calendar` &middot; `formatDate` &middot; `parseISODate` &middot; `toISODate` &middot; `Checkbox` &middot; `Chip` &middot; `Combobox` &middot; `DatePicker` &middot; `Field` &middot; `FileUpload` &middot; `formatBytes` &middot; `matchesAccept` &middot; `Form` &middot; `Input` &middot; `Label` &middot; `NumberInput` &middot; `OTPInput` &middot; `PasswordInput` &middot; `Radio` &middot; `RadioGroup` &middot; `Rating` &middot; `Segmented` &middot; `Select` &middot; `Slider` &middot; `Switch` &middot; `TagInput` &middot; `Textarea`
+`Calendar` &middot; `formatDate` &middot; `parseISODate` &middot; `toISODate` &middot; `Checkbox` &middot; `Chip` &middot; `Combobox` &middot; `DatePicker` &middot; `DateRangePicker` &middot; `Field` &middot; `FileUpload` &middot; `formatBytes` &middot; `matchesAccept` &middot; `Form` &middot; `Input` &middot; `Label` &middot; `NumberInput` &middot; `OTPInput` &middot; `PasswordInput` &middot; `Radio` &middot; `RadioGroup` &middot; `Rating` &middot; `Segmented` &middot; `Select` &middot; `Slider` &middot; `Switch` &middot; `TagInput` &middot; `Textarea`
 <!-- catalog-forms:end -->
 
 `Field` owns the ARIA wiring, so it cannot drift:
@@ -439,7 +439,7 @@ dark mode — in the Playwright suite, where contrast is measured on the pixels 
 Only genuinely interactive ones declare it, per file.
 
 The build is unbundled precisely so each file keeps its own directive, and CI asserts on every build
-that all 61 client files still carry theirs in **both** the ESM and CJS output.
+that all 62 client files still carry theirs in **both** the ESM and CJS output.
 <!-- server-components:end -->
 
 ## Security

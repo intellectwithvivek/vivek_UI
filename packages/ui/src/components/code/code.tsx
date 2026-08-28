@@ -24,8 +24,9 @@ export const Code = forwardRef<HTMLElement, CodeProps>(function Code(
          * is the standard fix; on wide screens where nothing scrolls, the stop is a
          * harmless brief visit announced by its label.
          */
+        // biome-ignore lint/a11y/noNoninteractiveTabindex: WCAG 2.1.1 - a scrollable region must be focusable or a keyboard user cannot scroll it.
         tabIndex={0}
-        role="region"
+        role="group"
         aria-label={ariaLabel ?? 'Code sample'}
         {...rest}
       >

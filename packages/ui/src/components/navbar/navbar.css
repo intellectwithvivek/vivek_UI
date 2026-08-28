@@ -229,11 +229,13 @@
      that job over by growing — two auto margins would split the free space between them
      and leave the links floating in the middle of the bar. Guarded by `:has()`, so a
      navbar with a brand and actions but no links still pushes the actions to the end. */
-  :where(.vk-navbar__inner:has(.vk-navbar__links)) :where(.vk-navbar__brand) {
+  :where(.vk-navbar[data-collapse="md"])
+    :where(.vk-navbar__inner:has(.vk-navbar__links))
+    :where(.vk-navbar__brand) {
     margin-inline-end: 0;
   }
 
-  :where(.vk-navbar__links) {
+  :where(.vk-navbar[data-collapse="md"]) :where(.vk-navbar__links) {
     position: static;
     z-index: auto;
     display: flex;
@@ -255,13 +257,60 @@
     animation: none;
   }
 
-  :where(.vk-navbar__link) {
+  :where(.vk-navbar[data-collapse="md"]) :where(.vk-navbar__link) {
     flex: 0 0 auto;
     font-size: var(--vk-text-sm);
   }
 
   /* Never a tab stop on a wide navbar. */
-  :where(.vk-navbar__toggle) {
+  :where(.vk-navbar[data-collapse="md"]) :where(.vk-navbar__toggle) {
+    display: none;
+  }
+}
+
+/* The same rules at the larger threshold, for `collapseAt="lg"`. A second block rather
+   than a variable because a container query condition cannot read a custom property. */
+@container vk-navbar (min-width: 64rem) {
+  /* Narrow, the links are out of flow, so the brand's auto margin is what pushes the
+     actions and the toggle to the far end. Wide, the links are back in flow and take
+     that job over by growing — two auto margins would split the free space between them
+     and leave the links floating in the middle of the bar. Guarded by `:has()`, so a
+     navbar with a brand and actions but no links still pushes the actions to the end. */
+  :where(.vk-navbar[data-collapse="lg"])
+    :where(.vk-navbar__inner:has(.vk-navbar__links))
+    :where(.vk-navbar__brand) {
+    margin-inline-end: 0;
+  }
+
+  :where(.vk-navbar[data-collapse="lg"]) :where(.vk-navbar__links) {
+    position: static;
+    z-index: auto;
+    display: flex;
+    flex: 1 1 auto;
+    /* Same reasoning as the brand: a flex item that cannot shrink past its content pushes
+       the actions out of the bar instead of tightening up. */
+    min-inline-size: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--vk-space-1);
+    margin: 0;
+    padding: 0;
+    max-block-size: none;
+    overflow: visible;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    animation: none;
+  }
+
+  :where(.vk-navbar[data-collapse="lg"]) :where(.vk-navbar__link) {
+    flex: 0 0 auto;
+    font-size: var(--vk-text-sm);
+  }
+
+  /* Never a tab stop on a wide navbar. */
+  :where(.vk-navbar[data-collapse="lg"]) :where(.vk-navbar__toggle) {
     display: none;
   }
 }

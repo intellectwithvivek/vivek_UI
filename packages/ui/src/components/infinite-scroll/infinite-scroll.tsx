@@ -141,6 +141,7 @@ export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>(
       Promise.resolve(result).then(settle, settle)
     }, [])
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: `epoch` is the re-arm signal - after a page settles the sentinel may still be in view, and only a fresh observer fires again.
     useEffect(() => {
       if (!hasMore) return
       const node = sentinelRef.current

@@ -33,7 +33,7 @@ import { Container, type ContainerProps } from '../container'
  * menu that was opened while narrow and then widened underneath itself, which would
  * otherwise leave a focus trap running over a perfectly ordinary desktop navbar.
  */
-const COLLAPSE_REM = 48
+const COLLAPSE_REM = { md: 48, lg: 64 } as const
 
 interface NavbarContextValue {
   open: boolean
@@ -72,6 +72,14 @@ export interface NavbarProps extends HTMLAttributes<HTMLElement> {
   /** Initial state of the collapsed mobile menu while uncontrolled. Default `false`. */
   defaultOpen?: boolean
   onOpenChange?: (open: boolean) => void
+  /**
+   * The container width at which the links leave the sheet and line up in the bar.
+   * `md` (48rem, the default) suits four or five links; `lg` (64rem) is for a bar that also
+   * carries actions, where six links plus a theme toggle do not fit at 768px once fonts
+   * are a few pixels wider than the ones they were designed against - Linux and Android
+   * fallback faces, for instance.
+   */
+  collapseAt?: 'md' | 'lg'
 }
 
 /**
@@ -113,6 +121,7 @@ const NavbarRoot = forwardRef<HTMLElement, NavbarProps>(function Navbar(
     bordered = true,
     size = 'md',
     container = 'lg',
+    collapseAt = 'md',
     open,
     defaultOpen = false,
     onOpenChange,
@@ -167,7 +176,7 @@ const NavbarRoot = forwardRef<HTMLElement, NavbarProps>(function Navbar(
       ? Number.parseFloat(view.getComputedStyle(root.ownerDocument.documentElement).fontSize)
       : Number.NaN
     const rem = Number.isFinite(rootFontSize) && rootFontSize > 0 ? rootFontSize : 16
-    const threshold = rem * COLLAPSE_REM
+    const threshold = rem * COLLAPSE_REM[collapseAt]
 
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {
@@ -176,7 +185,7 @@ const NavbarRoot = forwardRef<HTMLElement, NavbarProps>(function Navbar(
     })
     observer.observe(root)
     return () => observer.disconnect()
-  }, [isOpen, setIsOpen])
+  }, [isOpen, setIsOpen, collapseAt])
 
   const value = useMemo<NavbarContextValue>(
     () => ({
@@ -203,6 +212,7 @@ const NavbarRoot = forwardRef<HTMLElement, NavbarProps>(function Navbar(
       data-sticky={sticky || undefined}
       data-bordered={bordered || undefined}
       data-size={size}
+      data-collapse={collapseAt}
       data-open={isOpen || undefined}
       {...rest}
     >

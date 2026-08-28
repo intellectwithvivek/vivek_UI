@@ -5,6 +5,11 @@ import { useState } from 'react'
 
 const PAGE = 8
 const TOTAL = 40
+/* Real records with real ids, not indices: the key must survive a reorder. */
+const ITEMS = Array.from({ length: TOTAL }, (_, i) => ({
+  id: `item-${i + 1}`,
+  label: `Item ${i + 1}`,
+}))
 
 export default function InfiniteScrollPreview() {
   const [count, setCount] = useState(PAGE)
@@ -25,10 +30,10 @@ export default function InfiniteScrollPreview() {
         }}
       >
         <Stack gap={2}>
-          {Array.from({ length: count }, (_, i) => (
-            <Card key={`item-${i + 1}`} padding="sm" variant="outline">
+          {ITEMS.slice(0, count).map((item) => (
+            <Card key={item.id} padding="sm" variant="outline">
               <Text size="sm">
-                Item {i + 1} of {TOTAL}
+                {item.label} of {TOTAL}
               </Text>
             </Card>
           ))}

@@ -145,7 +145,7 @@ export const ScatterChart = forwardRef<HTMLDivElement, ScatterChartProps>(functi
         <CartesianFrame model={model} showGrid={showGrid} showAxes={showAxes} />
         {hasData ? null : <ChartEmpty model={model} />}
         {model.series.map((s, si) => (
-          <g key={`${si}:${s.name}`} className="vk-scatter-chart__series">
+          <g key={s.name} className="vk-scatter-chart__series">
             {s.points.map((p, pi) => {
               const source = cleaned[si]?.data[pi]
               if (!source) return null

@@ -21,7 +21,7 @@ export function SiteHeader() {
   const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href))
 
   return (
-    <Navbar sticky bordered>
+    <Navbar bordered collapseAt="lg" sticky>
       <Navbar.Brand asChild>
         <Link href="/">
           {/*

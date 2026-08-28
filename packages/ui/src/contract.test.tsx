@@ -1,10 +1,11 @@
 /**
- * The §4.1 component contract, enforced.
+ * The component contract, enforced.
  *
- * CLAUDE.md constraint 6: merge incoming className/style, spread ...rest onto the root,
- * forward refs. Four components shipped in violation — EditableGrid, FileTree, KanbanBoard
- * and Scheduler took no ref, no style and no rest at all, so a consumer needing a test id
- * or an inline style had to wrap them in a div, and those wrappers become load-bearing.
+ * Every component merges the incoming className and style, spreads ...rest onto its root
+ * element, and forwards its ref there. Four components shipped in violation — EditableGrid,
+ * FileTree, KanbanBoard and Scheduler took no ref, no style and no rest at all, so a
+ * consumer needing a test id or an inline style had to wrap them in a div, and those
+ * wrappers become load-bearing.
  * This suite makes the contract checkable for the components where it was missed, so the
  * fix cannot regress and the next data widget starts from the same bar.
  */

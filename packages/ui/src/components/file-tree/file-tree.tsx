@@ -174,7 +174,7 @@ export const FileTree = forwardRef<HTMLUListElement, FileTreeProps>(function Fil
       onSelect?.(entry.node)
       onSelectedIdChange?.(entry.node.id)
     },
-    [onSelect, setSelected],
+    [onSelect, onSelectedIdChange, setSelected],
   )
 
   const onKeyDown = (event: ReactKeyboardEvent<HTMLElement>, entry: FlatNode, index: number) => {
@@ -254,7 +254,6 @@ export const FileTree = forwardRef<HTMLUListElement, FileTreeProps>(function Fil
   }
 
   return (
-    // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: role="tree" on a ul is the WAI-ARIA treeview pattern itself.
     <ul
       aria-label={label}
       className={cx('vk-file-tree', className)}
@@ -263,6 +262,7 @@ export const FileTree = forwardRef<HTMLUListElement, FileTreeProps>(function Fil
         if (typeof forwardedRef === 'function') forwardedRef(node)
         else if (forwardedRef) forwardedRef.current = node
       }}
+      // biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: role="tree" on a ul is the WAI-ARIA treeview pattern itself.
       role="tree"
       style={style}
       {...rest}

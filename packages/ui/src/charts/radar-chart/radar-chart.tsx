@@ -144,10 +144,10 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(function R
                 </g>
               )
             })}
-            {resolved.map((s, si) => {
+            {resolved.map((s) => {
               const pts = s.points.map((p, i) => at(i, p.y))
               return (
-                <g key={`${si}:${s.name}`} className="vk-radar-chart__series">
+                <g key={s.name} className="vk-radar-chart__series">
                   <path
                     className="vk-radar-chart__shape"
                     d={polygonPath(pts)}

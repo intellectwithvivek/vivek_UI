@@ -118,6 +118,7 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip(
   }
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: the remove button inside is the interactive element; Delete/Backspace on the focused chip is a shortcut to it, matching TagInput.
     <span
       ref={ref}
       // Focusable when removable, so Delete/Backspace have somewhere to land.

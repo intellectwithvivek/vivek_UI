@@ -118,7 +118,12 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
 
   // The repeat interval must not survive the component: pointer-down with no pointer-up
   // (the element unmounting mid-press) left it running forever. Caught by leaks.test.tsx.
-  useEffect(() => stopRepeat, [])
+  useEffect(
+    () => () => {
+      if (repeat.current !== null) clearInterval(repeat.current)
+    },
+    [],
+  )
 
   const clampValue = (n: number): number => {
     let out = n

@@ -47,6 +47,11 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
    * the `<table>`, which is also what the forwarded ref points at.
    */
   containerProps?: TableContainerProps
+  /**
+   * Accessible name of the scroll wrapper, announced when a keyboard user tabs onto it.
+   * Default `'Scrollable table'`; pass the table's subject when a page has several.
+   */
+  scrollLabel?: string
 }
 
 export interface TableSectionProps extends HTMLAttributes<HTMLTableSectionElement> {}
@@ -96,7 +101,17 @@ export interface TableCaptionProps extends HTMLAttributes<HTMLTableCaptionElemen
  * these same parts — so anything you can render statically here keeps working there.
  */
 const TableRoot = forwardRef<HTMLTableElement, TableProps>(function Table(
-  { size = 'md', striped, bordered, hoverable, stickyHeader, containerProps, className, ...rest },
+  {
+    size = 'md',
+    striped,
+    bordered,
+    hoverable,
+    stickyHeader,
+    containerProps,
+    scrollLabel = 'Scrollable table',
+    className,
+    ...rest
+  },
   ref,
 ) {
   const { className: containerClassName, ...containerRest } = containerProps ?? {}
@@ -105,6 +120,16 @@ const TableRoot = forwardRef<HTMLTableElement, TableProps>(function Table(
       className={cx('vk-table-wrap', containerClassName)}
       data-bordered={bordered || undefined}
       data-sticky-header={stickyHeader || undefined}
+      /*
+       * A wide table scrolls sideways inside this wrapper on a narrow screen, which makes it
+       * a scrollable region - and one a keyboard cannot reach strands every column past the
+       * fold (WCAG 2.1.1; axe scrollable-region-focusable, found by the phone leg of the
+       * browser suite). A group, not a landmark: a page may hold several tables.
+       */
+      role="group"
+      aria-label={scrollLabel}
+      // biome-ignore lint/a11y/noNoninteractiveTabindex: WCAG 2.1.1 - a scrollable region must be focusable or a keyboard user cannot scroll it.
+      tabIndex={0}
       {...containerRest}
     >
       <table

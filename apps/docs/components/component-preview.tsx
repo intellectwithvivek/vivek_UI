@@ -90,6 +90,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   sidebar: dynamic(() => import('../previews/sidebar')),
   skeleton: dynamic(() => import('../previews/skeleton')),
   slider: dynamic(() => import('../previews/slider')),
+  'color-picker': dynamic(() => import('../previews/color-picker')),
   spinner: dynamic(() => import('../previews/spinner')),
   stack: dynamic(() => import('../previews/stack')),
   stats: dynamic(() => import('../previews/stats')),

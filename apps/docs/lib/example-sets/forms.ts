@@ -236,6 +236,30 @@ export const FORM_EXAMPLES: ExampleSet = {
     },
   ],
 
+  'color-picker': [
+    {
+      title: 'Real controls',
+      description:
+        'Hue, saturation and brightness are range inputs with names and spoken values; the hex field commits on Enter or blur and reverts what it cannot parse; presets are pressed toggles. The 2D area is a pointer convenience over the same state. Emits lower-case hex; accepts #rgb, #rrggbbaa and rgb() on the way in.',
+      name: 'default',
+      code: `<ColorPicker
+  label="Brand colour"
+  value={brand}
+  onValueChange={setBrand}
+  presets={['#0f766e', '#1d4ed8', '#7c3aed', '#db2777']}
+/>`,
+    },
+    {
+      title: 'In a Field, behind a swatch, with alpha',
+      description:
+        'Field injects id, aria-describedby and invalid onto the hex input, so the label and error wire up like any other control. variant="popover" keeps the panel behind a swatch button; alpha adds a slider and eight-digit hex; name posts the value with a plain form.',
+      name: 'field',
+      code: `<Field label="Overlay tint" help="Alpha controls how much of the photo shows through.">
+  <ColorPicker variant="popover" alpha name="tint" defaultValue="#11182780" />
+</Field>`,
+    },
+  ],
+
   slider: [
     {
       title: 'A single value',

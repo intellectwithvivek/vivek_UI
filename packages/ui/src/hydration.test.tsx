@@ -36,6 +36,7 @@ import { ChatMessage } from './components/chat-message'
 import { ChatThread } from './components/chat-thread'
 import { Chip } from './components/chip'
 import { Clock } from './components/clock'
+import { ColorPicker } from './components/color-picker'
 import { Combobox } from './components/combobox'
 import { CommandPalette } from './components/command-palette'
 import { ContextMenu } from './components/context-menu'
@@ -160,6 +161,7 @@ const SWEEP: Record<string, () => ReactElement> = {
   'qr-code': () => <QRCode value="https://vivek-ui.dev" />,
   'anchor-nav': () => <AnchorNav items={[{ id: 'a', label: 'A' }]} />,
   lightbox: () => <Lightbox items={[{ src: '/a.jpg', alt: 'A' }]} />,
+  'color-picker': () => <ColorPicker defaultValue="#ff0000" presets={['#fff']} />,
   masonry: () => (
     <Masonry columns={2}>
       <p>one</p>

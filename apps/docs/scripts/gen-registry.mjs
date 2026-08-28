@@ -53,6 +53,7 @@ const CATEGORIES = {
     'segmented',
     'switch',
     'slider',
+    'color-picker',
     'password-input',
     'otp-input',
     'time-picker',

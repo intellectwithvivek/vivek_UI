@@ -1,0 +1,264 @@
+/*
+ * ColorPicker. The component sets `--vk-color-picker-hue` (degrees), `-x` / `-y`
+ * (thumb position, percent), `-solid` (the opaque colour) and `-current` (with alpha);
+ * everything here paints from those, so the panel is pure CSS over pure state.
+ *
+ * The saturation/brightness area is a gradient stack: white -> pure hue across, then
+ * transparent -> black down. Its gradient direction is physical on purpose: it mirrors
+ * the pointer maths, which are in viewport coordinates, and the area is pointer-only.
+ */
+:where(.vk-color-picker) {
+  --vk-color-picker-hue: 217;
+  --vk-color-picker-x: 76%;
+  --vk-color-picker-y: 3.5%;
+  --vk-color-picker-solid: #3b82f6;
+  --vk-color-picker-current: #3b82f6;
+  --vk-color-picker-width: 16rem;
+  --vk-color-picker-checker:
+    repeating-conic-gradient(rgb(0 0 0 / 0.12) 0 25%, transparent 0 50%) 0 0 / 0.75rem 0.75rem;
+
+  display: inline-grid;
+  gap: var(--vk-space-2);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-fg);
+}
+
+:where(.vk-color-picker[data-disabled]) {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+:where(.vk-color-picker__panel) {
+  display: grid;
+  gap: var(--vk-space-3);
+  inline-size: var(--vk-color-picker-width);
+  max-inline-size: 100%;
+}
+
+:where(.vk-color-picker[data-size="sm"]) {
+  --vk-color-picker-width: 13rem;
+  font-size: var(--vk-text-xs);
+}
+
+/* The 2D area. */
+:where(.vk-color-picker__area) {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--vk-radius-md);
+  background:
+    linear-gradient(to top, #000, transparent),
+    linear-gradient(to right, #fff, hsl(calc(var(--vk-color-picker-hue) * 1deg) 100% 50%));
+  cursor: crosshair;
+  touch-action: none;
+  user-select: none;
+}
+
+:where(.vk-color-picker__thumb) {
+  position: absolute;
+  inset-inline-start: var(--vk-color-picker-x);
+  inset-block-start: var(--vk-color-picker-y);
+  inline-size: 1rem;
+  block-size: 1rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--vk-color-picker-solid);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.4);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Sliders: native ranges over painted tracks. */
+:where(.vk-color-picker__sliders) {
+  display: grid;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-color-picker__range) {
+  inline-size: 100%;
+  block-size: 0.875rem;
+  margin: 0;
+  appearance: none;
+  border-radius: 999px;
+  cursor: pointer;
+  accent-color: var(--vk-color-picker-solid);
+}
+
+:where(.vk-color-picker__range:disabled) {
+  cursor: not-allowed;
+}
+
+:where(.vk-color-picker__range--hue) {
+  background: linear-gradient(
+    to right,
+    hsl(0 100% 50%),
+    hsl(60 100% 50%),
+    hsl(120 100% 50%),
+    hsl(180 100% 50%),
+    hsl(240 100% 50%),
+    hsl(300 100% 50%),
+    hsl(360 100% 50%)
+  );
+}
+
+:where(.vk-color-picker__range--saturation) {
+  background: linear-gradient(
+    to right,
+    #fff,
+    hsl(calc(var(--vk-color-picker-hue) * 1deg) 100% 50%)
+  );
+}
+
+:where(.vk-color-picker__range--brightness) {
+  background: linear-gradient(
+    to right,
+    #000,
+    hsl(calc(var(--vk-color-picker-hue) * 1deg) 100% 50%)
+  );
+}
+
+:where(.vk-color-picker__range--alpha) {
+  background:
+    linear-gradient(to right, transparent, var(--vk-color-picker-solid)),
+    var(--vk-color-picker-checker);
+}
+
+:where(.vk-color-picker__range)::-webkit-slider-thumb {
+  appearance: none;
+  inline-size: 1rem;
+  block-size: 1rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--vk-color-picker-solid);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.4);
+}
+
+:where(.vk-color-picker__range)::-moz-range-thumb {
+  inline-size: 1rem;
+  block-size: 1rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--vk-color-picker-solid);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.4);
+}
+
+:where(.vk-color-picker__range:focus-visible) {
+  outline: 2px solid var(--vk-color-ring);
+  outline-offset: 2px;
+}
+
+/* Preview + hex + eyedropper. */
+:where(.vk-color-picker__row) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+}
+
+:where(.vk-color-picker__preview) {
+  flex: none;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+  background:
+    linear-gradient(var(--vk-color-picker-current), var(--vk-color-picker-current)),
+    var(--vk-color-picker-checker);
+}
+
+:where(.vk-color-picker__hex) {
+  flex: 1;
+  min-inline-size: 0;
+  block-size: 2rem;
+  padding-inline: var(--vk-space-2);
+  font: inherit;
+  font-family: var(--vk-font-mono, monospace);
+  color: inherit;
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+}
+
+:where(.vk-color-picker__hex:focus-visible) {
+  outline: none;
+  border-color: var(--vk-color-ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--vk-color-ring) 32%, transparent);
+}
+
+:where(.vk-color-picker__hex[aria-invalid="true"]) {
+  border-color: var(--vk-color-danger);
+}
+
+:where(.vk-color-picker__eyedropper) {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2rem;
+  block-size: 2rem;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+}
+
+:where(.vk-color-picker__eyedropper svg) {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+:where(.vk-color-picker__eyedropper:focus-visible),
+:where(.vk-color-picker__swatch:focus-visible),
+:where(.vk-color-picker__trigger:focus-visible) {
+  outline: 2px solid var(--vk-color-ring);
+  outline-offset: 2px;
+}
+
+/* Presets. */
+:where(.vk-color-picker__presets) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vk-space-1);
+}
+
+:where(.vk-color-picker__swatch) {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  padding: 0;
+  border: 1px solid rgb(0 0 0 / 0.15);
+  border-radius: var(--vk-radius-sm);
+  background:
+    linear-gradient(var(--vk-color-picker-swatch), var(--vk-color-picker-swatch)),
+    var(--vk-color-picker-checker);
+  cursor: pointer;
+}
+
+:where(.vk-color-picker__swatch[aria-pressed="true"]) {
+  box-shadow:
+    0 0 0 2px var(--vk-color-bg),
+    0 0 0 4px var(--vk-color-ring);
+}
+
+/* Popover variant: a swatch button showing the hex. */
+:where(.vk-color-picker__trigger) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-2);
+  padding-block: var(--vk-space-1);
+  padding-inline: var(--vk-space-1) var(--vk-space-3);
+  font: inherit;
+  font-family: var(--vk-font-mono, monospace);
+  color: var(--vk-color-fg);
+  background: var(--vk-color-bg);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  cursor: pointer;
+}
+
+:where(.vk-color-picker__trigger:disabled) {
+  cursor: not-allowed;
+}
+
+:where(.vk-color-picker__popover) {
+  padding: var(--vk-space-3);
+}

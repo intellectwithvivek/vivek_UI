@@ -99,6 +99,7 @@ export { Checkbox, type CheckboxProps } from './components/checkbox'
 export { Chip, type ChipProps } from './components/chip'
 export { Clock, type ClockProps } from './components/clock'
 export { Code, type CodeProps } from './components/code'
+export { ColorPicker, type ColorPickerProps } from './components/color-picker'
 export {
   Combobox,
   type ComboboxMultipleProps,

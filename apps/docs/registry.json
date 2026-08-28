@@ -5868,6 +5868,128 @@
       "compound": false
     },
     {
+      "slug": "color-picker",
+      "title": "Color picker",
+      "kind": "component",
+      "category": "Forms",
+      "exports": [
+        "ColorPicker"
+      ],
+      "typeExports": [
+        "ColorPickerProps"
+      ],
+      "primary": "ColorPicker",
+      "description": "A colour picker with real controls: hue, saturation, brightness (and alpha) are `<input type=\"range\">`s with names and spoken values; the hex field is a text input that commits on Enter or blur and reverts what it cannot parse; presets are toggle buttons. The two-dimensional area is a pointer convenience over the same state, hidden from assistive tech because the sliders already say everything it shows.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "required": false,
+            "description": "Hex, `#rrggbb` (or `#rrggbbaa` with `alpha`). Any parseable colour is accepted on the way in.",
+            "default": ""
+          },
+          {
+            "name": "defaultValue",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onValueChange",
+            "type": "(hex: string) => void",
+            "required": false,
+            "description": "Receives lower-case hex: `#rrggbb`, or `#rrggbbaa` with `alpha`.",
+            "default": ""
+          },
+          {
+            "name": "alpha",
+            "type": "boolean",
+            "required": false,
+            "description": "Show an alpha slider and emit eight-digit hex. Default `false`.",
+            "default": ""
+          },
+          {
+            "name": "presets",
+            "type": "string[]",
+            "required": false,
+            "description": "Swatches to offer under the sliders.",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Accessible name of the picker. Default `'Colour picker'`.",
+            "default": ""
+          },
+          {
+            "name": "variant",
+            "type": "'inline' | 'popover'",
+            "required": false,
+            "description": "`inline` renders the panel in place; `popover` renders a swatch button that opens it. Default `inline`.",
+            "default": ""
+          },
+          {
+            "name": "size",
+            "type": "'sm' | 'md'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "required": false,
+            "description": "Emits a hidden input so the colour posts with a plain form.",
+            "default": ""
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "required": false,
+            "description": "Sets `aria-invalid` on the hex input. Injected by `Field`.",
+            "default": ""
+          },
+          {
+            "name": "required",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "eyedropper",
+            "type": "boolean",
+            "required": false,
+            "description": "Offer the EyeDropper button where the browser supports it. Default `true`.",
+            "default": ""
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Extra content under the panel — a \"Reset\" button, a contrast readout.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "combobox",
       "title": "Combobox",
       "kind": "component",

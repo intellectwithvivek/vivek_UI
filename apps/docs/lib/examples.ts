@@ -536,6 +536,41 @@ const events = [
     },
   ],
 
+  'video-player': [
+    {
+      title: 'One bar, real controls',
+      description:
+        'Every control is a real button or range with a name, and the shortcuts are the ones every player taught people: Space/K play, arrows seek and change volume, J/L jump ten seconds, M mutes, F goes fullscreen. Controls fade while the pointer rests and come back on any key or focus - faded, never removed.',
+      name: 'default',
+      code: `<VideoPlayer
+  label="Product tour"
+  src="/media/tour.mp4"
+  poster="/media/tour-poster.jpg"
+  onEnded={() => track('tour_watched')}
+/>`,
+    },
+    {
+      title: 'Sources, captions and speeds',
+      description:
+        'Several sources let the browser pick the first it can decode. WebVTT tracks add a Captions toggle (C); the default track starts showing. rates sets the speeds offered - an empty array hides the control. Cross-origin captions need crossOrigin on the element, which videoProps passes through.',
+      name: 'sources',
+      code: `<VideoPlayer
+  label="Keynote"
+  src={[
+    { src: '/media/keynote.webm', type: 'video/webm' },
+    { src: '/media/keynote.mp4', type: 'video/mp4' },
+  ]}
+  tracks={[
+    { src: '/media/keynote.en.vtt', srclang: 'en', label: 'English', default: true },
+    { src: '/media/keynote.hi.vtt', srclang: 'hi', label: 'हिन्दी' },
+  ]}
+  rates={[1, 1.5, 2]}
+  ratio={4 / 3}
+  videoProps={{ crossOrigin: 'anonymous' }}
+/>`,
+    },
+  ],
+
   image: [
     {
       title: 'Ratios and shapes',

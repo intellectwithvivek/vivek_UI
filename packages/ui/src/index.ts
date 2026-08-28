@@ -440,4 +440,10 @@ export {
 } from './components/toast'
 export { Tooltip, type TooltipProps, type TooltipTriggerProps } from './components/tooltip'
 export { TypingIndicator, type TypingIndicatorProps } from './components/typing-indicator'
+export {
+  VideoPlayer,
+  type VideoPlayerProps,
+  type VideoSource,
+  type VideoTrack,
+} from './components/video-player'
 export { VirtualList, type VirtualListProps } from './components/virtual-list'

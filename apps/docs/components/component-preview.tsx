@@ -104,6 +104,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   segmented: dynamic(() => import('../previews/segmented')),
   'hover-card': dynamic(() => import('../previews/hover-card')),
   image: dynamic(() => import('../previews/image')),
+  'video-player': dynamic(() => import('../previews/video-player')),
   'map-embed': dynamic(() => import('../previews/map-embed')),
   newsletter: dynamic(() => import('../previews/newsletter')),
   'virtual-list': dynamic(() => import('../previews/virtual-list')),

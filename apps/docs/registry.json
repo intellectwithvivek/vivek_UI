@@ -18179,6 +18179,172 @@
       "compound": false
     },
     {
+      "slug": "video-player",
+      "title": "Video player",
+      "kind": "component",
+      "category": "Media & time",
+      "exports": [
+        "VideoPlayer"
+      ],
+      "typeExports": [
+        "VideoPlayerProps",
+        "VideoSource",
+        "VideoTrack"
+      ],
+      "primary": "VideoPlayer",
+      "description": "A video player with its own controls — progressive files (MP4, WebM), no streaming.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "src",
+            "type": "string | VideoSource[]",
+            "required": false,
+            "description": "One URL, or several sources the browser picks from in order.",
+            "default": ""
+          },
+          {
+            "name": "poster",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "tracks",
+            "type": "VideoTrack[]",
+            "required": false,
+            "description": "WebVTT text tracks. The first `default` one (else the first) is the captions track.",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Accessible name of the player. Default `'Video player'`.",
+            "default": ""
+          },
+          {
+            "name": "ratio",
+            "type": "number",
+            "required": false,
+            "description": "Width / height. Default `16 / 9`.",
+            "default": ""
+          },
+          {
+            "name": "autoPlay",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "muted",
+            "type": "boolean",
+            "required": false,
+            "description": "Start muted — required by every browser for `autoPlay` to actually play.",
+            "default": ""
+          },
+          {
+            "name": "loop",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "playsInline",
+            "type": "boolean",
+            "required": false,
+            "description": "Default `true`: play in place on phones instead of taking over the screen.",
+            "default": ""
+          },
+          {
+            "name": "preload",
+            "type": "'none' | 'metadata' | 'auto'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "rates",
+            "type": "number[]",
+            "required": false,
+            "description": "Playback speeds offered. Default `[0.5, 1, 1.25, 1.5, 2]`; `[]` hides the control.",
+            "default": ""
+          },
+          {
+            "name": "seekStep",
+            "type": "number",
+            "required": false,
+            "description": "Seconds moved by ArrowLeft / ArrowRight. Default `5`.",
+            "default": ""
+          },
+          {
+            "name": "hideControlsAfter",
+            "type": "number",
+            "required": false,
+            "description": "Hide the controls this many ms after the pointer rests while playing. `0` never hides. Default `2500`.",
+            "default": ""
+          },
+          {
+            "name": "errorMessage",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Shown when the media fails to load or decode.",
+            "default": ""
+          },
+          {
+            "name": "videoRef",
+            "type": "Ref<HTMLVideoElement>",
+            "required": false,
+            "description": "The `<video>` element, for anything the props do not cover.",
+            "default": ""
+          },
+          {
+            "name": "videoProps",
+            "type": "Omit<VideoHTMLAttributes<HTMLVideoElement>, 'src' | 'poster' | 'controls' | 'autoPlay' | 'muted' | 'loop' | 'playsInline' | 'preload'>",
+            "required": false,
+            "description": "Extra attributes for the `<video>` — `crossOrigin` for cross-origin captions, for one.",
+            "default": ""
+          },
+          {
+            "name": "onPlayingChange",
+            "type": "(playing: boolean) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onTimeChange",
+            "type": "(currentTime: number, duration: number) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onEnded",
+            "type": "() => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onError",
+            "type": "() => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'children'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "virtual-list",
       "title": "Virtual list",
       "kind": "component",

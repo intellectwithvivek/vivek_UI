@@ -35,6 +35,7 @@ import { RelativeTime } from './components/relative-time'
 import { Scheduler } from './components/scheduler'
 import { ToastProvider, useToast } from './components/toast'
 import { Tooltip } from './components/tooltip'
+import { VideoPlayer } from './components/video-player'
 import { VirtualList } from './components/virtual-list'
 
 /* ------------------------------------------------------------------ observer counting */
@@ -194,6 +195,15 @@ describe('every timer/observer component is quiet after unmount', () => {
     )
   })
 
+  it('VideoPlayer, playing with the idle timer armed', () => {
+    assertQuietAfterUnmount(<VideoPlayer src="/v.mp4" />, (c) => {
+      const v = c.querySelector('video')
+      if (v) fireEvent.play(v)
+      const root = c.querySelector('[role="group"]')
+      if (root) fireEvent.pointerMove(root)
+    })
+  })
+
   it('DropdownMenu, open', () => {
     assertQuietAfterUnmount(
       <DropdownMenu defaultOpen>
@@ -294,6 +304,7 @@ describe('the sweep covers every component that touches timers or observers', ()
       'clock',
       'context-menu',
       'listbox',
+      'video-player',
       'copy-button',
       'countdown',
       'dropdown-menu',

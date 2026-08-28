@@ -80,6 +80,7 @@ import { ThemeToggle } from './components/theme-toggle'
 import { TimePicker } from './components/time-picker'
 import { ToastProvider } from './components/toast'
 import { Tooltip } from './components/tooltip'
+import { VideoPlayer } from './components/video-player'
 import { VirtualList } from './components/virtual-list'
 
 afterEach(() => {
@@ -149,6 +150,7 @@ const SWEEP: Record<string, () => ReactElement> = {
   clock: () => <Clock />,
   combobox: () => <Combobox aria-label="Fruit" options={[{ value: 'a', label: 'Apple' }]} />,
   listbox: () => <Listbox label="Fruit" options={[{ value: 'a', label: 'Apple' }]} />,
+  'video-player': () => <VideoPlayer src="/v.mp4" poster="/p.jpg" />,
   'command-palette': () => <CommandPalette items={[{ id: 'x', label: 'Open' }]} />,
   'context-menu': () => (
     <ContextMenu>

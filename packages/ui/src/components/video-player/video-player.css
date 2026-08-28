@@ -1,0 +1,283 @@
+/*
+ * VideoPlayer. A black stage with the media filling it, and one control bar overlaid at
+ * the bottom that fades while the pointer rests during playback. The bar is only ever
+ * faded, never removed, and comes straight back on focus - a keyboard user always has it.
+ *
+ * The seek bar is a transparent native range over two absolutely positioned fills
+ * (buffered and played), sized from the `--vk-video-*` variables the component sets. That
+ * keeps it a real slider for the keyboard and AT, and lets the fills follow the writing
+ * direction with logical insets instead of a `to right` gradient that RTL would invert.
+ */
+:where(.vk-video-player) {
+  --vk-video-ratio: 16 / 9;
+  --vk-video-accent: var(--vk-color-primary);
+  --vk-video-progress: 0%;
+  --vk-video-buffered: 0%;
+  --vk-video-fg: #fff;
+
+  position: relative;
+  display: grid;
+  inline-size: 100%;
+  aspect-ratio: var(--vk-video-ratio);
+  overflow: hidden;
+  color: var(--vk-video-fg);
+  background: #000;
+  border-radius: var(--vk-radius-md);
+  font-family: var(--vk-font-sans);
+  font-size: var(--vk-text-sm);
+  isolation: isolate;
+}
+
+:where(.vk-video-player:fullscreen) {
+  aspect-ratio: auto;
+  block-size: 100%;
+  border-radius: 0;
+}
+
+:where(.vk-video-player__video) {
+  grid-area: 1 / 1;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain;
+  background: #000;
+  cursor: pointer;
+}
+
+:where(.vk-video-player[data-idle]) {
+  cursor: none;
+}
+
+/* Centre badge: a play glyph while paused, replay when ended, a ring while buffering. */
+:where(.vk-video-player__badge) {
+  grid-area: 1 / 1;
+  place-self: center;
+  display: grid;
+  place-items: center;
+  inline-size: 4rem;
+  block-size: 4rem;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.55);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--vk-duration) var(--vk-ease);
+}
+
+:where(
+    .vk-video-player[data-state="paused"],
+    .vk-video-player[data-state="ended"],
+    .vk-video-player[data-buffering]
+  )
+  :where(.vk-video-player__badge) {
+  opacity: 1;
+}
+
+:where(.vk-video-player__badge svg) {
+  inline-size: 2rem;
+  block-size: 2rem;
+}
+
+:where(.vk-video-player__spinner) {
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border: 3px solid rgb(255 255 255 / 0.3);
+  border-block-start-color: var(--vk-video-fg);
+  border-radius: 50%;
+  animation: vk-video-spin 0.8s linear infinite;
+}
+
+@keyframes vk-video-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+:where(.vk-video-player__error) {
+  grid-area: 1 / 1;
+  place-self: center;
+  padding: var(--vk-space-3) var(--vk-space-4);
+  background: rgb(0 0 0 / 0.7);
+  border-radius: var(--vk-radius-md);
+}
+
+/* The bar. */
+:where(.vk-video-player__controls) {
+  grid-area: 1 / 1;
+  align-self: end;
+  display: grid;
+  gap: var(--vk-space-1);
+  padding-block: var(--vk-space-2) var(--vk-space-2);
+  padding-inline: var(--vk-space-3);
+  background: linear-gradient(to top, rgb(0 0 0 / 0.75), rgb(0 0 0 / 0));
+  transition: opacity var(--vk-duration) var(--vk-ease);
+}
+
+:where(.vk-video-player[data-idle] .vk-video-player__controls:not(:focus-within)) {
+  opacity: 0;
+}
+
+:where(.vk-video-player__row) {
+  display: flex;
+  align-items: center;
+  gap: var(--vk-space-1);
+  min-inline-size: 0;
+}
+
+:where(.vk-video-player__spacer) {
+  flex: 1;
+}
+
+:where(.vk-video-player__button) {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+}
+
+:where(.vk-video-player__button:hover) {
+  background: rgb(255 255 255 / 0.15);
+}
+
+:where(.vk-video-player__button:focus-visible) {
+  outline: 2px solid var(--vk-video-fg);
+  outline-offset: 2px;
+}
+
+:where(.vk-video-player__button[aria-pressed="true"]) {
+  box-shadow: inset 0 -2px 0 var(--vk-video-accent);
+}
+
+:where(.vk-video-player__button svg) {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+:where(.vk-video-player__time) {
+  padding-inline: var(--vk-space-1);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Seek: fills underneath, transparent range on top. */
+:where(.vk-video-player__seek-wrap) {
+  position: relative;
+  display: grid;
+  align-items: center;
+  block-size: 1.25rem;
+}
+
+:where(.vk-video-player__seek-buffered),
+:where(.vk-video-player__seek-progress) {
+  position: absolute;
+  inset-inline-start: 0;
+  block-size: 0.25rem;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+:where(.vk-video-player__seek-buffered) {
+  inline-size: var(--vk-video-buffered);
+  background: rgb(255 255 255 / 0.35);
+}
+
+:where(.vk-video-player__seek-progress) {
+  inline-size: var(--vk-video-progress);
+  background: var(--vk-video-accent);
+}
+
+:where(.vk-video-player__seek) {
+  position: relative;
+  inline-size: 100%;
+  block-size: 1.25rem;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+:where(.vk-video-player__seek:disabled) {
+  cursor: default;
+}
+
+:where(.vk-video-player__seek)::-webkit-slider-runnable-track {
+  block-size: 0.25rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.2);
+}
+
+:where(.vk-video-player__seek)::-moz-range-track {
+  block-size: 0.25rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.2);
+}
+
+:where(.vk-video-player__seek)::-webkit-slider-thumb {
+  appearance: none;
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+  margin-block-start: -0.3125rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--vk-video-fg);
+}
+
+:where(.vk-video-player__seek)::-moz-range-thumb {
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--vk-video-fg);
+}
+
+:where(.vk-video-player__seek:focus-visible) {
+  outline: 2px solid var(--vk-video-fg);
+  outline-offset: 2px;
+}
+
+:where(.vk-video-player__volume) {
+  inline-size: 5rem;
+  flex: none;
+  margin: 0;
+  accent-color: var(--vk-video-accent);
+}
+
+:where(.vk-video-player__volume:focus-visible) {
+  outline: 2px solid var(--vk-video-fg);
+  outline-offset: 2px;
+}
+
+:where(.vk-video-player__rate) {
+  flex: none;
+  block-size: 2rem;
+  padding-inline: var(--vk-space-1);
+  color: inherit;
+  font: inherit;
+  background: transparent;
+  border: 1px solid rgb(255 255 255 / 0.4);
+  border-radius: var(--vk-radius-sm);
+  cursor: pointer;
+}
+
+:where(.vk-video-player__rate option) {
+  color: initial;
+}
+
+/* Narrow players: drop the volume slider (the mute button remains) to keep the row on one line. */
+@container (max-width: 26rem) {
+  :where(.vk-video-player__volume) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.vk-video-player__spinner) {
+    animation: none;
+    border-block-start-color: rgb(255 255 255 / 0.3);
+  }
+}

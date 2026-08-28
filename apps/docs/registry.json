@@ -9688,7 +9688,7 @@
             "name": "children",
             "type": "ReactNode | ((state: FormState) => ReactNode)",
             "required": true,
-            "description": "Plain children, or a render function that receives `{ errors, submitting }`.",
+            "description": "Plain children, or a render function that receives the full FormState.",
             "default": ""
           }
         ],

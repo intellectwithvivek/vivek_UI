@@ -20,6 +20,12 @@ export interface FormState {
   errors: FormErrors
   /** True while an async `onSubmit` is pending. Wire it to the submit button. */
   submitting: boolean
+  /**
+   * Whatever a rejected `onSubmit` threw, or `null`. A failed API call is a state the
+   * layout must be able to render — leaving it as an unhandled rejection surfaces it in
+   * the console and nowhere the user looks. Cleared on the next submit attempt.
+   */
+  submitError: unknown
 }
 
 export interface FormProps
@@ -43,7 +49,7 @@ export interface FormProps
    * fall back to the browser's own wording, which is localised but often stiff.
    */
   messages?: Record<string, Partial<Record<string, string>>>
-  /** Plain children, or a render function that receives `{ errors, submitting }`. */
+  /** Plain children, or a render function that receives the full FormState. */
   children: ReactNode | ((state: FormState) => ReactNode)
 }
 
@@ -119,7 +125,11 @@ export const Form = forwardRef<HTMLFormElement, FormProps>(function Form(
   { onSubmit, validate, messages, children, className, ...rest },
   ref,
 ) {
-  const [state, setState] = useState<FormState>({ errors: {}, submitting: false })
+  const [state, setState] = useState<FormState>({
+    errors: {},
+    submitting: false,
+    submitError: null,
+  })
   const formRef = useRef<HTMLFormElement | null>(null)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -134,7 +144,7 @@ export const Form = forwardRef<HTMLFormElement, FormProps>(function Form(
     const errors: FormErrors = { ...custom, ...native.errors }
 
     if (Object.keys(errors).length > 0) {
-      setState({ errors, submitting: false })
+      setState({ errors, submitting: false, submitError: null })
       const focusTarget =
         native.firstInvalid ??
         (form.elements.namedItem(Object.keys(errors)[0] ?? '') as HTMLElement | null)
@@ -143,17 +153,22 @@ export const Form = forwardRef<HTMLFormElement, FormProps>(function Form(
     }
 
     if (!onSubmit) {
-      setState({ errors: {}, submitting: false })
+      setState({ errors: {}, submitting: false, submitError: null })
       return
     }
 
-    setState({ errors: {}, submitting: true })
+    setState({ errors: {}, submitting: true, submitError: null })
     try {
       await onSubmit(values, event)
-    } finally {
-      // Guarded: the submit may have unmounted the form (a successful login navigating
-      // away), and setting state after unmount is a warning in dev and a leak signal.
       if (formRef.current) setState((s) => ({ ...s, submitting: false }))
+    } catch (thrown) {
+      // Caught, not swallowed: the failure lands in state for the layout to render. The
+      // alternative — letting it reject unhandled — puts the error in the console and
+      // nowhere the user is looking.
+      //
+      // Guarded: the submit may have unmounted the form (a successful login navigating
+      // away), and setting state after unmount is a leak signal.
+      if (formRef.current) setState((s) => ({ ...s, submitting: false, submitError: thrown }))
     }
   }
 

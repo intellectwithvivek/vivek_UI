@@ -151,15 +151,25 @@ describe('Form · submission', () => {
     )
   })
 
-  it('settles submitting even when onSubmit rejects', async () => {
+  it('catches a rejected onSubmit into submitError instead of an unhandled rejection', async () => {
+    // A failed API call is a state the layout must render; a console rejection is
+    // invisible to the person who pressed the button.
     const onSubmit = vi.fn(() => Promise.reject(new Error('boom')))
-    render(<SignupForm onSubmit={onSubmit} />)
-    type('Email', 'a@b.co')
-    type('Password', 'longenough')
-    submit()
-    await waitFor(() =>
-      expect(screen.getByRole('button', { name: 'Create account' })).toBeEnabled(),
+    render(
+      <Form onSubmit={onSubmit}>
+        {({ submitting, submitError }) => (
+          <>
+            <button disabled={submitting} type="submit">
+              Go
+            </button>
+            {submitError ? <p role="alert">{(submitError as Error).message}</p> : null}
+          </>
+        )}
+      </Form>,
     )
+    fireEvent.click(screen.getByRole('button'))
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('boom'))
+    expect(screen.getByRole('button')).toBeEnabled()
   })
 
   it('accepts plain children too — the render function is optional', () => {

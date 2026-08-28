@@ -1,4 +1,11 @@
 :where(.vk-code) {
+  /*
+   * A long unbroken token — a package name, a URL — must break rather than force the
+   * whole page to scroll sideways. WCAG 1.4.10 measures at 320px, where a single
+   * '@scope/package/subpath' string is wider than the viewport; without this, one inline
+   * code span makes every element on the page fail reflow.
+   */
+
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   background: var(--vk-color-surface-hover);
   border: 1px solid var(--vk-color-border);
@@ -8,7 +15,14 @@
 
 :where(.vk-code:not(.vk-code--block)) {
   padding: 0.15em 0.4em;
-  white-space: nowrap;
+  /*
+   * Breakable, deliberately. Inline code held `white-space: nowrap` for tidiness, and one
+   * long token - a package name, a URL - then forced the whole page to scroll sideways at
+   * reflow widths, failing WCAG 1.4.10 for every element on the page. `anywhere` lets the
+   * token break only when the alternative is page overflow; normal-width layouts never see
+   * a difference.
+   */
+  overflow-wrap: anywhere;
 }
 
 :where(.vk-code[data-size="sm"]) {

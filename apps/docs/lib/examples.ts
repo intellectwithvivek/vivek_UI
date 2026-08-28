@@ -176,6 +176,42 @@ const CORE_EXAMPLES: ExampleSet = {
     },
   ],
 
+  form: [
+    {
+      title: 'The browser validates; Form makes the report usable',
+      description:
+        'required, minLength, type="email" and pattern all work exactly as on plain HTML. Form intercepts submit, swaps in readable messages per field per failure, focuses the first invalid control, and hands { errors, submitting } to your layout. Nothing invalid ever reaches onSubmit. No dependency, no context, no controller.',
+      name: 'default',
+      code: `<Form
+  messages={{
+    email: { valueMissing: 'We need an email to reach you' },
+  }}
+  validate={(v) =>
+    v.password !== v.confirm ? { confirm: 'Passwords do not match' } : null
+  }
+  onSubmit={async (values) => api.signup(values)}
+>
+  {({ errors, submitting }) => (
+    <>
+      <Field label="Email" error={errors.email}>
+        <Input name="email" type="email" required />
+      </Field>
+      <Field label="Password" error={errors.password}>
+        <Input name="password" type="password" minLength={8} required />
+      </Field>
+      <Field label="Confirm" error={errors.confirm}>
+        <Input name="confirm" type="password" required />
+      </Field>
+      <Button type="submit" loading={submitting}>Create account</Button>
+    </>
+  )}
+</Form>
+
+// Plain children work too - the render function is only for layouts
+// that want the errors and the pending state.`,
+    },
+  ],
+
   chip: [
     {
       title: 'Three shapes, and the element changes with the job',

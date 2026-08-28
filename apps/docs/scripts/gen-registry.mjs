@@ -40,6 +40,7 @@ const CATEGORIES = {
   Actions: ['button', 'icon-button', 'button-group', 'copy-button'],
   Forms: [
     'field',
+    'form',
     'label',
     'input',
     'textarea',

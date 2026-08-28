@@ -9645,6 +9645,61 @@
       "compound": false
     },
     {
+      "slug": "form",
+      "title": "Form",
+      "kind": "component",
+      "category": "Forms",
+      "exports": [
+        "Form"
+      ],
+      "typeExports": [
+        "FormErrors",
+        "FormProps",
+        "FormState",
+        "FormValues"
+      ],
+      "primary": "Form",
+      "description": "Validation and submission orchestration over a native `<form>`.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "onSubmit",
+            "type": "(values: FormValues, event: FormEvent<HTMLFormElement>) => void | Promise<void>",
+            "required": false,
+            "description": "Called only when validation passes. `values` is the whole form as `new FormData(form)` sees it — which means it also works for controls this library did not render. Return a promise and `submitting` tracks it.",
+            "default": ""
+          },
+          {
+            "name": "validate",
+            "type": "(values: FormValues) => FormErrors | null",
+            "required": false,
+            "description": "Cross-field rules, run after the native ones. Return `{ fieldName: message }` for anything wrong, or `null` when the values pass. Native attributes (`required`, `minLength`, `type=\"email\"`, `pattern`) already validate for free — this is only for what attributes cannot express: matching passwords, at-least-one-of, date ranges.",
+            "default": ""
+          },
+          {
+            "name": "messages",
+            "type": "Record<string, Partial<Record<string, string>>>",
+            "required": false,
+            "description": "Readable replacements for the browser's messages, per field, per ValidityState key: `{ email: { valueMissing: 'We need an email to reach you' } }`. Unlisted failures fall back to the browser's own wording, which is localised but often stiff.",
+            "default": ""
+          },
+          {
+            "name": "children",
+            "type": "ReactNode | ((state: FormState) => ReactNode)",
+            "required": true,
+            "description": "Plain children, or a render function that receives `{ errors, submitting }`.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<FormHTMLAttributes<HTMLFormElement>, 'onSubmit' | 'children' | 'noValidate'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "grid",
       "title": "Grid",
       "kind": "component",

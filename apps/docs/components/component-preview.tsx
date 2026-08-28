@@ -94,6 +94,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   'kanban-board': dynamic(() => import('../previews/kanban-board')),
   scheduler: dynamic(() => import('../previews/scheduler')),
   chip: dynamic(() => import('../previews/chip')),
+  form: dynamic(() => import('../previews/form')),
   'number-input': dynamic(() => import('../previews/number-input')),
   segmented: dynamic(() => import('../previews/segmented')),
   'hover-card': dynamic(() => import('../previews/hover-card')),

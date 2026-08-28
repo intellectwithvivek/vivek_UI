@@ -1,0 +1,5 @@
+/* Form has no chrome of its own: it is orchestration. The class exists as a styling hook. */
+
+:where(.vk-form) {
+  display: block;
+}

@@ -186,6 +186,13 @@ export {
   type FooterLink,
   type FooterProps,
 } from './components/footer'
+export {
+  Form,
+  type FormErrors,
+  type FormProps,
+  type FormState,
+  type FormValues,
+} from './components/form'
 export { Grid, type GridProps, type ResponsiveCols } from './components/grid'
 export { Heading, type HeadingProps } from './components/heading'
 export { Hero, type HeroProps } from './components/hero'

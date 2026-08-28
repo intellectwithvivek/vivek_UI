@@ -26,6 +26,7 @@ import { renderToString } from 'react-dom/server'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Accordion } from './components/accordion'
 import { AnimatedCounter } from './components/animated-counter'
+import { AudioPlayer } from './components/audio-player'
 import { Calendar } from './components/calendar'
 import { Carousel } from './components/carousel'
 import { ChatCodeBlock } from './components/chat-code-block'
@@ -151,6 +152,7 @@ const SWEEP: Record<string, () => ReactElement> = {
   combobox: () => <Combobox aria-label="Fruit" options={[{ value: 'a', label: 'Apple' }]} />,
   listbox: () => <Listbox label="Fruit" options={[{ value: 'a', label: 'Apple' }]} />,
   'video-player': () => <VideoPlayer src="/v.mp4" poster="/p.jpg" />,
+  'audio-player': () => <AudioPlayer src="/a.mp3" title="Track" />,
   'command-palette': () => <CommandPalette items={[{ id: 'x', label: 'Open' }]} />,
   'context-menu': () => (
     <ContextMenu>

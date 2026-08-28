@@ -116,6 +116,7 @@ const CATEGORIES = {
     'relative-time',
     'image',
     'video-player',
+    'audio-player',
     'map-embed',
   ],
   Theming: ['theme-provider', 'theme-toggle'],

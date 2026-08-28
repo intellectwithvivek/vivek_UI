@@ -9,7 +9,7 @@
 **Every building block of a website. One install, zero configuration, no dependencies.**
 
 <!-- hero-stats:start -->
-**102 accessible React components**, **10 SVG charts** and **12 ready-made pages** you can copy.
+**103 accessible React components**, **10 SVG charts** and **12 ready-made pages** you can copy.
 No Tailwind, no PostCSS plugin, no Babel plugin, no required provider.
 Works in React 18 and 19, and in Next.js with both the Pages and App Router.
 <!-- hero-stats:end -->
@@ -122,14 +122,14 @@ drifted. VivekUI is a normal dependency: `npm update` and you have the fixes.
 | Runtime dependencies | **0** | Tailwind + Radix + CVA + clsx | Emotion or styled-components |
 | Updates | `npm update` | Re-copy each file by hand | `npm update` |
 | Overrides | One flat class wins (zero specificity) | Edit the source you own | `sx`, `!important`, specificity fights |
-| Server Components | 49 of 102 need no client boundary | Depends what you copied | Often needs a client boundary |
+| Server Components | 49 of 103 need no client boundary | Depends what you copied | Often needs a client boundary |
 | Charts | Built in, pure SVG, 0 deps | Wraps Recharts (~100 kB) | Separate package |
 | Theming | Plain CSS custom properties | Tailwind config | Theme object / JS API |
 
 ## Components
 
 <!-- component-stats:start -->
-**102 components. 159 runtime exports.** Every one is covered by tests including
+**103 components. 160 runtime exports.** Every one is covered by tests including
 automated `axe` assertions, and **49 need no `'use client'`** — they render directly in React
 Server Components.
 <!-- component-stats:end -->
@@ -255,7 +255,7 @@ native `<details>`, so it needs **no ARIA and no JavaScript**.
 ### Media and time
 
 <!-- catalog-media-time:start -->
-`AnimatedCounter` &middot; `Carousel` &middot; `Clock` &middot; `Countdown` &middot; `Image` &middot; `MapEmbed` &middot; `Marquee` &middot; `RelativeTime` &middot; `VideoPlayer`
+`AnimatedCounter` &middot; `AudioPlayer` &middot; `Carousel` &middot; `Clock` &middot; `Countdown` &middot; `Image` &middot; `MapEmbed` &middot; `Marquee` &middot; `RelativeTime` &middot; `VideoPlayer`
 <!-- catalog-media-time:end -->
 
 `Countdown` and `Clock` accept a `now` prop and never read the clock during render, so server and
@@ -322,8 +322,8 @@ Measured with `size-limit`, minified and brotlied, React excluded:
 | `{ Modal }` (focus trap + scroll lock + portal) | **2.9 kB** |
 | A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **2.9 kB** |
 | All six charts | **10.5 kB** |
-| Every component, imported at once | **57.0 kB** |
-| `styles.css` | 219.7 kB raw, **30.5 kB gzipped** |
+| Every component, imported at once | **58.0 kB** |
+| `styles.css` | 224.2 kB raw, **31.2 kB gzipped** |
 | `charts.css` | 12.2 kB raw, **2.5 kB gzipped** |
 <!-- size-table:end -->
 
@@ -432,11 +432,11 @@ dark mode — in the Playwright suite, where contrast is measured on the pixels 
 ## Server Components
 
 <!-- server-components:start -->
-**49 of the 102 components carry no `'use client'`** and render directly in React Server Components.
+**49 of the 103 components carry no `'use client'`** and render directly in React Server Components.
 Only genuinely interactive ones declare it, per file.
 
 The build is unbundled precisely so each file keeps its own directive, and CI asserts on every build
-that all 66 client files still carry theirs in **both** the ESM and CJS output.
+that all 67 client files still carry theirs in **both** the ESM and CJS output.
 <!-- server-components:end -->
 
 ## Security

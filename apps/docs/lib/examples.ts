@@ -571,6 +571,37 @@ const events = [
     },
   ],
 
+  'audio-player': [
+    {
+      title: 'A track card',
+      description:
+        'title, subtitle and artwork make it a card; the string title names the player for assistive tech. Every control is a real button or range: the seek bar announces "1:23 of 4:56", volume a percentage. Space/K play, arrows seek and change volume, J/L jump ten seconds, M mutes.',
+      name: 'default',
+      code: `<AudioPlayer
+  title="Episode 12: Zero dependencies"
+  subtitle="The VivekUI podcast · 42 min"
+  artwork="/podcast/cover.jpg"
+  src="/podcast/ep12.mp3"
+  onEnded={() => markListened(12)}
+/>`,
+    },
+    {
+      title: 'Bare and small',
+      description:
+        'Without a title it is one control row. size="sm" tightens it for a comment thread or a table cell; rates={[]} drops the speed control; several sources let the browser pick the first it can decode. Under 28rem the volume slider goes (mute stays); under 20rem the speed control goes too.',
+      name: 'small',
+      code: `<AudioPlayer
+  size="sm"
+  label="Voice note from Priya"
+  rates={[]}
+  src={[
+    { src: '/notes/priya.ogg', type: 'audio/ogg' },
+    { src: '/notes/priya.mp3', type: 'audio/mpeg' },
+  ]}
+/>`,
+    },
+  ],
+
   image: [
     {
       title: 'Ratios and shapes',

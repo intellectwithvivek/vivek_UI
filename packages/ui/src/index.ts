@@ -39,6 +39,7 @@ export {
   type CounterFormat,
 } from './components/animated-counter'
 export { AspectRatio, type AspectRatioProps } from './components/aspect-ratio'
+export { AudioPlayer, type AudioPlayerProps, type AudioSource } from './components/audio-player'
 export { Avatar, type AvatarGroupProps, type AvatarProps } from './components/avatar'
 export { Badge, type BadgeProps } from './components/badge'
 export {

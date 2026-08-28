@@ -16,6 +16,7 @@ import {
 } from 'react'
 import { useIsomorphicId } from '../../hooks/use-isomorphic-id'
 import { cx } from '../../utils/cx'
+import { formatTime } from '../../utils/format-time'
 
 export interface VideoSource {
   src: string
@@ -72,15 +73,7 @@ export interface VideoPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>, '
 
 const DEFAULT_RATES = [0.5, 1, 1.25, 1.5, 2]
 
-export function formatTime(seconds: number): string {
-  if (!Number.isFinite(seconds) || seconds < 0) return '0:00'
-  const whole = Math.floor(seconds)
-  const h = Math.floor(whole / 3600)
-  const m = Math.floor((whole % 3600) / 60)
-  const s = whole % 60
-  const mm = h > 0 ? String(m).padStart(2, '0') : String(m)
-  return `${h > 0 ? `${h}:` : ''}${mm}:${String(s).padStart(2, '0')}`
-}
+export { formatTime }
 
 function clamp(n: number, lo: number, hi: number): number {
   return Math.min(hi, Math.max(lo, n))

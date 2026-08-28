@@ -105,6 +105,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   'hover-card': dynamic(() => import('../previews/hover-card')),
   image: dynamic(() => import('../previews/image')),
   'video-player': dynamic(() => import('../previews/video-player')),
+  'audio-player': dynamic(() => import('../previews/audio-player')),
   'map-embed': dynamic(() => import('../previews/map-embed')),
   newsletter: dynamic(() => import('../previews/newsletter')),
   'virtual-list': dynamic(() => import('../previews/virtual-list')),

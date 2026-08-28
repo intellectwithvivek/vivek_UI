@@ -2249,6 +2249,164 @@
       "compound": false
     },
     {
+      "slug": "audio-player",
+      "title": "Audio player",
+      "kind": "component",
+      "category": "Media & time",
+      "exports": [
+        "AudioPlayer"
+      ],
+      "typeExports": [
+        "AudioPlayerProps",
+        "AudioSource"
+      ],
+      "primary": "AudioPlayer",
+      "description": "An audio player with its own controls — a podcast episode, a voice note, a sample.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "src",
+            "type": "string | AudioSource[]",
+            "required": false,
+            "description": "One URL, or several sources the browser picks from in order.",
+            "default": ""
+          },
+          {
+            "name": "title",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Track title, shown above the controls.",
+            "default": ""
+          },
+          {
+            "name": "subtitle",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Artist, episode, date — the line under the title.",
+            "default": ""
+          },
+          {
+            "name": "artwork",
+            "type": "string",
+            "required": false,
+            "description": "Square artwork beside the title. Decorative: the title is the name.",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Accessible name of the player. Defaults to the `title` when it is a string, else `'Audio player'`.",
+            "default": ""
+          },
+          {
+            "name": "size",
+            "type": "'sm' | 'md'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "autoPlay",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "muted",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "loop",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "preload",
+            "type": "'none' | 'metadata' | 'auto'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "rates",
+            "type": "number[]",
+            "required": false,
+            "description": "Playback speeds offered. Default `[0.75, 1, 1.25, 1.5, 2]`; `[]` hides the control.",
+            "default": ""
+          },
+          {
+            "name": "seekStep",
+            "type": "number",
+            "required": false,
+            "description": "Seconds moved by ArrowLeft / ArrowRight. Default `5`.",
+            "default": ""
+          },
+          {
+            "name": "errorMessage",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Shown when the media fails to load or decode.",
+            "default": ""
+          },
+          {
+            "name": "audioRef",
+            "type": "Ref<HTMLAudioElement>",
+            "required": false,
+            "description": "The `<audio>` element, for anything the props do not cover.",
+            "default": ""
+          },
+          {
+            "name": "audioProps",
+            "type": "Omit<AudioHTMLAttributes<HTMLAudioElement>, 'src' | 'controls' | 'autoPlay' | 'muted' | 'loop' | 'preload'>",
+            "required": false,
+            "description": "Extra attributes for the `<audio>` — `crossOrigin`, for one.",
+            "default": ""
+          },
+          {
+            "name": "onPlayingChange",
+            "type": "(playing: boolean) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onTimeChange",
+            "type": "(currentTime: number, duration: number) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onEnded",
+            "type": "() => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onError",
+            "type": "() => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'title'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "avatar",
       "title": "Avatar",
       "kind": "component",

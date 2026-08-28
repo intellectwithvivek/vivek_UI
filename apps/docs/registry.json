@@ -5403,6 +5403,107 @@
       "compound": false
     },
     {
+      "slug": "chip",
+      "title": "Chip",
+      "kind": "component",
+      "category": "Forms",
+      "exports": [
+        "Chip"
+      ],
+      "typeExports": [
+        "ChipProps"
+      ],
+      "primary": "Chip",
+      "description": "A chip — a compact, labelled object: a filter, a tag, a recipient.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "required": true,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "icon",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Leading glyph. Decorative — the label is the name.",
+            "default": ""
+          },
+          {
+            "name": "size",
+            "type": "'sm' | 'md' | 'lg'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "tone",
+            "type": "'neutral' | 'primary' | 'success' | 'warning' | 'danger'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onRemove",
+            "type": "() => void",
+            "required": false,
+            "description": "Renders a remove button and makes Delete/Backspace on the focused chip fire it — the same keyboard contract TagInput's chips follow.",
+            "default": ""
+          },
+          {
+            "name": "removeLabel",
+            "type": "string",
+            "required": false,
+            "description": "Accessible name of the remove button. The visible x says nothing to a reader.",
+            "default": ""
+          },
+          {
+            "name": "selectable",
+            "type": "boolean",
+            "required": false,
+            "description": "Makes the chip a toggle — a real `<button aria-pressed>`, so a filter bar of chips is operable and announced correctly for free.",
+            "default": ""
+          },
+          {
+            "name": "selected",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "defaultSelected",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onSelectedChange",
+            "type": "(selected: boolean) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<HTMLAttributes<HTMLSpanElement>, 'onSelect'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "clock",
       "title": "Clock",
       "kind": "component",
@@ -10555,6 +10656,107 @@
         "spreadsHostProps": true,
         "extends": [
           "Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit' | 'title'>"
+        ]
+      },
+      "compound": false
+    },
+    {
+      "slug": "number-input",
+      "title": "Number input",
+      "kind": "component",
+      "category": "Forms",
+      "exports": [
+        "NumberInput"
+      ],
+      "typeExports": [
+        "NumberInputProps"
+      ],
+      "primary": "NumberInput",
+      "description": "A numeric field that behaves.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "value",
+            "type": "number | null",
+            "required": false,
+            "description": "Controlled value. `null` is \"empty\" — never `NaN`, which poisons every comparison.",
+            "default": ""
+          },
+          {
+            "name": "defaultValue",
+            "type": "number | null",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: number | null) => void",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "min",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "step",
+            "type": "number",
+            "required": false,
+            "description": "Increment applied by the steppers and the arrow keys. Default `1`.",
+            "default": ""
+          },
+          {
+            "name": "precision",
+            "type": "number",
+            "required": false,
+            "description": "Decimal places the committed value is rounded to. Unset = no rounding.",
+            "default": ""
+          },
+          {
+            "name": "size",
+            "type": "'sm' | 'md' | 'lg'",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "default": ""
+          },
+          {
+            "name": "clampOnBlur",
+            "type": "boolean",
+            "required": false,
+            "description": "Clamp into `[min, max]` when focus leaves. Default `true` — the alternative is a field that looks settled while holding a value the range forbids.",
+            "default": ""
+          },
+          {
+            "name": "allowMouseWheel",
+            "type": "boolean",
+            "required": false,
+            "description": "Let the mouse wheel change the value while the field is focused. Default `false`: a page scroll drifting a focused quantity is the classic silent-corruption bug in `type=\"number\"`, and opting back in should be a decision, not an accident.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'defaultValue' | 'onChange' | 'size' | 'min' | 'max' | 'step'>"
         ]
       },
       "compound": false

@@ -1,0 +1,147 @@
+/*
+ * Chip.
+ *
+ * The soft-wash tone treatment: text uses the -subtle-fg partner of its wash, which is
+ * the pairing the token tests verify for AA — never white-on-saturated, which fails for
+ * warning at any usable weight.
+ */
+
+:where(.vk-chip) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vk-space-1);
+  max-inline-size: 100%;
+  padding-block: 0.125rem;
+  padding-inline: var(--vk-space-2);
+  font-family: var(--vk-font-sans);
+  line-height: 1.5;
+  color: var(--vk-color-fg-subtle);
+  background: var(--vk-color-surface-sunken);
+  border: 1px solid transparent;
+  border-radius: var(--vk-radius-full);
+}
+
+/* A selectable chip is a real button; strip the button chrome, keep the chip's. */
+:where(button.vk-chip) {
+  cursor: pointer;
+  font-size: inherit;
+  transition:
+    background var(--vk-duration-fast) var(--vk-ease),
+    border-color var(--vk-duration-fast) var(--vk-ease);
+}
+
+:where(.vk-chip[data-size="sm"]) {
+  font-size: var(--vk-text-xs);
+}
+
+:where(.vk-chip[data-size="md"]) {
+  font-size: var(--vk-text-sm);
+}
+
+:where(.vk-chip[data-size="lg"]) {
+  font-size: var(--vk-text-md);
+}
+
+:where(.vk-chip[data-tone="primary"]) {
+  color: var(--vk-color-primary-subtle-fg);
+  background: var(--vk-color-primary-subtle);
+}
+
+:where(.vk-chip[data-tone="success"]) {
+  color: var(--vk-color-success-subtle-fg);
+  background: var(--vk-color-success-subtle);
+}
+
+:where(.vk-chip[data-tone="warning"]) {
+  color: var(--vk-color-warning-subtle-fg);
+  background: var(--vk-color-warning-subtle);
+}
+
+:where(.vk-chip[data-tone="danger"]) {
+  color: var(--vk-color-danger-subtle-fg);
+  background: var(--vk-color-danger-subtle);
+}
+
+/*
+ * Selection is a border plus the pressed state, not a colour swap: colour alone is the
+ * one channel some readers do not have, and aria-pressed already carries the truth.
+ */
+:where(button.vk-chip[aria-pressed="true"]) {
+  border-color: currentcolor;
+}
+
+:where(.vk-chip[data-disabled]) {
+  opacity: 0.55;
+}
+
+:where(button.vk-chip:focus-visible),
+:where(.vk-chip[tabindex]:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: 2px;
+}
+
+:where(.vk-chip__label) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:where(.vk-chip__icon) {
+  display: inline-flex;
+  flex: none;
+}
+
+:where(.vk-chip__remove) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: 1.15em;
+  block-size: 1.15em;
+  margin-inline-end: -0.25em;
+  padding: 0;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: var(--vk-radius-full);
+  cursor: pointer;
+}
+
+:where(.vk-chip__remove:hover:not(:disabled)) {
+  background: color-mix(in oklab, currentcolor 14%, transparent);
+}
+
+:where(.vk-chip__remove:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+}
+
+:where(.vk-chip__cross) {
+  position: relative;
+  inline-size: 0.7em;
+  block-size: 0.7em;
+}
+
+:where(.vk-chip__cross)::before,
+:where(.vk-chip__cross)::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 15%;
+  inline-size: 70%;
+  block-size: 1.5px;
+  background: currentcolor;
+}
+
+:where(.vk-chip__cross)::before {
+  transform: rotate(45deg);
+}
+
+:where(.vk-chip__cross)::after {
+  transform: rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(button.vk-chip) {
+    transition: none;
+  }
+}

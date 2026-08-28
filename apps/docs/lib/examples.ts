@@ -176,6 +176,61 @@ const CORE_EXAMPLES: ExampleSet = {
     },
   ],
 
+  chip: [
+    {
+      title: 'Three shapes, and the element changes with the job',
+      description:
+        'Static chips are spans. Selectable chips are real aria-pressed buttons, so a filter bar is announced correctly for free. Removable chips keep the remove control as its OWN button - never a button inside a button, which is why selectable and onRemove are mutually exclusive.',
+      name: 'default',
+      code: `// A filter: a real toggle button underneath.
+<Chip selectable selected={on} onSelectedChange={setOn}>Mine</Chip>
+
+// A tag: Delete or Backspace on the focused chip also removes it.
+<Chip tone="primary" onRemove={() => remove(tag)} removeLabel={\`Remove \${tag}\`}>
+  {tag}
+</Chip>`,
+    },
+    {
+      title: 'Tones',
+      description: 'The soft washes with their AA-verified text partners.',
+      name: 'tones',
+      code: `<Chip tone="neutral">Draft</Chip>
+<Chip tone="primary">In review</Chip>
+<Chip tone="success">Shipped</Chip>
+<Chip tone="warning">Blocked</Chip>
+<Chip tone="danger">Failing</Chip>`,
+    },
+  ],
+
+  'number-input': [
+    {
+      title: 'A numeric field that behaves',
+      description:
+        'Deliberately not type="number": no wheel-drift while scrolling, no per-browser e/- juggling, and garbage cannot read back as an empty string. The value is number | null - null is empty, NaN never escapes - and drafts commit on Enter or blur, clamped into range.',
+      name: 'default',
+      code: `const [qty, setQty] = useState<number | null>(2)
+
+<NumberInput
+  value={qty}
+  onValueChange={setQty}
+  min={1}
+  max={50}
+/>
+
+// ArrowUp/Down step - Shift steps by 10 - Home/End jump to the bounds.
+// The steppers are pointer-only chrome: the input itself is the spinbutton.`,
+    },
+    {
+      title: 'Decimals, rounded on commit',
+      description: 'precision fixes the decimal places; step works in fractions.',
+      name: 'sizes',
+      code: `<NumberInput defaultValue={4.5} step={0.25} precision={2} min={0} />
+
+// Opt back into wheel-to-step only when you mean it:
+<NumberInput allowMouseWheel defaultValue={10} />`,
+    },
+  ],
+
   segmented: [
     {
       title: 'A view switcher with real radio semantics',

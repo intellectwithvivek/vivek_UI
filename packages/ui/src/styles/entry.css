@@ -42,6 +42,7 @@
 @import "../components/chat-message/chat-message.css";
 @import "../components/chat-thread/chat-thread.css";
 @import "../components/checkbox/checkbox.css";
+@import "../components/chip/chip.css";
 @import "../components/clock/clock.css";
 @import "../components/combobox/combobox.css";
 @import "../components/container/container.css";
@@ -75,6 +76,7 @@
 @import "../components/marquee/marquee.css";
 @import "../components/navbar/navbar.css";
 @import "../components/newsletter/newsletter.css";
+@import "../components/number-input/number-input.css";
 @import "../components/otp-input/otp-input.css";
 @import "../components/pagination/pagination.css";
 @import "../components/password-input/password-input.css";

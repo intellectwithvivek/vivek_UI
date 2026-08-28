@@ -94,6 +94,7 @@ export {
   type ChatThreadProps,
 } from './components/chat-thread'
 export { Checkbox, type CheckboxProps } from './components/checkbox'
+export { Chip, type ChipProps } from './components/chip'
 export { Clock, type ClockProps } from './components/clock'
 export { Code, type CodeProps } from './components/code'
 export {
@@ -244,6 +245,7 @@ export {
   type NewsletterProps,
   type NewsletterStatus,
 } from './components/newsletter'
+export { NumberInput, type NumberInputProps } from './components/number-input'
 export { OTPInput, type OTPInputProps } from './components/otp-input'
 export {
   Pagination,

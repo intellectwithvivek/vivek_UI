@@ -10,8 +10,7 @@
 
 <!-- hero-stats:start -->
 **93 accessible React components**, **6 SVG charts** and **12 ready-made pages** you can copy.
-No Tailwind, no PostCSS plugin, no Babel plugin, no provider required to render — only toasts
-and the theme hook use one, locally.
+No Tailwind, no PostCSS plugin, no Babel plugin, no required provider.
 Works in React 18 and 19, and in Next.js with both the Pages and App Router.
 <!-- hero-stats:end -->
 
@@ -133,7 +132,7 @@ drifted. VivekUI is a normal dependency: `npm update` and you have the fixes.
 ## Components
 
 <!-- component-stats:start -->
-**93 components. 141 runtime exports.** Every one is covered by tests including
+**93 components. 145 runtime exports.** Every one is covered by tests including
 automated `axe` assertions, and **49 need no `'use client'`** — they render directly in React
 Server Components.
 <!-- component-stats:end -->
@@ -159,7 +158,7 @@ Server Components.
 ### Forms
 
 <!-- catalog-forms:start -->
-`Calendar` &middot; `formatDate` &middot; `parseISODate` &middot; `toISODate` &middot; `Checkbox` &middot; `Combobox` &middot; `DatePicker` &middot; `Field` &middot; `FileUpload` &middot; `formatBytes` &middot; `matchesAccept` &middot; `Input` &middot; `Label` &middot; `OTPInput` &middot; `PasswordInput` &middot; `Radio` &middot; `RadioGroup` &middot; `Rating` &middot; `Select` &middot; `Slider` &middot; `Switch` &middot; `TagInput` &middot; `Textarea`
+`Calendar` &middot; `formatDate` &middot; `parseISODate` &middot; `toISODate` &middot; `Checkbox` &middot; `Combobox` &middot; `DatePicker` &middot; `Field` &middot; `FileUpload` &middot; `formatBytes` &middot; `matchesAccept` &middot; `Input` &middot; `Label` &middot; `OTPInput` &middot; `PasswordInput` &middot; `Radio` &middot; `RadioGroup` &middot; `Rating` &middot; `Segmented` &middot; `Select` &middot; `Slider` &middot; `Switch` &middot; `TagInput` &middot; `Textarea`
 <!-- catalog-forms:end -->
 
 `Field` owns the ARIA wiring, so it cannot drift:
@@ -178,7 +177,7 @@ region, so a message appearing after submit is genuinely announced.
 ### Overlays
 
 <!-- catalog-overlays:start -->
-`Accordion` &middot; `Drawer` &middot; `DropdownMenu` &middot; `Modal` &middot; `Popover` &middot; `Portal` &middot; `Tabs` &middot; `Toast` &middot; `useToast` &middot; `Tooltip`
+`Accordion` &middot; `Drawer` &middot; `DropdownMenu` &middot; `HoverCard` &middot; `Modal` &middot; `Popover` &middot; `Portal` &middot; `Tabs` &middot; `Toast` &middot; `useToast` &middot; `Tooltip`
 <!-- catalog-overlays:end -->
 
 ### Navigation
@@ -439,7 +438,7 @@ dark mode — in the Playwright suite, where contrast is measured on the pixels 
 Only genuinely interactive ones declare it, per file.
 
 The build is unbundled precisely so each file keeps its own directive, and CI asserts on every build
-that all 55 client files still carry theirs in **both** the ESM and CJS output.
+that all 57 client files still carry theirs in **both** the ESM and CJS output.
 <!-- server-components:end -->
 
 ## Security

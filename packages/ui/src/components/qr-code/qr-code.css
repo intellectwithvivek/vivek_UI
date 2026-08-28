@@ -1,0 +1,12 @@
+/*
+ * QRCode. The SVG carries its own colours through two variables so a consumer can theme a
+ * code deliberately (`--vk-qr-fg` / `--vk-qr-bg`) while the default stays black on white -
+ * the combination every scanner reads. `display: block` keeps it out of the inline baseline
+ * gap; `max-inline-size: 100%` lets `size` be a ceiling on narrow screens.
+ */
+:where(.vk-qr-code) {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--vk-radius-sm);
+}

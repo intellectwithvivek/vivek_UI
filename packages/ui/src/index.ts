@@ -303,6 +303,7 @@ export { Portal, type PortalContainer, type PortalProps } from './components/por
 export { Pricing, type PricingPlan, type PricingProps } from './components/pricing'
 export { Progress, type ProgressProps } from './components/progress'
 export { isSafeHref, Prose, type ProseLinkProps, type ProseProps } from './components/prose'
+export { QRCode, type QRCodeImage, type QRCodeProps, type QrLevel } from './components/qr-code'
 export {
   Radio,
   RadioGroup,

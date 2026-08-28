@@ -135,6 +135,33 @@ const CORE_EXAMPLES: ExampleSet = {
     },
   ],
 
+  'qr-code': [
+    {
+      title: 'A URL, the defaults that scan',
+      description:
+        'Black on white, a four-module quiet zone, level M with a free upgrade when the version has room. It is an image with a name - role="img" and an aria-label saying what it encodes - so a screen-reader user learns the URL instead of "graphic". SVG, so any size is crisp.',
+      name: 'default',
+      code: `<QRCode value="https://vivek-ui.dev/docs" size={160} />
+
+// Give it a better name than the raw URL when there is one:
+<QRCode value={ticketUrl} label="Scan to open your ticket" />`,
+    },
+    {
+      title: 'Branded: a logo, round modules, a colour',
+      description:
+        'image places a logo in the centre and clears the modules beneath it - use level H so the code survives the loss. moduleShape="round" and fg change the look; keep the contrast strong and the quiet zone intact, or phones stop reading it.',
+      name: 'branded',
+      code: `<QRCode
+  value="https://vivek-ui.dev"
+  level="H"
+  moduleShape="round"
+  fg="#1d4ed8"
+  image={{ src: '/logo.png', size: 0.22 }}
+  label="Scan to open the VivekUI docs"
+/>`,
+    },
+  ],
+
   badge: [
     {
       title: 'Tones and variants',

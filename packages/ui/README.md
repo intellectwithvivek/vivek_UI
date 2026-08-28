@@ -9,7 +9,7 @@
 **Every building block of a website. One install, zero configuration, no dependencies.**
 
 <!-- hero-stats:start -->
-**103 accessible React components**, **10 SVG charts** and **12 ready-made pages** you can copy.
+**104 accessible React components**, **10 SVG charts** and **12 ready-made pages** you can copy.
 No Tailwind, no PostCSS plugin, no Babel plugin, no required provider.
 Works in React 18 and 19, and in Next.js with both the Pages and App Router.
 <!-- hero-stats:end -->
@@ -125,15 +125,15 @@ drifted. VivekUI is a normal dependency: `npm update` and you have the fixes.
 | Runtime dependencies | **0** | Tailwind + Radix + CVA + clsx | Emotion or styled-components |
 | Updates | `npm update` | Re-copy each file by hand | `npm update` |
 | Overrides | One flat class wins (zero specificity) | Edit the source you own | `sx`, `!important`, specificity fights |
-| Server Components | 49 of 103 need no client boundary | Depends what you copied | Often needs a client boundary |
+| Server Components | 49 of 104 need no client boundary | Depends what you copied | Often needs a client boundary |
 | Charts | Built in, pure SVG, 0 deps | Wraps Recharts (~100 kB) | Separate package |
 | Theming | Plain CSS custom properties | Tailwind config | Theme object / JS API |
 
 ## Components
 
 <!-- component-stats:start -->
-**103 components. 160 runtime exports.** Every one is covered by tests including
-automated `axe` assertions, and **49 need no `'use client'`** — they render directly in React
+**104 components. 161 runtime exports.** Every one is covered by tests including
+automated `axe` assertions, and **50 need no `'use client'`** — they render directly in React
 Server Components.
 <!-- component-stats:end -->
 
@@ -196,7 +196,7 @@ depending on a router:
 ### Data display
 
 <!-- catalog-data-display:start -->
-`Avatar` &middot; `Badge` &middot; `Card` &middot; `DataTable` &middot; `EditableGrid` &middot; `FileTree` &middot; `KanbanBoard` &middot; `Scheduler` &middot; `Stepper` &middot; `Table` &middot; `Timeline` &middot; `VirtualList`
+`Avatar` &middot; `Badge` &middot; `Card` &middot; `DataTable` &middot; `EditableGrid` &middot; `FileTree` &middot; `KanbanBoard` &middot; `QRCode` &middot; `Scheduler` &middot; `Stepper` &middot; `Table` &middot; `Timeline` &middot; `VirtualList`
 <!-- catalog-data-display:end -->
 
 `DataTable` is batteries-included — client-side sort, search, pagination and row selection, with
@@ -435,7 +435,7 @@ dark mode — in the Playwright suite, where contrast is measured on the pixels 
 ## Server Components
 
 <!-- server-components:start -->
-**49 of the 103 components carry no `'use client'`** and render directly in React Server Components.
+**50 of the 104 components carry no `'use client'`** and render directly in React Server Components.
 Only genuinely interactive ones declare it, per file.
 
 The build is unbundled precisely so each file keeps its own directive, and CI asserts on every build

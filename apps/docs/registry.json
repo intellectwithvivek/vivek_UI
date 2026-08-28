@@ -14041,6 +14041,94 @@
       "compound": true
     },
     {
+      "slug": "qr-code",
+      "title": "Qr code",
+      "kind": "component",
+      "category": "Data display",
+      "exports": [
+        "QRCode"
+      ],
+      "typeExports": [
+        "QRCodeImage",
+        "QRCodeProps"
+      ],
+      "primary": "QRCode",
+      "description": "A QR code, rendered as crisp SVG from an in-house encoder — no dependency, no canvas.",
+      "isClient": false,
+      "api": {
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "required": false,
+            "description": "The text or URL to encode. Encoded as UTF-8 in byte mode.",
+            "default": ""
+          },
+          {
+            "name": "level",
+            "type": "QrLevel",
+            "required": false,
+            "description": "Error-correction level. Default `M` (15 % recoverable). Use `H` (30 %) when placing an `image` over the code. The level is raised for free when the chosen version has room.",
+            "default": ""
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "description": "Rendered side in CSS pixels. The SVG scales; `style={{ width: '100%' }}` also works. Default `160`.",
+            "default": ""
+          },
+          {
+            "name": "margin",
+            "type": "number",
+            "required": false,
+            "description": "Quiet zone in modules. Scanners want 4; use less only inside a generous light frame. Default `4`.",
+            "default": ""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Accessible name. Default `QR code: {value}`.",
+            "default": ""
+          },
+          {
+            "name": "moduleShape",
+            "type": "'square' | 'round'",
+            "required": false,
+            "description": "`round` draws each module as a dot. Default `square`.",
+            "default": ""
+          },
+          {
+            "name": "image",
+            "type": "QRCodeImage",
+            "required": false,
+            "description": "A logo in the centre. Modules underneath are cleared; pair it with `level=\"H\"`.",
+            "default": ""
+          },
+          {
+            "name": "fg",
+            "type": "string",
+            "required": false,
+            "description": "Dark module colour. Default `#000`. Scanners want strong contrast, so the theme is not consulted.",
+            "default": ""
+          },
+          {
+            "name": "bg",
+            "type": "string",
+            "required": false,
+            "description": "Background colour. Default `#fff`.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "Omit<SVGAttributes<SVGSVGElement>, 'children'>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "radio-group",
       "title": "Radio group",
       "kind": "component",

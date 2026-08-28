@@ -90,6 +90,7 @@ const CATEGORIES = {
     'card',
     'badge',
     'avatar',
+    'qr-code',
     'timeline',
     'stepper',
   ],

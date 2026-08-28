@@ -21,6 +21,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   'aspect-ratio': dynamic(() => import('../previews/aspect-ratio')),
   avatar: dynamic(() => import('../previews/avatar')),
   badge: dynamic(() => import('../previews/badge')),
+  'qr-code': dynamic(() => import('../previews/qr-code')),
   'bento-grid': dynamic(() => import('../previews/bento-grid')),
   box: dynamic(() => import('../previews/box')),
   breadcrumb: dynamic(() => import('../previews/breadcrumb')),

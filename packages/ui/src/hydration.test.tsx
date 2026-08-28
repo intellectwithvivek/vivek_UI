@@ -66,6 +66,7 @@ import { Pagination } from './components/pagination'
 import { PasswordInput } from './components/password-input'
 import { Popover, PopoverContent, PopoverTrigger } from './components/popover'
 import { Portal } from './components/portal'
+import { QRCode } from './components/qr-code'
 import { Rating } from './components/rating'
 import { RelativeTime } from './components/relative-time'
 import { Scheduler } from './components/scheduler'
@@ -153,6 +154,7 @@ const SWEEP: Record<string, () => ReactElement> = {
   listbox: () => <Listbox label="Fruit" options={[{ value: 'a', label: 'Apple' }]} />,
   'video-player': () => <VideoPlayer src="/v.mp4" poster="/p.jpg" />,
   'audio-player': () => <AudioPlayer src="/a.mp3" title="Track" />,
+  'qr-code': () => <QRCode value="https://vivek-ui.dev" />,
   'command-palette': () => <CommandPalette items={[{ id: 'x', label: 'Open' }]} />,
   'context-menu': () => (
     <ContextMenu>

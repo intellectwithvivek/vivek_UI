@@ -143,3 +143,126 @@ jobs:
         run: |
           pnpm --filter @the_viveksingh/vivek-ui add -D react@18.3.1 react-dom@18.3.1 @types/react@18.3.12 @types/react-dom@18.3.1
           pnpm --filter @the_viveksingh/vivek-ui test
+
+  e2e:
+    name: browser layout + axe (3 viewports)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build the library and the docs site
+        run: pnpm -r build
+
+      # The suite that closes the class of bug jsdom cannot see. Five layout defects
+      # shipped in one week - a navbar painting over its links, a poster covering the
+      # preview it sat behind, a missing hamburger that removed mobile navigation - and
+      # 1,800+ unit tests stayed green through all of them, because jsdom has no layout
+      # engine and reports every element as a visible 0x0 box. These specs run against the
+      # real production build (next start, not dev - dev serves different CSS chunking) in
+      # a real browser at phone, tablet and desktop widths, plus axe with real contrast
+      # sampling on composed pages in both themes.
+      - name: Install the CI browser
+        working-directory: apps/docs
+        run: npx playwright install chromium --with-deps
+
+      - name: Layout, keyboard and axe specs
+        working-directory: apps/docs
+        run: npx playwright test e2e/layout.spec.ts e2e/a11y.spec.ts
+
+      - name: Upload failure traces
+        if: failure()
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        with:
+          name: playwright-failures
+          path: apps/docs/test-results/
+          retention-days: 7
+
+  install-matrix:
+    name: pack + install with npm, yarn and pnpm
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install and build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --filter @the_viveksingh/vivek-ui build
+
+      # The README says the package is verified against npm, yarn and pnpm. This is the
+      # job that makes the sentence true: pack the real tarball, install it with each
+      # manager into a bare project, and import it in a bare Node process - ESM and CJS -
+      # with react present. It is also the only gate where a module-scope window/document
+      # access would surface before a consumer hits it: the unit suite runs in jsdom,
+      # where window always exists.
+      - name: Pack the tarball
+        id: pack
+        working-directory: packages/ui
+        run: echo "file=$(npm pack --pack-destination "$RUNNER_TEMP" | tail -1)" >> "$GITHUB_OUTPUT"
+
+      - name: Install with each manager, import under each module system
+        env:
+          TARBALL: ${{ runner.temp }}/${{ steps.pack.outputs.file }}
+        run: |
+          set -e
+          node scripts/consume-check.mjs npm
+          node scripts/consume-check.mjs yarn
+          node scripts/consume-check.mjs pnpm
+
+  node-matrix:
+    name: dist runs on Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        # engines promises >=18; .nvmrc develops on 22. The floor is what consumers'
+        # older SSR fleets actually run, so the floor is what gets executed here.
+        node: ['18', '20']
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+
+      # Build on the repo's Node, then EXECUTE on the matrix Node: the promise under test
+      # is "the shipped dist runs on your Node", not "the toolchain runs everywhere".
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install and build on the development Node
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --filter @the_viveksingh/vivek-ui build
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.1.0
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: SSR-render the dist on Node ${{ matrix.node }}
+        run: node scripts/dist-smoke.mjs
+

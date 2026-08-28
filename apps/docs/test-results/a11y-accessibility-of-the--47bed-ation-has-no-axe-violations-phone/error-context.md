@@ -143,492 +143,485 @@ expect(received).toEqual(expected) // deep equality
                 - link "Grid" [ref=e106] [cursor=pointer]:
                   - /url: /docs/components/grid
               - listitem [ref=e108]:
-                - link "Scroll area" [ref=e109] [cursor=pointer]:
+                - link "Infinite scroll c" [ref=e109] [cursor=pointer]:
+                  - /url: /docs/components/infinite-scroll
+                  - generic [ref=e110]: Infinite scroll
+                  - generic "Client component" [ref=e112]: c
+              - listitem [ref=e113]:
+                - link "Scroll area" [ref=e114] [cursor=pointer]:
                   - /url: /docs/components/scroll-area
-              - listitem [ref=e111]:
-                - link "Section" [ref=e112] [cursor=pointer]:
+              - listitem [ref=e116]:
+                - link "Section" [ref=e117] [cursor=pointer]:
                   - /url: /docs/components/section
-              - listitem [ref=e114]:
-                - link "Stack" [ref=e115] [cursor=pointer]:
+              - listitem [ref=e119]:
+                - link "Stack" [ref=e120] [cursor=pointer]:
                   - /url: /docs/components/stack
-          - generic [ref=e117]:
-            - generic [ref=e118]: Typography
-            - list "Typography" [ref=e119]:
-              - listitem [ref=e120]:
-                - link "Code" [ref=e121] [cursor=pointer]:
+          - generic [ref=e122]:
+            - generic [ref=e123]: Typography
+            - list "Typography" [ref=e124]:
+              - listitem [ref=e125]:
+                - link "Code" [ref=e126] [cursor=pointer]:
                   - /url: /docs/components/code
-              - listitem [ref=e123]:
-                - link "Heading" [ref=e124] [cursor=pointer]:
+              - listitem [ref=e128]:
+                - link "Heading" [ref=e129] [cursor=pointer]:
                   - /url: /docs/components/heading
-              - listitem [ref=e126]:
-                - link "Kbd" [ref=e127] [cursor=pointer]:
+              - listitem [ref=e131]:
+                - link "Kbd" [ref=e132] [cursor=pointer]:
                   - /url: /docs/components/kbd
-              - listitem [ref=e129]:
-                - link "Prose" [ref=e130] [cursor=pointer]:
+              - listitem [ref=e134]:
+                - link "Prose" [ref=e135] [cursor=pointer]:
                   - /url: /docs/components/prose
-              - listitem [ref=e132]:
-                - link "Text" [ref=e133] [cursor=pointer]:
+              - listitem [ref=e137]:
+                - link "Text" [ref=e138] [cursor=pointer]:
                   - /url: /docs/components/text
-          - generic [ref=e135]:
-            - generic [ref=e136]: Actions
-            - list "Actions" [ref=e137]:
-              - listitem [ref=e138]:
-                - link "Button" [ref=e139] [cursor=pointer]:
+          - generic [ref=e140]:
+            - generic [ref=e141]: Actions
+            - list "Actions" [ref=e142]:
+              - listitem [ref=e143]:
+                - link "Button" [ref=e144] [cursor=pointer]:
                   - /url: /docs/components/button
-              - listitem [ref=e141]:
-                - link "Button group" [ref=e142] [cursor=pointer]:
+              - listitem [ref=e146]:
+                - link "Button group" [ref=e147] [cursor=pointer]:
                   - /url: /docs/components/button-group
-              - listitem [ref=e144]:
-                - link "Copy button c" [ref=e145] [cursor=pointer]:
-                  - /url: /docs/components/copy-button
-                  - generic [ref=e146]: Copy button
-                  - generic "Client component" [ref=e148]: c
               - listitem [ref=e149]:
-                - link "Icon button" [ref=e150] [cursor=pointer]:
+                - link "Copy button c" [ref=e150] [cursor=pointer]:
+                  - /url: /docs/components/copy-button
+                  - generic [ref=e151]: Copy button
+                  - generic "Client component" [ref=e153]: c
+              - listitem [ref=e154]:
+                - link "Icon button" [ref=e155] [cursor=pointer]:
                   - /url: /docs/components/icon-button
-          - generic [ref=e152]:
-            - generic [ref=e153]: Forms
-            - list "Forms" [ref=e154]:
-              - listitem [ref=e155]:
-                - link "Calendar c" [ref=e156] [cursor=pointer]:
-                  - /url: /docs/components/calendar
-                  - generic [ref=e157]: Calendar
-                  - generic "Client component" [ref=e159]: c
+          - generic [ref=e157]:
+            - generic [ref=e158]: Forms
+            - list "Forms" [ref=e159]:
               - listitem [ref=e160]:
-                - link "Checkbox" [ref=e161] [cursor=pointer]:
+                - link "Calendar c" [ref=e161] [cursor=pointer]:
+                  - /url: /docs/components/calendar
+                  - generic [ref=e162]: Calendar
+                  - generic "Client component" [ref=e164]: c
+              - listitem [ref=e165]:
+                - link "Checkbox" [ref=e166] [cursor=pointer]:
                   - /url: /docs/components/checkbox
-              - listitem [ref=e163]:
-                - link "Combobox c" [ref=e164] [cursor=pointer]:
-                  - /url: /docs/components/combobox
-                  - generic [ref=e165]: Combobox
-                  - generic "Client component" [ref=e167]: c
               - listitem [ref=e168]:
-                - link "Date picker c" [ref=e169] [cursor=pointer]:
-                  - /url: /docs/components/date-picker
-                  - generic [ref=e170]: Date picker
+                - link "Chip c" [ref=e169] [cursor=pointer]:
+                  - /url: /docs/components/chip
+                  - generic [ref=e170]: Chip
                   - generic "Client component" [ref=e172]: c
               - listitem [ref=e173]:
-                - link "Field c" [ref=e174] [cursor=pointer]:
-                  - /url: /docs/components/field
-                  - generic [ref=e175]: Field
+                - link "Combobox c" [ref=e174] [cursor=pointer]:
+                  - /url: /docs/components/combobox
+                  - generic [ref=e175]: Combobox
                   - generic "Client component" [ref=e177]: c
               - listitem [ref=e178]:
-                - link "File upload c" [ref=e179] [cursor=pointer]:
-                  - /url: /docs/components/file-upload
-                  - generic [ref=e180]: File upload
+                - link "Date picker c" [ref=e179] [cursor=pointer]:
+                  - /url: /docs/components/date-picker
+                  - generic [ref=e180]: Date picker
                   - generic "Client component" [ref=e182]: c
               - listitem [ref=e183]:
-                - link "Input" [ref=e184] [cursor=pointer]:
+                - link "Field c" [ref=e184] [cursor=pointer]:
+                  - /url: /docs/components/field
+                  - generic [ref=e185]: Field
+                  - generic "Client component" [ref=e187]: c
+              - listitem [ref=e188]:
+                - link "File upload c" [ref=e189] [cursor=pointer]:
+                  - /url: /docs/components/file-upload
+                  - generic [ref=e190]: File upload
+                  - generic "Client component" [ref=e192]: c
+              - listitem [ref=e193]:
+                - link "Form c" [ref=e194] [cursor=pointer]:
+                  - /url: /docs/components/form
+                  - generic [ref=e195]: Form
+                  - generic "Client component" [ref=e197]: c
+              - listitem [ref=e198]:
+                - link "Input" [ref=e199] [cursor=pointer]:
                   - /url: /docs/components/input
-              - listitem [ref=e186]:
-                - link "Label" [ref=e187] [cursor=pointer]:
+              - listitem [ref=e201]:
+                - link "Label" [ref=e202] [cursor=pointer]:
                   - /url: /docs/components/label
-              - listitem [ref=e189]:
-                - link "Otp input c" [ref=e190] [cursor=pointer]:
+              - listitem [ref=e204]:
+                - link "Number input c" [ref=e205] [cursor=pointer]:
+                  - /url: /docs/components/number-input
+                  - generic [ref=e206]: Number input
+                  - generic "Client component" [ref=e208]: c
+              - listitem [ref=e209]:
+                - link "Otp input c" [ref=e210] [cursor=pointer]:
                   - /url: /docs/components/otp-input
-                  - generic [ref=e191]: Otp input
-                  - generic "Client component" [ref=e193]: c
-              - listitem [ref=e194]:
-                - link "Password input c" [ref=e195] [cursor=pointer]:
+                  - generic [ref=e211]: Otp input
+                  - generic "Client component" [ref=e213]: c
+              - listitem [ref=e214]:
+                - link "Password input c" [ref=e215] [cursor=pointer]:
                   - /url: /docs/components/password-input
-                  - generic [ref=e196]: Password input
-                  - generic "Client component" [ref=e198]: c
-              - listitem [ref=e199]:
-                - link "Radio group" [ref=e200] [cursor=pointer]:
+                  - generic [ref=e216]: Password input
+                  - generic "Client component" [ref=e218]: c
+              - listitem [ref=e219]:
+                - link "Radio group" [ref=e220] [cursor=pointer]:
                   - /url: /docs/components/radio-group
-              - listitem [ref=e202]:
-                - link "Rating c" [ref=e203] [cursor=pointer]:
+              - listitem [ref=e222]:
+                - link "Rating c" [ref=e223] [cursor=pointer]:
                   - /url: /docs/components/rating
-                  - generic [ref=e204]: Rating
-                  - generic "Client component" [ref=e206]: c
-              - listitem [ref=e207]:
-                - link "Segmented c" [ref=e208] [cursor=pointer]:
+                  - generic [ref=e224]: Rating
+                  - generic "Client component" [ref=e226]: c
+              - listitem [ref=e227]:
+                - link "Segmented c" [ref=e228] [cursor=pointer]:
                   - /url: /docs/components/segmented
-                  - generic [ref=e209]: Segmented
-                  - generic "Client component" [ref=e211]: c
-              - listitem [ref=e212]:
-                - link "Select" [ref=e213] [cursor=pointer]:
+                  - generic [ref=e229]: Segmented
+                  - generic "Client component" [ref=e231]: c
+              - listitem [ref=e232]:
+                - link "Select" [ref=e233] [cursor=pointer]:
                   - /url: /docs/components/select
-              - listitem [ref=e215]:
-                - link "Slider c" [ref=e216] [cursor=pointer]:
+              - listitem [ref=e235]:
+                - link "Slider c" [ref=e236] [cursor=pointer]:
                   - /url: /docs/components/slider
-                  - generic [ref=e217]: Slider
-                  - generic "Client component" [ref=e219]: c
-              - listitem [ref=e220]:
-                - link "Switch" [ref=e221] [cursor=pointer]:
+                  - generic [ref=e237]: Slider
+                  - generic "Client component" [ref=e239]: c
+              - listitem [ref=e240]:
+                - link "Switch" [ref=e241] [cursor=pointer]:
                   - /url: /docs/components/switch
-              - listitem [ref=e223]:
-                - link "Tag input c" [ref=e224] [cursor=pointer]:
+              - listitem [ref=e243]:
+                - link "Tag input c" [ref=e244] [cursor=pointer]:
                   - /url: /docs/components/tag-input
-                  - generic [ref=e225]: Tag input
-                  - generic "Client component" [ref=e227]: c
-              - listitem [ref=e228]:
-                - link "Textarea" [ref=e229] [cursor=pointer]:
+                  - generic [ref=e245]: Tag input
+                  - generic "Client component" [ref=e247]: c
+              - listitem [ref=e248]:
+                - link "Textarea" [ref=e249] [cursor=pointer]:
                   - /url: /docs/components/textarea
-          - generic [ref=e231]:
-            - generic [ref=e232]: Overlays
-            - list "Overlays" [ref=e233]:
-              - listitem [ref=e234]:
-                - link "Accordion c" [ref=e235] [cursor=pointer]:
-                  - /url: /docs/components/accordion
-                  - generic [ref=e236]: Accordion
-                  - generic "Client component" [ref=e238]: c
-              - listitem [ref=e239]:
-                - link "Drawer c" [ref=e240] [cursor=pointer]:
-                  - /url: /docs/components/drawer
-                  - generic [ref=e241]: Drawer
-                  - generic "Client component" [ref=e243]: c
-              - listitem [ref=e244]:
-                - link "Dropdown menu c" [ref=e245] [cursor=pointer]:
-                  - /url: /docs/components/dropdown-menu
-                  - generic [ref=e246]: Dropdown menu
-                  - generic "Client component" [ref=e248]: c
-              - listitem [ref=e249]:
-                - link "Hover card c" [ref=e250] [cursor=pointer]:
-                  - /url: /docs/components/hover-card
-                  - generic [ref=e251]: Hover card
-                  - generic "Client component" [ref=e253]: c
+          - generic [ref=e251]:
+            - generic [ref=e252]: Overlays
+            - list "Overlays" [ref=e253]:
               - listitem [ref=e254]:
-                - link "Modal c" [ref=e255] [cursor=pointer]:
-                  - /url: /docs/components/modal
-                  - generic [ref=e256]: Modal
+                - link "Accordion c" [ref=e255] [cursor=pointer]:
+                  - /url: /docs/components/accordion
+                  - generic [ref=e256]: Accordion
                   - generic "Client component" [ref=e258]: c
               - listitem [ref=e259]:
-                - link "Popover c" [ref=e260] [cursor=pointer]:
-                  - /url: /docs/components/popover
-                  - generic [ref=e261]: Popover
+                - link "Drawer c" [ref=e260] [cursor=pointer]:
+                  - /url: /docs/components/drawer
+                  - generic [ref=e261]: Drawer
                   - generic "Client component" [ref=e263]: c
               - listitem [ref=e264]:
-                - link "Portal c" [ref=e265] [cursor=pointer]:
-                  - /url: /docs/components/portal
-                  - generic [ref=e266]: Portal
+                - link "Dropdown menu c" [ref=e265] [cursor=pointer]:
+                  - /url: /docs/components/dropdown-menu
+                  - generic [ref=e266]: Dropdown menu
                   - generic "Client component" [ref=e268]: c
               - listitem [ref=e269]:
-                - link "Tabs c" [ref=e270] [cursor=pointer]:
-                  - /url: /docs/components/tabs
-                  - generic [ref=e271]: Tabs
+                - link "Hover card c" [ref=e270] [cursor=pointer]:
+                  - /url: /docs/components/hover-card
+                  - generic [ref=e271]: Hover card
                   - generic "Client component" [ref=e273]: c
               - listitem [ref=e274]:
-                - link "Toast" [ref=e275] [cursor=pointer]:
+                - link "Modal c" [ref=e275] [cursor=pointer]:
+                  - /url: /docs/components/modal
+                  - generic [ref=e276]: Modal
+                  - generic "Client component" [ref=e278]: c
+              - listitem [ref=e279]:
+                - link "Popover c" [ref=e280] [cursor=pointer]:
+                  - /url: /docs/components/popover
+                  - generic [ref=e281]: Popover
+                  - generic "Client component" [ref=e283]: c
+              - listitem [ref=e284]:
+                - link "Portal c" [ref=e285] [cursor=pointer]:
+                  - /url: /docs/components/portal
+                  - generic [ref=e286]: Portal
+                  - generic "Client component" [ref=e288]: c
+              - listitem [ref=e289]:
+                - link "Tabs c" [ref=e290] [cursor=pointer]:
+                  - /url: /docs/components/tabs
+                  - generic [ref=e291]: Tabs
+                  - generic "Client component" [ref=e293]: c
+              - listitem [ref=e294]:
+                - link "Toast" [ref=e295] [cursor=pointer]:
                   - /url: /docs/components/toast
-              - listitem [ref=e277]:
-                - link "Tooltip c" [ref=e278] [cursor=pointer]:
+              - listitem [ref=e297]:
+                - link "Tooltip c" [ref=e298] [cursor=pointer]:
                   - /url: /docs/components/tooltip
-                  - generic [ref=e279]: Tooltip
-                  - generic "Client component" [ref=e281]: c
-          - generic [ref=e282]:
-            - generic [ref=e283]: Navigation
-            - list "Navigation" [ref=e284]:
-              - listitem [ref=e285]:
-                - link "Breadcrumb" [ref=e286] [cursor=pointer]:
+                  - generic [ref=e299]: Tooltip
+                  - generic "Client component" [ref=e301]: c
+          - generic [ref=e302]:
+            - generic [ref=e303]: Navigation
+            - list "Navigation" [ref=e304]:
+              - listitem [ref=e305]:
+                - link "Breadcrumb" [ref=e306] [cursor=pointer]:
                   - /url: /docs/components/breadcrumb
-              - listitem [ref=e288]:
-                - link "Command palette c" [ref=e289] [cursor=pointer]:
+              - listitem [ref=e308]:
+                - link "Command palette c" [ref=e309] [cursor=pointer]:
                   - /url: /docs/components/command-palette
-                  - generic [ref=e290]: Command palette
-                  - generic "Client component" [ref=e292]: c
-              - listitem [ref=e293]:
-                - link "Navbar c" [ref=e294] [cursor=pointer]:
+                  - generic [ref=e310]: Command palette
+                  - generic "Client component" [ref=e312]: c
+              - listitem [ref=e313]:
+                - link "Navbar c" [ref=e314] [cursor=pointer]:
                   - /url: /docs/components/navbar
-                  - generic [ref=e295]: Navbar
-                  - generic "Client component" [ref=e297]: c
-              - listitem [ref=e298]:
-                - link "Pagination c" [ref=e299] [cursor=pointer]:
+                  - generic [ref=e315]: Navbar
+                  - generic "Client component" [ref=e317]: c
+              - listitem [ref=e318]:
+                - link "Pagination c" [ref=e319] [cursor=pointer]:
                   - /url: /docs/components/pagination
-                  - generic [ref=e300]: Pagination
-                  - generic "Client component" [ref=e302]: c
-              - listitem [ref=e303]:
-                - link "Sidebar c" [ref=e304] [cursor=pointer]:
+                  - generic [ref=e320]: Pagination
+                  - generic "Client component" [ref=e322]: c
+              - listitem [ref=e323]:
+                - link "Sidebar c" [ref=e324] [cursor=pointer]:
                   - /url: /docs/components/sidebar
-                  - generic [ref=e305]: Sidebar
-                  - generic "Client component" [ref=e307]: c
-          - generic [ref=e308]:
-            - generic [ref=e309]: Data display
-            - list "Data display" [ref=e310]:
-              - listitem [ref=e311]:
-                - link "Avatar" [ref=e312] [cursor=pointer]:
+                  - generic [ref=e325]: Sidebar
+                  - generic "Client component" [ref=e327]: c
+          - generic [ref=e328]:
+            - generic [ref=e329]: Data display
+            - list "Data display" [ref=e330]:
+              - listitem [ref=e331]:
+                - link "Avatar" [ref=e332] [cursor=pointer]:
                   - /url: /docs/components/avatar
-              - listitem [ref=e314]:
-                - link "Badge" [ref=e315] [cursor=pointer]:
+              - listitem [ref=e334]:
+                - link "Badge" [ref=e335] [cursor=pointer]:
                   - /url: /docs/components/badge
-              - listitem [ref=e317]:
-                - link "Card" [ref=e318] [cursor=pointer]:
+              - listitem [ref=e337]:
+                - link "Card" [ref=e338] [cursor=pointer]:
                   - /url: /docs/components/card
-              - listitem [ref=e320]:
-                - link "Data table c" [ref=e321] [cursor=pointer]:
-                  - /url: /docs/components/data-table
-                  - generic [ref=e322]: Data table
-                  - generic "Client component" [ref=e324]: c
-              - listitem [ref=e325]:
-                - link "Editable grid c" [ref=e326] [cursor=pointer]:
-                  - /url: /docs/components/editable-grid
-                  - generic [ref=e327]: Editable grid
-                  - generic "Client component" [ref=e329]: c
-              - listitem [ref=e330]:
-                - link "File tree c" [ref=e331] [cursor=pointer]:
-                  - /url: /docs/components/file-tree
-                  - generic [ref=e332]: File tree
-                  - generic "Client component" [ref=e334]: c
-              - listitem [ref=e335]:
-                - link "Kanban board c" [ref=e336] [cursor=pointer]:
-                  - /url: /docs/components/kanban-board
-                  - generic [ref=e337]: Kanban board
-                  - generic "Client component" [ref=e339]: c
               - listitem [ref=e340]:
-                - link "Scheduler c" [ref=e341] [cursor=pointer]:
-                  - /url: /docs/components/scheduler
-                  - generic [ref=e342]: Scheduler
+                - link "Data table c" [ref=e341] [cursor=pointer]:
+                  - /url: /docs/components/data-table
+                  - generic [ref=e342]: Data table
                   - generic "Client component" [ref=e344]: c
               - listitem [ref=e345]:
-                - link "Stepper c" [ref=e346] [cursor=pointer]:
-                  - /url: /docs/components/stepper
-                  - generic [ref=e347]: Stepper
+                - link "Editable grid c" [ref=e346] [cursor=pointer]:
+                  - /url: /docs/components/editable-grid
+                  - generic [ref=e347]: Editable grid
                   - generic "Client component" [ref=e349]: c
               - listitem [ref=e350]:
-                - link "Table" [ref=e351] [cursor=pointer]:
+                - link "File tree c" [ref=e351] [cursor=pointer]:
+                  - /url: /docs/components/file-tree
+                  - generic [ref=e352]: File tree
+                  - generic "Client component" [ref=e354]: c
+              - listitem [ref=e355]:
+                - link "Kanban board c" [ref=e356] [cursor=pointer]:
+                  - /url: /docs/components/kanban-board
+                  - generic [ref=e357]: Kanban board
+                  - generic "Client component" [ref=e359]: c
+              - listitem [ref=e360]:
+                - link "Scheduler c" [ref=e361] [cursor=pointer]:
+                  - /url: /docs/components/scheduler
+                  - generic [ref=e362]: Scheduler
+                  - generic "Client component" [ref=e364]: c
+              - listitem [ref=e365]:
+                - link "Stepper c" [ref=e366] [cursor=pointer]:
+                  - /url: /docs/components/stepper
+                  - generic [ref=e367]: Stepper
+                  - generic "Client component" [ref=e369]: c
+              - listitem [ref=e370]:
+                - link "Table" [ref=e371] [cursor=pointer]:
                   - /url: /docs/components/table
-              - listitem [ref=e353]:
-                - link "Timeline" [ref=e354] [cursor=pointer]:
+              - listitem [ref=e373]:
+                - link "Timeline" [ref=e374] [cursor=pointer]:
                   - /url: /docs/components/timeline
-              - listitem [ref=e356]:
-                - link "Virtual list c" [ref=e357] [cursor=pointer]:
+              - listitem [ref=e376]:
+                - link "Virtual list c" [ref=e377] [cursor=pointer]:
                   - /url: /docs/components/virtual-list
-                  - generic [ref=e358]: Virtual list
-                  - generic "Client component" [ref=e360]: c
-          - generic [ref=e361]:
-            - generic [ref=e362]: AI chat
-            - list "AI chat" [ref=e363]:
-              - listitem [ref=e364]:
-                - link "Chat code block c" [ref=e365] [cursor=pointer]:
+                  - generic [ref=e378]: Virtual list
+                  - generic "Client component" [ref=e380]: c
+          - generic [ref=e381]:
+            - generic [ref=e382]: AI chat
+            - list "AI chat" [ref=e383]:
+              - listitem [ref=e384]:
+                - link "Chat code block c" [ref=e385] [cursor=pointer]:
                   - /url: /docs/components/chat-code-block
-                  - generic [ref=e366]: Chat code block
-                  - generic "Client component" [ref=e368]: c
-              - listitem [ref=e369]:
-                - link "Chat input c" [ref=e370] [cursor=pointer]:
+                  - generic [ref=e386]: Chat code block
+                  - generic "Client component" [ref=e388]: c
+              - listitem [ref=e389]:
+                - link "Chat input c" [ref=e390] [cursor=pointer]:
                   - /url: /docs/components/chat-input
-                  - generic [ref=e371]: Chat input
-                  - generic "Client component" [ref=e373]: c
-              - listitem [ref=e374]:
-                - link "Chat message" [ref=e375] [cursor=pointer]:
-                  - /url: /docs/components/chat-message
-              - listitem [ref=e377]:
-                - link "Chat thread c" [ref=e378] [cursor=pointer]:
-                  - /url: /docs/components/chat-thread
-                  - generic [ref=e379]: Chat thread
-                  - generic "Client component" [ref=e381]: c
-              - listitem [ref=e382]:
-                - link "Typing indicator" [ref=e383] [cursor=pointer]:
-                  - /url: /docs/components/typing-indicator
-          - generic [ref=e385]:
-            - generic [ref=e386]: Feedback
-            - list "Feedback" [ref=e387]:
-              - listitem [ref=e388]:
-                - link "Alert" [ref=e389] [cursor=pointer]:
-                  - /url: /docs/components/alert
-              - listitem [ref=e391]:
-                - link "Empty state" [ref=e392] [cursor=pointer]:
-                  - /url: /docs/components/empty-state
+                  - generic [ref=e391]: Chat input
+                  - generic "Client component" [ref=e393]: c
               - listitem [ref=e394]:
-                - link "Progress" [ref=e395] [cursor=pointer]:
-                  - /url: /docs/components/progress
+                - link "Chat message" [ref=e395] [cursor=pointer]:
+                  - /url: /docs/components/chat-message
               - listitem [ref=e397]:
-                - link "Skeleton" [ref=e398] [cursor=pointer]:
+                - link "Chat thread c" [ref=e398] [cursor=pointer]:
+                  - /url: /docs/components/chat-thread
+                  - generic [ref=e399]: Chat thread
+                  - generic "Client component" [ref=e401]: c
+              - listitem [ref=e402]:
+                - link "Typing indicator" [ref=e403] [cursor=pointer]:
+                  - /url: /docs/components/typing-indicator
+          - generic [ref=e405]:
+            - generic [ref=e406]: Feedback
+            - list "Feedback" [ref=e407]:
+              - listitem [ref=e408]:
+                - link "Alert" [ref=e409] [cursor=pointer]:
+                  - /url: /docs/components/alert
+              - listitem [ref=e411]:
+                - link "Empty state" [ref=e412] [cursor=pointer]:
+                  - /url: /docs/components/empty-state
+              - listitem [ref=e414]:
+                - link "Progress" [ref=e415] [cursor=pointer]:
+                  - /url: /docs/components/progress
+              - listitem [ref=e417]:
+                - link "Skeleton" [ref=e418] [cursor=pointer]:
                   - /url: /docs/components/skeleton
-              - listitem [ref=e400]:
-                - link "Spinner" [ref=e401] [cursor=pointer]:
+              - listitem [ref=e420]:
+                - link "Spinner" [ref=e421] [cursor=pointer]:
                   - /url: /docs/components/spinner
-          - generic [ref=e403]:
-            - generic [ref=e404]: Sections
-            - list "Sections" [ref=e405]:
-              - listitem [ref=e406]:
-                - link "Cta" [ref=e407] [cursor=pointer]:
+          - generic [ref=e423]:
+            - generic [ref=e424]: Sections
+            - list "Sections" [ref=e425]:
+              - listitem [ref=e426]:
+                - link "Cta" [ref=e427] [cursor=pointer]:
                   - /url: /docs/components/cta
-              - listitem [ref=e409]:
-                - link "Faq" [ref=e410] [cursor=pointer]:
-                  - /url: /docs/components/faq
-              - listitem [ref=e412]:
-                - link "Feature grid" [ref=e413] [cursor=pointer]:
-                  - /url: /docs/components/feature-grid
-              - listitem [ref=e415]:
-                - link "Footer" [ref=e416] [cursor=pointer]:
-                  - /url: /docs/components/footer
-              - listitem [ref=e418]:
-                - link "Hero" [ref=e419] [cursor=pointer]:
-                  - /url: /docs/components/hero
-              - listitem [ref=e421]:
-                - link "Logo cloud" [ref=e422] [cursor=pointer]:
-                  - /url: /docs/components/logo-cloud
-              - listitem [ref=e424]:
-                - link "Newsletter c" [ref=e425] [cursor=pointer]:
-                  - /url: /docs/components/newsletter
-                  - generic [ref=e426]: Newsletter
-                  - generic "Client component" [ref=e428]: c
               - listitem [ref=e429]:
-                - link "Pricing" [ref=e430] [cursor=pointer]:
-                  - /url: /docs/components/pricing
+                - link "Faq" [ref=e430] [cursor=pointer]:
+                  - /url: /docs/components/faq
               - listitem [ref=e432]:
-                - link "Stats" [ref=e433] [cursor=pointer]:
-                  - /url: /docs/components/stats
+                - link "Feature grid" [ref=e433] [cursor=pointer]:
+                  - /url: /docs/components/feature-grid
               - listitem [ref=e435]:
-                - link "Testimonials" [ref=e436] [cursor=pointer]:
-                  - /url: /docs/components/testimonials
-          - generic [ref=e438]:
-            - generic [ref=e439]: Media & time
-            - list "Media & time" [ref=e440]:
+                - link "Footer" [ref=e436] [cursor=pointer]:
+                  - /url: /docs/components/footer
+              - listitem [ref=e438]:
+                - link "Hero" [ref=e439] [cursor=pointer]:
+                  - /url: /docs/components/hero
               - listitem [ref=e441]:
-                - link "Animated counter c" [ref=e442] [cursor=pointer]:
-                  - /url: /docs/components/animated-counter
-                  - generic [ref=e443]: Animated counter
-                  - generic "Client component" [ref=e445]: c
-              - listitem [ref=e446]:
-                - link "Carousel" [ref=e447] [cursor=pointer]:
-                  - /url: /docs/components/carousel
+                - link "Logo cloud" [ref=e442] [cursor=pointer]:
+                  - /url: /docs/components/logo-cloud
+              - listitem [ref=e444]:
+                - link "Newsletter c" [ref=e445] [cursor=pointer]:
+                  - /url: /docs/components/newsletter
+                  - generic [ref=e446]: Newsletter
+                  - generic "Client component" [ref=e448]: c
               - listitem [ref=e449]:
-                - link "Clock c" [ref=e450] [cursor=pointer]:
-                  - /url: /docs/components/clock
-                  - generic [ref=e451]: Clock
-                  - generic "Client component" [ref=e453]: c
-              - listitem [ref=e454]:
-                - link "Countdown c" [ref=e455] [cursor=pointer]:
-                  - /url: /docs/components/countdown
-                  - generic [ref=e456]: Countdown
-                  - generic "Client component" [ref=e458]: c
-              - listitem [ref=e459]:
-                - link "Image c" [ref=e460] [cursor=pointer]:
-                  - /url: /docs/components/image
-                  - generic [ref=e461]: Image
-                  - generic "Client component" [ref=e463]: c
-              - listitem [ref=e464]:
-                - link "Map embed c" [ref=e465] [cursor=pointer]:
-                  - /url: /docs/components/map-embed
-                  - generic [ref=e466]: Map embed
-                  - generic "Client component" [ref=e468]: c
+                - link "Pricing" [ref=e450] [cursor=pointer]:
+                  - /url: /docs/components/pricing
+              - listitem [ref=e452]:
+                - link "Stats" [ref=e453] [cursor=pointer]:
+                  - /url: /docs/components/stats
+              - listitem [ref=e455]:
+                - link "Testimonials" [ref=e456] [cursor=pointer]:
+                  - /url: /docs/components/testimonials
+          - generic [ref=e458]:
+            - generic [ref=e459]: Media & time
+            - list "Media & time" [ref=e460]:
+              - listitem [ref=e461]:
+                - link "Animated counter c" [ref=e462] [cursor=pointer]:
+                  - /url: /docs/components/animated-counter
+                  - generic [ref=e463]: Animated counter
+                  - generic "Client component" [ref=e465]: c
+              - listitem [ref=e466]:
+                - link "Carousel" [ref=e467] [cursor=pointer]:
+                  - /url: /docs/components/carousel
               - listitem [ref=e469]:
-                - link "Marquee" [ref=e470] [cursor=pointer]:
+                - link "Clock c" [ref=e470] [cursor=pointer]:
+                  - /url: /docs/components/clock
+                  - generic [ref=e471]: Clock
+                  - generic "Client component" [ref=e473]: c
+              - listitem [ref=e474]:
+                - link "Countdown c" [ref=e475] [cursor=pointer]:
+                  - /url: /docs/components/countdown
+                  - generic [ref=e476]: Countdown
+                  - generic "Client component" [ref=e478]: c
+              - listitem [ref=e479]:
+                - link "Image c" [ref=e480] [cursor=pointer]:
+                  - /url: /docs/components/image
+                  - generic [ref=e481]: Image
+                  - generic "Client component" [ref=e483]: c
+              - listitem [ref=e484]:
+                - link "Map embed c" [ref=e485] [cursor=pointer]:
+                  - /url: /docs/components/map-embed
+                  - generic [ref=e486]: Map embed
+                  - generic "Client component" [ref=e488]: c
+              - listitem [ref=e489]:
+                - link "Marquee" [ref=e490] [cursor=pointer]:
                   - /url: /docs/components/marquee
-              - listitem [ref=e472]:
-                - link "Relative time c" [ref=e473] [cursor=pointer]:
+              - listitem [ref=e492]:
+                - link "Relative time c" [ref=e493] [cursor=pointer]:
                   - /url: /docs/components/relative-time
-                  - generic [ref=e474]: Relative time
-                  - generic "Client component" [ref=e476]: c
-          - generic [ref=e477]:
-            - generic [ref=e478]: Theming
-            - list "Theming" [ref=e479]:
-              - listitem [ref=e480]:
-                - link "Theme provider c" [ref=e481] [cursor=pointer]:
+                  - generic [ref=e494]: Relative time
+                  - generic "Client component" [ref=e496]: c
+          - generic [ref=e497]:
+            - generic [ref=e498]: Theming
+            - list "Theming" [ref=e499]:
+              - listitem [ref=e500]:
+                - link "Theme provider c" [ref=e501] [cursor=pointer]:
                   - /url: /docs/components/theme-provider
-                  - generic [ref=e482]: Theme provider
-                  - generic "Client component" [ref=e484]: c
-              - listitem [ref=e485]:
-                - link "Theme toggle c" [ref=e486] [cursor=pointer]:
-                  - /url: /docs/components/theme-toggle
-                  - generic [ref=e487]: Theme toggle
-                  - generic "Client component" [ref=e489]: c
-          - generic [ref=e490]:
-            - generic [ref=e491]: Charts
-            - list "Charts" [ref=e492]:
-              - listitem [ref=e493]:
-                - link "AreaChart" [ref=e494] [cursor=pointer]:
-                  - /url: /docs/charts/area-chart
-              - listitem [ref=e496]:
-                - link "BarChart" [ref=e497] [cursor=pointer]:
-                  - /url: /docs/charts/bar-chart
-              - listitem [ref=e499]:
-                - link "LineChart" [ref=e500] [cursor=pointer]:
-                  - /url: /docs/charts/line-chart
-              - listitem [ref=e502]:
-                - link "PieChart" [ref=e503] [cursor=pointer]:
-                  - /url: /docs/charts/pie-chart
+                  - generic [ref=e502]: Theme provider
+                  - generic "Client component" [ref=e504]: c
               - listitem [ref=e505]:
-                - link "ProgressRing" [ref=e506] [cursor=pointer]:
+                - link "Theme toggle c" [ref=e506] [cursor=pointer]:
+                  - /url: /docs/components/theme-toggle
+                  - generic [ref=e507]: Theme toggle
+                  - generic "Client component" [ref=e509]: c
+          - generic [ref=e510]:
+            - generic [ref=e511]: Charts
+            - list "Charts" [ref=e512]:
+              - listitem [ref=e513]:
+                - link "AreaChart" [ref=e514] [cursor=pointer]:
+                  - /url: /docs/charts/area-chart
+              - listitem [ref=e516]:
+                - link "BarChart" [ref=e517] [cursor=pointer]:
+                  - /url: /docs/charts/bar-chart
+              - listitem [ref=e519]:
+                - link "Gauge" [ref=e520] [cursor=pointer]:
+                  - /url: /docs/charts/gauge
+              - listitem [ref=e522]:
+                - link "Heatmap" [ref=e523] [cursor=pointer]:
+                  - /url: /docs/charts/heatmap
+              - listitem [ref=e525]:
+                - link "LineChart" [ref=e526] [cursor=pointer]:
+                  - /url: /docs/charts/line-chart
+              - listitem [ref=e528]:
+                - link "PieChart" [ref=e529] [cursor=pointer]:
+                  - /url: /docs/charts/pie-chart
+              - listitem [ref=e531]:
+                - link "ProgressRing" [ref=e532] [cursor=pointer]:
                   - /url: /docs/charts/progress-ring
-              - listitem [ref=e508]:
-                - link "Sparkline" [ref=e509] [cursor=pointer]:
+              - listitem [ref=e534]:
+                - link "RadarChart" [ref=e535] [cursor=pointer]:
+                  - /url: /docs/charts/radar-chart
+              - listitem [ref=e537]:
+                - link "ScatterChart" [ref=e538] [cursor=pointer]:
+                  - /url: /docs/charts/scatter-chart
+              - listitem [ref=e540]:
+                - link "Sparkline" [ref=e541] [cursor=pointer]:
                   - /url: /docs/charts/sparkline
-        - article [ref=e511]:
-          - generic [ref=e512]:
-            - heading "Installation" [level=1] [ref=e513]
-            - paragraph [ref=e514]: Two steps. There is no third.
-          - generic [ref=e515]:
-            - heading "1. Install" [level=2] [ref=e516]
-            - generic [ref=e517]:
-              - tablist [ref=e518]:
-                - tab "npm" [selected] [ref=e519] [cursor=pointer]
-                - tab "pnpm" [ref=e520] [cursor=pointer]
-                - tab "yarn" [ref=e521] [cursor=pointer]
-                - tab "bun" [ref=e522] [cursor=pointer]
-              - tabpanel "npm" [ref=e524]:
-                - generic [ref=e525]:
-                  - generic [ref=e526]:
-                    - generic [ref=e527]: terminal
-                    - generic [ref=e528]:
-                      - button "Copy" [ref=e529] [cursor=pointer]
-                      - status [ref=e530]
-                  - code [ref=e532]: npm install @the_viveksingh/vivek-ui
-            - paragraph [ref=e533]:
+        - article [ref=e543]:
+          - generic [ref=e544]:
+            - heading "Installation" [level=1] [ref=e545]
+            - paragraph [ref=e546]: Two steps. There is no third.
+          - generic [ref=e547]:
+            - heading "1. Install" [level=2] [ref=e548]
+            - generic [ref=e549]:
+              - tablist [ref=e550]:
+                - tab "npm" [selected] [ref=e551] [cursor=pointer]
+                - tab "pnpm" [ref=e552] [cursor=pointer]
+                - tab "yarn" [ref=e553] [cursor=pointer]
+                - tab "bun" [ref=e554] [cursor=pointer]
+              - tabpanel "npm" [ref=e556]:
+                - generic [ref=e557]:
+                  - generic [ref=e558]:
+                    - generic [ref=e559]: terminal
+                    - generic [ref=e560]:
+                      - button "Copy" [ref=e561] [cursor=pointer]
+                      - status [ref=e562]
+                  - code [ref=e564]: npm install @the_viveksingh/vivek-ui
+            - paragraph [ref=e565]:
               - text: React 18 or 19 is a peer dependency. Nothing else is installed, because the package has no runtime dependencies of its own. Confirm it yourself with
-              - code [ref=e534]: npm ls --omit=dev @the_viveksingh/vivek-ui
+              - code [ref=e566]: npm ls --omit=dev @the_viveksingh/vivek-ui
               - text: .
-          - generic [ref=e535]:
-            - heading "2. Import the stylesheet once" [level=2] [ref=e536]
-            - generic [ref=e537]:
-              - tablist [ref=e538]:
-                - tab "Next.js App Router" [selected] [ref=e539] [cursor=pointer]
-                - tab "Next.js Pages Router" [ref=e540] [cursor=pointer]
-                - tab "Vite / CRA" [ref=e541] [cursor=pointer]
-              - tabpanel "Next.js App Router" [ref=e543]:
-                - generic [ref=e544]:
-                  - generic [ref=e545]:
-                    - generic [ref=e546]: app/layout.tsx
-                    - radiogroup "Code language" [ref=e547]:
-                      - radio "TS" [checked] [ref=e549] [cursor=pointer]
-                      - radio "JS" [ref=e551] [cursor=pointer]
-                    - generic [ref=e553]:
-                      - button "Copy" [ref=e554] [cursor=pointer]
-                      - status [ref=e555]
-                  - code [ref=e557]: "import '@the_viveksingh/vivek-ui/styles.css' export default function RootLayout({ children }: { children: React.ReactNode }) { return ( <html lang=\"en\"> <body>{children}</body> </html> ) }"
-          - generic [ref=e558]:
-            - heading "Using charts" [level=2] [ref=e559]
-            - paragraph [ref=e560]: Charts are a separate subpath with their own stylesheet, so an app that never draws one pays nothing for them.
-            - generic [ref=e561]:
-              - generic [ref=e562]:
-                - radiogroup "Code language" [ref=e563]:
-                  - radio "TS" [checked] [ref=e565] [cursor=pointer]
-                  - radio "JS" [ref=e567] [cursor=pointer]
-                - generic [ref=e569]:
-                  - button "Copy" [ref=e570] [cursor=pointer]
-                  - status [ref=e571]
-              - code [ref=e573]: "import { LineChart } from '@the_viveksingh/vivek-ui/charts' import '@the_viveksingh/vivek-ui/charts.css'"
-          - generic [ref=e574]:
-            - heading "Compound components in Server Components" [level=2] [ref=e575]
-            - alert [ref=e576]:
-              - generic [ref=e577]: "!"
-              - generic [ref=e578]:
-                - generic [ref=e579]: Use the named part exports on the server
-                - paragraph [ref=e581]:
-                  - text: Interactive compound components —
-                  - code [ref=e582]: Tabs
-                  - text: ","
-                  - code [ref=e583]: Accordion
-                  - text: ","
-                  - code [ref=e584]: Modal
-                  - text: ","
-                  - code [ref=e585]: Drawer
-                  - text: ","
-                  - code [ref=e586]: Navbar
-                  - text: ","
-                  - code [ref=e587]: Sidebar
-                  - text: — are client components. From a Server Component they arrive as a client reference, and
-                  - code [ref=e588]: Tabs.List
-                  - text: reads
-                  - code [ref=e589]: undefined
-                  - text: off it. Import
-                  - code [ref=e590]: TabsList
-                  - text: instead. Inside a client component either form works. Server-safe compounds like
-                  - code [ref=e591]: Card
-                  - text: and
-                  - code [ref=e592]: Table
-                  - text: are unaffected.
+          - generic [ref=e567]:
+            - heading "2. Import the stylesheet once" [level=2] [ref=e568]
+            - generic [ref=e569]:
+              - tablist [ref=e570]:
+                - tab "Next.js App Router" [selected] [ref=e571] [cursor=pointer]
+                - tab "Next.js Pages Router" [ref=e572] [cursor=pointer]
+                - tab "Vite / CRA" [ref=e573] [cursor=pointer]
+              - tabpanel "Next.js App Router" [ref=e575]:
+                - generic [ref=e576]:
+                  - generic [ref=e577]:
+                    - generic [ref=e578]: app/layout.tsx
+                    - radiogroup "Code language" [ref=e579]:
+                      - radio "TS" [checked] [ref=e581] [cursor=pointer]
+                      - radio "JS" [ref=e583] [cursor=pointer]
+                    - generic [ref=e585]:
+                      - button "Copy" [ref=e586] [cursor=pointer]
+                      - status [ref=e587]
+                  - code [ref=e589]: "import '@the_viveksingh/vivek-ui/styles.css' export default function RootLayout({ children }: { children: React.ReactNode }) { return ( <html lang=\"en\"> <body>{children}</body> </html> ) }"
+          - generic [ref=e590]:
+            - heading "Using charts" [level=2] [ref=e591]
+            - paragraph [ref=e592]: Charts are a separate subpath with their own stylesheet, so an app that never draws one pays nothing for them.
             - generic [ref=e593]:
               - generic [ref=e594]:
                 - radiogroup "Code language" [ref=e595]:
@@ -637,12 +630,51 @@ expect(received).toEqual(expected) // deep equality
                 - generic [ref=e601]:
                   - button "Copy" [ref=e602] [cursor=pointer]
                   - status [ref=e603]
-              - code [ref=e605]: "// In a Server Component import { Tabs, TabsList, TabsTab } from '@the_viveksingh/vivek-ui' // In a client component, either works import { Tabs } from '@the_viveksingh/vivek-ui' <Tabs.List>...</Tabs.List>"
+              - code [ref=e605]: "import { LineChart } from '@the_viveksingh/vivek-ui/charts' import '@the_viveksingh/vivek-ui/charts.css'"
           - generic [ref=e606]:
-            - heading "That is the whole setup" [level=2] [ref=e607]
-            - status [ref=e608]:
-              - paragraph [ref=e611]: No config file, no CLI, no Tailwind, no PostCSS plugin, no Babel plugin, and no required provider. If you needed a third step, that would be a bug in the library's design.
-  - alert [ref=e612]
+            - heading "Compound components in Server Components" [level=2] [ref=e607]
+            - alert [ref=e608]:
+              - generic [ref=e609]: "!"
+              - generic [ref=e610]:
+                - generic [ref=e611]: Use the named part exports on the server
+                - paragraph [ref=e613]:
+                  - text: Interactive compound components —
+                  - code [ref=e614]: Tabs
+                  - text: ","
+                  - code [ref=e615]: Accordion
+                  - text: ","
+                  - code [ref=e616]: Modal
+                  - text: ","
+                  - code [ref=e617]: Drawer
+                  - text: ","
+                  - code [ref=e618]: Navbar
+                  - text: ","
+                  - code [ref=e619]: Sidebar
+                  - text: — are client components. From a Server Component they arrive as a client reference, and
+                  - code [ref=e620]: Tabs.List
+                  - text: reads
+                  - code [ref=e621]: undefined
+                  - text: off it. Import
+                  - code [ref=e622]: TabsList
+                  - text: instead. Inside a client component either form works. Server-safe compounds like
+                  - code [ref=e623]: Card
+                  - text: and
+                  - code [ref=e624]: Table
+                  - text: are unaffected.
+            - generic [ref=e625]:
+              - generic [ref=e626]:
+                - radiogroup "Code language" [ref=e627]:
+                  - radio "TS" [checked] [ref=e629] [cursor=pointer]
+                  - radio "JS" [ref=e631] [cursor=pointer]
+                - generic [ref=e633]:
+                  - button "Copy" [ref=e634] [cursor=pointer]
+                  - status [ref=e635]
+              - code [ref=e637]: "// In a Server Component import { Tabs, TabsList, TabsTab } from '@the_viveksingh/vivek-ui' // In a client component, either works import { Tabs } from '@the_viveksingh/vivek-ui' <Tabs.List>...</Tabs.List>"
+          - generic [ref=e638]:
+            - heading "That is the whole setup" [level=2] [ref=e639]
+            - status [ref=e640]:
+              - paragraph [ref=e643]: No config file, no CLI, no Tailwind, no PostCSS plugin, no Babel plugin, and no required provider. If you needed a third step, that would be a bug in the library's design.
+  - alert [ref=e644]
 ```
 
 # Test source

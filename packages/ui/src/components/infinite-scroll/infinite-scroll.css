@@ -1,0 +1,111 @@
+/*
+ * InfiniteScroll. The component is plumbing, so the styling is mostly restraint: the
+ * sentinel is invisible, the status row only takes space while it has something to say,
+ * and the fallback button is a quiet outline control.
+ */
+
+:where(.vk-infinite-scroll) {
+  display: block;
+  font-family: var(--vk-font-sans);
+}
+
+/*
+ * 1px, not 0: a zero-area box straddles the "does it intersect" question across
+ * engines, and one pixel settles it without ever being visible in the layout.
+ */
+:where(.vk-infinite-scroll__sentinel) {
+  block-size: 1px;
+  margin-block-start: -1px;
+}
+
+:where(.vk-infinite-scroll__status) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Space only when occupied — an idle status region must not leave a gap in the list. */
+:where(.vk-infinite-scroll__status:not(:empty)) {
+  padding-block: var(--vk-space-3);
+}
+
+:where(.vk-infinite-scroll__spinner) {
+  display: block;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  color: var(--vk-color-muted);
+  border: 2px solid currentcolor;
+  border-block-start-color: transparent;
+  border-radius: var(--vk-radius-full);
+  animation: vk-infinite-scroll-spin 600ms linear infinite;
+}
+
+:where(.vk-infinite-scroll__more) {
+  display: block;
+  margin-block: var(--vk-space-2) var(--vk-space-4);
+  margin-inline: auto;
+  padding: var(--vk-space-2) var(--vk-space-4);
+  font: inherit;
+  font-size: var(--vk-text-sm);
+  font-weight: var(--vk-weight-medium);
+  color: var(--vk-color-fg);
+  background: var(--vk-color-surface);
+  border: 1px solid var(--vk-color-border);
+  border-radius: var(--vk-radius-md);
+  cursor: pointer;
+  transition:
+    background-color var(--vk-duration-fast) var(--vk-ease),
+    border-color var(--vk-duration-fast) var(--vk-ease);
+}
+
+:where(.vk-infinite-scroll__more:hover:not(:disabled)) {
+  background: var(--vk-color-surface-hover);
+  border-color: var(--vk-color-border-strong);
+}
+
+:where(.vk-infinite-scroll__more:focus-visible) {
+  outline: var(--vk-ring-width) solid var(--vk-color-ring);
+  outline-offset: var(--vk-ring-offset);
+}
+
+:where(.vk-infinite-scroll__more:disabled) {
+  cursor: default;
+  opacity: 0.55;
+}
+
+:where(.vk-infinite-scroll__end) {
+  padding-block: var(--vk-space-4);
+  text-align: center;
+  font-size: var(--vk-text-sm);
+  color: var(--vk-color-muted);
+}
+
+/* Visible to assistive tech, invisible on screen — the Spinner label recipe. */
+:where(.vk-infinite-scroll__sr) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes vk-infinite-scroll-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Slowed, not stopped: the spin IS the information that a load is in flight. */
+  :where(.vk-infinite-scroll__spinner) {
+    animation-duration: 1.6s;
+  }
+
+  :where(.vk-infinite-scroll__more) {
+    transition: none;
+  }
+}

@@ -95,6 +95,7 @@ const PREVIEWS: Record<string, ComponentType<{ name: string }>> = {
   scheduler: dynamic(() => import('../previews/scheduler')),
   chip: dynamic(() => import('../previews/chip')),
   form: dynamic(() => import('../previews/form')),
+  'infinite-scroll': dynamic(() => import('../previews/infinite-scroll')),
   'number-input': dynamic(() => import('../previews/number-input')),
   segmented: dynamic(() => import('../previews/segmented')),
   'hover-card': dynamic(() => import('../previews/hover-card')),

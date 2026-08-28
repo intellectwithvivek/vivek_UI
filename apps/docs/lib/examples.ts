@@ -176,6 +176,32 @@ const CORE_EXAMPLES: ExampleSet = {
     },
   ],
 
+  'infinite-scroll': [
+    {
+      title: 'Load as the edge approaches',
+      description:
+        'An IntersectionObserver sentinel fires onLoadMore 256px before the edge, guards re-entry while the promise is pending, and renders endContent when hasMore goes false - an ending you can see. Where the observer API is missing, a real "Load more" button renders instead, so a keyboard user is never stranded.',
+      name: 'default',
+      code: `const [items, setItems] = useState(firstPage)
+const [hasMore, setHasMore] = useState(true)
+
+<InfiniteScroll
+  hasMore={hasMore}
+  onLoadMore={async () => {
+    const next = await api.page(items.length)
+    setItems((current) => [...current, ...next.items])
+    setHasMore(next.hasMore)
+  }}
+  endContent={<Text tone="muted">You have reached the end.</Text>}
+>
+  {items.map((item) => <Row key={item.id} {...item} />)}
+</InfiniteScroll>
+
+// inverse puts the sentinel at the START - chat history backfills upward:
+<InfiniteScroll inverse hasMore={hasOlder} onLoadMore={loadOlder}>...</InfiniteScroll>`,
+    },
+  ],
+
   form: [
     {
       title: 'The browser validates; Form makes the report usable',

@@ -206,6 +206,7 @@ export {
 } from './components/hover-card'
 export { IconButton, type IconButtonProps } from './components/icon-button'
 export { Image, type ImageProps } from './components/image'
+export { InfiniteScroll, type InfiniteScrollProps } from './components/infinite-scroll'
 export { Input, type InputProps } from './components/input'
 export {
   KanbanBoard,

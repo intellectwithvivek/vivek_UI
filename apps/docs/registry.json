@@ -10106,6 +10106,79 @@
       "compound": false
     },
     {
+      "slug": "infinite-scroll",
+      "title": "Infinite scroll",
+      "kind": "component",
+      "category": "Layout",
+      "exports": [
+        "InfiniteScroll"
+      ],
+      "typeExports": [
+        "InfiniteScrollProps"
+      ],
+      "primary": "InfiniteScroll",
+      "description": "An `IntersectionObserver` sentinel: the \"reached the edge of the list\" event, as a component.",
+      "isClient": true,
+      "api": {
+        "props": [
+          {
+            "name": "onLoadMore",
+            "type": "() => void | Promise<void>",
+            "required": true,
+            "description": "Required. Called when the sentinel scrolls into view (or the fallback button is pressed). Return a promise and the component holds off until it settles — the classic infinite-scroll bug is one scroll event firing five overlapping fetches for the same page, and the guard here is what makes that impossible.",
+            "default": ""
+          },
+          {
+            "name": "hasMore",
+            "type": "boolean",
+            "required": true,
+            "description": "Required. While `true` the sentinel is armed; when it turns `false` the observer disconnects and `endContent` renders instead. An explicit prop rather than an inference, because only the caller knows whether the last response was the last page.",
+            "default": ""
+          },
+          {
+            "name": "loader",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Shown while a load is pending. Defaults to a small indeterminate indicator.",
+            "default": ""
+          },
+          {
+            "name": "endContent",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Rendered once `hasMore` is `false`. Make it visible text (\"You're all caught up\") — a list that simply stops loading is indistinguishable from a list that broke.",
+            "default": ""
+          },
+          {
+            "name": "inverse",
+            "type": "boolean",
+            "required": false,
+            "description": "Put the sentinel at the START of the content instead of the end — chat history, where scrolling *up* fetches older messages. Pairs with `ChatThread`.",
+            "default": ""
+          },
+          {
+            "name": "rootMargin",
+            "type": "string",
+            "required": false,
+            "description": "How far outside the viewport the sentinel counts as \"in view\". Default `'256px'`, so the next page starts loading before the user reaches the edge and never actually sees the loader on a fast connection.",
+            "default": ""
+          },
+          {
+            "name": "loadMoreButton",
+            "type": "boolean",
+            "required": false,
+            "description": "Render a real \"Load more\" button that shares the pending guard. Defaults to `true` exactly when `IntersectionObserver` is missing, so a broken or absent observer degrades to a working control instead of a list that silently ends. Force it `true` to offer both paths, or `false` to suppress the fallback entirely.",
+            "default": ""
+          }
+        ],
+        "spreadsHostProps": true,
+        "extends": [
+          "HTMLAttributes<HTMLDivElement>"
+        ]
+      },
+      "compound": false
+    },
+    {
       "slug": "input",
       "title": "Input",
       "kind": "component",

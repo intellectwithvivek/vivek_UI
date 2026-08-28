@@ -5,6 +5,7 @@ import {
   forwardRef,
   type InputHTMLAttributes,
   type KeyboardEvent,
+  useEffect,
   useRef,
   useState,
 } from 'react'
@@ -114,6 +115,10 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
   const [draft, setDraft] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const repeat = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  // The repeat interval must not survive the component: pointer-down with no pointer-up
+  // (the element unmounting mid-press) left it running forever. Caught by leaks.test.tsx.
+  useEffect(() => stopRepeat, [])
 
   const clampValue = (n: number): number => {
     let out = n

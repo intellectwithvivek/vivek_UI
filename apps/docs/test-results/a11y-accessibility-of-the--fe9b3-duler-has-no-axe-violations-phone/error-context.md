@@ -143,436 +143,468 @@ expect(received).toEqual(expected) // deep equality
                 - link "Grid" [ref=e106] [cursor=pointer]:
                   - /url: /docs/components/grid
               - listitem [ref=e108]:
-                - link "Scroll area" [ref=e109] [cursor=pointer]:
+                - link "Infinite scroll c" [ref=e109] [cursor=pointer]:
+                  - /url: /docs/components/infinite-scroll
+                  - generic [ref=e110]: Infinite scroll
+                  - generic "Client component" [ref=e112]: c
+              - listitem [ref=e113]:
+                - link "Scroll area" [ref=e114] [cursor=pointer]:
                   - /url: /docs/components/scroll-area
-              - listitem [ref=e111]:
-                - link "Section" [ref=e112] [cursor=pointer]:
+              - listitem [ref=e116]:
+                - link "Section" [ref=e117] [cursor=pointer]:
                   - /url: /docs/components/section
-              - listitem [ref=e114]:
-                - link "Stack" [ref=e115] [cursor=pointer]:
+              - listitem [ref=e119]:
+                - link "Stack" [ref=e120] [cursor=pointer]:
                   - /url: /docs/components/stack
-          - generic [ref=e117]:
-            - generic [ref=e118]: Typography
-            - list "Typography" [ref=e119]:
-              - listitem [ref=e120]:
-                - link "Code" [ref=e121] [cursor=pointer]:
+          - generic [ref=e122]:
+            - generic [ref=e123]: Typography
+            - list "Typography" [ref=e124]:
+              - listitem [ref=e125]:
+                - link "Code" [ref=e126] [cursor=pointer]:
                   - /url: /docs/components/code
-              - listitem [ref=e123]:
-                - link "Heading" [ref=e124] [cursor=pointer]:
+              - listitem [ref=e128]:
+                - link "Heading" [ref=e129] [cursor=pointer]:
                   - /url: /docs/components/heading
-              - listitem [ref=e126]:
-                - link "Kbd" [ref=e127] [cursor=pointer]:
+              - listitem [ref=e131]:
+                - link "Kbd" [ref=e132] [cursor=pointer]:
                   - /url: /docs/components/kbd
-              - listitem [ref=e129]:
-                - link "Prose" [ref=e130] [cursor=pointer]:
+              - listitem [ref=e134]:
+                - link "Prose" [ref=e135] [cursor=pointer]:
                   - /url: /docs/components/prose
-              - listitem [ref=e132]:
-                - link "Text" [ref=e133] [cursor=pointer]:
+              - listitem [ref=e137]:
+                - link "Text" [ref=e138] [cursor=pointer]:
                   - /url: /docs/components/text
-          - generic [ref=e135]:
-            - generic [ref=e136]: Actions
-            - list "Actions" [ref=e137]:
-              - listitem [ref=e138]:
-                - link "Button" [ref=e139] [cursor=pointer]:
+          - generic [ref=e140]:
+            - generic [ref=e141]: Actions
+            - list "Actions" [ref=e142]:
+              - listitem [ref=e143]:
+                - link "Button" [ref=e144] [cursor=pointer]:
                   - /url: /docs/components/button
-              - listitem [ref=e141]:
-                - link "Button group" [ref=e142] [cursor=pointer]:
+              - listitem [ref=e146]:
+                - link "Button group" [ref=e147] [cursor=pointer]:
                   - /url: /docs/components/button-group
-              - listitem [ref=e144]:
-                - link "Copy button c" [ref=e145] [cursor=pointer]:
-                  - /url: /docs/components/copy-button
-                  - generic [ref=e146]: Copy button
-                  - generic "Client component" [ref=e148]: c
               - listitem [ref=e149]:
-                - link "Icon button" [ref=e150] [cursor=pointer]:
+                - link "Copy button c" [ref=e150] [cursor=pointer]:
+                  - /url: /docs/components/copy-button
+                  - generic [ref=e151]: Copy button
+                  - generic "Client component" [ref=e153]: c
+              - listitem [ref=e154]:
+                - link "Icon button" [ref=e155] [cursor=pointer]:
                   - /url: /docs/components/icon-button
-          - generic [ref=e152]:
-            - generic [ref=e153]: Forms
-            - list "Forms" [ref=e154]:
-              - listitem [ref=e155]:
-                - link "Calendar c" [ref=e156] [cursor=pointer]:
-                  - /url: /docs/components/calendar
-                  - generic [ref=e157]: Calendar
-                  - generic "Client component" [ref=e159]: c
+          - generic [ref=e157]:
+            - generic [ref=e158]: Forms
+            - list "Forms" [ref=e159]:
               - listitem [ref=e160]:
-                - link "Checkbox" [ref=e161] [cursor=pointer]:
+                - link "Calendar c" [ref=e161] [cursor=pointer]:
+                  - /url: /docs/components/calendar
+                  - generic [ref=e162]: Calendar
+                  - generic "Client component" [ref=e164]: c
+              - listitem [ref=e165]:
+                - link "Checkbox" [ref=e166] [cursor=pointer]:
                   - /url: /docs/components/checkbox
-              - listitem [ref=e163]:
-                - link "Combobox c" [ref=e164] [cursor=pointer]:
-                  - /url: /docs/components/combobox
-                  - generic [ref=e165]: Combobox
-                  - generic "Client component" [ref=e167]: c
               - listitem [ref=e168]:
-                - link "Date picker c" [ref=e169] [cursor=pointer]:
-                  - /url: /docs/components/date-picker
-                  - generic [ref=e170]: Date picker
+                - link "Chip c" [ref=e169] [cursor=pointer]:
+                  - /url: /docs/components/chip
+                  - generic [ref=e170]: Chip
                   - generic "Client component" [ref=e172]: c
               - listitem [ref=e173]:
-                - link "Field c" [ref=e174] [cursor=pointer]:
-                  - /url: /docs/components/field
-                  - generic [ref=e175]: Field
+                - link "Combobox c" [ref=e174] [cursor=pointer]:
+                  - /url: /docs/components/combobox
+                  - generic [ref=e175]: Combobox
                   - generic "Client component" [ref=e177]: c
               - listitem [ref=e178]:
-                - link "File upload c" [ref=e179] [cursor=pointer]:
-                  - /url: /docs/components/file-upload
-                  - generic [ref=e180]: File upload
+                - link "Date picker c" [ref=e179] [cursor=pointer]:
+                  - /url: /docs/components/date-picker
+                  - generic [ref=e180]: Date picker
                   - generic "Client component" [ref=e182]: c
               - listitem [ref=e183]:
-                - link "Input" [ref=e184] [cursor=pointer]:
+                - link "Field c" [ref=e184] [cursor=pointer]:
+                  - /url: /docs/components/field
+                  - generic [ref=e185]: Field
+                  - generic "Client component" [ref=e187]: c
+              - listitem [ref=e188]:
+                - link "File upload c" [ref=e189] [cursor=pointer]:
+                  - /url: /docs/components/file-upload
+                  - generic [ref=e190]: File upload
+                  - generic "Client component" [ref=e192]: c
+              - listitem [ref=e193]:
+                - link "Form c" [ref=e194] [cursor=pointer]:
+                  - /url: /docs/components/form
+                  - generic [ref=e195]: Form
+                  - generic "Client component" [ref=e197]: c
+              - listitem [ref=e198]:
+                - link "Input" [ref=e199] [cursor=pointer]:
                   - /url: /docs/components/input
-              - listitem [ref=e186]:
-                - link "Label" [ref=e187] [cursor=pointer]:
+              - listitem [ref=e201]:
+                - link "Label" [ref=e202] [cursor=pointer]:
                   - /url: /docs/components/label
-              - listitem [ref=e189]:
-                - link "Otp input c" [ref=e190] [cursor=pointer]:
+              - listitem [ref=e204]:
+                - link "Number input c" [ref=e205] [cursor=pointer]:
+                  - /url: /docs/components/number-input
+                  - generic [ref=e206]: Number input
+                  - generic "Client component" [ref=e208]: c
+              - listitem [ref=e209]:
+                - link "Otp input c" [ref=e210] [cursor=pointer]:
                   - /url: /docs/components/otp-input
-                  - generic [ref=e191]: Otp input
-                  - generic "Client component" [ref=e193]: c
-              - listitem [ref=e194]:
-                - link "Password input c" [ref=e195] [cursor=pointer]:
+                  - generic [ref=e211]: Otp input
+                  - generic "Client component" [ref=e213]: c
+              - listitem [ref=e214]:
+                - link "Password input c" [ref=e215] [cursor=pointer]:
                   - /url: /docs/components/password-input
-                  - generic [ref=e196]: Password input
-                  - generic "Client component" [ref=e198]: c
-              - listitem [ref=e199]:
-                - link "Radio group" [ref=e200] [cursor=pointer]:
+                  - generic [ref=e216]: Password input
+                  - generic "Client component" [ref=e218]: c
+              - listitem [ref=e219]:
+                - link "Radio group" [ref=e220] [cursor=pointer]:
                   - /url: /docs/components/radio-group
-              - listitem [ref=e202]:
-                - link "Rating c" [ref=e203] [cursor=pointer]:
+              - listitem [ref=e222]:
+                - link "Rating c" [ref=e223] [cursor=pointer]:
                   - /url: /docs/components/rating
-                  - generic [ref=e204]: Rating
-                  - generic "Client component" [ref=e206]: c
-              - listitem [ref=e207]:
-                - link "Segmented c" [ref=e208] [cursor=pointer]:
+                  - generic [ref=e224]: Rating
+                  - generic "Client component" [ref=e226]: c
+              - listitem [ref=e227]:
+                - link "Segmented c" [ref=e228] [cursor=pointer]:
                   - /url: /docs/components/segmented
-                  - generic [ref=e209]: Segmented
-                  - generic "Client component" [ref=e211]: c
-              - listitem [ref=e212]:
-                - link "Select" [ref=e213] [cursor=pointer]:
+                  - generic [ref=e229]: Segmented
+                  - generic "Client component" [ref=e231]: c
+              - listitem [ref=e232]:
+                - link "Select" [ref=e233] [cursor=pointer]:
                   - /url: /docs/components/select
-              - listitem [ref=e215]:
-                - link "Slider c" [ref=e216] [cursor=pointer]:
+              - listitem [ref=e235]:
+                - link "Slider c" [ref=e236] [cursor=pointer]:
                   - /url: /docs/components/slider
-                  - generic [ref=e217]: Slider
-                  - generic "Client component" [ref=e219]: c
-              - listitem [ref=e220]:
-                - link "Switch" [ref=e221] [cursor=pointer]:
+                  - generic [ref=e237]: Slider
+                  - generic "Client component" [ref=e239]: c
+              - listitem [ref=e240]:
+                - link "Switch" [ref=e241] [cursor=pointer]:
                   - /url: /docs/components/switch
-              - listitem [ref=e223]:
-                - link "Tag input c" [ref=e224] [cursor=pointer]:
+              - listitem [ref=e243]:
+                - link "Tag input c" [ref=e244] [cursor=pointer]:
                   - /url: /docs/components/tag-input
-                  - generic [ref=e225]: Tag input
-                  - generic "Client component" [ref=e227]: c
-              - listitem [ref=e228]:
-                - link "Textarea" [ref=e229] [cursor=pointer]:
+                  - generic [ref=e245]: Tag input
+                  - generic "Client component" [ref=e247]: c
+              - listitem [ref=e248]:
+                - link "Textarea" [ref=e249] [cursor=pointer]:
                   - /url: /docs/components/textarea
-          - generic [ref=e231]:
-            - generic [ref=e232]: Overlays
-            - list "Overlays" [ref=e233]:
-              - listitem [ref=e234]:
-                - link "Accordion c" [ref=e235] [cursor=pointer]:
-                  - /url: /docs/components/accordion
-                  - generic [ref=e236]: Accordion
-                  - generic "Client component" [ref=e238]: c
-              - listitem [ref=e239]:
-                - link "Drawer c" [ref=e240] [cursor=pointer]:
-                  - /url: /docs/components/drawer
-                  - generic [ref=e241]: Drawer
-                  - generic "Client component" [ref=e243]: c
-              - listitem [ref=e244]:
-                - link "Dropdown menu c" [ref=e245] [cursor=pointer]:
-                  - /url: /docs/components/dropdown-menu
-                  - generic [ref=e246]: Dropdown menu
-                  - generic "Client component" [ref=e248]: c
-              - listitem [ref=e249]:
-                - link "Hover card c" [ref=e250] [cursor=pointer]:
-                  - /url: /docs/components/hover-card
-                  - generic [ref=e251]: Hover card
-                  - generic "Client component" [ref=e253]: c
+          - generic [ref=e251]:
+            - generic [ref=e252]: Overlays
+            - list "Overlays" [ref=e253]:
               - listitem [ref=e254]:
-                - link "Modal c" [ref=e255] [cursor=pointer]:
-                  - /url: /docs/components/modal
-                  - generic [ref=e256]: Modal
+                - link "Accordion c" [ref=e255] [cursor=pointer]:
+                  - /url: /docs/components/accordion
+                  - generic [ref=e256]: Accordion
                   - generic "Client component" [ref=e258]: c
               - listitem [ref=e259]:
-                - link "Popover c" [ref=e260] [cursor=pointer]:
-                  - /url: /docs/components/popover
-                  - generic [ref=e261]: Popover
+                - link "Drawer c" [ref=e260] [cursor=pointer]:
+                  - /url: /docs/components/drawer
+                  - generic [ref=e261]: Drawer
                   - generic "Client component" [ref=e263]: c
               - listitem [ref=e264]:
-                - link "Portal c" [ref=e265] [cursor=pointer]:
-                  - /url: /docs/components/portal
-                  - generic [ref=e266]: Portal
+                - link "Dropdown menu c" [ref=e265] [cursor=pointer]:
+                  - /url: /docs/components/dropdown-menu
+                  - generic [ref=e266]: Dropdown menu
                   - generic "Client component" [ref=e268]: c
               - listitem [ref=e269]:
-                - link "Tabs c" [ref=e270] [cursor=pointer]:
-                  - /url: /docs/components/tabs
-                  - generic [ref=e271]: Tabs
+                - link "Hover card c" [ref=e270] [cursor=pointer]:
+                  - /url: /docs/components/hover-card
+                  - generic [ref=e271]: Hover card
                   - generic "Client component" [ref=e273]: c
               - listitem [ref=e274]:
-                - link "Toast" [ref=e275] [cursor=pointer]:
+                - link "Modal c" [ref=e275] [cursor=pointer]:
+                  - /url: /docs/components/modal
+                  - generic [ref=e276]: Modal
+                  - generic "Client component" [ref=e278]: c
+              - listitem [ref=e279]:
+                - link "Popover c" [ref=e280] [cursor=pointer]:
+                  - /url: /docs/components/popover
+                  - generic [ref=e281]: Popover
+                  - generic "Client component" [ref=e283]: c
+              - listitem [ref=e284]:
+                - link "Portal c" [ref=e285] [cursor=pointer]:
+                  - /url: /docs/components/portal
+                  - generic [ref=e286]: Portal
+                  - generic "Client component" [ref=e288]: c
+              - listitem [ref=e289]:
+                - link "Tabs c" [ref=e290] [cursor=pointer]:
+                  - /url: /docs/components/tabs
+                  - generic [ref=e291]: Tabs
+                  - generic "Client component" [ref=e293]: c
+              - listitem [ref=e294]:
+                - link "Toast" [ref=e295] [cursor=pointer]:
                   - /url: /docs/components/toast
-              - listitem [ref=e277]:
-                - link "Tooltip c" [ref=e278] [cursor=pointer]:
+              - listitem [ref=e297]:
+                - link "Tooltip c" [ref=e298] [cursor=pointer]:
                   - /url: /docs/components/tooltip
-                  - generic [ref=e279]: Tooltip
-                  - generic "Client component" [ref=e281]: c
-          - generic [ref=e282]:
-            - generic [ref=e283]: Navigation
-            - list "Navigation" [ref=e284]:
-              - listitem [ref=e285]:
-                - link "Breadcrumb" [ref=e286] [cursor=pointer]:
+                  - generic [ref=e299]: Tooltip
+                  - generic "Client component" [ref=e301]: c
+          - generic [ref=e302]:
+            - generic [ref=e303]: Navigation
+            - list "Navigation" [ref=e304]:
+              - listitem [ref=e305]:
+                - link "Breadcrumb" [ref=e306] [cursor=pointer]:
                   - /url: /docs/components/breadcrumb
-              - listitem [ref=e288]:
-                - link "Command palette c" [ref=e289] [cursor=pointer]:
+              - listitem [ref=e308]:
+                - link "Command palette c" [ref=e309] [cursor=pointer]:
                   - /url: /docs/components/command-palette
-                  - generic [ref=e290]: Command palette
-                  - generic "Client component" [ref=e292]: c
-              - listitem [ref=e293]:
-                - link "Navbar c" [ref=e294] [cursor=pointer]:
+                  - generic [ref=e310]: Command palette
+                  - generic "Client component" [ref=e312]: c
+              - listitem [ref=e313]:
+                - link "Navbar c" [ref=e314] [cursor=pointer]:
                   - /url: /docs/components/navbar
-                  - generic [ref=e295]: Navbar
-                  - generic "Client component" [ref=e297]: c
-              - listitem [ref=e298]:
-                - link "Pagination c" [ref=e299] [cursor=pointer]:
+                  - generic [ref=e315]: Navbar
+                  - generic "Client component" [ref=e317]: c
+              - listitem [ref=e318]:
+                - link "Pagination c" [ref=e319] [cursor=pointer]:
                   - /url: /docs/components/pagination
-                  - generic [ref=e300]: Pagination
-                  - generic "Client component" [ref=e302]: c
-              - listitem [ref=e303]:
-                - link "Sidebar c" [ref=e304] [cursor=pointer]:
+                  - generic [ref=e320]: Pagination
+                  - generic "Client component" [ref=e322]: c
+              - listitem [ref=e323]:
+                - link "Sidebar c" [ref=e324] [cursor=pointer]:
                   - /url: /docs/components/sidebar
-                  - generic [ref=e305]: Sidebar
-                  - generic "Client component" [ref=e307]: c
-          - generic [ref=e308]:
-            - generic [ref=e309]: Data display
-            - list "Data display" [ref=e310]:
-              - listitem [ref=e311]:
-                - link "Avatar" [ref=e312] [cursor=pointer]:
+                  - generic [ref=e325]: Sidebar
+                  - generic "Client component" [ref=e327]: c
+          - generic [ref=e328]:
+            - generic [ref=e329]: Data display
+            - list "Data display" [ref=e330]:
+              - listitem [ref=e331]:
+                - link "Avatar" [ref=e332] [cursor=pointer]:
                   - /url: /docs/components/avatar
-              - listitem [ref=e314]:
-                - link "Badge" [ref=e315] [cursor=pointer]:
+              - listitem [ref=e334]:
+                - link "Badge" [ref=e335] [cursor=pointer]:
                   - /url: /docs/components/badge
-              - listitem [ref=e317]:
-                - link "Card" [ref=e318] [cursor=pointer]:
+              - listitem [ref=e337]:
+                - link "Card" [ref=e338] [cursor=pointer]:
                   - /url: /docs/components/card
-              - listitem [ref=e320]:
-                - link "Data table c" [ref=e321] [cursor=pointer]:
-                  - /url: /docs/components/data-table
-                  - generic [ref=e322]: Data table
-                  - generic "Client component" [ref=e324]: c
-              - listitem [ref=e325]:
-                - link "Editable grid c" [ref=e326] [cursor=pointer]:
-                  - /url: /docs/components/editable-grid
-                  - generic [ref=e327]: Editable grid
-                  - generic "Client component" [ref=e329]: c
-              - listitem [ref=e330]:
-                - link "File tree c" [ref=e331] [cursor=pointer]:
-                  - /url: /docs/components/file-tree
-                  - generic [ref=e332]: File tree
-                  - generic "Client component" [ref=e334]: c
-              - listitem [ref=e335]:
-                - link "Kanban board c" [ref=e336] [cursor=pointer]:
-                  - /url: /docs/components/kanban-board
-                  - generic [ref=e337]: Kanban board
-                  - generic "Client component" [ref=e339]: c
               - listitem [ref=e340]:
-                - link "Scheduler c" [ref=e341] [cursor=pointer]:
-                  - /url: /docs/components/scheduler
-                  - generic [ref=e342]: Scheduler
+                - link "Data table c" [ref=e341] [cursor=pointer]:
+                  - /url: /docs/components/data-table
+                  - generic [ref=e342]: Data table
                   - generic "Client component" [ref=e344]: c
               - listitem [ref=e345]:
-                - link "Stepper c" [ref=e346] [cursor=pointer]:
-                  - /url: /docs/components/stepper
-                  - generic [ref=e347]: Stepper
+                - link "Editable grid c" [ref=e346] [cursor=pointer]:
+                  - /url: /docs/components/editable-grid
+                  - generic [ref=e347]: Editable grid
                   - generic "Client component" [ref=e349]: c
               - listitem [ref=e350]:
-                - link "Table" [ref=e351] [cursor=pointer]:
+                - link "File tree c" [ref=e351] [cursor=pointer]:
+                  - /url: /docs/components/file-tree
+                  - generic [ref=e352]: File tree
+                  - generic "Client component" [ref=e354]: c
+              - listitem [ref=e355]:
+                - link "Kanban board c" [ref=e356] [cursor=pointer]:
+                  - /url: /docs/components/kanban-board
+                  - generic [ref=e357]: Kanban board
+                  - generic "Client component" [ref=e359]: c
+              - listitem [ref=e360]:
+                - link "Scheduler c" [ref=e361] [cursor=pointer]:
+                  - /url: /docs/components/scheduler
+                  - generic [ref=e362]: Scheduler
+                  - generic "Client component" [ref=e364]: c
+              - listitem [ref=e365]:
+                - link "Stepper c" [ref=e366] [cursor=pointer]:
+                  - /url: /docs/components/stepper
+                  - generic [ref=e367]: Stepper
+                  - generic "Client component" [ref=e369]: c
+              - listitem [ref=e370]:
+                - link "Table" [ref=e371] [cursor=pointer]:
                   - /url: /docs/components/table
-              - listitem [ref=e353]:
-                - link "Timeline" [ref=e354] [cursor=pointer]:
+              - listitem [ref=e373]:
+                - link "Timeline" [ref=e374] [cursor=pointer]:
                   - /url: /docs/components/timeline
-              - listitem [ref=e356]:
-                - link "Virtual list c" [ref=e357] [cursor=pointer]:
+              - listitem [ref=e376]:
+                - link "Virtual list c" [ref=e377] [cursor=pointer]:
                   - /url: /docs/components/virtual-list
-                  - generic [ref=e358]: Virtual list
-                  - generic "Client component" [ref=e360]: c
-          - generic [ref=e361]:
-            - generic [ref=e362]: AI chat
-            - list "AI chat" [ref=e363]:
-              - listitem [ref=e364]:
-                - link "Chat code block c" [ref=e365] [cursor=pointer]:
+                  - generic [ref=e378]: Virtual list
+                  - generic "Client component" [ref=e380]: c
+          - generic [ref=e381]:
+            - generic [ref=e382]: AI chat
+            - list "AI chat" [ref=e383]:
+              - listitem [ref=e384]:
+                - link "Chat code block c" [ref=e385] [cursor=pointer]:
                   - /url: /docs/components/chat-code-block
-                  - generic [ref=e366]: Chat code block
-                  - generic "Client component" [ref=e368]: c
-              - listitem [ref=e369]:
-                - link "Chat input c" [ref=e370] [cursor=pointer]:
+                  - generic [ref=e386]: Chat code block
+                  - generic "Client component" [ref=e388]: c
+              - listitem [ref=e389]:
+                - link "Chat input c" [ref=e390] [cursor=pointer]:
                   - /url: /docs/components/chat-input
-                  - generic [ref=e371]: Chat input
-                  - generic "Client component" [ref=e373]: c
-              - listitem [ref=e374]:
-                - link "Chat message" [ref=e375] [cursor=pointer]:
-                  - /url: /docs/components/chat-message
-              - listitem [ref=e377]:
-                - link "Chat thread c" [ref=e378] [cursor=pointer]:
-                  - /url: /docs/components/chat-thread
-                  - generic [ref=e379]: Chat thread
-                  - generic "Client component" [ref=e381]: c
-              - listitem [ref=e382]:
-                - link "Typing indicator" [ref=e383] [cursor=pointer]:
-                  - /url: /docs/components/typing-indicator
-          - generic [ref=e385]:
-            - generic [ref=e386]: Feedback
-            - list "Feedback" [ref=e387]:
-              - listitem [ref=e388]:
-                - link "Alert" [ref=e389] [cursor=pointer]:
-                  - /url: /docs/components/alert
-              - listitem [ref=e391]:
-                - link "Empty state" [ref=e392] [cursor=pointer]:
-                  - /url: /docs/components/empty-state
+                  - generic [ref=e391]: Chat input
+                  - generic "Client component" [ref=e393]: c
               - listitem [ref=e394]:
-                - link "Progress" [ref=e395] [cursor=pointer]:
-                  - /url: /docs/components/progress
+                - link "Chat message" [ref=e395] [cursor=pointer]:
+                  - /url: /docs/components/chat-message
               - listitem [ref=e397]:
-                - link "Skeleton" [ref=e398] [cursor=pointer]:
+                - link "Chat thread c" [ref=e398] [cursor=pointer]:
+                  - /url: /docs/components/chat-thread
+                  - generic [ref=e399]: Chat thread
+                  - generic "Client component" [ref=e401]: c
+              - listitem [ref=e402]:
+                - link "Typing indicator" [ref=e403] [cursor=pointer]:
+                  - /url: /docs/components/typing-indicator
+          - generic [ref=e405]:
+            - generic [ref=e406]: Feedback
+            - list "Feedback" [ref=e407]:
+              - listitem [ref=e408]:
+                - link "Alert" [ref=e409] [cursor=pointer]:
+                  - /url: /docs/components/alert
+              - listitem [ref=e411]:
+                - link "Empty state" [ref=e412] [cursor=pointer]:
+                  - /url: /docs/components/empty-state
+              - listitem [ref=e414]:
+                - link "Progress" [ref=e415] [cursor=pointer]:
+                  - /url: /docs/components/progress
+              - listitem [ref=e417]:
+                - link "Skeleton" [ref=e418] [cursor=pointer]:
                   - /url: /docs/components/skeleton
-              - listitem [ref=e400]:
-                - link "Spinner" [ref=e401] [cursor=pointer]:
+              - listitem [ref=e420]:
+                - link "Spinner" [ref=e421] [cursor=pointer]:
                   - /url: /docs/components/spinner
-          - generic [ref=e403]:
-            - generic [ref=e404]: Sections
-            - list "Sections" [ref=e405]:
-              - listitem [ref=e406]:
-                - link "Cta" [ref=e407] [cursor=pointer]:
+          - generic [ref=e423]:
+            - generic [ref=e424]: Sections
+            - list "Sections" [ref=e425]:
+              - listitem [ref=e426]:
+                - link "Cta" [ref=e427] [cursor=pointer]:
                   - /url: /docs/components/cta
-              - listitem [ref=e409]:
-                - link "Faq" [ref=e410] [cursor=pointer]:
-                  - /url: /docs/components/faq
-              - listitem [ref=e412]:
-                - link "Feature grid" [ref=e413] [cursor=pointer]:
-                  - /url: /docs/components/feature-grid
-              - listitem [ref=e415]:
-                - link "Footer" [ref=e416] [cursor=pointer]:
-                  - /url: /docs/components/footer
-              - listitem [ref=e418]:
-                - link "Hero" [ref=e419] [cursor=pointer]:
-                  - /url: /docs/components/hero
-              - listitem [ref=e421]:
-                - link "Logo cloud" [ref=e422] [cursor=pointer]:
-                  - /url: /docs/components/logo-cloud
-              - listitem [ref=e424]:
-                - link "Newsletter c" [ref=e425] [cursor=pointer]:
-                  - /url: /docs/components/newsletter
-                  - generic [ref=e426]: Newsletter
-                  - generic "Client component" [ref=e428]: c
               - listitem [ref=e429]:
-                - link "Pricing" [ref=e430] [cursor=pointer]:
-                  - /url: /docs/components/pricing
+                - link "Faq" [ref=e430] [cursor=pointer]:
+                  - /url: /docs/components/faq
               - listitem [ref=e432]:
-                - link "Stats" [ref=e433] [cursor=pointer]:
-                  - /url: /docs/components/stats
+                - link "Feature grid" [ref=e433] [cursor=pointer]:
+                  - /url: /docs/components/feature-grid
               - listitem [ref=e435]:
-                - link "Testimonials" [ref=e436] [cursor=pointer]:
-                  - /url: /docs/components/testimonials
-          - generic [ref=e438]:
-            - generic [ref=e439]: Media & time
-            - list "Media & time" [ref=e440]:
+                - link "Footer" [ref=e436] [cursor=pointer]:
+                  - /url: /docs/components/footer
+              - listitem [ref=e438]:
+                - link "Hero" [ref=e439] [cursor=pointer]:
+                  - /url: /docs/components/hero
               - listitem [ref=e441]:
-                - link "Animated counter c" [ref=e442] [cursor=pointer]:
-                  - /url: /docs/components/animated-counter
-                  - generic [ref=e443]: Animated counter
-                  - generic "Client component" [ref=e445]: c
-              - listitem [ref=e446]:
-                - link "Carousel" [ref=e447] [cursor=pointer]:
-                  - /url: /docs/components/carousel
+                - link "Logo cloud" [ref=e442] [cursor=pointer]:
+                  - /url: /docs/components/logo-cloud
+              - listitem [ref=e444]:
+                - link "Newsletter c" [ref=e445] [cursor=pointer]:
+                  - /url: /docs/components/newsletter
+                  - generic [ref=e446]: Newsletter
+                  - generic "Client component" [ref=e448]: c
               - listitem [ref=e449]:
-                - link "Clock c" [ref=e450] [cursor=pointer]:
-                  - /url: /docs/components/clock
-                  - generic [ref=e451]: Clock
-                  - generic "Client component" [ref=e453]: c
-              - listitem [ref=e454]:
-                - link "Countdown c" [ref=e455] [cursor=pointer]:
-                  - /url: /docs/components/countdown
-                  - generic [ref=e456]: Countdown
-                  - generic "Client component" [ref=e458]: c
-              - listitem [ref=e459]:
-                - link "Image c" [ref=e460] [cursor=pointer]:
-                  - /url: /docs/components/image
-                  - generic [ref=e461]: Image
-                  - generic "Client component" [ref=e463]: c
-              - listitem [ref=e464]:
-                - link "Map embed c" [ref=e465] [cursor=pointer]:
-                  - /url: /docs/components/map-embed
-                  - generic [ref=e466]: Map embed
-                  - generic "Client component" [ref=e468]: c
+                - link "Pricing" [ref=e450] [cursor=pointer]:
+                  - /url: /docs/components/pricing
+              - listitem [ref=e452]:
+                - link "Stats" [ref=e453] [cursor=pointer]:
+                  - /url: /docs/components/stats
+              - listitem [ref=e455]:
+                - link "Testimonials" [ref=e456] [cursor=pointer]:
+                  - /url: /docs/components/testimonials
+          - generic [ref=e458]:
+            - generic [ref=e459]: Media & time
+            - list "Media & time" [ref=e460]:
+              - listitem [ref=e461]:
+                - link "Animated counter c" [ref=e462] [cursor=pointer]:
+                  - /url: /docs/components/animated-counter
+                  - generic [ref=e463]: Animated counter
+                  - generic "Client component" [ref=e465]: c
+              - listitem [ref=e466]:
+                - link "Carousel" [ref=e467] [cursor=pointer]:
+                  - /url: /docs/components/carousel
               - listitem [ref=e469]:
-                - link "Marquee" [ref=e470] [cursor=pointer]:
+                - link "Clock c" [ref=e470] [cursor=pointer]:
+                  - /url: /docs/components/clock
+                  - generic [ref=e471]: Clock
+                  - generic "Client component" [ref=e473]: c
+              - listitem [ref=e474]:
+                - link "Countdown c" [ref=e475] [cursor=pointer]:
+                  - /url: /docs/components/countdown
+                  - generic [ref=e476]: Countdown
+                  - generic "Client component" [ref=e478]: c
+              - listitem [ref=e479]:
+                - link "Image c" [ref=e480] [cursor=pointer]:
+                  - /url: /docs/components/image
+                  - generic [ref=e481]: Image
+                  - generic "Client component" [ref=e483]: c
+              - listitem [ref=e484]:
+                - link "Map embed c" [ref=e485] [cursor=pointer]:
+                  - /url: /docs/components/map-embed
+                  - generic [ref=e486]: Map embed
+                  - generic "Client component" [ref=e488]: c
+              - listitem [ref=e489]:
+                - link "Marquee" [ref=e490] [cursor=pointer]:
                   - /url: /docs/components/marquee
-              - listitem [ref=e472]:
-                - link "Relative time c" [ref=e473] [cursor=pointer]:
+              - listitem [ref=e492]:
+                - link "Relative time c" [ref=e493] [cursor=pointer]:
                   - /url: /docs/components/relative-time
-                  - generic [ref=e474]: Relative time
-                  - generic "Client component" [ref=e476]: c
-          - generic [ref=e477]:
-            - generic [ref=e478]: Theming
-            - list "Theming" [ref=e479]:
-              - listitem [ref=e480]:
-                - link "Theme provider c" [ref=e481] [cursor=pointer]:
+                  - generic [ref=e494]: Relative time
+                  - generic "Client component" [ref=e496]: c
+          - generic [ref=e497]:
+            - generic [ref=e498]: Theming
+            - list "Theming" [ref=e499]:
+              - listitem [ref=e500]:
+                - link "Theme provider c" [ref=e501] [cursor=pointer]:
                   - /url: /docs/components/theme-provider
-                  - generic [ref=e482]: Theme provider
-                  - generic "Client component" [ref=e484]: c
-              - listitem [ref=e485]:
-                - link "Theme toggle c" [ref=e486] [cursor=pointer]:
-                  - /url: /docs/components/theme-toggle
-                  - generic [ref=e487]: Theme toggle
-                  - generic "Client component" [ref=e489]: c
-          - generic [ref=e490]:
-            - generic [ref=e491]: Charts
-            - list "Charts" [ref=e492]:
-              - listitem [ref=e493]:
-                - link "AreaChart" [ref=e494] [cursor=pointer]:
-                  - /url: /docs/charts/area-chart
-              - listitem [ref=e496]:
-                - link "BarChart" [ref=e497] [cursor=pointer]:
-                  - /url: /docs/charts/bar-chart
-              - listitem [ref=e499]:
-                - link "LineChart" [ref=e500] [cursor=pointer]:
-                  - /url: /docs/charts/line-chart
-              - listitem [ref=e502]:
-                - link "PieChart" [ref=e503] [cursor=pointer]:
-                  - /url: /docs/charts/pie-chart
+                  - generic [ref=e502]: Theme provider
+                  - generic "Client component" [ref=e504]: c
               - listitem [ref=e505]:
-                - link "ProgressRing" [ref=e506] [cursor=pointer]:
+                - link "Theme toggle c" [ref=e506] [cursor=pointer]:
+                  - /url: /docs/components/theme-toggle
+                  - generic [ref=e507]: Theme toggle
+                  - generic "Client component" [ref=e509]: c
+          - generic [ref=e510]:
+            - generic [ref=e511]: Charts
+            - list "Charts" [ref=e512]:
+              - listitem [ref=e513]:
+                - link "AreaChart" [ref=e514] [cursor=pointer]:
+                  - /url: /docs/charts/area-chart
+              - listitem [ref=e516]:
+                - link "BarChart" [ref=e517] [cursor=pointer]:
+                  - /url: /docs/charts/bar-chart
+              - listitem [ref=e519]:
+                - link "Gauge" [ref=e520] [cursor=pointer]:
+                  - /url: /docs/charts/gauge
+              - listitem [ref=e522]:
+                - link "Heatmap" [ref=e523] [cursor=pointer]:
+                  - /url: /docs/charts/heatmap
+              - listitem [ref=e525]:
+                - link "LineChart" [ref=e526] [cursor=pointer]:
+                  - /url: /docs/charts/line-chart
+              - listitem [ref=e528]:
+                - link "PieChart" [ref=e529] [cursor=pointer]:
+                  - /url: /docs/charts/pie-chart
+              - listitem [ref=e531]:
+                - link "ProgressRing" [ref=e532] [cursor=pointer]:
                   - /url: /docs/charts/progress-ring
-              - listitem [ref=e508]:
-                - link "Sparkline" [ref=e509] [cursor=pointer]:
+              - listitem [ref=e534]:
+                - link "RadarChart" [ref=e535] [cursor=pointer]:
+                  - /url: /docs/charts/radar-chart
+              - listitem [ref=e537]:
+                - link "ScatterChart" [ref=e538] [cursor=pointer]:
+                  - /url: /docs/charts/scatter-chart
+              - listitem [ref=e540]:
+                - link "Sparkline" [ref=e541] [cursor=pointer]:
                   - /url: /docs/charts/sparkline
-        - article [ref=e511]:
-          - generic [ref=e512]:
-            - paragraph [ref=e513]: Data display
-            - heading "Scheduler" [level=1] [ref=e514]
-            - paragraph [ref=e515]: A resource scheduler — people, rooms or machines down the side, time across the top.
-            - generic [ref=e516]:
-              - generic "Declares 'use client'" [ref=e517]: Client component
-              - link "Source" [ref=e518] [cursor=pointer]:
+        - article [ref=e543]:
+          - generic [ref=e544]:
+            - paragraph [ref=e545]: Data display
+            - heading "Scheduler" [level=1] [ref=e546]
+            - paragraph [ref=e547]: A resource scheduler — people, rooms or machines down the side, time across the top.
+            - generic [ref=e548]:
+              - generic "Declares 'use client'" [ref=e549]: Client component
+              - link "Source" [ref=e550] [cursor=pointer]:
                 - /url: https://github.com/intellectwithvivek/vivek_UI/tree/main/packages/ui/src/components/scheduler
-          - generic [ref=e519]:
-            - heading "Import" [level=2] [ref=e520]
-            - generic [ref=e521]:
-              - generic [ref=e522]:
-                - radiogroup "Code language" [ref=e523]:
-                  - radio "TS" [checked] [ref=e525] [cursor=pointer]
-                  - radio "JS" [ref=e527] [cursor=pointer]
-                - generic [ref=e529]:
-                  - button "Copy" [ref=e530] [cursor=pointer]
-                  - status [ref=e531]
-              - code [ref=e533]: "import { Scheduler } from '@the_viveksingh/vivek-ui'"
-          - generic [ref=e534]:
-            - heading "A resource timeline nobody else gives you for free" [level=2] [ref=e535]
-            - paragraph [ref=e536]: Rooms, people or machines down the side and time across the top. shadcn/ui, Mantine and Radix ship nothing like it, and MUI puts theirs behind a paid licence. Overlapping bookings stack into lanes so a double-booking is visible rather than hidden underneath.
-            - generic [ref=e538]:
-              - paragraph [ref=e539]: "Tab into the board and use the arrow keys: left and right walk this resource in time order, up and down jump to the nearest booking on the resource above or below. Every booking carries its resource, its times and its duration in its accessible name, because a timeline says all of that through position alone."
-              - group "Studio bookings, 12 March" [ref=e540]:
-                - generic [ref=e542]:
-                  - generic [ref=e545]:
+          - generic [ref=e551]:
+            - heading "Import" [level=2] [ref=e552]
+            - generic [ref=e553]:
+              - generic [ref=e554]:
+                - radiogroup "Code language" [ref=e555]:
+                  - radio "TS" [checked] [ref=e557] [cursor=pointer]
+                  - radio "JS" [ref=e559] [cursor=pointer]
+                - generic [ref=e561]:
+                  - button "Copy" [ref=e562] [cursor=pointer]
+                  - status [ref=e563]
+              - code [ref=e565]: "import { Scheduler } from '@the_viveksingh/vivek-ui'"
+          - generic [ref=e566]:
+            - heading "A resource timeline nobody else gives you for free" [level=2] [ref=e567]
+            - paragraph [ref=e568]: Rooms, people or machines down the side and time across the top. shadcn/ui, Mantine and Radix ship nothing like it, and MUI puts theirs behind a paid licence. Overlapping bookings stack into lanes so a double-booking is visible rather than hidden underneath.
+            - generic [ref=e570]:
+              - paragraph [ref=e571]: "Tab into the board and use the arrow keys: left and right walk this resource in time order, up and down jump to the nearest booking on the resource above or below. Every booking carries its resource, its times and its duration in its accessible name, because a timeline says all of that through position alone."
+              - group "Studio bookings, 12 March" [ref=e572]:
+                - generic [ref=e574]:
+                  - generic [ref=e577]:
                     - generic: 09:00
                     - generic: 10:00
                     - generic: 11:00
@@ -582,75 +614,75 @@ expect(received).toEqual(expected) // deep equality
                     - generic: 15:00
                     - generic: 16:00
                     - generic: 17:00
-                  - generic [ref=e546]:
-                    - generic [ref=e547]:
-                      - generic [ref=e548]: Studio A
-                      - generic [ref=e549]: Ground floor · 12 seats
-                    - list "Studio A" [ref=e550]:
+                  - generic [ref=e578]:
+                    - generic [ref=e579]:
+                      - generic [ref=e580]: Studio A
+                      - generic [ref=e581]: Ground floor · 12 seats
+                    - list "Studio A" [ref=e582]:
                       - listitem:
-                        - button "Standup. Studio A, 09:00 to 09:30, 30 minutes." [ref=e551] [cursor=pointer]:
-                          - generic [ref=e552]: Standup
-                          - generic [ref=e553]: 09:00–09:30
+                        - button "Standup. Studio A, 09:00 to 09:30, 30 minutes." [ref=e583] [cursor=pointer]:
+                          - generic [ref=e584]: Standup
+                          - generic [ref=e585]: 09:00–09:30
                       - listitem:
-                        - button "Podcast · episode 41. Studio A, 10:00 to 12:30, 2 hours 30 minutes." [ref=e554] [cursor=pointer]:
-                          - generic [ref=e555]: Podcast · episode 41
-                          - generic [ref=e556]: 10:00–12:30
+                        - button "Podcast · episode 41. Studio A, 10:00 to 12:30, 2 hours 30 minutes." [ref=e586] [cursor=pointer]:
+                          - generic [ref=e587]: Podcast · episode 41
+                          - generic [ref=e588]: 10:00–12:30
                       - listitem:
-                        - button "Mic check. Studio A, 11:30 to 12:00, 30 minutes." [ref=e557] [cursor=pointer]:
-                          - generic [ref=e558]: Mic check
-                          - generic [ref=e559]: 11:30–12:00
+                        - button "Mic check. Studio A, 11:30 to 12:00, 30 minutes." [ref=e589] [cursor=pointer]:
+                          - generic [ref=e590]: Mic check
+                          - generic [ref=e591]: 11:30–12:00
                       - listitem:
-                        - button "Client call. Studio A, 14:00 to 15:00, 1 hour." [ref=e560] [cursor=pointer]:
-                          - generic [ref=e561]: Client call
-                          - generic [ref=e562]: 14:00–15:00
-                  - generic [ref=e563]:
-                    - generic [ref=e564]:
-                      - generic [ref=e565]: Studio B
-                      - generic [ref=e566]: First floor · 6 seats
-                    - list "Studio B" [ref=e567]:
+                        - button "Client call. Studio A, 14:00 to 15:00, 1 hour." [ref=e592] [cursor=pointer]:
+                          - generic [ref=e593]: Client call
+                          - generic [ref=e594]: 14:00–15:00
+                  - generic [ref=e595]:
+                    - generic [ref=e596]:
+                      - generic [ref=e597]: Studio B
+                      - generic [ref=e598]: First floor · 6 seats
+                    - list "Studio B" [ref=e599]:
                       - listitem:
-                        - button "Voiceover. Studio B, 09:30 to 11:00, 1 hour 30 minutes." [ref=e568] [cursor=pointer]:
-                          - generic [ref=e569]: Voiceover
-                          - generic [ref=e570]: 09:30–11:00
+                        - button "Voiceover. Studio B, 09:30 to 11:00, 1 hour 30 minutes." [ref=e600] [cursor=pointer]:
+                          - generic [ref=e601]: Voiceover
+                          - generic [ref=e602]: 09:30–11:00
                       - listitem:
-                        - button "Maintenance. Studio B, 13:00 to 16:00, 3 hours." [ref=e571] [cursor=pointer]:
-                          - generic [ref=e572]: Maintenance
-                          - generic [ref=e573]: 13:00–16:00
-                  - generic [ref=e574]:
-                    - generic [ref=e575]:
-                      - generic [ref=e576]: Edit suite 1
-                      - generic [ref=e577]: Colour grade
-                    - list "Edit suite 1" [ref=e578]:
+                        - button "Maintenance. Studio B, 13:00 to 16:00, 3 hours." [ref=e603] [cursor=pointer]:
+                          - generic [ref=e604]: Maintenance
+                          - generic [ref=e605]: 13:00–16:00
+                  - generic [ref=e606]:
+                    - generic [ref=e607]:
+                      - generic [ref=e608]: Edit suite 1
+                      - generic [ref=e609]: Colour grade
+                    - list "Edit suite 1" [ref=e610]:
                       - listitem:
-                        - button "Grade · trailer. Edit suite 1, 09:00 to 13:00, 4 hours." [ref=e579] [cursor=pointer]:
-                          - generic [ref=e580]: Grade · trailer
-                          - generic [ref=e581]: 09:00–13:00
+                        - button "Grade · trailer. Edit suite 1, 09:00 to 13:00, 4 hours." [ref=e611] [cursor=pointer]:
+                          - generic [ref=e612]: Grade · trailer
+                          - generic [ref=e613]: 09:00–13:00
                       - listitem:
-                        - button "Grade · spot. Edit suite 1, 13:30 to 17:00, 3 hours 30 minutes." [ref=e582] [cursor=pointer]:
-                          - generic [ref=e583]: Grade · spot
-                          - generic [ref=e584]: 13:30–17:00
-                  - generic [ref=e585]:
-                    - generic [ref=e586]: Edit suite 2
-                    - list "Edit suite 2" [ref=e588]:
-                      - listitem [ref=e589]: Nothing scheduled
-              - paragraph [ref=e590]: Nothing selected yet. Click or press Enter on a booking.
-            - generic [ref=e591]:
-              - generic [ref=e592]:
-                - radiogroup "Code language" [ref=e593]:
-                  - radio "TS" [checked] [ref=e595] [cursor=pointer]
-                  - radio "JS" [ref=e597] [cursor=pointer]
-                - generic [ref=e599]:
-                  - button "Copy" [ref=e600] [cursor=pointer]
-                  - status [ref=e601]
-              - code [ref=e603]: "const resources = [ { id: 'studio-a', label: 'Studio A', sublabel: 'Ground floor - 12 seats' }, { id: 'studio-b', label: 'Studio B' }, ] const events = [ { id: '1', resourceId: 'studio-a', title: 'Standup', start: at(9), end: at(9, 30) }, { id: '2', resourceId: 'studio-a', title: 'Podcast', start: at(10), end: at(12, 30), tone: 'accent' }, // Overlaps the podcast, so it is packed into a second lane instead of being hidden. { id: '3', resourceId: 'studio-a', title: 'Mic check', start: at(11, 30), end: at(12) }, { id: '4', resourceId: 'studio-b', title: 'Maintenance', start: at(13), end: at(16), tone: 'warning' }, ] <Scheduler resources={resources} events={events} label=\"Studio bookings, 12 March\" start={at(9)} end={at(18)} // Nothing is mutated for you - the board reports, your state decides. onSelect={(event) => setSelected(event)} />"
-          - generic [ref=e604]:
-            - heading "The keyboard model, which is the whole point" [level=2] [ref=e605]
-            - paragraph [ref=e606]: "A timeline conveys everything through position, and position is invisible to a screen reader. So the board is one tab stop with a roving focus, and every booking carries its resource, its times and its duration in its accessible name: \"Podcast. Studio A, 10:00 to 12:30, 2 hours 30 minutes.\""
-            - generic [ref=e608]:
-              - paragraph [ref=e609]: "Tab into the board and use the arrow keys: left and right walk this resource in time order, up and down jump to the nearest booking on the resource above or below. Every booking carries its resource, its times and its duration in its accessible name, because a timeline says all of that through position alone."
-              - group "Studio bookings, 12 March" [ref=e610]:
-                - generic [ref=e612]:
-                  - generic [ref=e615]:
+                        - button "Grade · spot. Edit suite 1, 13:30 to 17:00, 3 hours 30 minutes." [ref=e614] [cursor=pointer]:
+                          - generic [ref=e615]: Grade · spot
+                          - generic [ref=e616]: 13:30–17:00
+                  - generic [ref=e617]:
+                    - generic [ref=e618]: Edit suite 2
+                    - list "Edit suite 2" [ref=e620]:
+                      - listitem [ref=e621]: Nothing scheduled
+              - paragraph [ref=e622]: Nothing selected yet. Click or press Enter on a booking.
+            - generic [ref=e623]:
+              - generic [ref=e624]:
+                - radiogroup "Code language" [ref=e625]:
+                  - radio "TS" [checked] [ref=e627] [cursor=pointer]
+                  - radio "JS" [ref=e629] [cursor=pointer]
+                - generic [ref=e631]:
+                  - button "Copy" [ref=e632] [cursor=pointer]
+                  - status [ref=e633]
+              - code [ref=e635]: "const resources = [ { id: 'studio-a', label: 'Studio A', sublabel: 'Ground floor - 12 seats' }, { id: 'studio-b', label: 'Studio B' }, ] const events = [ { id: '1', resourceId: 'studio-a', title: 'Standup', start: at(9), end: at(9, 30) }, { id: '2', resourceId: 'studio-a', title: 'Podcast', start: at(10), end: at(12, 30), tone: 'accent' }, // Overlaps the podcast, so it is packed into a second lane instead of being hidden. { id: '3', resourceId: 'studio-a', title: 'Mic check', start: at(11, 30), end: at(12) }, { id: '4', resourceId: 'studio-b', title: 'Maintenance', start: at(13), end: at(16), tone: 'warning' }, ] <Scheduler resources={resources} events={events} label=\"Studio bookings, 12 March\" start={at(9)} end={at(18)} // Nothing is mutated for you - the board reports, your state decides. onSelect={(event) => setSelected(event)} />"
+          - generic [ref=e636]:
+            - heading "The keyboard model, which is the whole point" [level=2] [ref=e637]
+            - paragraph [ref=e638]: "A timeline conveys everything through position, and position is invisible to a screen reader. So the board is one tab stop with a roving focus, and every booking carries its resource, its times and its duration in its accessible name: \"Podcast. Studio A, 10:00 to 12:30, 2 hours 30 minutes.\""
+            - generic [ref=e640]:
+              - paragraph [ref=e641]: "Tab into the board and use the arrow keys: left and right walk this resource in time order, up and down jump to the nearest booking on the resource above or below. Every booking carries its resource, its times and its duration in its accessible name, because a timeline says all of that through position alone."
+              - group "Studio bookings, 12 March" [ref=e642]:
+                - generic [ref=e644]:
+                  - generic [ref=e647]:
                     - generic: 09:00
                     - generic: 10:00
                     - generic: 11:00
@@ -660,75 +692,75 @@ expect(received).toEqual(expected) // deep equality
                     - generic: 15:00
                     - generic: 16:00
                     - generic: 17:00
-                  - generic [ref=e616]:
-                    - generic [ref=e617]:
-                      - generic [ref=e618]: Studio A
-                      - generic [ref=e619]: Ground floor · 12 seats
-                    - list "Studio A" [ref=e620]:
+                  - generic [ref=e648]:
+                    - generic [ref=e649]:
+                      - generic [ref=e650]: Studio A
+                      - generic [ref=e651]: Ground floor · 12 seats
+                    - list "Studio A" [ref=e652]:
                       - listitem:
-                        - button "Standup. Studio A, 09:00 to 09:30, 30 minutes." [ref=e621] [cursor=pointer]:
-                          - generic [ref=e622]: Standup
-                          - generic [ref=e623]: 09:00–09:30
+                        - button "Standup. Studio A, 09:00 to 09:30, 30 minutes." [ref=e653] [cursor=pointer]:
+                          - generic [ref=e654]: Standup
+                          - generic [ref=e655]: 09:00–09:30
                       - listitem:
-                        - button "Podcast · episode 41. Studio A, 10:00 to 12:30, 2 hours 30 minutes." [ref=e624] [cursor=pointer]:
-                          - generic [ref=e625]: Podcast · episode 41
-                          - generic [ref=e626]: 10:00–12:30
+                        - button "Podcast · episode 41. Studio A, 10:00 to 12:30, 2 hours 30 minutes." [ref=e656] [cursor=pointer]:
+                          - generic [ref=e657]: Podcast · episode 41
+                          - generic [ref=e658]: 10:00–12:30
                       - listitem:
-                        - button "Mic check. Studio A, 11:30 to 12:00, 30 minutes." [ref=e627] [cursor=pointer]:
-                          - generic [ref=e628]: Mic check
-                          - generic [ref=e629]: 11:30–12:00
+                        - button "Mic check. Studio A, 11:30 to 12:00, 30 minutes." [ref=e659] [cursor=pointer]:
+                          - generic [ref=e660]: Mic check
+                          - generic [ref=e661]: 11:30–12:00
                       - listitem:
-                        - button "Client call. Studio A, 14:00 to 15:00, 1 hour." [ref=e630] [cursor=pointer]:
-                          - generic [ref=e631]: Client call
-                          - generic [ref=e632]: 14:00–15:00
-                  - generic [ref=e633]:
-                    - generic [ref=e634]:
-                      - generic [ref=e635]: Studio B
-                      - generic [ref=e636]: First floor · 6 seats
-                    - list "Studio B" [ref=e637]:
+                        - button "Client call. Studio A, 14:00 to 15:00, 1 hour." [ref=e662] [cursor=pointer]:
+                          - generic [ref=e663]: Client call
+                          - generic [ref=e664]: 14:00–15:00
+                  - generic [ref=e665]:
+                    - generic [ref=e666]:
+                      - generic [ref=e667]: Studio B
+                      - generic [ref=e668]: First floor · 6 seats
+                    - list "Studio B" [ref=e669]:
                       - listitem:
-                        - button "Voiceover. Studio B, 09:30 to 11:00, 1 hour 30 minutes." [ref=e638] [cursor=pointer]:
-                          - generic [ref=e639]: Voiceover
-                          - generic [ref=e640]: 09:30–11:00
+                        - button "Voiceover. Studio B, 09:30 to 11:00, 1 hour 30 minutes." [ref=e670] [cursor=pointer]:
+                          - generic [ref=e671]: Voiceover
+                          - generic [ref=e672]: 09:30–11:00
                       - listitem:
-                        - button "Maintenance. Studio B, 13:00 to 16:00, 3 hours." [ref=e641] [cursor=pointer]:
-                          - generic [ref=e642]: Maintenance
-                          - generic [ref=e643]: 13:00–16:00
-                  - generic [ref=e644]:
-                    - generic [ref=e645]:
-                      - generic [ref=e646]: Edit suite 1
-                      - generic [ref=e647]: Colour grade
-                    - list "Edit suite 1" [ref=e648]:
+                        - button "Maintenance. Studio B, 13:00 to 16:00, 3 hours." [ref=e673] [cursor=pointer]:
+                          - generic [ref=e674]: Maintenance
+                          - generic [ref=e675]: 13:00–16:00
+                  - generic [ref=e676]:
+                    - generic [ref=e677]:
+                      - generic [ref=e678]: Edit suite 1
+                      - generic [ref=e679]: Colour grade
+                    - list "Edit suite 1" [ref=e680]:
                       - listitem:
-                        - button "Grade · trailer. Edit suite 1, 09:00 to 13:00, 4 hours." [ref=e649] [cursor=pointer]:
-                          - generic [ref=e650]: Grade · trailer
-                          - generic [ref=e651]: 09:00–13:00
+                        - button "Grade · trailer. Edit suite 1, 09:00 to 13:00, 4 hours." [ref=e681] [cursor=pointer]:
+                          - generic [ref=e682]: Grade · trailer
+                          - generic [ref=e683]: 09:00–13:00
                       - listitem:
-                        - button "Grade · spot. Edit suite 1, 13:30 to 17:00, 3 hours 30 minutes." [ref=e652] [cursor=pointer]:
-                          - generic [ref=e653]: Grade · spot
-                          - generic [ref=e654]: 13:30–17:00
-                  - generic [ref=e655]:
-                    - generic [ref=e656]: Edit suite 2
-                    - list "Edit suite 2" [ref=e658]:
-                      - listitem [ref=e659]: Nothing scheduled
-              - paragraph [ref=e660]: Nothing selected yet. Click or press Enter on a booking.
-            - generic [ref=e661]:
-              - generic [ref=e662]:
-                - radiogroup "Code language" [ref=e663]:
-                  - radio "TS" [checked] [ref=e665] [cursor=pointer]
-                  - radio "JS" [ref=e667] [cursor=pointer]
-                - generic [ref=e669]:
-                  - button "Copy" [ref=e670] [cursor=pointer]
-                  - status [ref=e671]
-              - code [ref=e673]: "// Left / Right - previous / next booking for this resource, in time order // Up / Down - the nearest booking in time on the resource above / below // Home / End - first / last booking for this resource // Enter, Space - select // Empty resources are skipped by Up and Down: stopping on a row with nothing // in it reads as a dead key. <Scheduler resources={resources} events={events} label=\"Bookings\" />"
-          - generic [ref=e674]:
-            - heading "The current-time marker, and why it is opt-in" [level=2] [ref=e675]
-            - paragraph [ref=e676]: "Reading the clock during render gives the server one marker position and the browser another, which React reports as a hydration mismatch. So the component never does it: showNow reads the clock in an effect after mount, and now takes an explicit time for tests and demos."
-            - generic [ref=e678]:
-              - paragraph [ref=e679]: "Tab into the board and use the arrow keys: left and right walk this resource in time order, up and down jump to the nearest booking on the resource above or below. Every booking carries its resource, its times and its duration in its accessible name, because a timeline says all of that through position alone."
-              - group "Studio bookings, 12 March" [ref=e680]:
-                - generic [ref=e682]:
-                  - generic [ref=e685]:
+                        - button "Grade · spot. Edit suite 1, 13:30 to 17:00, 3 hours 30 minutes." [ref=e684] [cursor=pointer]:
+                          - generic [ref=e685]: Grade · spot
+                          - generic [ref=e686]: 13:30–17:00
+                  - generic [ref=e687]:
+                    - generic [ref=e688]: Edit suite 2
+                    - list "Edit suite 2" [ref=e690]:
+                      - listitem [ref=e691]: Nothing scheduled
+              - paragraph [ref=e692]: Nothing selected yet. Click or press Enter on a booking.
+            - generic [ref=e693]:
+              - generic [ref=e694]:
+                - radiogroup "Code language" [ref=e695]:
+                  - radio "TS" [checked] [ref=e697] [cursor=pointer]
+                  - radio "JS" [ref=e699] [cursor=pointer]
+                - generic [ref=e701]:
+                  - button "Copy" [ref=e702] [cursor=pointer]
+                  - status [ref=e703]
+              - code [ref=e705]: "// Left / Right - previous / next booking for this resource, in time order // Up / Down - the nearest booking in time on the resource above / below // Home / End - first / last booking for this resource // Enter, Space - select // Empty resources are skipped by Up and Down: stopping on a row with nothing // in it reads as a dead key. <Scheduler resources={resources} events={events} label=\"Bookings\" />"
+          - generic [ref=e706]:
+            - heading "The current-time marker, and why it is opt-in" [level=2] [ref=e707]
+            - paragraph [ref=e708]: "Reading the clock during render gives the server one marker position and the browser another, which React reports as a hydration mismatch. So the component never does it: showNow reads the clock in an effect after mount, and now takes an explicit time for tests and demos."
+            - generic [ref=e710]:
+              - paragraph [ref=e711]: "Tab into the board and use the arrow keys: left and right walk this resource in time order, up and down jump to the nearest booking on the resource above or below. Every booking carries its resource, its times and its duration in its accessible name, because a timeline says all of that through position alone."
+              - group "Studio bookings, 12 March" [ref=e712]:
+                - generic [ref=e714]:
+                  - generic [ref=e717]:
                     - generic: 09:00
                     - generic: 10:00
                     - generic: 11:00
@@ -738,192 +770,192 @@ expect(received).toEqual(expected) // deep equality
                     - generic: 15:00
                     - generic: 16:00
                     - generic: 17:00
-                  - generic [ref=e686]:
-                    - generic [ref=e687]:
-                      - generic [ref=e688]: Studio A
-                      - generic [ref=e689]: Ground floor · 12 seats
-                    - list "Studio A" [ref=e690]:
+                  - generic [ref=e718]:
+                    - generic [ref=e719]:
+                      - generic [ref=e720]: Studio A
+                      - generic [ref=e721]: Ground floor · 12 seats
+                    - list "Studio A" [ref=e722]:
                       - listitem:
-                        - button "Standup. Studio A, 09:00 to 09:30, 30 minutes." [ref=e691] [cursor=pointer]:
-                          - generic [ref=e692]: Standup
-                          - generic [ref=e693]: 09:00–09:30
+                        - button "Standup. Studio A, 09:00 to 09:30, 30 minutes." [ref=e723] [cursor=pointer]:
+                          - generic [ref=e724]: Standup
+                          - generic [ref=e725]: 09:00–09:30
                       - listitem:
-                        - button "Podcast · episode 41. Studio A, 10:00 to 12:30, 2 hours 30 minutes." [ref=e694] [cursor=pointer]:
-                          - generic [ref=e695]: Podcast · episode 41
-                          - generic [ref=e696]: 10:00–12:30
+                        - button "Podcast · episode 41. Studio A, 10:00 to 12:30, 2 hours 30 minutes." [ref=e726] [cursor=pointer]:
+                          - generic [ref=e727]: Podcast · episode 41
+                          - generic [ref=e728]: 10:00–12:30
                       - listitem:
-                        - button "Mic check. Studio A, 11:30 to 12:00, 30 minutes." [ref=e697] [cursor=pointer]:
-                          - generic [ref=e698]: Mic check
-                          - generic [ref=e699]: 11:30–12:00
+                        - button "Mic check. Studio A, 11:30 to 12:00, 30 minutes." [ref=e729] [cursor=pointer]:
+                          - generic [ref=e730]: Mic check
+                          - generic [ref=e731]: 11:30–12:00
                       - listitem:
-                        - button "Client call. Studio A, 14:00 to 15:00, 1 hour." [ref=e700] [cursor=pointer]:
-                          - generic [ref=e701]: Client call
-                          - generic [ref=e702]: 14:00–15:00
-                  - generic [ref=e703]:
-                    - generic [ref=e704]:
-                      - generic [ref=e705]: Studio B
-                      - generic [ref=e706]: First floor · 6 seats
-                    - list "Studio B" [ref=e707]:
+                        - button "Client call. Studio A, 14:00 to 15:00, 1 hour." [ref=e732] [cursor=pointer]:
+                          - generic [ref=e733]: Client call
+                          - generic [ref=e734]: 14:00–15:00
+                  - generic [ref=e735]:
+                    - generic [ref=e736]:
+                      - generic [ref=e737]: Studio B
+                      - generic [ref=e738]: First floor · 6 seats
+                    - list "Studio B" [ref=e739]:
                       - listitem:
-                        - button "Voiceover. Studio B, 09:30 to 11:00, 1 hour 30 minutes." [ref=e708] [cursor=pointer]:
-                          - generic [ref=e709]: Voiceover
-                          - generic [ref=e710]: 09:30–11:00
+                        - button "Voiceover. Studio B, 09:30 to 11:00, 1 hour 30 minutes." [ref=e740] [cursor=pointer]:
+                          - generic [ref=e741]: Voiceover
+                          - generic [ref=e742]: 09:30–11:00
                       - listitem:
-                        - button "Maintenance. Studio B, 13:00 to 16:00, 3 hours." [ref=e711] [cursor=pointer]:
-                          - generic [ref=e712]: Maintenance
-                          - generic [ref=e713]: 13:00–16:00
-                  - generic [ref=e714]:
-                    - generic [ref=e715]:
-                      - generic [ref=e716]: Edit suite 1
-                      - generic [ref=e717]: Colour grade
-                    - list "Edit suite 1" [ref=e718]:
+                        - button "Maintenance. Studio B, 13:00 to 16:00, 3 hours." [ref=e743] [cursor=pointer]:
+                          - generic [ref=e744]: Maintenance
+                          - generic [ref=e745]: 13:00–16:00
+                  - generic [ref=e746]:
+                    - generic [ref=e747]:
+                      - generic [ref=e748]: Edit suite 1
+                      - generic [ref=e749]: Colour grade
+                    - list "Edit suite 1" [ref=e750]:
                       - listitem:
-                        - button "Grade · trailer. Edit suite 1, 09:00 to 13:00, 4 hours." [ref=e719] [cursor=pointer]:
-                          - generic [ref=e720]: Grade · trailer
-                          - generic [ref=e721]: 09:00–13:00
+                        - button "Grade · trailer. Edit suite 1, 09:00 to 13:00, 4 hours." [ref=e751] [cursor=pointer]:
+                          - generic [ref=e752]: Grade · trailer
+                          - generic [ref=e753]: 09:00–13:00
                       - listitem:
-                        - button "Grade · spot. Edit suite 1, 13:30 to 17:00, 3 hours 30 minutes." [ref=e722] [cursor=pointer]:
-                          - generic [ref=e723]: Grade · spot
-                          - generic [ref=e724]: 13:30–17:00
-                  - generic [ref=e725]:
-                    - generic [ref=e726]: Edit suite 2
-                    - list "Edit suite 2" [ref=e728]:
-                      - listitem [ref=e729]: Nothing scheduled
-              - paragraph [ref=e730]: Nothing selected yet. Click or press Enter on a booking.
-            - generic [ref=e731]:
-              - generic [ref=e732]:
-                - radiogroup "Code language" [ref=e733]:
-                  - radio "TS" [checked] [ref=e735] [cursor=pointer]
-                  - radio "JS" [ref=e737] [cursor=pointer]
-                - generic [ref=e739]:
-                  - button "Copy" [ref=e740] [cursor=pointer]
-                  - status [ref=e741]
-              - code [ref=e743]: "// Reads the clock after mount, then ticks once a minute. <Scheduler resources={resources} events={events} label=\"Today\" showNow /> // Or pin it, which is what the demo above does so the docs never shift. <Scheduler resources={resources} events={events} label=\"Today\" now={at(13, 20)} /> // Times are written by a deterministic HH:MM formatter rather than // Intl.DateTimeFormat, whose output varies between Node builds and browsers. // Pass your own for a 12-hour clock: <Scheduler resources={resources} events={events} label=\"Today\" formatTime={(d) => d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} />"
-          - separator [ref=e744]
-          - generic [ref=e745]:
-            - heading "Props" [level=2] [ref=e746]
-            - paragraph [ref=e747]: Generated from the package's own type declarations, so this table cannot drift from the code.
-            - table [ref=e749]:
-              - caption [ref=e750]: Props for Scheduler
-              - rowgroup [ref=e751]:
-                - row [ref=e752]:
-                  - columnheader "Prop" [ref=e753]
-                  - columnheader "Type" [ref=e754]
-                  - columnheader "Default" [ref=e755]
-                  - columnheader "Description" [ref=e756]
-              - rowgroup [ref=e757]:
-                - row [ref=e758]:
-                  - cell "resources required" [ref=e759]:
-                    - code [ref=e760]: resources
-                    - generic [ref=e761]: required
-                  - cell [ref=e762]:
-                    - code [ref=e763]: readonly SchedulerResource[]
-                  - cell "—" [ref=e764]
-                  - cell "—" [ref=e765]
-                - row [ref=e766]:
-                  - cell "events required" [ref=e767]:
-                    - code [ref=e768]: events
-                    - generic [ref=e769]: required
-                  - cell [ref=e770]:
-                    - code [ref=e771]: readonly SchedulerEvent[]
-                  - cell "—" [ref=e772]
-                  - cell "—" [ref=e773]
-                - row [ref=e774]:
-                  - cell "label required" [ref=e775]:
-                    - code [ref=e776]: label
-                    - generic [ref=e777]: required
-                  - cell [ref=e778]:
-                    - code [ref=e779]: string
-                  - cell "—" [ref=e780]
-                  - cell "Required. A timeline with no accessible name is one more unlabelled region." [ref=e781]
-                - row [ref=e782]:
-                  - cell [ref=e783]:
-                    - code [ref=e784]: start
-                  - cell [ref=e785]:
-                    - code [ref=e786]: Date | number
-                  - cell "—" [ref=e787]
-                  - cell "Window start. Defaults to the earliest event, floored to the step." [ref=e788]
-                - row [ref=e789]:
-                  - cell [ref=e790]:
-                    - code [ref=e791]: end
-                  - cell [ref=e792]:
-                    - code [ref=e793]: Date | number
-                  - cell "—" [ref=e794]
-                  - cell "Window end. Defaults to the latest event, ceiled to the step." [ref=e795]
-                - row [ref=e796]:
-                  - cell [ref=e797]:
-                    - code [ref=e798]: step
-                  - cell [ref=e799]:
-                    - code [ref=e800]: number
-                  - cell "—" [ref=e801]
-                  - cell "Minutes between axis ticks. Default 60." [ref=e802]
-                - row [ref=e803]:
-                  - cell [ref=e804]:
-                    - code [ref=e805]: minTickWidth
-                  - cell [ref=e806]:
-                    - code [ref=e807]: number
-                  - cell "—" [ref=e808]
-                  - cell "Minimum pixels per tick. Below this the timeline scrolls rather than crushing." [ref=e809]
-                - row [ref=e810]:
-                  - cell [ref=e811]:
-                    - code [ref=e812]: showNow
-                  - cell [ref=e813]:
-                    - code [ref=e814]: boolean
-                  - cell "—" [ref=e815]
-                  - cell "Draw the current-time marker. Left to itself this component never reads the clock during render — that would produce a different marker on the server and the client, which React reports as a hydration mismatch. The clock is read in an effect, after mount." [ref=e816]
-                - row [ref=e817]:
-                  - cell [ref=e818]:
-                    - code [ref=e819]: now
-                  - cell [ref=e820]:
-                    - code [ref=e821]: Date | number
-                  - cell "—" [ref=e822]
-                  - 'cell "An explicit \"now\", which overrides {@link showNow}''s clock. Useful in tests and demos." [ref=e823]'
-                - row [ref=e824]:
-                  - cell [ref=e825]:
-                    - code [ref=e826]: onSelect
-                  - cell [ref=e827]:
-                    - code [ref=e828]: "(event: SchedulerEvent) => void"
-                  - cell "—" [ref=e829]
-                  - cell "—" [ref=e830]
-                - row [ref=e831]:
-                  - cell [ref=e832]:
-                    - code [ref=e833]: renderEvent
-                  - cell [ref=e834]:
-                    - code [ref=e835]: "(event: SchedulerEvent, resource: SchedulerResource) => ReactNode"
-                  - cell "—" [ref=e836]
-                  - cell "Rendered instead of the default title + time. The wrapper button stays ours." [ref=e837]
-                - row [ref=e838]:
-                  - cell [ref=e839]:
-                    - code [ref=e840]: formatTime
-                  - cell [ref=e841]:
-                    - code [ref=e842]: "(value: Date) => string"
-                  - cell "—" [ref=e843]
-                  - 'cell "How a time is written, in the axis and in every accessible name. The default is a deterministic 24-hour `HH:MM` rather than `Intl.DateTimeFormat`, because ICU output varies between Node builds and browsers — the same code would render differently for two of your users. Pass your own for 12-hour clocks or other locales." [ref=e844]'
-            - status [ref=e845]:
-              - paragraph [ref=e848]:
+                        - button "Grade · spot. Edit suite 1, 13:30 to 17:00, 3 hours 30 minutes." [ref=e754] [cursor=pointer]:
+                          - generic [ref=e755]: Grade · spot
+                          - generic [ref=e756]: 13:30–17:00
+                  - generic [ref=e757]:
+                    - generic [ref=e758]: Edit suite 2
+                    - list "Edit suite 2" [ref=e760]:
+                      - listitem [ref=e761]: Nothing scheduled
+              - paragraph [ref=e762]: Nothing selected yet. Click or press Enter on a booking.
+            - generic [ref=e763]:
+              - generic [ref=e764]:
+                - radiogroup "Code language" [ref=e765]:
+                  - radio "TS" [checked] [ref=e767] [cursor=pointer]
+                  - radio "JS" [ref=e769] [cursor=pointer]
+                - generic [ref=e771]:
+                  - button "Copy" [ref=e772] [cursor=pointer]
+                  - status [ref=e773]
+              - code [ref=e775]: "// Reads the clock after mount, then ticks once a minute. <Scheduler resources={resources} events={events} label=\"Today\" showNow /> // Or pin it, which is what the demo above does so the docs never shift. <Scheduler resources={resources} events={events} label=\"Today\" now={at(13, 20)} /> // Times are written by a deterministic HH:MM formatter rather than // Intl.DateTimeFormat, whose output varies between Node builds and browsers. // Pass your own for a 12-hour clock: <Scheduler resources={resources} events={events} label=\"Today\" formatTime={(d) => d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} />"
+          - separator [ref=e776]
+          - generic [ref=e777]:
+            - heading "Props" [level=2] [ref=e778]
+            - paragraph [ref=e779]: Generated from the package's own type declarations, so this table cannot drift from the code.
+            - table [ref=e781]:
+              - caption [ref=e782]: Props for Scheduler
+              - rowgroup [ref=e783]:
+                - row [ref=e784]:
+                  - columnheader "Prop" [ref=e785]
+                  - columnheader "Type" [ref=e786]
+                  - columnheader "Default" [ref=e787]
+                  - columnheader "Description" [ref=e788]
+              - rowgroup [ref=e789]:
+                - row [ref=e790]:
+                  - cell "resources required" [ref=e791]:
+                    - code [ref=e792]: resources
+                    - generic [ref=e793]: required
+                  - cell [ref=e794]:
+                    - code [ref=e795]: readonly SchedulerResource[]
+                  - cell "—" [ref=e796]
+                  - cell "—" [ref=e797]
+                - row [ref=e798]:
+                  - cell "events required" [ref=e799]:
+                    - code [ref=e800]: events
+                    - generic [ref=e801]: required
+                  - cell [ref=e802]:
+                    - code [ref=e803]: readonly SchedulerEvent[]
+                  - cell "—" [ref=e804]
+                  - cell "—" [ref=e805]
+                - row [ref=e806]:
+                  - cell "label required" [ref=e807]:
+                    - code [ref=e808]: label
+                    - generic [ref=e809]: required
+                  - cell [ref=e810]:
+                    - code [ref=e811]: string
+                  - cell "—" [ref=e812]
+                  - cell "Required. A timeline with no accessible name is one more unlabelled region." [ref=e813]
+                - row [ref=e814]:
+                  - cell [ref=e815]:
+                    - code [ref=e816]: start
+                  - cell [ref=e817]:
+                    - code [ref=e818]: Date | number
+                  - cell "—" [ref=e819]
+                  - cell "Window start. Defaults to the earliest event, floored to the step." [ref=e820]
+                - row [ref=e821]:
+                  - cell [ref=e822]:
+                    - code [ref=e823]: end
+                  - cell [ref=e824]:
+                    - code [ref=e825]: Date | number
+                  - cell "—" [ref=e826]
+                  - cell "Window end. Defaults to the latest event, ceiled to the step." [ref=e827]
+                - row [ref=e828]:
+                  - cell [ref=e829]:
+                    - code [ref=e830]: step
+                  - cell [ref=e831]:
+                    - code [ref=e832]: number
+                  - cell "—" [ref=e833]
+                  - cell "Minutes between axis ticks. Default 60." [ref=e834]
+                - row [ref=e835]:
+                  - cell [ref=e836]:
+                    - code [ref=e837]: minTickWidth
+                  - cell [ref=e838]:
+                    - code [ref=e839]: number
+                  - cell "—" [ref=e840]
+                  - cell "Minimum pixels per tick. Below this the timeline scrolls rather than crushing." [ref=e841]
+                - row [ref=e842]:
+                  - cell [ref=e843]:
+                    - code [ref=e844]: showNow
+                  - cell [ref=e845]:
+                    - code [ref=e846]: boolean
+                  - cell "—" [ref=e847]
+                  - cell "Draw the current-time marker. Left to itself this component never reads the clock during render — that would produce a different marker on the server and the client, which React reports as a hydration mismatch. The clock is read in an effect, after mount." [ref=e848]
+                - row [ref=e849]:
+                  - cell [ref=e850]:
+                    - code [ref=e851]: now
+                  - cell [ref=e852]:
+                    - code [ref=e853]: Date | number
+                  - cell "—" [ref=e854]
+                  - 'cell "An explicit \"now\", which overrides {@link showNow}''s clock. Useful in tests and demos." [ref=e855]'
+                - row [ref=e856]:
+                  - cell [ref=e857]:
+                    - code [ref=e858]: onSelect
+                  - cell [ref=e859]:
+                    - code [ref=e860]: "(event: SchedulerEvent) => void"
+                  - cell "—" [ref=e861]
+                  - cell "—" [ref=e862]
+                - row [ref=e863]:
+                  - cell [ref=e864]:
+                    - code [ref=e865]: renderEvent
+                  - cell [ref=e866]:
+                    - code [ref=e867]: "(event: SchedulerEvent, resource: SchedulerResource) => ReactNode"
+                  - cell "—" [ref=e868]
+                  - cell "Rendered instead of the default title + time. The wrapper button stays ours." [ref=e869]
+                - row [ref=e870]:
+                  - cell [ref=e871]:
+                    - code [ref=e872]: formatTime
+                  - cell [ref=e873]:
+                    - code [ref=e874]: "(value: Date) => string"
+                  - cell "—" [ref=e875]
+                  - 'cell "How a time is written, in the axis and in every accessible name. The default is a deterministic 24-hour `HH:MM` rather than `Intl.DateTimeFormat`, because ICU output varies between Node builds and browsers — the same code would render differently for two of your users. Pass your own for 12-hour clocks or other locales." [ref=e876]'
+            - status [ref=e877]:
+              - paragraph [ref=e880]:
                 - text: Every remaining prop is spread onto the root element, so all standard HTML and ARIA attributes work.
-                - code [ref=e849]: className
+                - code [ref=e881]: className
                 - text: and
-                - code [ref=e850]: style
+                - code [ref=e882]: style
                 - text: are merged with the library's own, never replaced, and the ref forwards to the root DOM node.
-          - generic [ref=e851]:
-            - heading "Rendering" [level=2] [ref=e852]
-            - alert [ref=e853]:
-              - generic [ref=e854]: "!"
-              - generic [ref=e855]:
-                - generic [ref=e856]: Client component
-                - paragraph [ref=e858]:
-                  - code [ref=e859]: Scheduler
+          - generic [ref=e883]:
+            - heading "Rendering" [level=2] [ref=e884]
+            - alert [ref=e885]:
+              - generic [ref=e886]: "!"
+              - generic [ref=e887]:
+                - generic [ref=e888]: Client component
+                - paragraph [ref=e890]:
+                  - code [ref=e891]: Scheduler
                   - text: declares
-                  - code [ref=e860]: "'use client'"
+                  - code [ref=e892]: "'use client'"
                   - text: because it needs state, effects or event handlers. Importing it into a Server Component creates a client boundary at this component — everything above it stays on the server.
-          - separator [ref=e861]
-          - navigation "Adjacent components" [ref=e862]:
-            - link "← Kanban board" [ref=e863] [cursor=pointer]:
+          - separator [ref=e893]
+          - navigation "Adjacent components" [ref=e894]:
+            - link "← Kanban board" [ref=e895] [cursor=pointer]:
               - /url: /docs/components/kanban-board
-            - link "Stepper →" [ref=e864] [cursor=pointer]:
+            - link "Stepper →" [ref=e896] [cursor=pointer]:
               - /url: /docs/components/stepper
-  - alert [ref=e865]
+  - alert [ref=e897]
 ```
 
 # Test source

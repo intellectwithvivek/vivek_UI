@@ -68,6 +68,7 @@
 @import "../components/hover-card/hover-card.css";
 @import "../components/icon-button/icon-button.css";
 @import "../components/image/image.css";
+@import "../components/infinite-scroll/infinite-scroll.css";
 @import "../components/input/input.css";
 @import "../components/kanban-board/kanban-board.css";
 @import "../components/kbd/kbd.css";

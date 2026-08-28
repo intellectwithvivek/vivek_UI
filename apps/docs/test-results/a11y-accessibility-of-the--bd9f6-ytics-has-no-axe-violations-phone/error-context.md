@@ -504,7 +504,7 @@ expect(received).toEqual(expected) // deep equality
             - listitem [ref=e86]:
               - paragraph [ref=e87]: Marketing site and app in one repo
             - listitem [ref=e88]:
-              - paragraph [ref=e89]: All six charts in context
+              - paragraph [ref=e89]: Six of the charts in context
             - listitem [ref=e90]:
               - paragraph [ref=e91]: Sortable, searchable data table
             - listitem [ref=e92]:

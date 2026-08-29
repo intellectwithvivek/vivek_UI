@@ -1,5 +1,485 @@
 # @the_viveksingh/vivek-ui
 
+## 1.0.0
+
+### Major Changes
+
+- 60cc8b7: **1.0.0** — the stable release. One package, 109 components, 10 charts, zero runtime
+  dependencies, and an API that will not move for the next two years of minors.
+  
+  This is the release the pre-1.0 line was working towards, and it lands as one version rather
+  than a trail of deprecations: everything below the fold of this changelog — the API canon
+  (`value` / `defaultValue` / `onValueChange`, `size`, `tone`, `invalid`, required labels on
+  unlabelled widgets, `asChild` everywhere a child can be the element), the twenty-two new
+  components since 0.5, the section variants, the four charts, the hardening gates — ships
+  together and is what 1.x is measured against.
+  
+  **What "stable" means here**
+  
+  - Every `vk-` class and `--vk-` token is public API; renaming one is a 2.0.
+  - Every exported prop is documented in the props table generated from the declarations, and
+    every component page has a live example.
+  - Every component has a `vitest-axe` assertion, a keyboard map from the WAI-ARIA Authoring
+    Practices where it is interactive, and is hydrated in the SSR sweep.
+  - Gates that fail the build, not a checklist: §4.1 contract, leaks, hydration, logical
+    properties, reduced motion, Safari prefixes, shrinkable scroll containers,
+    dangerouslySetInnerHTML budget, packaging, install matrix (npm / yarn / pnpm), Node 18 and
+    20, React 18 and 19, and a browser suite that runs every route and every demo in Chromium
+    (phone / tablet / desktop), Firefox and WebKit.
+  - Browser support is stated and tested, not assumed: the last two versions of Chrome, Edge,
+    Firefox and Safari, plus iOS Safari. The CSS build targets exactly that list.
+  
+  **Migrating from 0.x**: see `/docs/migration`. Renames are listed one per line with the
+  before and after; nothing was removed without a replacement.
+
+### Minor Changes
+
+- 97d87ce: `AnchorNav` — the "On this page" table of contents that knows where you are.
+  
+  Every entry is a real `<a href="#id">`, so it works before JavaScript and copies as a link.
+  Once mounted, an IntersectionObserver tracks the targets and marks the section in view with
+  `aria-current="location"`; with nothing in view, the last section scrolled past stays
+  current. Clicking scrolls smoothly — instantly under `prefers-reduced-motion` — accounts
+  for a fixed header via `offset`, replaces the hash without adding history entries, and
+  moves focus to the target so a keyboard user continues from the section. One level of
+  nesting, vertical rail or horizontal underline, controlled or uncontrolled `activeId`.
+- 3a81372: `AudioPlayer` — an audio player with its own controls, for podcasts, voice notes and samples.
+  
+  A bordered card in the theme's colours with an optional artwork + title row, then one
+  control row: play, elapsed, seek, total, mute, volume, speed. Every control is a real
+  `<button>` or `<input type="range">` with a name; the seek bar announces "1:23 of 4:56"
+  and volume announces a percentage. Space/K play, arrows seek and change volume, J/L jump
+  ten seconds, M mutes. Several `src` sources, an error state with `role="status"`, `size="sm"`
+  for inline use, and `audioRef` / `audioProps` for anything the player does not model.
+  Progressive files only (MP3, OGG, WAV, AAC).
+  
+  `formatTime` — the media clock formatter both players share — is an internal utility.
+- ce22e8e: `Chip` and `NumberInput`.
+  
+  **Chip** is three shapes, and the element changes with the job: a `<span>` when static, a
+  real `aria-pressed` button when selectable (a filter bar announces correctly for free), and
+  a span with its **own** remove button when removable — never a button inside a button, which
+  is why `selectable` and `onRemove` are mutually exclusive and removal wins. Delete and
+  Backspace on a focused chip remove it, matching TagInput. Tones use the soft washes with
+  their AA-verified `-subtle-fg` text partners.
+  
+  **NumberInput** is `<input type="number">`'s defects, fixed: `type="text"` +
+  `inputmode="decimal"` + the APG spinbutton contract. The value is `number | null` — null is
+  empty, `NaN` never escapes. Drafts stay free text until Enter or blur, then parse, round to
+  `precision`, and clamp into range; garbage reverts instead of lingering as text that looks
+  accepted. Arrows step, Shift steps ×10, Home/End jump to the bounds; the hold-to-repeat
+  steppers are pointer-only chrome hidden from AT because the input *is* the spinbutton; the
+  mouse wheel is off by default because a page scroll silently drifting a focused quantity is
+  the classic corruption bug.
+- 9855eb8: `ColorPicker` — a colour picker made of real controls.
+  
+  Hue, saturation, brightness (and alpha) are `<input type="range">`s with names and spoken
+  values ("217 degrees", "76%"); the hex field is a text input that commits on Enter or blur,
+  accepts `#rgb`, `#rrggbbaa` and `rgb()` on the way in, and reverts what it cannot parse;
+  presets are pressed toggles. The two-dimensional area is a pointer convenience over the
+  same state, hidden from assistive tech because the sliders already say everything it shows.
+  Emits lower-case hex, keeps hue through zero saturation, offers the browser's EyeDropper
+  where one exists, posts through a hidden input with `name`, and takes `Field`'s injected
+  `id` / `aria-describedby` / `invalid`. `variant="popover"` puts the panel behind a swatch.
+  
+  `parseColor`, `toHex`, `rgbToHsv`, `hsvToRgb` and `contrastRatio` are internal utilities.
+- f21e35a: `ContextMenu` — a right-click menu with the keyboard path everyone leaves out.
+  
+  `contextmenu` is a pointer event, so a menu that opens only on it does not exist for anyone
+  without a mouse. The trigger surface is focusable and opens on **Shift+F10** and the
+  **ContextMenu key** — the two keys every desktop operating system already uses for this —
+  at its own centre. Closing returns focus to wherever it was, not merely to the trigger.
+  
+  Inside, it is `DropdownMenu`'s menu: roving arrows that skip disabled items and wrap,
+  Home/End, typeahead, Enter/Space to activate, `aria-disabled` rather than `disabled` so an
+  unavailable command is still announced, Tab and Escape to leave. The panel is positioned by
+  the same solver as every other overlay, fed a zero-size anchor at the pointer, so it flips
+  and clamps at the viewport edges instead of running off the screen.
+  
+  `ContextMenu.Item asChild` makes an item a real link. `ContextMenu.Trigger asChild` makes any
+  element the surface — a canvas, a table row, a card.
+- f941ece: Cross-browser correctness, and per-component stylesheets.
+  
+  **Per-component CSS.** `dist/styles.css` is the whole library in one file — 34 kB gzipped,
+  of which a page using a Button, a Card, an Input, a Navbar and a Hero needs about 4. Those
+  pages can now import only what they use:
+  
+  ```ts
+  import '@the_viveksingh/vivek-ui/css/reset.css'
+  import '@the_viveksingh/vivek-ui/css/tokens.css'
+  import '@the_viveksingh/vivek-ui/css/button.css'
+  ```
+  
+  112 stylesheets are built alongside the bundle, one per component plus `reset`, `tokens`
+  and `touch`. `styles.css` is unchanged and remains the answer for anyone who would rather
+  not think about it. (The JavaScript was never the weight: a Button is 780 B brotli, a whole
+  landing page 3.1 kB.)
+  
+  **Safari and Firefox.** The browser suite now runs in Firefox and WebKit as well as
+  Chromium, and found four real defects on its first run:
+  
+  - `user-select`, `backdrop-filter` and `mask-image` had no `-webkit-` twin, so Safari
+    ignored them — text on a chart legend was selectable, the sticky navbar had no blur. Both
+    the prefixes and a test that requires them are now in place, and lightningcss is given
+    browser targets so it keeps them.
+  - `VideoPlayer`: sources are tried **in order**, and Safari holds the document's `load`
+    event while it works through a format it cannot decode — a WebM-first list made the whole
+    page appear to hang. Documented on the prop; list MP4 first.
+  - `VideoPlayer`: `poster` must be a **raster** image. Safari ignores an SVG poster and, again,
+    never fires `load`. Documented on the prop.
+  - axe measurements now wait for entry animations to finish. WebKit still had 56 running
+    right after `load`, so contrast was sampled mid-fade and reported a false failure.
+  - Every horizontal scroll container — the table wrapper, code blocks, the tablist, the
+    carousel track, the thumbnail strips, KanbanBoard, Scheduler — now carries
+    `min-inline-size: 0` **and** a `position` that makes it a containing block, so it scrolls
+    itself instead of pushing the page. The second half is the subtler bug: a
+    `.vk-visually-hidden` announcement inside a wide strip is absolutely positioned, and
+    without a containing block it resolved against the page and stretched it — the KanbanBoard
+    docs page scrolled 491px sideways on a phone while the strip itself measured correctly. A
+    gate requires both of any new container; its first version had a list of reasoned
+    exemptions, and WebKit disproved all of them.
+- 5a16b7e: `DateRangePicker` — the top-three request in every date library's tracker, and mostly wiring.
+  
+  `Calendar` already implemented range selection — click-before-start swaps the ends, the hover
+  preview, disabled days unreachable rather than merely unclickable — and `DatePicker` had
+  already solved the popover, positioning, dismissal and focus hand-off. Nobody had joined
+  them. This is that join: one trigger reading "start – end", a popup hosting the range
+  Calendar, closing on the second date and returning focus to the field.
+  
+  **A half-selection never leaks out of the popup.** Pick a start, press Escape, and the field
+  restores the last complete range instead of holding `{ start, end: null }` — a form
+  submitting one date of two is the defect every range picker ships once. The two hidden
+  fields (`{name}-start`, `{name}-end`) use Calendar's own convention, as ISO dates, so a
+  form does not care which component rendered them.
+  
+  The trigger's accessible name always carries the range in words — "Stay: March 12, 2026 to
+  March 15, 2026" — because two terse ISO strings on screen are meaningless as speech. Visible
+  text uses a deterministic `YYYY-MM-DD` by default; pass `format` for anything else.
+- ce22e8e: `Form` — validation and submission orchestration with zero dependencies, built on the
+  principle that **the browser already knows how to validate; it just reports badly.**
+  
+  `required`, `minLength`, `type="email"` and `pattern` work exactly as on plain HTML. Form
+  intercepts submit, collects every failure through the constraint validation API, swaps in
+  readable `messages` (per field, per failure kind), **focuses the first invalid control in
+  document order**, and hands `{ errors, submitting, submitError }` to the layout — plain
+  children or a render function. `validate` adds cross-field rules, with native failures
+  winning per field. Async `onSubmit` drives `submitting`; a rejected submit lands in
+  `submitError` for the layout to render instead of dying as an unhandled rejection in the
+  console. Errors clear on the next attempt, not per keystroke — messages should not vanish
+  while they are being read.
+  
+  No context, no controller, no field registration: state lives in the DOM, where the values
+  already are.
+- 6c7ea05: Four new charts — Scatter (and Bubble), Radar, Gauge, Heatmap. Ten charts total, still
+  zero dependencies, still pure SVG or HTML rendered complete on the server.
+  
+  **`ScatterChart`** — both axes are measures, answering "do these move together". Give any
+  point an `r` and the series becomes a **bubble chart**: `r` maps to the mark's *area*, not
+  its radius, because radius scaling (the Chart.js default) squares every visual ratio and
+  quietly exaggerates the data. Unplottable points are dropped, never drawn as NaN geometry.
+  
+  **`RadarChart`** — a polygon per series over shared axes. Series separate by colour *and*
+  dash *and* vertex shape, so overlapping series survive greyscale and colour blindness.
+  Refuses fewer than three axes in words rather than drawing a degenerate shape, and drops
+  values beyond the axis count rather than wrapping two observations onto one spoke.
+  
+  **`Gauge`** — one value against threshold bands, the "is it in the healthy zone" chart.
+  The accessible name always carries the figure, the range and the band label — the SVG is
+  decoration around a number, and a title never displaces the number the way it rightly does
+  on charts that ship a data table. Out-of-range values clamp instead of swinging the needle
+  off the dial.
+  
+  **`Heatmap`** — two categorical axes, intensity for the value: the GitHub-contribution
+  shape generalised. HTML grid rather than SVG (wrapping labels, container responsiveness),
+  with the ramp mixed from the tokens via `color-mix` — so it holds in dark mode with no
+  second palette, and because it is a *lightness* ramp it survives every form of CVD. The
+  smallest value never fades to blank, and the real numbers ship in the accessible table.
+  
+  Every figure in all four is reachable as text. 22 new tests, plus axe across the set.
+- ce22e8e: `InfiniteScroll` — an IntersectionObserver sentinel that never strands a keyboard user.
+  
+  `onLoadMore` fires as the sentinel approaches the viewport (256px early by default, so the
+  next page is loading before anyone reaches the edge), re-entry is guarded while a returned
+  promise is pending, and `hasMore={false}` disconnects and renders the `endContent` slot —
+  an ending you can see, not a spinner that never resolves. `inverse` puts the sentinel at the
+  start for chat-history backfilling.
+  
+  Where `IntersectionObserver` is missing, the component does not quietly do nothing: it
+  renders a real "Load more" button instead. The loader is a `role="status"` with visually
+  hidden text; the list itself is deliberately **not** a live region, because announcing every
+  loaded page is noise.
+- efe6fef: `Lightbox` — a full-screen image viewer built on the same dialog core as `Modal`.
+  
+  `role="dialog"` with `aria-modal`, focus trapped inside and returned to the trigger on
+  close, the page behind made inert, scroll locked, Escape and a backdrop click to dismiss —
+  all inherited. On top: a set of images with captions, arrows that wrap (or announce
+  themselves disabled at the ends with `loop={false}`), ArrowLeft/ArrowRight/Home/End,
+  horizontal swipe, a thumbnail strip with `aria-current`, and neighbour preloading. The
+  dialog's name carries the position ("Image viewer, 2 of 5") and the counter is a live
+  region, so moving through the set is announced. `alt` is required on every item: the
+  image is the content. `open` / `index` are controlled or uncontrolled.
+- 0ebd0d9: `Listbox` — the always-open list of options that `<select multiple>` should have been.
+  
+  WAI-ARIA listbox pattern with roving focus, in both modes. Single select follows focus the
+  way a native select does: arrows move and select, Home/End jump, typing a letter jumps to
+  the next matching label. Multiple select keeps focus and selection apart so a keyboard user
+  can move without changing anything: Space toggles, Shift+Arrow moves and toggles, Ctrl/⌘+A
+  selects every enabled option, Shift+click selects a range from the last click.
+  
+  Disabled options stay in the list and are announced as unavailable — `aria-disabled`, not
+  removed — and are skipped by the keyboard. Each option can carry a `description`. With
+  `name`, the selection is emitted as hidden inputs so it posts with an ordinary form; `value`
+  / `defaultValue` / `onValueChange` are typed per mode (`string | null` or `string[]`).
+- d80c460: Fixes found by using the live site, and the gates that now catch their kind.
+  
+  - **Card** no longer declares `container-type: inline-size`. A size container has no
+    intrinsic width, so a Card inside any shrink-to-fit context — a flex row, a centred
+    wrapper, a grid auto column — collapsed to its padding with the copy wrapping one letter
+    per line. Content that wants to respond to a card's width can make its own wrapper a
+    container.
+  - **Gauge** drew its arc opening to the right: the start angle assumed a 3-o'clock zero
+    while the shared polar helper uses 12 o'clock. It now opens at the bottom, from
+    seven-thirty through twelve to four-thirty, as a dial should.
+  - **ScatterChart** claims the full width of its container like the other XY charts; it
+    was rendering at its intrinsic 300 px inside centred frames.
+  - **Sparkline** is an inline figure with its own size (`width` × `height`), so it holds a
+    card open instead of stretching to a container that has nothing else to size it.
+  - **Calendar** year buttons draw two real chevrons; the pseudo-element version, translated
+    inside an already-rotated box, read as a bar.
+  - **Chart legends are interactive by default** on Line, Area, Bar, Scatter and Radar
+    charts: each entry is a checkbox that shows and hides its series. Pass
+    `interactiveLegend={false}` for a figure in a report. Pie/Donut stays non-interactive on
+    purpose — hiding a wedge would leave a chart that no longer sums to the whole.
+  - **ChatMessage / ChatThread** format the default clock text with explicit `locale`
+    (default `en-US`) and `timeZone` (default `UTC`) props instead of the runtime's, which on
+    a server differed from the browser's and produced React hydration error #418 on every
+    message. Pass the viewer's values from your session, or a preformatted string.
+  - **Safari prefixes.** The CSS build runs with no browser targets (so logical properties
+    stay logical), which means nothing adds vendor prefixes. `user-select`, `backdrop-filter`
+    and `mask-image` now carry their `-webkit-` twin in source — Safari reads only the
+    prefixed form for the first two — and a test fails the build if a new declaration lands
+    without it.
+- 619b76b: `Masonry` — items of different heights packed into columns with no gaps under the short ones.
+  
+  CSS `columns` fills top-to-bottom, so the second item lands under the first instead of
+  beside it, and `grid-template-rows: masonry` is still behind a flag. This measures instead:
+  a ResizeObserver on the container decides how many columns fit (`columnWidth`, capped at
+  `columns`), and one shared observer reports each item's height so the next item goes into
+  the shortest column. Before measurement — and on the server — items are dealt round-robin,
+  so the first paint is already a grid and hydration matches. `balance={false}` keeps
+  round-robin for strict left-to-right order; `gap` uses spacing steps.
+- 88bdbd7: `Navbar` gains `collapseAt`, and two scroll regions become reachable by keyboard.
+  
+  **`collapseAt: 'md' | 'lg'`** chooses the container width at which the links leave the sheet
+  and line up in the bar — 48rem (the default, unchanged) or 64rem. It exists because of a
+  failure that only a real browser on a different operating system could show: with six links
+  plus actions, the bar fitted at 768px on Windows and overlapped on Linux, where the fallback
+  font is a few pixels wider per glyph. That is not a docs-site quirk; it is what every Linux
+  and Android visitor to a site with a full navbar sees. A bar that dense now says so and
+  collapses one step later. The JavaScript that closes the sheet when the bar grows past the
+  threshold follows the same prop, so the two never disagree.
+  
+  **Table's scroll wrapper is focusable.** A wide table scrolls sideways inside its wrapper on
+  a narrow screen, which makes the wrapper a scrollable region — and one a keyboard cannot
+  reach strands every column past the fold (WCAG 2.1.1; axe `scrollable-region-focusable`).
+  The wrapper now carries a tab stop, `role="group"` and a `scrollLabel` (default
+  `'Scrollable table'`; pass the table's subject when a page has several). Found by the phone
+  leg of the browser suite on the first CI run — the desktop leg never scrolls a table.
+  
+  **Block `Code` is a group, not a landmark.** The previous fix made every code block a
+  `region`, and a documentation page holds a dozen of them with the same name — axe rightly
+  rejects twelve identical landmarks. The tab stop stays; the role is `group`.
+  
+  Also: `ScatterChart` and `RadarChart` key their series by name rather than index, and
+  `NumberInput`'s unmount cleanup no longer closes over a function it has to redeclare.
+- 3924087: `QRCode` — a QR code rendered as crisp SVG from an in-house encoder. No dependency, no canvas.
+  
+  ISO/IEC 18004 byte mode, versions 1–40, all four error-correction levels, mask chosen by
+  penalty score, and a free level upgrade whenever the chosen version has room. The encoder
+  is verified in the test suite by a real decoder reading every payload back — short URLs at
+  every level, Devanagari and emoji, and a 2,953-byte payload that fills version 40.
+  
+  It is an image with a name: `role="img"` and an `aria-label` that says what it encodes.
+  Defaults are the ones that scan — black on white, a four-module quiet zone, level M —
+  with `fg` / `bg` / `margin` / `moduleShape="round"` to depart deliberately, and `image` to
+  put a logo in the centre (modules beneath it are cleared; pair it with `level="H"`).
+  
+  The whole-library size budget rises from 60 kB to 72 kB (brotli) to make room for the 1.0
+  scope — the encoder's tables account for about 3 kB of it. The per-import budgets that
+  consumers actually pay (Button 3 kB, Modal 6 kB, a full landing page 8 kB, all charts
+  12 kB) are unchanged: the package is side-effect free and tree-shakes, so nobody ships the
+  whole library.
+- ebb955c: `Resizable` — split panes with draggable, keyboard-operable boundaries.
+  
+  Each handle is a `role="separator"` with a value: `aria-valuenow` is the share of the panel
+  before it, `aria-controls` names that panel, arrows move it by `step` percent (Shift × 5),
+  Home/End go to the panel's `minSize` / `maxSize`, Enter or a double-click restores the
+  default split, and in a right-to-left page the arrows flip. Dragging uses pointer capture
+  so a fast drag that leaves the handle still follows. Shares are percentages that always
+  sum to 100 — controlled through `sizes`, or remembered per `storageKey` in `localStorage`
+  (every access wrapped, so a locked-down browser just forgets). Horizontal or vertical,
+  nests freely, and a boundary never pushes its neighbour past its own limits.
+- 33be8fc: Section variants for 1.0 — the props that turn four section components into forty layouts.
+  
+  - **Hero**: `backdrop` (a full-bleed `<img>`, `<video>` or gradient behind the copy, decorative),
+    `overlay` (`light` / `dark` / `gradient` scrims; the dark ones switch the copy to light),
+    `mediaPosition` (`start` puts split-layout media before the copy) and `minHeight`
+    (`half` / `screen`, copy centred).
+  - **Navbar**: `variant` — `solid` (default), `transparent` for sitting over a hero, `floating`
+    for an inset, rounded, shadowed bar — and `layout` for where links sit on a wide bar:
+    `start`, `center` or `end`.
+  - **FAQ**: `columns={2}` splits the list once the section is wide enough; `layout="side"` puts
+    the header beside the list instead of above it.
+  - **CTA**: `inset` paints the tone on a rounded card inside the container rather than a
+    full-bleed band; `layout="split"` puts the actions beside the copy whatever the alignment.
+  
+  All are additive with unchanged defaults. Each is a `data-*` attribute the stylesheet keys
+  on, so they are overridable the same way as everything else.
+- 4955af9: `TimePicker` — hours, minutes, optional seconds and AM/PM as real spinbutton segments.
+  
+  Not a free-text box that accepts "9.30pm" and silently stores nothing, and not a list of every
+  quarter hour to scroll through. Each segment is a `role="spinbutton"` with a spoken value —
+  "9 hours", not "09" — so a screen reader announces what a sighted user sees. Typed digits
+  accumulate and focus advances when a segment is complete, the way `OTPInput` works; arrows
+  step and wrap; Backspace clears, then moves back; A and P set the period.
+  
+  **The value is always 24-hour.** `hourCycle={12}` changes what is shown and how AM/PM is
+  entered; `onValueChange` still receives `'14:30'`. Choosing the cycle explicitly rather than
+  from `Intl` is deliberate: a field that renders 24-hour on the server and 12-hour in one
+  visitor's browser is a hydration mismatch, and this library does not ship those.
+  
+  **A half-entered time is `null`, never a guess.** Bounds clamp a committed value instead of
+  refusing keystrokes — refusing makes typing `9` impossible when the minimum is `09:30`. One
+  hidden field carries the canonical value, so a form never sees the segments.
+- f81275d: `VideoPlayer` — a video player with its own controls, for progressive files (MP4, WebM).
+  
+  The native `controls` attribute gives every browser a different, unstyleable bar and no
+  keyboard contract worth documenting. This one has one bar, every control a real `<button>`
+  or `<input type="range">` with a name, and the shortcuts people expect from every player
+  they have used: Space/K play, arrows seek and change volume, J/L jump ten seconds, M mutes,
+  C toggles captions, F goes fullscreen. The seek bar announces "1:23 of 4:56"; volume
+  announces a percentage.
+  
+  Controls fade while the pointer rests during playback and come back on any movement, key
+  or focus — faded, never removed, so a keyboard user always has them. Multiple `src`
+  sources, WebVTT `tracks`, poster, playback speeds, picture-in-picture and fullscreen where
+  the browser supports them, an error state with `role="status"`, and `videoRef` /
+  `videoProps` for anything the player does not model. No streaming (HLS/DASH) — that is a
+  different component.
+- 5d4a5d0: Make every public claim true — and make one of them a feature.
+  
+  **`FAQ` now emits FAQPage structured data.** The docs claimed it already did; it did not.
+  Now it does, by default: schema.org `FAQPage` JSON-LD derived 1:1 from the visible items —
+  the markup an answer engine reads to quote a question and its answer directly. No other
+  component library ships this.
+  
+  - Items whose `answer` is a string are included automatically; JSX answers join via the new
+    `answerText` field; items with neither are rendered but left out of the schema.
+  - Nothing is emitted when the `children` escape hatch replaces the layout, because
+    structured data must describe what is actually visible — Google's policy is explicit.
+  - Opt out with `structuredData={false}`.
+  - The payload is `JSON.stringify` output with `<` escaped to `<`, so item content
+    containing `</script>` cannot break out of the tag — the classic JSON-LD injection, and
+    FAQ content routinely comes from a CMS. A test proves it with hostile content.
+  
+  This is the library's one and only `dangerouslySetInnerHTML` (JSON-LD has to be a raw
+  script body; React escapes text children, which corrupts JSON). A new test pins the budget
+  to exactly that file and asserts the escaping, so a second use anywhere fails CI. README
+  and SECURITY.md now state the precise budget instead of a blanket "none".
+  
+  **`printElement()` works now.** Its docblock required `styles/print.css` — a file that was
+  never bundled or exported, so the shipped feature could not function. The stylesheet ships
+  as `@the_viveksingh/vivek-ui/print.css`, separate from `styles.css` so an app that never
+  prints pays nothing, and the packaging test gates the export.
+  
+  **Corrections.** The security-report email in SECURITY.md and the published package
+  metadata was an undeliverable typo (`gmail.comom`) — vulnerability reports bounced. The
+  README's accessibility section contradicted the FAQ page (contrast is machine-verified,
+  twice — it said "reasoned"); the Playwright suite was listed as roadmap after it shipped;
+  the npm/yarn/pnpm verification claim is scoped to what CI actually proves until the install
+  matrix lands; "no required provider" now carries its one honest caveat (toasts, theme hook).
+- 665204d: **Breaking:** one naming convention, applied everywhere. This is the last release in which
+  these can change, so they change now.
+  
+  | Component | Was | Is | Why |
+  | --- | --- | --- | --- |
+  | RadioGroup, OTPInput, TagInput | `onChange` | `onValueChange` | Nine components already used `onValueChange`. These three redefined the DOM's own `onChange` with a different signature, which breaks the types for anyone spreading input props. |
+  | Scheduler | `onEventSelect` | `onSelect` | Verb names for actions. |
+  | FAQ | `defaultOpen` (number) | `defaultOpenIndex` | Every other `defaultOpen` in the library is a boolean. Same name, different type, was a trap. |
+  | EditableGrid | `rows` | `data` | Matches DataTable. Tabular row sets are `data`. |
+  | PieChart, ProgressRing | `size` (pixels) | `diameter` | `size` is a `sm`/`md`/`lg` scale everywhere else. |
+  | CTA | `variant` | `background` | It was Section's `background` vocabulary wearing another name. |
+  | Text | `tone="default"` | `tone="neutral"` | One tone vocabulary across the library. |
+  | Progress | `label?` | `label` | The last widget that could render an unlabelled `role="progressbar"`. |
+  
+  **`asChild` where a router needs to get in.** `PopoverTrigger`, `DropdownMenu.Trigger`,
+  `DropdownMenu.Item` and `IconButton` now take it. The menu-item one matters most: a menu
+  item could not be a real link, so every "Settings" row was an `onClick` calling
+  `router.push` — which silently breaks middle-click, cmd-click and "open in new tab".
+  
+  **The component contract, enforced.** `EditableGrid`, `FileTree`, `KanbanBoard` and
+  `Scheduler` shipped without `forwardRef`, `style` or `...rest` — the only four components
+  that did. Attaching a test id or an inline style meant a wrapper `div`, and wrappers become
+  load-bearing. All four now honour §4.1, and `contract.test.tsx` keeps them there.
+  
+  **`size="lg"` on the eleven controls that lacked it** — Badge, Breadcrumb, Checkbox, Code,
+  Field, FileUpload, Kbd, Label, RadioGroup, Switch, TypingIndicator. A large form was
+  impossible to compose: Input had `lg`, Checkbox did not, so the row came out mismatched.
+  
+  **`invalid` on Switch and RadioGroup**, which every other form control already had.
+  
+  **Two new components.** `Segmented` — a real segmented control with `radiogroup` semantics,
+  which exists because `Tabs`' pill variant was being misused as a two-option toggle and
+  shipping tab semantics with no panels. `HoverCard` — Popover positioning with Tooltip's
+  open-intent delay and a hover bridge, opening on focus as well as hover.
+
+### Patch Changes
+
+- a03bc19: Fix `Navbar` brand text painting over the links at tablet widths.
+  
+  `.vk-navbar__brand` carried `flex: 0 1 auto` with `min-width: 0` and no `overflow`. Those two
+  together mean the box shrinks below its own content and the content keeps painting anyway —
+  so at the width where the links come inline, the brand and the first link rendered on top of
+  one another. The comment above the rule said "nothing shrinks the brand away before the links
+  have collapsed", which was the intent and not what the CSS did.
+  
+  The brand now clips instead of overflowing, and the links can shrink past their content
+  rather than pushing the actions out of the bar. Nothing changes at widths where the header
+  already fitted.
+- 4c53ad2: Inline `Code` breaks long tokens instead of breaking the page.
+  
+  Inline code held `white-space: nowrap`, so a single long token — a package name, a URL —
+  grew wider than a 320px viewport and forced the entire page to scroll sideways, failing
+  WCAG 1.4.10 Reflow for every element on the page at 200–400% zoom. Found by the new 320px
+  reflow spec on its first run. `overflow-wrap: anywhere` lets the token break only when the
+  alternative is page overflow; normal-width layouts are pixel-identical.
+- baa519b: Security and accessibility hardening, from a browser-level audit.
+  
+  - **Breadcrumb could render a `javascript:` URL.** `linkProps` is typed as full anchor
+    attributes and was spread *after* the sanitised `href`, so a CMS-fed `linkProps.href`
+    replaced the validated value with a raw one. Spread order is the fix: `linkProps` can add
+    rels and targets, never the URL.
+  - **TagInput's paste handler compiled delimiters into a RegExp** with only the first
+    character escaped — a multi-character delimiter crashed the paste handler, and a crafted
+    one could build a catastrophic-backtracking pattern run against clipboard text. Splitting
+    is now a character scan; there is no pattern to poison.
+  - **`isSafeHref` is one function again.** The exported predicate and the one the nav
+    components use had quietly diverged (Prose kept a stricter local copy) — meaning
+    SECURITY.md's "the same allowlist" claim was false, and a future bypass fix could land in
+    one copy and not the other. Prose's stricter policy is now a *parameter set* of the shared
+    function, not a fork of it.
+  - **MapEmbed leaked full page URLs** to map providers via `no-referrer-when-downgrade` —
+    inconsistent with its own consent gate. Now `strict-origin-when-cross-origin`.
+  - **Two contrast failures measured by browser axe**, invisible to token arithmetic: the
+    active sidebar link painted the accent on its own subtle wash (~4.0:1), and Scheduler's
+    tone timestamps were faded with `opacity: 0.75` (~3.4:1). The `-subtle-fg` tokens exist
+    precisely as text partners for the `-subtle` surfaces; both use them now, full strength.
+  - **RTL is enforced, not hoped for.** The library is logical-properties throughout, and a
+    new source gate bans physical direction properties — with a four-entry allowlist where
+    physical is *correct* (viewport-coordinate anchors for JS-positioned overlays, and a
+    rotated-border chevron whose "down" is down in every script). Each entry carries its
+    reason, and the gate fails if an entry stops matching real code.
+
 ## 0.5.0
 
 ### Minor Changes

@@ -9,6 +9,12 @@ import { elementsPastViewport, horizontalOverflow, KEY_ROUTES } from './helpers'
  * but not the SC, and desktop-at-zoom differs from mobile emulation (no touch media, other
  * hover semantics). One project cannot cover it, so this spec sets the viewport itself.
  *
+ * That is also why it runs only in desktop-context projects. Under a mobile device
+ * descriptor — `isMobile: true`, as the WebKit project uses — the layout viewport is
+ * governed by the meta viewport tag rather than by `setViewportSize`, so the page keeps
+ * laying out at the device width and then genuinely scrolls inside a 320px window. That
+ * measures the emulation, not the stylesheet.
+ *
  * The print check exists because styles/print.css shipped for a full release without being
  * bundled at all — a shipped feature that could not work, and no gate saw it. Now the
  * stylesheet is real, this proves the pages it targets actually survive print media.
@@ -16,7 +22,8 @@ import { elementsPastViewport, horizontalOverflow, KEY_ROUTES } from './helpers'
 
 test.describe('320px reflow (WCAG 1.4.10)', () => {
   for (const route of KEY_ROUTES) {
-    test(`${route} does not scroll sideways at 320px`, async ({ page }) => {
+    test(`${route} does not scroll sideways at 320px`, async ({ page }, testInfo) => {
+      test.skip(testInfo.project.name === 'webkit', 'mobile emulation ignores setViewportSize')
       await page.setViewportSize({ width: 320, height: 800 })
       await page.goto(route)
       await page.waitForLoadState('load')
@@ -32,7 +39,8 @@ test.describe('320px reflow (WCAG 1.4.10)', () => {
 })
 
 test.describe('print', () => {
-  test('a docs page prints its content, not its chrome', async ({ page }) => {
+  test('a docs page prints its content, not its chrome', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'webkit', 'mobile emulation ignores setViewportSize')
     await page.goto('/docs/components/button')
     await page.waitForLoadState('load')
     await page.emulateMedia({ media: 'print' })
@@ -43,7 +51,8 @@ test.describe('print', () => {
     expect(await horizontalOverflow(page)).toBe(0)
   })
 
-  test('a page template prints without horizontal spill', async ({ page }) => {
+  test('a page template prints without horizontal spill', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'webkit', 'mobile emulation ignores setViewportSize')
     await page.goto('/pages/dashboard')
     await page.waitForLoadState('load')
     await page.emulateMedia({ media: 'print' })

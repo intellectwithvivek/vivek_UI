@@ -33,3 +33,8 @@ Chromium, and found four real defects on its first run:
   never fires `load`. Documented on the prop.
 - axe measurements now wait for entry animations to finish. WebKit still had 56 running
   right after `load`, so contrast was sampled mid-fade and reported a false failure.
+- Every horizontal scroll container — the table wrapper, code blocks, the carousel track,
+  the thumbnail strips, KanbanBoard, Scheduler — now carries `min-inline-size: 0`, so it
+  scrolls itself instead of pushing the page sideways. A gate requires it of any new one;
+  its first version had a list of reasoned exemptions, and WebKit disproved all of them.
+

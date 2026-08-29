@@ -46,10 +46,12 @@
   overflow-y: auto;
 }
 :where(.vk-scroll-area[data-orientation="horizontal"]) {
+  min-inline-size: 0;
   overflow-x: auto;
   overflow-y: hidden;
 }
 :where(.vk-scroll-area[data-orientation="both"]) {
+  min-inline-size: 0;
   overflow: auto;
 }
 
@@ -59,9 +61,11 @@
   overflow-y: scroll;
 }
 :where(.vk-scroll-area[data-scrollbar="always"][data-orientation="horizontal"]) {
+  min-inline-size: 0;
   overflow-x: scroll;
 }
 :where(.vk-scroll-area[data-scrollbar="always"][data-orientation="both"]) {
+  min-inline-size: 0;
   overflow: scroll;
 }
 

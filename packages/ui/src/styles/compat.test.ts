@@ -8,7 +8,7 @@
  * requires the prefixed twin, with the same value, on the line immediately before every
  * declaration of a property in the list.
  */
-import { readdirSync, readFileSync, statSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative, sep } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
@@ -57,5 +57,37 @@ describe('Safari prefixes are written by hand, since the build adds none', () =>
       })
     }
     expect(offenders).toEqual([])
+  })
+})
+
+/*
+ * The source is only half the contract. lightningcss is given browser targets, and it
+ * REMOVES a prefix it judges unnecessary for that range — correctly, but the judgement is
+ * only as good as the range. `last 2 safari versions` resolves to Safari 26.x, which reads
+ * `backdrop-filter` unprefixed, so the twin written above was stripped from the bundle and
+ * 1.0.0 shipped without it. Safari 16.4–17.x, which is macOS Ventura and Sonoma, still need
+ * it. Checking the source alone could never see that; this checks what consumers download.
+ */
+const DIST = join(SRC, '..', 'dist', 'styles.css')
+
+describe.skipIf(!existsSync(DIST))('the built stylesheet keeps the prefixes it needs', () => {
+  const built = existsSync(DIST) ? readFileSync(DIST, 'utf8') : ''
+  const occurrences = (needle: string) => built.split(needle).length - 1
+
+  it.each(['-webkit-user-select', '-webkit-backdrop-filter'])('emits %s', (prefixed) => {
+    expect(occurrences(prefixed), `${prefixed} missing from dist/styles.css`).toBeGreaterThan(0)
+  })
+
+  it('targets a Safari old enough to still need them', () => {
+    const pkg = JSON.parse(readFileSync(join(SRC, '..', 'package.json'), 'utf8')) as {
+      browserslist?: string[]
+    }
+    const list = (pkg.browserslist ?? []).join(' ')
+    // `last N safari versions` is the trap: it silently follows Safari forward and drops
+    // prefixes the moment the newest two releases no longer need them.
+    expect(list, 'pin a Safari floor rather than tracking the newest releases').not.toMatch(
+      /last \d+ safari versions/,
+    )
+    expect(list).toMatch(/safari >= 16\.4/)
   })
 })

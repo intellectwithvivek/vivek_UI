@@ -270,7 +270,8 @@ import { Tabs } from '${PACKAGE_NAME}'
             <Table.Row>
               <Table.Cell>Browsers</Table.Cell>
               <Table.Cell>
-                The last two versions of Chrome, Edge, Firefox and Safari, plus iOS Safari
+                The last two versions of Chrome, Edge and Firefox; Safari and iOS Safari from
+                <Code>16.4</Code>
               </Table.Cell>
             </Table.Row>
             <Table.Row>

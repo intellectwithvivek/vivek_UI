@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
 } from '@the_viveksingh/vivek-ui'
+import { placeholderImage } from '../lib/placeholder-image'
 
 export default function HoverCardPreview() {
   return (
@@ -19,7 +20,11 @@ export default function HoverCardPreview() {
           <HoverCardTrigger href="#vivek">@vivek</HoverCardTrigger>
           <HoverCardContent>
             <Stack direction="horizontal" gap={3}>
-              <Avatar name="Vivek Kumar Singh" size="lg" />
+              <Avatar
+                name="Vivek Kumar Singh"
+                size="lg"
+                src={placeholderImage({ seed: 'vivek', width: 160, height: 160 })}
+              />
               <Stack gap={1}>
                 <Text weight="semibold">Vivek Kumar Singh</Text>
                 <Text size="sm" tone="muted">

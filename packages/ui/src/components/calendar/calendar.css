@@ -106,15 +106,19 @@
   transform: rotate(135deg);
 }
 
-/* The year buttons get a second chevron via a pseudo-element. */
-:where(.vk-calendar__chevron[data-double])::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-inline-start: 1.5px solid currentcolor;
-  border-block-start: 1.5px solid currentcolor;
-  transform: translate(45%, -45%);
+/*
+ * The year buttons show two chevrons side by side. Two real spans, overlapped by a
+ * negative gap: a pseudo-element translated inside the already-rotated chevron landed at an
+ * angle and read as a bar, not a second arrow.
+ */
+:where(.vk-calendar__chevrons) {
+  display: inline-flex;
+  align-items: center;
+  gap: -0.1em;
+}
+
+:where(.vk-calendar__chevrons) > :where(.vk-calendar__chevron + .vk-calendar__chevron) {
+  margin-inline-start: -0.15em;
 }
 
 :where(.vk-calendar__grid) {

@@ -36,7 +36,7 @@ export default function HeaderTransparent() {
       <Hero
         overlay="dark"
         minHeight="half"
-        backdrop={<img src="https://picsum.photos/seed/vk-ridge/1800/1000" alt="" />}
+        backdrop={<img src="/demo/vk-ridge.svg" alt="" />}
         title="Built for the days the forecast was wrong"
         description="Shells, mid-layers and packs tested where the weather does not read the brochure."
         actions={<Button size="lg">Explore the range</Button>}

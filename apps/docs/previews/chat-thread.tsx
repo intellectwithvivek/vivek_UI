@@ -1,6 +1,7 @@
 import { Avatar, ChatThread, ChatThreadEmpty } from '@the_viveksingh/vivek-ui'
 
-const NOW = new Date(2026, 7, 21, 10, 42)
+// A fixed instant, not a local wall-clock time: the same Date on the server and in the browser.
+const NOW = new Date('2026-08-21T10:42:00Z')
 
 const MESSAGES = [
   { id: '1', role: 'system' as const, content: 'Support session started.' },

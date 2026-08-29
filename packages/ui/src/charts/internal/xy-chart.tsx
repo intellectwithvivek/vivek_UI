@@ -40,10 +40,13 @@ export interface XYChartProps {
   showAxes?: boolean
   showLegend?: boolean
   /**
-   * Make each legend entry a checkbox that shows and hides its series, with a fade.
+   * Each legend entry is a checkbox that shows and hides its series, with a fade — the way
+   * every charting library's users expect a legend to behave. On by default whenever the
+   * legend shows; pass `false` for a figure in a report, where the legend is a key and not a
+   * control.
    *
-   * Off by default: it turns the legend into a set of controls, which is the right call for
-   * an exploratory dashboard and the wrong one for a figure in a report.
+   * No JavaScript and no client boundary: the entries are real checkboxes and the chart
+   * reacts with `:has()`.
    */
   interactiveLegend?: boolean
   showPoints?: boolean
@@ -72,7 +75,7 @@ export function XYChart({
   showGrid = true,
   showAxes = true,
   showLegend,
-  interactiveLegend,
+  interactiveLegend = true,
   showPoints,
   curve = 'linear',
   stacked = false,

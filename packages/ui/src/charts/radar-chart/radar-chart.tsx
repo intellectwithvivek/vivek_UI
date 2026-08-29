@@ -22,6 +22,15 @@ export interface RadarChartProps extends ChartRootProps {
   /** Fill each polygon with a translucent wash. */
   fill?: boolean
   showLegend?: boolean
+  /**
+   * Each legend entry is a checkbox that shows and hides its series, with a fade — the way
+   * every charting library's users expect a legend to behave. On by default whenever the
+   * legend shows; pass `false` for a figure in a report, where the legend is a key and not a
+   * control.
+   *
+   * No JavaScript and no client boundary: the entries are real checkboxes and the chart
+   * reacts with `:has()`.
+   */
   interactiveLegend?: boolean
 }
 
@@ -48,7 +57,7 @@ export const RadarChart = forwardRef<HTMLDivElement, RadarChartProps>(function R
     rings = 4,
     fill = true,
     showLegend,
-    interactiveLegend,
+    interactiveLegend = true,
     title,
     description,
     accessibleTable = true,

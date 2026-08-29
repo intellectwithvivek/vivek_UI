@@ -47,6 +47,10 @@ export interface ChatThreadMessage
 export interface ChatThreadProps extends HTMLAttributes<HTMLDivElement> {
   /** Data-driven transcript. When omitted, `children` is rendered instead. */
   messages?: ChatThreadMessage[]
+  /** Locale for every message's default clock text. Default `'en-US'`. See `ChatMessage`. */
+  locale?: string | string[]
+  /** IANA time zone for every message's default clock text. Default `'UTC'`. */
+  timeZone?: string
   /**
    * Keep the newest content in view. Defaults to `true`.
    *
@@ -111,6 +115,8 @@ function useMergedRef<T>(
 const ChatThreadRoot = forwardRef<HTMLDivElement, ChatThreadProps>(function ChatThread(
   {
     messages,
+    locale,
+    timeZone,
     autoScroll = true,
     loading,
     loadingLabel,
@@ -185,6 +191,8 @@ const ChatThreadRoot = forwardRef<HTMLDivElement, ChatThreadProps>(function Chat
                 status={message.status}
                 statusLabels={message.statusLabels}
                 timestamp={message.timestamp}
+                locale={locale}
+                timeZone={timeZone}
                 variant={message.variant}
               />
             ))

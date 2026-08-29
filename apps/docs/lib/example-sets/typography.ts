@@ -118,6 +118,15 @@ export const TYPOGRAPHY_EXAMPLES: ExampleSet = {
 
   avatar: [
     {
+      title: 'Photo, initials, and a photo that failed',
+      description:
+        'src shows the picture; name supplies the initials that render when there is no src - and when the src fails to load, because a broken image icon is never the right avatar.',
+      name: 'photo',
+      code: `<Avatar name="Aditi Sharma" src="/team/aditi.jpg" size="lg" />
+<Avatar name="Aditi Sharma" size="lg" />
+<Avatar name="Aditi Sharma" src="/does-not-exist.jpg" size="lg" />`,
+    },
+    {
       title: 'Sizes',
       description:
         'With no src the initials are derived from name, so a missing image is never a blank circle.',

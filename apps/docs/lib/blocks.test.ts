@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest'
 import { BLOCK_CATEGORIES } from '../blocks'
 import { blockPreviewSlugs } from '../components/block-preview'
 import { blocks, componentsUsedAcrossBlocks } from './blocks'
+import { DEMO_IMAGES } from './demo-images'
 import { allRoutes } from './routes'
 
 const ROOT = join(__dirname, '..')
@@ -95,6 +96,22 @@ describe('blocks · copy-and-run', () => {
   it('default-exports a component', () => {
     for (const block of blocks) {
       expect(read(block.slug), block.slug).toMatch(/export default function \w+/)
+    }
+  })
+})
+
+describe('blocks · images', () => {
+  it("uses only the site's own generated demo images, never a third-party photo service", () => {
+    for (const block of blocks) {
+      const source = read(block.slug)
+      expect(source, `${block.slug} fetches an external image`).not.toMatch(
+        /picsum\.photos|unsplash|pravatar|placehold\.(?:co|it)|loremflickr/i,
+      )
+      for (const [, name] of source.matchAll(/\/demo\/([a-z0-9-]+)\.svg/g)) {
+        expect(Object.keys(DEMO_IMAGES), `${block.slug} references /demo/${name}.svg`).toContain(
+          name,
+        )
+      }
     }
   })
 })

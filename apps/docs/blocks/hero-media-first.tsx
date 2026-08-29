@@ -11,7 +11,7 @@ export default function HeroMediaFirst() {
       actions={<Button size="lg">Pre-order — ₹14,900</Button>}
       media={
         <Image
-          src="https://picsum.photos/seed/vk-keys/1200/900"
+          src="/demo/vk-keys.svg"
           alt="The keyboard photographed from above"
           ratio={4 / 3}
           rounded="lg"

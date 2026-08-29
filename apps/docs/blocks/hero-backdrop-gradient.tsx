@@ -5,7 +5,7 @@ export default function HeroBackdropGradient() {
     <Hero
       overlay="gradient"
       minHeight="half"
-      backdrop={<img src="https://picsum.photos/seed/vk-summit/1800/1000" alt="" />}
+      backdrop={<img src="/demo/vk-summit.svg" alt="" />}
       eyebrow="Season 2026"
       title="Higher, lighter, further"
       description="The pack that disappears on your back and reappears in the photos."

@@ -1,3 +1,8 @@
+:where(.vk-scatter-chart) {
+  display: block;
+  inline-size: 100%;
+}
+
 /* ScatterChart. The frame and legend come from the shared chart styles. */
 
 :where(.vk-scatter-chart__mark) {

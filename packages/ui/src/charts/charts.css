@@ -81,6 +81,18 @@
   overflow: visible;
 }
 
+/*
+ * A sparkline is an inline figure with an intrinsic size (`width` × `height` props), not a
+ * block that fills its container: inside a flex card the 100%-wide default collapsed the
+ * card to nothing, because the SVG had no width of its own to hold it open.
+ */
+:where(.vk-sparkline) {
+  display: inline-block;
+  vertical-align: middle;
+  inline-size: auto;
+  max-inline-size: 100%;
+}
+
 /* ---- axes, grid, labels ---- */
 
 :where(.vk-chart__grid-line) {

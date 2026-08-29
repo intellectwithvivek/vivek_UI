@@ -83,6 +83,24 @@ body {
 }
 
 /*
+ * Gallery pages (templates, blocks, comparisons) put their sections straight under the
+ * shell with no sidebar grid. They get the same vertical rhythm as the docs column: space
+ * between sections, and a small gap between a section's heading, its prose and its demo.
+ */
+.docs-shell:not(:has(.docs-shell__grid)) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-8);
+}
+
+.docs-shell:not(:has(.docs-shell__grid)) > section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vk-space-3);
+  min-width: 0;
+}
+
+/*
  * Prose measure, but tables and previews are free to use the full column.
  *
  * One selector for both places a paragraph appears. Two rules setting the same value at

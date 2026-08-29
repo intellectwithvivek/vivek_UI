@@ -5513,6 +5513,20 @@
             "default": ""
           },
           {
+            "name": "locale",
+            "type": "string | string[]",
+            "required": false,
+            "description": "Locale for the default clock text. Default `'en-US'`. Explicit, never the runtime's: this component renders on the server, and a formatter built from the server's locale and time zone disagrees with the browser's, which React reports as a hydration mismatch (error #418) on every message. Pass the viewer's locale and zone from your session, or a preformatted string as `timestamp`.",
+            "default": ""
+          },
+          {
+            "name": "timeZone",
+            "type": "string",
+            "required": false,
+            "description": "IANA time zone for the default clock text. Default `'UTC'`.",
+            "default": ""
+          },
+          {
             "name": "statusLabels",
             "type": "Partial<Record<ChatMessageStatus, string>>",
             "required": false,
@@ -5551,6 +5565,20 @@
             "type": "ChatThreadMessage[]",
             "required": false,
             "description": "Data-driven transcript. When omitted, `children` is rendered instead.",
+            "default": ""
+          },
+          {
+            "name": "locale",
+            "type": "string | string[]",
+            "required": false,
+            "description": "Locale for every message's default clock text. Default `'en-US'`. See `ChatMessage`.",
+            "default": ""
+          },
+          {
+            "name": "timeZone",
+            "type": "string",
+            "required": false,
+            "description": "IANA time zone for every message's default clock text. Default `'UTC'`.",
             "default": ""
           },
           {
@@ -19275,7 +19303,7 @@
             "name": "interactiveLegend",
             "type": "boolean",
             "required": false,
-            "description": "Turn each legend entry into a checkbox that shows and hides its series, with a fade. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`. Off by default, because it makes the legend a set of controls - right for a dashboard, wrong for a figure in a report.",
+            "description": "Each legend entry is a checkbox that shows and hides its series, with a fade — the way every charting library's users expect a legend to behave. On by default whenever the legend shows; pass `false` for a figure in a report, where the legend is a key and not a control. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`.",
             "default": ""
           },
           {
@@ -19383,7 +19411,7 @@
             "name": "interactiveLegend",
             "type": "boolean",
             "required": false,
-            "description": "Turn each legend entry into a checkbox that shows and hides its series, with a fade. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`. Off by default, because it makes the legend a set of controls - right for a dashboard, wrong for a figure in a report.",
+            "description": "Each legend entry is a checkbox that shows and hides its series, with a fade — the way every charting library's users expect a legend to behave. On by default whenever the legend shows; pass `false` for a figure in a report, where the legend is a key and not a control. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`.",
             "default": ""
           },
           {
@@ -19660,7 +19688,7 @@
             "name": "interactiveLegend",
             "type": "boolean",
             "required": false,
-            "description": "Turn each legend entry into a checkbox that shows and hides its series, with a fade. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`. Off by default, because it makes the legend a set of controls - right for a dashboard, wrong for a figure in a report.",
+            "description": "Each legend entry is a checkbox that shows and hides its series, with a fade — the way every charting library's users expect a legend to behave. On by default whenever the legend shows; pass `false` for a figure in a report, where the legend is a key and not a control. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`.",
             "default": ""
           },
           {
@@ -19992,7 +20020,7 @@
             "name": "interactiveLegend",
             "type": "boolean",
             "required": false,
-            "description": "",
+            "description": "Each legend entry is a checkbox that shows and hides its series, with a fade — the way every charting library's users expect a legend to behave. On by default whenever the legend shows; pass `false` for a figure in a report, where the legend is a key and not a control. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`.",
             "default": ""
           }
         ],
@@ -20067,7 +20095,7 @@
             "name": "interactiveLegend",
             "type": "boolean",
             "required": false,
-            "description": "Real checkboxes plus `:has()` — see LineChart. No client boundary.",
+            "description": "Each legend entry is a checkbox that shows and hides its series, with a fade — the way every charting library's users expect a legend to behave. On by default whenever the legend shows; pass `false` for a figure in a report, where the legend is a key and not a control. No JavaScript and no client boundary: the entries are real checkboxes and the chart reacts with `:has()`.",
             "default": ""
           },
           {

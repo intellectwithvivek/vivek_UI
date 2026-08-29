@@ -26,11 +26,13 @@ export interface BarChartProps extends ChartRootProps {
   showAxes?: boolean
   showLegend?: boolean
   /**
-   * Turn each legend entry into a checkbox that shows and hides its series, with a fade.
+   * Each legend entry is a checkbox that shows and hides its series, with a fade — the way
+   * every charting library's users expect a legend to behave. On by default whenever the
+   * legend shows; pass `false` for a figure in a report, where the legend is a key and not a
+   * control.
    *
    * No JavaScript and no client boundary: the entries are real checkboxes and the chart
-   * reacts with `:has()`. Off by default, because it makes the legend a set of controls -
-   * right for a dashboard, wrong for a figure in a report.
+   * reacts with `:has()`.
    */
   interactiveLegend?: boolean
   /**
@@ -81,7 +83,7 @@ export const BarChart = forwardRef<HTMLDivElement, BarChartProps>(function BarCh
     showGrid = true,
     showAxes = true,
     showLegend,
-    interactiveLegend,
+    interactiveLegend = true,
     mode = 'grouped',
     horizontal = false,
     barRadius = 3,

@@ -35,7 +35,9 @@ export interface GaugeProps extends Omit<ChartRootProps, 'xLabel' | 'yLabel'> {
  * A 270° arc, opening downward: from 135° (bottom-left) clockwise to 405° (bottom-right).
  * The gap at the bottom is where the value and caption sit.
  */
-const START = (3 * Math.PI) / 4
+// Angles follow `polarPoint`: zero at twelve o'clock, clockwise. The dial opens at the
+// bottom: it starts at seven-thirty (-135°) and sweeps 270° to four-thirty.
+const START = (-3 * Math.PI) / 4
 const SWEEP = (3 * Math.PI) / 2
 
 /**

@@ -97,6 +97,24 @@ const CORE_EXAMPLES: ExampleSet = {
 
   card: [
     {
+      title: 'Image cards',
+      description:
+        'padding="none" lets an Image sit flush with the card edge; the body carries its own padding. interactive adds the hover lift and a pointer cursor. The images here are generated SVGs - no photo service, no licence question.',
+      name: 'image',
+      code: `<Grid cols={{ base: 1, sm: 2, lg: 3 }} gap={4}>
+  {products.map((product) => (
+    <Card key={product.id} interactive padding="none" variant="outline">
+      <Image src={product.image} alt={product.name} ratio={4 / 3} />
+      <Card.Body style={{ padding: 'var(--vk-space-4)' }}>
+        <Heading level={3} size="sm">{product.name}</Heading>
+        <Text weight="medium">{product.price}</Text>
+        <Button size="sm" variant="outline">Add to basket</Button>
+      </Card.Body>
+    </Card>
+  ))}
+</Grid>`,
+    },
+    {
       title: 'Compound parts',
       description: 'Card.Header, Card.Body and Card.Footer, so structure comes from markup.',
       name: 'basic',

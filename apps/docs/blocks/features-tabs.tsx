@@ -61,12 +61,7 @@ export default function FeaturesTabs() {
                     </Heading>
                     <Text tone="muted">{area.body}</Text>
                   </Stack>
-                  <Image
-                    src={`https://picsum.photos/seed/vk-${area.id}/1200/800`}
-                    alt=""
-                    ratio={3 / 2}
-                    rounded="lg"
-                  />
+                  <Image src={`/demo/vk-${area.id}.svg`} alt="" ratio={3 / 2} rounded="lg" />
                 </Grid>
               </Tabs.Panel>
             ))}

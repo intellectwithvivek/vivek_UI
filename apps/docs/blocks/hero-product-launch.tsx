@@ -30,7 +30,7 @@ export default function HeroProductLaunch() {
           }}
         >
           <Image
-            src="https://picsum.photos/seed/vk-editor/1600/900"
+            src="/demo/vk-editor.svg"
             alt="The editor showing an inline suggestion"
             ratio={16 / 9}
             rounded="md"

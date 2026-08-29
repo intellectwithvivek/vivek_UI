@@ -41,6 +41,17 @@ export interface ChatMessageProps extends Omit<HTMLAttributes<HTMLElement>, 'rol
   variant?: ChatMessageVariant
   /** Override the default `Date` formatting. Also the escape hatch for strict SSR. */
   formatTimestamp?: (date: Date) => string
+  /**
+   * Locale for the default clock text. Default `'en-US'`.
+   *
+   * Explicit, never the runtime's: this component renders on the server, and a formatter
+   * built from the server's locale and time zone disagrees with the browser's, which React
+   * reports as a hydration mismatch (error #418) on every message. Pass the viewer's
+   * locale and zone from your session, or a preformatted string as `timestamp`.
+   */
+  locale?: string | string[]
+  /** IANA time zone for the default clock text. Default `'UTC'`. */
+  timeZone?: string
   /** Localise the status text (also used in the accessible name). */
   statusLabels?: Partial<Record<ChatMessageStatus, string>>
 }
@@ -61,13 +72,16 @@ const STATUS_LABEL: Record<ChatMessageStatus, string | null> = {
  * Lazily built so module evaluation stays free of work, and reused so a long
  * transcript does not construct one formatter per message.
  */
-let clockFormatter: Intl.DateTimeFormat | undefined
+const clockFormatters = new Map<string, Intl.DateTimeFormat>()
 
-function formatClock(date: Date): string {
-  if (!clockFormatter) {
-    clockFormatter = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' })
+function formatClock(date: Date, locale: string | string[], timeZone: string): string {
+  const key = `${Array.isArray(locale) ? locale.join(',') : locale}|${timeZone}`
+  let formatter = clockFormatters.get(key)
+  if (!formatter) {
+    formatter = new Intl.DateTimeFormat(locale, { hour: 'numeric', minute: '2-digit', timeZone })
+    clockFormatters.set(key, formatter)
   }
-  return clockFormatter.format(date)
+  return formatter.format(date)
 }
 
 interface RenderedTimestamp {
@@ -78,6 +92,8 @@ interface RenderedTimestamp {
 
 function renderTimestamp(
   value: Date | string | number,
+  locale: string | string[],
+  timeZone: string,
   format?: (date: Date) => string,
 ): RenderedTimestamp | null {
   // A string is the caller's own formatting. Parsing it would be guesswork, and
@@ -85,7 +101,10 @@ function renderTimestamp(
   if (typeof value === 'string') return value ? { text: value } : null
   const date = value instanceof Date ? value : new Date(value)
   if (Number.isNaN(date.getTime())) return null
-  return { text: format ? format(date) : formatClock(date), dateTime: date.toISOString() }
+  return {
+    text: format ? format(date) : formatClock(date, locale, timeZone),
+    dateTime: date.toISOString(),
+  }
 }
 
 /**
@@ -122,6 +141,8 @@ export const ChatMessage = forwardRef<HTMLElement, ChatMessageProps>(function Ch
     actions,
     variant = 'bubble',
     formatTimestamp,
+    locale = 'en-US',
+    timeZone = 'UTC',
     statusLabels,
     className,
     children,
@@ -132,7 +153,8 @@ export const ChatMessage = forwardRef<HTMLElement, ChatMessageProps>(function Ch
   const speaker = name ?? ROLE_LABEL[role]
   const statusText = statusLabels?.[status] ?? STATUS_LABEL[status]
   const accessibleName = statusText ? `${speaker}, ${statusText}` : speaker
-  const time = timestamp === undefined ? null : renderTimestamp(timestamp, formatTimestamp)
+  const time =
+    timestamp === undefined ? null : renderTimestamp(timestamp, locale, timeZone, formatTimestamp)
   const body = content ?? children
 
   return (

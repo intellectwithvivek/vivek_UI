@@ -3,19 +3,19 @@
     "Button only": 780,
     "Modal (focus trap + scroll lock + portal)": 2932,
     "A landing page (Hero+Features+Pricing+FAQ+CTA+Footer)": 3077,
-    "All charts": 10516,
-    "Whole core library": 66383
+    "All charts": 10523,
+    "Whole core library": 66573
   },
   "css": {
     "styles.css": {
-      "raw": 240884,
-      "gzip": 33648,
-      "brotli": 26705
+      "raw": 241577,
+      "gzip": 33706,
+      "brotli": 26744
     },
     "charts.css": {
-      "raw": 12213,
-      "gzip": 2457,
-      "brotli": 2142
+      "raw": 12373,
+      "gzip": 2475,
+      "brotli": 2153
     }
   }
 }

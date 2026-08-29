@@ -6,7 +6,8 @@
  */
 import { Avatar, Button, ChatMessage, Stack } from '@the_viveksingh/vivek-ui'
 
-const AT = new Date(2026, 7, 21, 10, 42)
+// A fixed instant, not a local wall-clock time: the same Date on the server and in the browser.
+const AT = new Date('2026-08-21T10:42:00Z')
 
 export default function ChatMessagePreview({ name }: { name: string }) {
   if (name === 'states') {

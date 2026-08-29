@@ -5,20 +5,20 @@ import { useState } from 'react'
 
 const PHOTOS: LightboxItem[] = [
   {
-    src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80',
-    thumbnail: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&q=60',
+    src: '/demo/lightbox-ridge.svg',
+    thumbnail: '/demo/lightbox-ridge.svg',
     alt: 'Snow-covered mountain ridge under a pink dawn sky',
     caption: 'Dawn on the ridge',
   },
   {
-    src: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1600&q=80',
-    thumbnail: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=200&q=60',
+    src: '/demo/lightbox-pines.svg',
+    thumbnail: '/demo/lightbox-pines.svg',
     alt: 'Fog drifting through a pine forest at sunrise',
     caption: 'Fog in the pines',
   },
   {
-    src: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&q=80',
-    thumbnail: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=200&q=60',
+    src: '/demo/lightbox-lake.svg',
+    thumbnail: '/demo/lightbox-lake.svg',
     alt: 'A still lake reflecting mountains at golden hour',
     caption: 'Golden hour',
   },

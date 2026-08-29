@@ -42,7 +42,15 @@ export interface ScatterChartProps extends ChartRootProps {
   showAxes?: boolean
   /** Defaults to on for more than one series. */
   showLegend?: boolean
-  /** Real checkboxes plus `:has()` — see LineChart. No client boundary. */
+  /**
+   * Each legend entry is a checkbox that shows and hides its series, with a fade — the way
+   * every charting library's users expect a legend to behave. On by default whenever the
+   * legend shows; pass `false` for a figure in a report, where the legend is a key and not a
+   * control.
+   *
+   * No JavaScript and no client boundary: the entries are real checkboxes and the chart
+   * reacts with `:has()`.
+   */
   interactiveLegend?: boolean
   /** Mark radius in px when no point carries `r`. */
   markSize?: number
@@ -74,7 +82,7 @@ export const ScatterChart = forwardRef<HTMLDivElement, ScatterChartProps>(functi
     showGrid = true,
     showAxes = true,
     showLegend,
-    interactiveLegend,
+    interactiveLegend = true,
     markSize = 4.5,
     maxBubbleSize = 18,
     title,

@@ -24,7 +24,7 @@ export default function HeroAppStore() {
       }
       media={
         <Image
-          src="https://picsum.photos/seed/vk-phone/900/1200"
+          src="/demo/vk-phone.svg"
           alt="The app's home screen on a phone"
           ratio={3 / 4}
           rounded="lg"

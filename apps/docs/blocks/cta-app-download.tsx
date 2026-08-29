@@ -36,12 +36,7 @@ export default function CtaAppDownload() {
               <Button variant="outline">Google Play</Button>
             </Stack>
           </Stack>
-          <Image
-            src="https://picsum.photos/seed/vk-app/900/700"
-            alt="The app on a phone"
-            ratio={9 / 7}
-            rounded="md"
-          />
+          <Image src="/demo/vk-app.svg" alt="The app on a phone" ratio={9 / 7} rounded="md" />
         </Grid>
       </Container>
     </Section>

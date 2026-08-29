@@ -17,7 +17,7 @@ export default function HeroSplitMedia() {
       }
       media={
         <Image
-          src="https://picsum.photos/seed/vk-dash/1200/900"
+          src="/demo/vk-dash.svg"
           alt="The analytics dashboard showing weekly revenue"
           ratio={4 / 3}
           rounded="lg"

@@ -7,6 +7,9 @@
  */
 
 :where(.vk-stepper) {
+  /* Named inline-size container: a horizontal stepper that runs out of room turns into a
+     vertical one (below), judged by its OWN width rather than the viewport's. */
+  container: vk-stepper / inline-size;
   --vk-stepper-marker: 2rem;
   --vk-stepper-rail: 2px;
   --vk-stepper-gap: var(--vk-space-4);
@@ -200,4 +203,31 @@
 
 :where(.vk-stepper__list) > :where(.vk-stepper__item[data-status="complete"])::before {
   background: color-mix(in oklab, var(--vk-color-primary) 55%, var(--vk-color-border));
+}
+
+/*
+ * Narrow: a horizontal stepper with four labels in 360px puts each label in a column a
+ * word wide and three lines tall. Below 30rem the horizontal layout becomes the vertical
+ * one - same markup, same semantics, one step per row with the rail running down.
+ */
+@container vk-stepper (max-width: 30rem) {
+  :where(.vk-stepper[data-orientation="horizontal"]) > :where(.vk-stepper__list) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  :where(.vk-stepper[data-orientation="horizontal"]) :where(.vk-stepper__item) {
+    flex: 0 0 auto;
+  }
+
+  :where(.vk-stepper[data-orientation="horizontal"]) :where(.vk-stepper__text) {
+    padding-block-start: 0;
+  }
+
+  :where(.vk-stepper[data-orientation="horizontal"]) :where(.vk-stepper__item)::before {
+    inset-inline-start: calc((var(--vk-stepper-marker) - var(--vk-stepper-rail)) / 2);
+    inset-block-start: calc(var(--vk-stepper-marker) + var(--vk-space-1));
+    width: var(--vk-stepper-rail);
+    height: calc(100% - var(--vk-stepper-marker) - var(--vk-space-1) + var(--vk-stepper-gap));
+  }
 }

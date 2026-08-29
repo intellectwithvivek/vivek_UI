@@ -88,8 +88,16 @@ describe.each([
     expect(legend?.hasAttribute('data-interactive')).toBe(true)
   })
 
-  it('renders no checkbox and keeps aria-hidden when not enabled', () => {
+  it('is interactive by default whenever the legend shows', () => {
     const { container } = render(<Chart series={SERIES} showLegend title="Revenue" />)
+    expect(container.querySelectorAll('.vk-chart__legend-toggle')).toHaveLength(SERIES.length)
+    expect(container.querySelector('.vk-chart__legend')?.hasAttribute('aria-hidden')).toBe(false)
+  })
+
+  it('renders no checkbox and keeps aria-hidden when opted out', () => {
+    const { container } = render(
+      <Chart series={SERIES} showLegend interactiveLegend={false} title="Revenue" />,
+    )
     expect(container.querySelector('.vk-chart__legend-toggle')).toBeNull()
     expect(container.querySelector('.vk-chart__legend')?.getAttribute('aria-hidden')).toBe('true')
   })

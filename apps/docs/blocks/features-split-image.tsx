@@ -47,7 +47,7 @@ export default function FeaturesSplitImage() {
             </div>
           </Stack>
           <Image
-            src="https://picsum.photos/seed/vk-inbox/1200/900"
+            src="/demo/vk-inbox.svg"
             alt="The shared inbox with a suggested reply open"
             ratio={4 / 3}
             rounded="lg"

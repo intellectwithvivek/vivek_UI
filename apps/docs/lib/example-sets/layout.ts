@@ -240,7 +240,7 @@ export const LAYOUT_EXAMPLES: ExampleSet = {
       description:
         'dense turns on grid-auto-flow: dense, which backfills the gaps a wide cell leaves behind. Visual order then diverges from DOM order, so keep it for decorative tiles.',
       name: 'dense',
-      code: `<BentoGrid cols={4} gap={3} rowHeight="6rem" dense>
+      code: `<BentoGrid cols={{ base: 2, sm: 4 }} gap={3} rowHeight="6rem" dense>
   <BentoGrid.Item colSpan={2}>Zero dependencies</BentoGrid.Item>
   <BentoGrid.Item>109 components</BentoGrid.Item>
   <BentoGrid.Item>MIT</BentoGrid.Item>

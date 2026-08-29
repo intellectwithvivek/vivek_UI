@@ -144,7 +144,7 @@ export const Sparkline = forwardRef<HTMLElement, SparklineProps>(function Sparkl
         role="img"
         aria-label={label}
         focusable="false"
-        style={{ height: `${h}px` }}
+        style={{ width: `${w}px`, height: `${h}px`, maxWidth: '100%' }}
       >
         <ChartCaption title={title} description={description} />
         {area ? <path className="vk-sparkline__area" d={area} /> : null}

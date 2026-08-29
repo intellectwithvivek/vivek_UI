@@ -1,4 +1,5 @@
-import { BentoGrid, Heading, Stack, Text } from '@the_viveksingh/vivek-ui'
+import { BentoGrid, Heading, Image, Stack, Text } from '@the_viveksingh/vivek-ui'
+import { placeholderImage } from '../lib/placeholder-image'
 
 function Cell({ title, body }: { title: string; body: string }) {
   return (
@@ -16,7 +17,7 @@ function Cell({ title, body }: { title: string; body: string }) {
 export default function BentoGridPreview({ name }: { name: string }) {
   if (name === 'dense') {
     return (
-      <BentoGrid cols={4} gap={3} rowHeight="6rem" dense>
+      <BentoGrid cols={{ base: 2, sm: 4 }} gap={3} rowHeight="6rem" dense>
         <BentoGrid.Item colSpan={2}>
           <Cell title="Zero dependencies" body="Nothing to audit but React." />
         </BentoGrid.Item>
@@ -41,7 +42,13 @@ export default function BentoGridPreview({ name }: { name: string }) {
         />
       </BentoGrid.Item>
       <BentoGrid.Item colSpan={{ base: 1, sm: 2 }}>
-        <Cell title="40.5 kB" body="The whole library, minified and gzipped." />
+        <Image
+          src={placeholderImage({ seed: 'bento-cover', width: 1200, height: 500, label: 'Cover' })}
+          alt=""
+          fit="cover"
+          rounded="sm"
+          style={{ blockSize: '100%' }}
+        />
       </BentoGrid.Item>
       <BentoGrid.Item>
         <Cell title="1268 tests" body="Every component has an axe assertion." />

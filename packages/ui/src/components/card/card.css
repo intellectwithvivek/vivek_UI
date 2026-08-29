@@ -9,8 +9,13 @@
   font-family: var(--vk-font-sans);
   border: 1px solid transparent;
   border-radius: var(--vk-radius-lg);
-  /* Sections and grids inside a card respond to the card's width, not the viewport. */
-  container-type: inline-size;
+  /*
+   * Deliberately NOT a size container. `container-type: inline-size` makes an element's
+   * intrinsic width zero, so a Card placed in any shrink-to-fit context - a flex row, a
+   * centred wrapper, a grid auto column - collapsed to its padding, with the copy inside
+   * wrapping one letter per line. Content that wants to respond to the card's width can
+   * make its own wrapper a container.
+   */
 }
 
 :where(.vk-card[data-variant="outline"]) {

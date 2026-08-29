@@ -1,5 +1,5 @@
 /**
- * Demo images, generated locally as SVG data URIs.
+ * Demo images, generated locally as SVG.
  *
  * The obvious answer for image demos is Lorem Picsum or Unsplash Source, and it is the wrong
  * one for a documentation site:
@@ -12,10 +12,14 @@
  * - **It makes the demo non-deterministic.** A random photo per load means the preview looks
  *   different every time, which is useless for judging a component.
  *
- * These are deterministic gradients built from a seed, inlined as data URIs. Zero requests,
- * no licence, identical every render, and they work offline and in CI. They are obviously
- * placeholders, which is honest: a docs page showing stock photography implies the library
- * supplies it.
+ * These are deterministic gradients built from a seed. Zero requests, no licence, identical
+ * every render, and they work offline and in CI. They are obviously placeholders, which is
+ * honest: a docs page showing stock photography implies the library supplies it.
+ *
+ * Two forms: `placeholderImage()` returns a data URI for previews to pass straight to
+ * `<Image src>`; `placeholderSvg()` returns the SVG document, which `app/demo/[image]/route.ts`
+ * serves at `/demo/<name>.svg` so the blocks — which may import only from the package — can
+ * reference a picture that is still ours.
  *
  * The palettes are picked to sit alongside the token colours rather than fight them.
  */
@@ -52,14 +56,8 @@ export interface PlaceholderOptions {
   label?: string
 }
 
-/**
- * An SVG data URI. Safe to pass straight to `<Image src>`.
- *
- * Not base64: a URI-encoded SVG is smaller than the same SVG base64-encoded, and it stays
- * readable in devtools, which matters when someone is trying to work out what a demo is
- * doing.
- */
-export function placeholderImage({
+/** The SVG document for a placeholder. */
+export function placeholderSvg({
   seed,
   width = 800,
   height = 600,
@@ -73,7 +71,7 @@ export function placeholderImage({
 
   // Two soft radial highlights over a linear base reads as depth rather than as a flat
   // swatch, without needing a real photograph.
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img">
 <defs>
 <linearGradient id="${id}" gradientTransform="rotate(${angle} 0.5 0.5)">
 <stop offset="0%" stop-color="hsl(${h1} 62% 58%)"/>
@@ -92,8 +90,17 @@ ${
     : ''
 }
 </svg>`
+}
 
-  return `data:image/svg+xml,${encodeURIComponent(svg.replace(/\n/g, ''))}`
+/**
+ * An SVG data URI. Safe to pass straight to `<Image src>`.
+ *
+ * Not base64: a URI-encoded SVG is smaller than the same SVG base64-encoded, and it stays
+ * readable in devtools, which matters when someone is trying to work out what a demo is
+ * doing.
+ */
+export function placeholderImage(options: PlaceholderOptions): string {
+  return `data:image/svg+xml,${encodeURIComponent(placeholderSvg(options).replace(/\n/g, ''))}`
 }
 
 /** XML-escape, so a label containing `&` or `<` cannot break the SVG. */

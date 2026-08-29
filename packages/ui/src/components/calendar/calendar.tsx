@@ -367,7 +367,10 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calen
           disabled={prevDisabled}
           onClick={() => stepMonth(-1, 'year')}
         >
-          <span className="vk-calendar__chevron" data-double="" aria-hidden="true" />
+          <span className="vk-calendar__chevrons" aria-hidden="true">
+            <span className="vk-calendar__chevron" />
+            <span className="vk-calendar__chevron" />
+          </span>
         </button>
         <button
           type="button"
@@ -406,7 +409,10 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(function Calen
           disabled={nextDisabled}
           onClick={() => stepMonth(1, 'year')}
         >
-          <span className="vk-calendar__chevron" data-double="" aria-hidden="true" />
+          <span className="vk-calendar__chevrons" aria-hidden="true">
+            <span className="vk-calendar__chevron" />
+            <span className="vk-calendar__chevron" />
+          </span>
         </button>
       </div>
 

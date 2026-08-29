@@ -9,7 +9,18 @@
  * to make sense with no context, leads with the direct answer, and gives the reason second.
  * An answer engine shows one paragraph, not a page.
  */
+import { registry } from './registry'
 import { bundleSize, cssSize } from './sizes'
+
+/*
+ * Counted, never typed. These answers are the FAQPage structured data Google and the answer
+ * engines quote verbatim, so a stale number here is a wrong number published as a fact —
+ * "49 of the 109 components" sat here while the landing page computed 50 from the same
+ * registry, and the two disagreed on the same site.
+ */
+const COMPONENT_COUNT = registry.components.length
+const CHART_COUNT = registry.charts.length
+const SERVER_SAFE = registry.components.filter((entry) => !entry.isClient).length
 
 export interface FaqEntry {
   question: string
@@ -19,8 +30,7 @@ export interface FaqEntry {
 export const FAQ_ENTRIES: FaqEntry[] = [
   {
     question: 'What is VivekUI?',
-    answer:
-      'VivekUI is a free, MIT-licensed React component library with 109 accessible components and 10 SVG charts. It has zero runtime dependencies: React and React DOM are peer dependencies, and everything else is written in-house. It is installed as @the_viveksingh/vivek-ui from npm.',
+    answer: `VivekUI is a free, MIT-licensed React component library with ${COMPONENT_COUNT} accessible components and ${CHART_COUNT} SVG charts. It has zero runtime dependencies: React and React DOM are peer dependencies, and everything else is written in-house. It is installed as @the_viveksingh/vivek-ui from npm.`,
   },
   {
     question: 'Is VivekUI free for commercial use?',
@@ -44,8 +54,7 @@ export const FAQ_ENTRIES: FaqEntry[] = [
   },
   {
     question: 'Does VivekUI work with React Server Components and the Next.js App Router?',
-    answer:
-      'Yes. 49 of the 109 components render in a Server Component with no client boundary, so they add nothing to your JavaScript bundle. The rest declare their own use client directive, which the unbundled per-file build preserves in both the ESM and CommonJS output. No wrapper or provider is required for a component to work on the server.',
+    answer: `Yes. ${SERVER_SAFE} of the ${COMPONENT_COUNT} components render in a Server Component with no client boundary, so they add nothing to your JavaScript bundle. The rest declare their own use client directive, which the unbundled per-file build preserves in both the ESM and CommonJS output. No wrapper or provider is required for a component to work on the server.`,
   },
   {
     question: 'How accessible is VivekUI?',

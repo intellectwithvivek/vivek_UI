@@ -328,6 +328,7 @@ Measured with `size-limit`, minified and brotlied, React excluded:
 | Every component, imported at once | **66.6 kB** |
 | `styles.css` | 242.6 kB raw, **33.8 kB gzipped** |
 | `charts.css` | 12.4 kB raw, **2.5 kB gzipped** |
+| `a typical page (dist/css/*)` | 18.4 kB raw, **4.0 kB gzipped** |
 <!-- size-table:end -->
 
 Per-file ESM plus `sideEffects: false` means you pay only for what you import: importing `Button`

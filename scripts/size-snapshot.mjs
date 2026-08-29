@@ -101,6 +101,26 @@ for (const [name, file] of [
   }
 }
 
+/*
+ * What the per-component stylesheets actually save, measured rather than asserted.
+ *
+ * The site's answer to "what is the catch" quotes this, and the landing-facts test forbids
+ * a byte figure that is not measured — correctly, since the whole point of that gate is that
+ * a precise number on a landing page is a liability the moment it stops being true. This is
+ * the CSS a realistic page needs: the two files everything assumes, plus five common
+ * components.
+ */
+const TYPICAL_PAGE = ['reset', 'tokens', 'button', 'card', 'input', 'navbar', 'hero']
+const typical = Buffer.concat(
+  TYPICAL_PAGE.map((name) => readFileSync(join(UI, 'dist', 'css', `${name}.css`))),
+)
+css['a typical page (dist/css/*)'] = {
+  raw: typical.length,
+  gzip: gzipSync(typical, { level: 9 }).length,
+  brotli: brotliCompressSync(typical).length,
+  parts: TYPICAL_PAGE.length,
+}
+
 const snapshot = { bundles, css }
 const json = `${JSON.stringify(snapshot, null, 2)}\n`
 

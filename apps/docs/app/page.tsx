@@ -219,7 +219,7 @@ export default function HomePage() {
           {
             id: 'q4',
             question: 'What is the catch?',
-            answer: `The CSS is one stylesheet, so an app using five components still downloads all ${cssSize('styles.css', 'gzip')} gzipped. That is the trade for one import and no build configuration. Chart CSS is a separate import.`,
+            answer: `The default is one stylesheet — ${cssSize('styles.css', 'gzip')} gzipped whether you use five components or fifty — which is the trade for a single import and no build configuration. If that matters, import the per-component files instead — a page built from Button, Card, Input, Navbar and Hero comes to ${cssSize('a typical page (dist/css/*)', 'gzip')}; charts are a separate import either way. The JavaScript was never the question: it tree-shakes, so a Button costs 780 B.`,
           },
         ]}
       />

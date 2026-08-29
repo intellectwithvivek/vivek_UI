@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "generatedFrom": "packages/ui — do not edit by hand, run `pnpm gen:registry`",
   "categories": [
     "Layout",

@@ -43,7 +43,10 @@ export function bundleSize(name: string): string {
   return formatBytes(bytes)
 }
 
-export function cssSize(file: 'styles.css' | 'charts.css', encoding: 'gzip' | 'brotli'): string {
+export function cssSize(
+  file: 'styles.css' | 'charts.css' | 'a typical page (dist/css/*)',
+  encoding: 'gzip' | 'brotli',
+): string {
   const entry = sizes.css[file]
   if (!entry) throw new Error(`No size recorded for ${file}.`)
   return formatBytes(entry[encoding])

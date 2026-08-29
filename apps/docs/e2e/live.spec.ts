@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { expect, test } from '@playwright/test'
 
 /**
@@ -30,7 +32,11 @@ test.describe('the deployed site', () => {
 
   test('advertises the published version', async ({ page }) => {
     await page.goto('/')
-    await expect(page.locator('body')).toContainText('v1.0.0')
+    // Whatever the package currently publishes — not a literal, which would go stale.
+    const { version } = JSON.parse(
+      readFileSync(join(__dirname, '..', '..', '..', 'packages', 'ui', 'package.json'), 'utf8'),
+    ) as { version: string }
+    await expect(page.locator('body')).toContainText(`v${version}`)
   })
 
   for (const route of ROUTES) {

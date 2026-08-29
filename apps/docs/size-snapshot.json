@@ -16,6 +16,12 @@
       "raw": 12398,
       "gzip": 2483,
       "brotli": 2159
+    },
+    "a typical page (dist/css/*)": {
+      "raw": 18443,
+      "gzip": 4047,
+      "brotli": 3542,
+      "parts": 7
     }
   }
 }

@@ -96,6 +96,7 @@
   max-block-size: 100%;
   min-block-size: 0;
   object-fit: contain;
+  -webkit-user-select: none;
   user-select: none;
   border-radius: var(--vk-radius-sm);
   animation: vk-lightbox-image-in var(--vk-duration) var(--vk-ease);

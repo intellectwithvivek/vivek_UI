@@ -8,14 +8,14 @@
   },
   "css": {
     "styles.css": {
-      "raw": 241577,
-      "gzip": 33706,
-      "brotli": 26744
+      "raw": 241818,
+      "gzip": 33721,
+      "brotli": 26770
     },
     "charts.css": {
-      "raw": 12373,
-      "gzip": 2475,
-      "brotli": 2153
+      "raw": 12398,
+      "gzip": 2483,
+      "brotli": 2159
     }
   }
 }

@@ -51,6 +51,7 @@
     linear-gradient(to right, #fff, hsl(calc(var(--vk-color-picker-hue) * 1deg) 100% 50%));
   cursor: crosshair;
   touch-action: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 

@@ -159,7 +159,7 @@ const CORE_EXAMPLES: ExampleSet = {
       description:
         'Black on white, a four-module quiet zone, level M with a free upgrade when the version has room. It is an image with a name - role="img" and an aria-label saying what it encodes - so a screen-reader user learns the URL instead of "graphic". SVG, so any size is crisp.',
       name: 'default',
-      code: `<QRCode value="https://vivek-ui.dev/docs" size={160} />
+      code: `<QRCode value="https://ui.vivekkumarsingh.in/docs" size={160} />
 
 // Give it a better name than the raw URL when there is one:
 <QRCode value={ticketUrl} label="Scan to open your ticket" />`,
@@ -170,7 +170,7 @@ const CORE_EXAMPLES: ExampleSet = {
         'image places a logo in the centre and clears the modules beneath it - use level H so the code survives the loss. moduleShape="round" and fg change the look; keep the contrast strong and the quiet zone intact, or phones stop reading it.',
       name: 'branded',
       code: `<QRCode
-  value="https://vivek-ui.dev"
+  value="https://ui.vivekkumarsingh.in"
   level="H"
   moduleShape="round"
   fg="#1d4ed8"

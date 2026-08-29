@@ -2,9 +2,10 @@
 
 import { Input, QRCode, Stack, Text } from '@the_viveksingh/vivek-ui'
 import { useState } from 'react'
+import { SITE_URL } from '../lib/site'
 
 export default function QRCodePreview() {
-  const [value, setValue] = useState('https://vivek-ui.dev')
+  const [value, setValue] = useState(SITE_URL)
 
   return (
     <Stack gap={4}>

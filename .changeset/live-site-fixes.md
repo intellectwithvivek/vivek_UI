@@ -26,3 +26,9 @@ Fixes found by using the live site, and the gates that now catch their kind.
   (default `en-US`) and `timeZone` (default `UTC`) props instead of the runtime's, which on
   a server differed from the browser's and produced React hydration error #418 on every
   message. Pass the viewer's values from your session, or a preformatted string.
+- **Safari prefixes.** The CSS build runs with no browser targets (so logical properties
+  stay logical), which means nothing adds vendor prefixes. `user-select`, `backdrop-filter`
+  and `mask-image` now carry their `-webkit-` twin in source — Safari reads only the
+  prefixed form for the first two — and a test fails the build if a new declaration lands
+  without it.
+

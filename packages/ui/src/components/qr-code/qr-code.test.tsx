@@ -24,9 +24,11 @@ describe('QRCode', () => {
   })
 
   it('names itself after the value, or the label', () => {
-    const { rerender } = render(<QRCode value="https://vivek-ui.dev" />)
-    expect(screen.getByRole('img', { name: 'QR code: https://vivek-ui.dev' })).toBeInTheDocument()
-    rerender(<QRCode value="https://vivek-ui.dev" label="Scan to open the docs" />)
+    const { rerender } = render(<QRCode value="https://ui.vivekkumarsingh.in" />)
+    expect(
+      screen.getByRole('img', { name: 'QR code: https://ui.vivekkumarsingh.in' }),
+    ).toBeInTheDocument()
+    rerender(<QRCode value="https://ui.vivekkumarsingh.in" label="Scan to open the docs" />)
     expect(screen.getByRole('img', { name: 'Scan to open the docs' })).toBeInTheDocument()
   })
 
@@ -66,17 +68,19 @@ describe('QRCode', () => {
   })
 
   it('an image clears the modules beneath it and is placed in the centre', () => {
-    const { rerender } = render(<QRCode value="https://vivek-ui.dev" level="H" />)
+    const { rerender } = render(<QRCode value="https://ui.vivekkumarsingh.in" level="H" />)
     const before = darkModules()
-    rerender(<QRCode value="https://vivek-ui.dev" level="H" image={{ src: '/logo.svg' }} />)
+    rerender(
+      <QRCode value="https://ui.vivekkumarsingh.in" level="H" image={{ src: '/logo.svg' }} />,
+    )
     expect(darkModules()).toBeLessThan(before)
     const image = svg().querySelector('image')
     expect(image).toHaveAttribute('href', '/logo.svg')
-    // 20 bytes at H needs v3 (29 modules): 20 % is 6 modules, starting at 11; plus the 4-module quiet zone.
-    expect(svg()).toHaveAttribute('data-version', '3')
-    expect(image).toHaveAttribute('width', '6')
-    expect(image).toHaveAttribute('x', '15')
-    expect(image).toHaveAttribute('y', '15')
+    // 29 bytes at H needs v4 (33 modules): 20 % is 7 modules, starting at 13; plus the 4-module quiet zone.
+    expect(svg()).toHaveAttribute('data-version', '4')
+    expect(image).toHaveAttribute('width', '7')
+    expect(image).toHaveAttribute('x', '17')
+    expect(image).toHaveAttribute('y', '17')
   })
 
   it('throws a RangeError when the value cannot fit', () => {
@@ -93,7 +97,7 @@ describe('QRCode', () => {
   })
 
   it('has no axe violations', async () => {
-    const { container } = render(<QRCode value="https://vivek-ui.dev" />)
+    const { container } = render(<QRCode value="https://ui.vivekkumarsingh.in" />)
     expect(await axe(container)).toHaveNoViolations()
   })
 })

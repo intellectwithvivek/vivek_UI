@@ -159,7 +159,7 @@ const SWEEP: Record<string, () => ReactElement> = {
   listbox: () => <Listbox label="Fruit" options={[{ value: 'a', label: 'Apple' }]} />,
   'video-player': () => <VideoPlayer src="/v.mp4" poster="/p.jpg" />,
   'audio-player': () => <AudioPlayer src="/a.mp3" title="Track" />,
-  'qr-code': () => <QRCode value="https://vivek-ui.dev" />,
+  'qr-code': () => <QRCode value="https://ui.vivekkumarsingh.in" />,
   'anchor-nav': () => <AnchorNav items={[{ id: 'a', label: 'A' }]} />,
   lightbox: () => <Lightbox items={[{ src: '/a.jpg', alt: 'A' }]} />,
   resizable: () => (

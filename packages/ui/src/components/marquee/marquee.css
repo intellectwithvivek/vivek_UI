@@ -177,6 +177,7 @@
   }
 
   :where(.vk-marquee[data-gradient]) {
+    -webkit-mask-image: none;
     mask-image: none;
   }
 }

@@ -7,13 +7,17 @@ import {
   Footer,
   Hero,
   Pricing,
+  QRCode,
   Section,
+  Stack,
   Stats,
   Testimonials,
+  Text,
 } from '@the_viveksingh/vivek-ui'
 import Link from 'next/link'
 import { SupportCta } from '../components/support-cta'
 import { registry } from '../lib/registry'
+import { SITE_URL } from '../lib/site'
 import { bundleSize, cssSize } from '../lib/sizes'
 import { LIBRARY_VERSION_LABEL } from '../lib/version'
 
@@ -246,9 +250,21 @@ export default function HomePage() {
 
       <Footer
         brand={
-          <>
-            <strong>VivekUI</strong> — by Vivek Kumar Singh
-          </>
+          <Stack gap={3}>
+            <span>
+              <strong>VivekUI</strong> — by Vivek Kumar Singh
+            </span>
+            {/* The library's own QRCode, encoding this site: scan it to keep reading on a phone. */}
+            <QRCode
+              value={SITE_URL}
+              size={104}
+              margin={2}
+              label="Scan to open ui.vivekkumarsingh.in on your phone"
+            />
+            <Text size="sm" tone="muted">
+              Scan to open the docs on your phone — drawn by the library's own <Code>QRCode</Code>.
+            </Text>
+          </Stack>
         }
         copyright="MIT licensed. © 2026 Vivek Kumar Singh."
         columns={[
@@ -260,6 +276,7 @@ export default function HomePage() {
               { label: 'Charts', href: '/docs/charts' },
               { label: 'Showcase', href: '/showcase' },
               { label: 'Page templates', href: '/pages' },
+              { label: 'Blocks', href: '/blocks' },
               { label: 'Playground', href: '/playground' },
             ],
           },

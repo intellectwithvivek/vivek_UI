@@ -28,10 +28,10 @@ function decode(matrix: ReturnType<typeof encodeQr>, scale = 4, quiet = 4): stri
 
 describe('encodeQr · decodes with a real reader', () => {
   it.each<QrLevel>(['L', 'M', 'Q', 'H'])('short text at level %s, no boost', (level) => {
-    const m = encodeQr('https://vivek-ui.dev', level, { boostLevel: false })
+    const m = encodeQr('https://ui.vivekkumarsingh.in', level, { boostLevel: false })
     expect(m.level).toBe(level)
     expect(m.size).toBe(17 + 4 * m.version)
-    expect(decode(m)).toBe('https://vivek-ui.dev')
+    expect(decode(m)).toBe('https://ui.vivekkumarsingh.in')
   })
 
   it('a medium payload spans versions with 8-bit counts (v < 10)', () => {

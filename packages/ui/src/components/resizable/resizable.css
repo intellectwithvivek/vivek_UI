@@ -22,6 +22,7 @@
 
 :where(.vk-resizable[data-dragging]) {
   cursor: col-resize;
+  -webkit-user-select: none;
   user-select: none;
 }
 

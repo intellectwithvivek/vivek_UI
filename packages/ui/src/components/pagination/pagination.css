@@ -103,6 +103,7 @@
 
 :where(.vk-pagination__ellipsis) {
   color: var(--vk-color-muted);
+  -webkit-user-select: none;
   user-select: none;
 }
 

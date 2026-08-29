@@ -94,7 +94,7 @@
   ],
   "scripts": {
     "build": "node ../../scripts/gen-exports.mjs --check && node ../../scripts/build-js.mjs && node ../../scripts/fix-dist-specifiers.mjs && pnpm build:css && node ../../scripts/check-directives.mjs",
-    "build:css": "lightningcss --bundle --minify src/styles/entry.css -o dist/styles.css && lightningcss --bundle --minify src/charts/styles.css -o dist/charts.css && lightningcss --bundle --minify src/styles/print.css -o dist/print.css",
+    "build:css": "lightningcss --bundle --minify --browserslist src/styles/entry.css -o dist/styles.css && lightningcss --bundle --minify --browserslist src/charts/styles.css -o dist/charts.css && lightningcss --bundle --minify --browserslist src/styles/print.css -o dist/print.css",
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -183,5 +183,13 @@
     "typescript": "^5.9.3",
     "vitest": "^4.1.11",
     "vitest-axe": "^0.1.0"
-  }
+  },
+  "browserslist": [
+    "last 2 chrome versions",
+    "last 2 edge versions",
+    "last 2 firefox versions",
+    "last 2 safari versions",
+    "last 2 ios_saf versions",
+    "not dead"
+  ]
 }

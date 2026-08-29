@@ -135,14 +135,28 @@ jobs:
 
       # --ignore-scripts: this is the one job holding a publish-capable credential, and
       # pnpm 9 runs dependency lifecycle scripts by default - so without the flag every
-      # devDependency's postinstall executes with that credential in reach. One dependency
-      # genuinely needs its script: esbuild's postinstall downloads its platform binary, and
-      # tsup fails without it. `pnpm rebuild esbuild` runs that one script by name - an
-      # allowlist of exactly one, instead of open season for a whole dependency tree.
+      # devDependency's postinstall executes with that credential in reach. `pnpm rebuild`
+      # then runs the few that are genuinely needed, BY NAME - an allowlist, instead of open
+      # season for a whole dependency tree.
+      #
+      # Both entries download a platform binary in their postinstall, and both are silent
+      # failures rather than loud ones: the package installs, the binary is simply absent,
+      # and the error surfaces much later as something unrecognisable. `lightningcss-cli`
+      # was missing from this list and the 1.0.0 publish died on it - `build:css` invoked a
+      # binary that had never been fetched, so the shell read the placeholder's first line
+      # and reported `1: This: not found`.
+      #
+      # `-r` is load-bearing, not decoration. Both packages are dependencies of the
+      # `packages/ui` workspace project rather than of the root, and a non-recursive
+      # `pnpm rebuild <name>` at the root silently matches nothing there and exits 0 - the
+      # binary stays missing and the failure surfaces much later, in another job's step.
+      #
+      # `release-allowlist.test.ts` fails the build if a package with an install script is
+      # missing from this list, so it cannot silently rot again.
       - name: Install
         run: |
           pnpm install --frozen-lockfile --ignore-scripts
-          pnpm rebuild esbuild
+          pnpm rebuild -r esbuild lightningcss-cli
 
       - name: Build the library
         run: pnpm --filter @the_viveksingh/vivek-ui build

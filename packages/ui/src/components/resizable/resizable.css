@@ -32,6 +32,7 @@
 
 :where(.vk-resizable__panel) {
   flex: 0 0 calc(var(--vk-resizable-size, 50%) - var(--vk-resizable-handle) / 2);
+  position: relative;
   min-inline-size: 0;
   min-block-size: 0;
   overflow: auto;

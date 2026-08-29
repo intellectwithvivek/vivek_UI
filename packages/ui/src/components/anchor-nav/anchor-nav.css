@@ -74,6 +74,7 @@
 
 /* Horizontal: a single scrolling row with the rail underneath. */
 :where(.vk-anchor-nav[data-orientation="horizontal"]) {
+  position: relative;
   min-inline-size: 0;
   overflow-x: auto;
   scrollbar-width: thin;

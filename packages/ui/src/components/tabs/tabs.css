@@ -28,6 +28,9 @@
   align-items: stretch;
   gap: var(--vk-space-1);
   min-width: 0;
+  /* A containing block, so an absolutely-positioned descendant scrolls with the list
+     instead of resolving against the page and stretching it. */
+  position: relative;
   /* A crowded tablist scrolls; it never wraps into a second row, which would break
      the left/right mental model the arrow keys promise. */
   overflow-x: auto;

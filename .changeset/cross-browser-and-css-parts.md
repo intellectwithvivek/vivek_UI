@@ -33,8 +33,12 @@ Chromium, and found four real defects on its first run:
   never fires `load`. Documented on the prop.
 - axe measurements now wait for entry animations to finish. WebKit still had 56 running
   right after `load`, so contrast was sampled mid-fade and reported a false failure.
-- Every horizontal scroll container — the table wrapper, code blocks, the carousel track,
-  the thumbnail strips, KanbanBoard, Scheduler — now carries `min-inline-size: 0`, so it
-  scrolls itself instead of pushing the page sideways. A gate requires it of any new one;
-  its first version had a list of reasoned exemptions, and WebKit disproved all of them.
-
+- Every horizontal scroll container — the table wrapper, code blocks, the tablist, the
+  carousel track, the thumbnail strips, KanbanBoard, Scheduler — now carries
+  `min-inline-size: 0` **and** a `position` that makes it a containing block, so it scrolls
+  itself instead of pushing the page. The second half is the subtler bug: a
+  `.vk-visually-hidden` announcement inside a wide strip is absolutely positioned, and
+  without a containing block it resolved against the page and stretched it — the KanbanBoard
+  docs page scrolled 491px sideways on a phone while the strip itself measured correctly. A
+  gate requires both of any new container; its first version had a list of reasoned
+  exemptions, and WebKit disproved all of them.

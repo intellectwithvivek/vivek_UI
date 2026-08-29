@@ -326,7 +326,7 @@ Measured with `size-limit`, minified and brotlied, React excluded:
 | A whole landing page (`Hero`+`FeatureGrid`+`Pricing`+`FAQ`+`CTA`+`Footer`) | **3.1 kB** |
 | All six charts | **10.5 kB** |
 | Every component, imported at once | **66.6 kB** |
-| `styles.css` | 241.9 kB raw, **33.7 kB gzipped** |
+| `styles.css` | 242.4 kB raw, **33.8 kB gzipped** |
 | `charts.css` | 12.4 kB raw, **2.5 kB gzipped** |
 <!-- size-table:end -->
 

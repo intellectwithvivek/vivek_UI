@@ -15,6 +15,7 @@
    * turning the page into a horizontal scroller.
    */
   max-inline-size: 100%;
+  position: relative;
   min-inline-size: 0;
   overflow: auto;
   overscroll-behavior-x: contain;

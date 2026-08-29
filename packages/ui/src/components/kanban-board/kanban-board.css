@@ -18,6 +18,14 @@
   min-inline-size: 0;
   overflow-x: auto;
   overscroll-behavior-x: contain;
+  /*
+   * A containing block for the absolutely-positioned `.vk-visually-hidden` text inside a
+   * card. Without it those spans resolve against the initial containing block, land at
+   * their static position — several hundred pixels into a strip wider than the screen —
+   * and stretch `documentElement.scrollWidth`, so the PAGE scrolled sideways by 491px on
+   * a phone while the strip itself was innocent.
+   */
+  position: relative;
   padding-block-end: var(--vk-space-2);
 }
 

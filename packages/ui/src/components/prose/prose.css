@@ -175,6 +175,7 @@
 :where(.vk-prose pre) {
   margin-block: 0;
   padding: var(--vk-space-4);
+  position: relative;
   min-inline-size: 0;
   overflow-x: auto;
   background: var(--vk-color-surface-hover);
@@ -206,6 +207,7 @@
 :where(.vk-prose table) {
   display: block;
   max-inline-size: 100%;
+  position: relative;
   min-inline-size: 0;
   overflow-x: auto;
   border-collapse: collapse;

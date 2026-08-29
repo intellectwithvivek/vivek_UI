@@ -46,6 +46,7 @@
   margin: 0;
   padding: var(--vk-space-4);
   border-radius: var(--vk-radius-md);
+  position: relative;
   min-inline-size: 0;
   overflow-x: auto;
   line-height: 1.6;

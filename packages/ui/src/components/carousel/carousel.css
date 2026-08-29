@@ -58,6 +58,7 @@
   grid-area: track;
   display: flex;
   gap: var(--vk-carousel-gap);
+  position: relative;
   min-inline-size: 0;
   overflow-x: auto;
   overflow-y: hidden;

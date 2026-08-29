@@ -1,7 +1,8 @@
 import { Alert, Code, Heading, Text } from '@the_viveksingh/vivek-ui'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { registry } from '../lib/registry'
+import { PACKAGE_NAME, registry } from '../lib/registry'
+import { LIBRARY_VERSION } from '../lib/version'
 import { CodeBlock } from './code-block'
 
 /**
@@ -649,6 +650,63 @@ export function Tracked({ event, ...rest }: TrackedProps) {
             <Code>KanbanBoard</Code> and <Code>Scheduler</Code> - did not, so a test id or an inline
             style needed a wrapper element. Those wrappers can go. A test suite now keeps the
             contract true for every component.
+          </Text>
+        </section>
+        <section>
+          <Heading level={2} size="lg">
+            Upgrading an existing app
+          </Heading>
+          <Text tone="muted">
+            Three commands and one search-and-replace pass. Nothing below is optional-but-nice: a
+            renamed prop is silently ignored by the new version, so the compiler flags it only if
+            you are on TypeScript. Run the typecheck.
+          </Text>
+          <CodeBlock
+            code={`npm install ${PACKAGE_NAME}@${LIBRARY_VERSION}
+npx tsc --noEmit          # every renamed prop shows up here
+npm run build`}
+          />
+          <Text tone="muted">
+            If the app is JavaScript, grep for the old names instead — the table above is the
+            complete list, and every one of them is a distinctive string.
+          </Text>
+          <Alert title="Give this to your coding agent" tone="info">
+            <Text size="sm">
+              The whole upgrade is mechanical, which makes it a good task to hand over. Copy the
+              prompt below into Claude Code, Cursor or whatever you use; it names every rename, so
+              the agent does not have to guess.
+            </Text>
+          </Alert>
+          <CodeBlock
+            code={`Upgrade this project to ${PACKAGE_NAME} ${LIBRARY_VERSION} from a pre-1.0 version.
+
+1. Bump the dependency to ^${LIBRARY_VERSION} and install.
+2. Apply these prop renames wherever the component is used:
+   - RadioGroup, OTPInput, TagInput: onChange -> onValueChange
+   - Scheduler: onEventClick -> onSelect
+   - FAQ: defaultOpen -> defaultOpenIndex
+   - EditableGrid: rows -> data
+   - PieChart, ProgressRing: size -> diameter
+   - CTA: variant -> background
+   - Text: tone="default" -> tone="neutral"
+   - Progress: label is now required (describe what is loading)
+3. Remove wrapper elements that existed only to attach a ref, className, style or
+   test id to EditableGrid, FileTree, KanbanBoard or Scheduler - all four now
+   forward the ref and merge className/style onto their own root.
+4. Chart legends are interactive by default now. If a chart is a figure in a
+   report rather than a dashboard control, pass interactiveLegend={false}.
+5. ChatMessage and ChatThread format timestamps with explicit locale and timeZone
+   props (defaults en-US and UTC). If you render them on a server, pass the
+   viewer's values or a preformatted string - the old runtime-locale behaviour
+   caused React hydration error #418.
+6. Run \`npx tsc --noEmit\` and fix what it reports, then run the test suite.
+Do not change anything else.`}
+          />
+          <Text tone="muted">
+            Optional, and worth doing once the upgrade is green: swap{' '}
+            <Code>{`import '${PACKAGE_NAME}/styles.css'`}</Code> for the per-component stylesheets
+            described in <Link href="/docs/installation">Installation</Link>. A typical page drops
+            from 34&nbsp;kB of CSS to about 4.
           </Text>
         </section>
       </>

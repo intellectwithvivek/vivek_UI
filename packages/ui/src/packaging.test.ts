@@ -48,18 +48,24 @@ describe('package metadata', () => {
     expect(PKG.scripts['build:css']).toContain('src/styles/print.css -o dist/print.css')
   })
 
-  it('excludes every stylesheet export from the are-the-types-wrong check in CI', () => {
-    // attw models JS and type resolution only; a .css subpath reports NoResolution, which
-    // is a tool limitation and not a defect. The exclusion list in ci.yml is hand-written,
-    // and ./print.css was added to exports without extending it - CI went red for a whole
-    // push. Now the list cannot fall behind the exports map.
+  it('checks every JavaScript entrypoint with are-the-types-wrong, and only those', () => {
+    // attw models JS and type resolution only; a .css subpath reports NoResolution, which is
+    // a tool limitation and not a defect. The exports map carries a wildcard `./css/*` for
+    // the per-component stylesheets, which an exclusion list cannot name, so CI passes an
+    // explicit include list instead. It must cover every export that is not a stylesheet.
     const ci = readFileSync(join(ROOT, '..', '..', '.github', 'workflows', 'ci.yml'), 'utf8')
-    const flag = ci.match(/--exclude-entrypoints (.*)/)?.[1] ?? ''
-    const cssExports = Object.keys(PKG.exports).filter((key) => key.endsWith('.css'))
-    expect(cssExports.length).toBeGreaterThan(0)
-    for (const subpath of cssExports) {
-      expect(flag, `${subpath} missing from attw --exclude-entrypoints`).toContain(subpath)
-    }
+    const flag = ci.match(/--entrypoints (.*)/)?.[1] ?? ''
+    const listed = flag.trim().split(/\s+/)
+    const jsExports = Object.keys(PKG.exports).filter(
+      (key) => !key.endsWith('.css') && key !== './css/*' && key !== './package.json',
+    )
+    expect(jsExports.length).toBeGreaterThan(0)
+    expect(listed.sort()).toEqual(jsExports.sort())
+  })
+
+  it('exports per-component stylesheets through one wildcard, built by build:css', () => {
+    expect(PKG.exports['./css/*']).toBe('./dist/css/*')
+    expect(PKG.scripts['build:css']).toContain('build-css-parts.mjs')
   })
 
   it('ships only dist', () => {

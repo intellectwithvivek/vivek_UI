@@ -374,7 +374,7 @@ export const Tabs = Object.assign(TabsRoot, {
   Panel: TabsPanel,
 })
 
-/* Named part exports — see scripts/add-compound-exports.mjs.
+/* Named part exports.
  *
  * Tabs is a client component, so a Server Component receives it as a client
  * reference and `Tabs.Part` reads `undefined` off that reference. These named

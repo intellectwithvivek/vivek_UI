@@ -91,17 +91,17 @@ jobs:
       # calls it FalseESM, "Masquerading as ESM". Every test passed; CJS consumers got
       # wrong types.
       #
-      # The CSS subpaths are excluded because attw only models JS/type resolution and
-      # reports NoResolution for any stylesheet - a tool limitation, not a package defect.
-      # packaging.test.ts asserts every .css export is listed here, because adding
-      # ./print.css without extending this flag turned this step red for a full push.
+      # Only the JavaScript entrypoints are checked: attw models JS/type resolution and
+      # reports NoResolution for any stylesheet, and the exports map now carries a wildcard
+      # `./css/*` for the per-component stylesheets, which an exclusion list cannot name.
+      # packaging.test.ts asserts every non-CSS export is listed here.
       - name: Packaging lint (publint)
         working-directory: packages/ui
         run: npx --yes publint@0.3.24
 
       - name: Type resolution across module systems (are-the-types-wrong)
         working-directory: packages/ui
-        run: npx --yes @arethetypeswrong/cli@0.18.5 --pack . --exclude-entrypoints ./styles.css ./charts.css ./print.css
+        run: npx --yes @arethetypeswrong/cli@0.18.5 --pack . --entrypoints . ./charts
 
       - name: Assert the published package has no runtime dependencies
         run: |
@@ -178,7 +178,7 @@ jobs:
       # sampling on composed pages in both themes.
       - name: Install the CI browser
         working-directory: apps/docs
-        run: npx playwright install chromium --with-deps
+        run: npx playwright install chromium firefox webkit --with-deps
 
       - name: Layout, keyboard and axe specs
         working-directory: apps/docs

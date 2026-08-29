@@ -128,13 +128,17 @@ body {
 }
 
 /* Block and template titles can be long; on a phone the two pager buttons must wrap their
-   text rather than push the page sideways. */
+   text rather than push the page sideways. The button keeps its height as a minimum and
+   grows only when the label actually wraps. */
 .doc-pager > .vk-button {
   max-inline-size: 100%;
   min-inline-size: 0;
+  height: auto;
+  min-height: 2.5rem;
+  padding-block: var(--vk-space-2);
+  line-height: 1.3;
   white-space: normal;
   text-align: start;
-  block-size: auto;
 }
 
 /* --- code blocks --------------------------------------------------------------- */
@@ -434,6 +438,7 @@ body {
   color: var(--vk-color-muted);
   background: color-mix(in oklab, var(--vk-color-fg) 4%, var(--vk-color-surface-subtle));
   border-inline-end: 1px solid var(--vk-color-border);
+  -webkit-user-select: none;
   user-select: none;
   font-variant-numeric: tabular-nums;
 }

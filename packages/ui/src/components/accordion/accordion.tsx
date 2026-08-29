@@ -314,7 +314,7 @@ export const Accordion = Object.assign(AccordionRoot, {
   Content: AccordionContent,
 })
 
-/* Named part exports — see scripts/add-compound-exports.mjs.
+/* Named part exports.
  *
  * Accordion is a client component, so a Server Component receives it as a client
  * reference and `Accordion.Part` reads `undefined` off that reference. These named

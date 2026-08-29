@@ -20,8 +20,12 @@ together and is what 1.x is measured against.
 - Every component has a `vitest-axe` assertion, a keyboard map from the WAI-ARIA Authoring
   Practices where it is interactive, and is hydrated in the SSR sweep.
 - Gates that fail the build, not a checklist: §4.1 contract, leaks, hydration, logical
-  properties, reduced motion, dangerouslySetInnerHTML budget, packaging, install matrix
-  (npm / yarn / pnpm), Node 18 and 20, React 18 and 19, three-viewport browser axe.
+  properties, reduced motion, Safari prefixes, shrinkable scroll containers,
+  dangerouslySetInnerHTML budget, packaging, install matrix (npm / yarn / pnpm), Node 18 and
+  20, React 18 and 19, and a browser suite that runs every route and every demo in Chromium
+  (phone / tablet / desktop), Firefox and WebKit.
+- Browser support is stated and tested, not assumed: the last two versions of Chrome, Edge,
+  Firefox and Safari, plus iOS Safari. The CSS build targets exactly that list.
 
 **Migrating from 0.x**: see `/docs/migration`. Renames are listed one per line with the
 before and after; nothing was removed without a replacement.

@@ -231,7 +231,7 @@ export const ChatThread = Object.assign(ChatThreadRoot, {
 
 export type { ChatThreadEmptyProps }
 
-/* Named part exports — see scripts/add-compound-exports.mjs.
+/* Named part exports.
  *
  * ChatThread is a client component, so a Server Component receives it as a client
  * reference and `ChatThread.Part` reads `undefined` off that reference. These named

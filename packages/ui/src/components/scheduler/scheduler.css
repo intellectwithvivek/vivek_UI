@@ -23,6 +23,9 @@
 }
 
 :where(.vk-scheduler__scroll) {
+  /* Same reason as KanbanBoard: a flex or grid item's automatic minimum size is its
+     content's, so without this the timeline pushes the page sideways instead of scrolling. */
+  min-inline-size: 0;
   overflow-x: auto;
   overscroll-behavior-x: contain;
 }

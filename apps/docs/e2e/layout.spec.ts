@@ -20,8 +20,10 @@ test.describe('every key page', () => {
     test(`${route} does not scroll sideways`, async ({ page }) => {
       // The most common responsive failure there is, and invisible on a desktop with an
       // overlay scrollbar — which is why it survives review so often.
-      await page.goto(route)
-      await page.waitForLoadState('load')
+      await page.goto(route, route.startsWith('/showcase') ? { waitUntil: 'domcontentloaded' } : {})
+      // The showcase embeds twelve live third-party sites; waiting for all of them to
+      // finish loading exceeds the timeout in Firefox on a healthy page.
+      await page.waitForLoadState(route.startsWith('/showcase') ? 'domcontentloaded' : 'load')
 
       const overflow = await horizontalOverflow(page)
       const offenders = overflow > 0 ? await elementsPastViewport(page) : []
@@ -39,8 +41,10 @@ test.describe('the header', () => {
        * first nav link — and every test in the repo passed, because jsdom gives every one of
        * those elements the same 0×0 box.
        */
-      await page.goto(route)
-      await page.waitForLoadState('load')
+      await page.goto(route, route.startsWith('/showcase') ? { waitUntil: 'domcontentloaded' } : {})
+      // The showcase embeds twelve live third-party sites; waiting for all of them to
+      // finish loading exceeds the timeout in Firefox on a healthy page.
+      await page.waitForLoadState(route.startsWith('/showcase') ? 'domcontentloaded' : 'load')
 
       const boxes = await page.$$eval(
         '.vk-navbar__brand, .vk-navbar__link, .vk-navbar__actions > *, .vk-navbar__toggle',
@@ -116,7 +120,7 @@ test.describe('the showcase preview', () => {
      * over the site permanently. It looked exactly like a preview that had failed to load,
      * and nothing in the repo could tell the difference.
      */
-    await page.goto('/showcase/pulse-analytics')
+    await page.goto('/showcase/pulse-analytics', { waitUntil: 'domcontentloaded' })
     await page.waitForLoadState('domcontentloaded')
 
     const frame = page.locator('.browser__frame')
@@ -143,7 +147,7 @@ test.describe('the showcase preview', () => {
   })
 
   test('every gallery card shows a thumbnail', async ({ page }) => {
-    await page.goto('/showcase')
+    await page.goto('/showcase', { waitUntil: 'domcontentloaded' })
     await page.waitForLoadState('domcontentloaded')
     const thumbs = page.locator('.site-thumb__frame')
     expect(await thumbs.count()).toBe(12)

@@ -464,7 +464,7 @@ export const Navbar = Object.assign(NavbarRoot, {
   Toggle: NavbarToggle,
 })
 
-/* Named part exports — see scripts/add-compound-exports.mjs.
+/* Named part exports.
  *
  * Navbar is a client component, so a Server Component receives it as a client
  * reference and `Navbar.Part` reads `undefined` off that reference. These named

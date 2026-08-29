@@ -151,7 +151,33 @@ export interface AxeViolation {
  * only exist once things are assembled: a duplicate landmark, a second `<h1>`, a colour
  * pairing that only occurs when one component sits on another's background.
  */
+/**
+ * Wait for every running animation to finish.
+ *
+ * Entry animations are why a browser-side measurement can disagree between engines: right
+ * after `load`, WebKit still had 56 animations in flight on the home page, so axe sampled a
+ * button mid-fade and computed the blended colour (#67676d on #0a0a0b, 3.52:1) rather than
+ * the painted one. Chromium happened to be finished by then. Waiting for the animations
+ * rather than for a fixed delay keeps the check deterministic without slowing a page that
+ * has none.
+ */
+export async function settled(page: Page, timeout = 3000): Promise<void> {
+  await page
+    .waitForFunction(
+      () => document.getAnimations().every((a) => a.playState === 'finished'),
+      null,
+      {
+        timeout,
+      },
+    )
+    .catch(() => {
+      // An infinite animation (a marquee, a spinner) never finishes. Measuring is still
+      // better than failing here; those elements are decorative.
+    })
+}
+
 export async function axeViolations(page: Page, disable: string[] = []): Promise<AxeViolation[]> {
+  await settled(page)
   await page.addScriptTag({ content: AXE_SOURCE })
   return page.evaluate(async (disabled) => {
     const rules: Record<string, { enabled: boolean }> = {}

@@ -1,4 +1,12 @@
+/*
+ * A board is wider than a phone by design: the columns scroll inside the strip. That only
+ * works if the board is allowed to be narrower than its contents — a flex or grid item's
+ * automatic minimum size is its content's, so without `min-inline-size: 0` the board pushed
+ * the whole PAGE sideways instead of scrolling itself.
+ */
 :where(.vk-kanban) {
+  min-inline-size: 0;
+  max-inline-size: 100%;
   font-family: var(--vk-font-sans);
   color: var(--vk-color-fg);
 }
@@ -7,7 +15,9 @@
   display: flex;
   gap: var(--vk-space-4);
   align-items: flex-start;
+  min-inline-size: 0;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   padding-block-end: var(--vk-space-2);
 }
 

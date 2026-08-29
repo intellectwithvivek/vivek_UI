@@ -34,8 +34,18 @@ export interface VideoTrack {
 }
 
 export interface VideoPlayerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
-  /** One URL, or several sources the browser picks from in order. */
+  /**
+   * One URL, or several sources the browser tries **in order**.
+   *
+   * List the most widely supported format first (MP4/H.264, then WebM): Safari holds the
+   * document's `load` event while it works through a format it cannot decode, so a WebM-first
+   * list makes the whole page appear to hang there.
+   */
   src?: string | VideoSource[]
+  /**
+   * Frame shown before playback. **A raster image (JPEG, PNG, WebP)** — Safari ignores an
+   * SVG poster, and the document's `load` event never fires while it waits for one.
+   */
   poster?: string
   /** WebVTT text tracks. The first `default` one (else the first) is the captions track. */
   tracks?: VideoTrack[]

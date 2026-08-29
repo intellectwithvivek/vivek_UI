@@ -8,13 +8,13 @@ export default function AudioPlayerPreview() {
       <AudioPlayer
         title="T. rex roar"
         subtitle="CC0 sample · 2 seconds"
-        src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
+        src="https://mdn.github.io/shared-assets/audio/t-rex-roar.mp3"
         style={{ maxWidth: '36rem' }}
       />
       <AudioPlayer
         size="sm"
         label="Voice note"
-        src="https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3"
+        src="https://mdn.github.io/shared-assets/audio/t-rex-roar.mp3"
         rates={[]}
         style={{ maxWidth: '28rem' }}
       />

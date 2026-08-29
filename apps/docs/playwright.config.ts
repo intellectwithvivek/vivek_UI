@@ -75,5 +75,19 @@ export default defineConfig({
         ...(useInstalledChrome ? { channel: 'chrome' } : {}),
       },
     },
+    /*
+     * The other two engines. Chromium finds layout and a11y problems; Firefox and WebKit
+     * find the ones that are engine-specific - a `-webkit-` prefix nobody wrote, a
+     * container query WebKit evaluates differently, a focus ring Firefox draws elsewhere.
+     * WebKit runs as an iPhone because that is where it is actually used.
+     */
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'], viewport: { width: 1280, height: 900 } },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['iPhone 13'] },
+    },
   ],
 })

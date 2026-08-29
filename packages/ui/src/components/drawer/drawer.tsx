@@ -72,7 +72,7 @@ export type {
   DialogTitleProps as DrawerTitleProps,
 }
 
-/* Named part exports — see scripts/add-compound-exports.mjs.
+/* Named part exports.
  *
  * Drawer is a client component, so a Server Component receives it as a client
  * reference and `Drawer.Part` reads `undefined` off that reference. These named

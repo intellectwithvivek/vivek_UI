@@ -10,8 +10,16 @@ export default function VideoPlayerPreview() {
     <Stack gap={3}>
       <VideoPlayer
         label="Flower, a sample clip"
-        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
-        poster="https://interactive-examples.mdn.mozilla.net/media/examples/flower-poster.jpg"
+        src={[
+          // MP4 first: every engine plays it. WebKit evaluates sources in order and, given a
+          // format it cannot decode, holds the document's load event while it decides.
+          { src: 'https://mdn.github.io/shared-assets/videos/flower.mp4', type: 'video/mp4' },
+          { src: 'https://mdn.github.io/shared-assets/videos/flower.webm', type: 'video/webm' },
+        ]}
+        poster="/demo/video-poster.png"
+        // The docs page should not fetch a megabyte of video before anyone presses play:
+        // the poster carries the frame, and the media loads on demand.
+        preload="none"
         style={{ maxWidth: '40rem' }}
         onPlayingChange={(playing) => setStatus(playing ? 'Playing' : 'Paused')}
         onEnded={() => setStatus('Ended')}

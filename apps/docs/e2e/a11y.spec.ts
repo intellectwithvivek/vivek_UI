@@ -34,10 +34,14 @@ const NOT_OURS = [
 test.describe('accessibility of the composed pages', () => {
   for (const route of KEY_ROUTES) {
     test(`${route} has no axe violations`, async ({ page }) => {
-      await page.goto(route)
-      // 'load', never 'networkidle': the showcase page lazy-loads twelve live iframes that
-      // trickle requests indefinitely, so networkidle times the test out on a healthy page.
-      await page.waitForLoadState('load')
+      await page.goto(route, route.startsWith('/showcase') ? { waitUntil: 'domcontentloaded' } : {})
+      /*
+       * 'load', never 'networkidle': the showcase page lazy-loads twelve live iframes that
+       * trickle requests indefinitely, so networkidle times the test out on a healthy page.
+       * Even 'load' waits for those frames, and in Firefox twelve third-party sites take
+       * longer than the default timeout — so the showcase settles for its own DOM.
+       */
+      await page.waitForLoadState(route.startsWith('/showcase') ? 'domcontentloaded' : 'load')
 
       const violations = await axeViolations(page, NOT_OURS)
       const report = violations
@@ -67,7 +71,15 @@ test.describe('accessibility in dark mode', () => {
 })
 
 test.describe('keyboard reachability', () => {
-  test('tabbing from the top reaches the main content quickly', async ({ page }) => {
+  test('tabbing from the top reaches the main content quickly', async ({ page }, testInfo) => {
+    /*
+     * Not WebKit. Safari only moves Tab focus between form controls unless the user turns
+     * on Full Keyboard Access (System Settings → Keyboard), so a link — including a skip
+     * link — is not tabbable there by default. That is a browser preference, not a defect
+     * in the markup: the same element is focusable in every engine that tabs to links, and
+     * WebKit itself honours it once the preference is on.
+     */
+    test.skip(testInfo.project.name === 'webkit', 'WebKit does not tab to links by default')
     // A skip link exists so a keyboard user does not walk the whole nav on every page. If it
     // is not the first stop, it is not doing its job.
     await page.goto('/')

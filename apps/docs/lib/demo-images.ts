@@ -9,7 +9,12 @@
  */
 import type { PlaceholderOptions } from './placeholder-image'
 
-export const DEMO_IMAGES: Record<string, Omit<PlaceholderOptions, 'seed'>> = {
+interface DemoImage extends Omit<PlaceholderOptions, 'seed'> {
+  /** Serve as a PNG at `/demo/<name>.png` rather than an SVG. Video posters must be raster. */
+  raster?: true
+}
+
+export const DEMO_IMAGES: Record<string, DemoImage> = {
   // Blocks
   'vk-app': { width: 900, height: 700, label: 'App' },
   'vk-dash': { width: 1200, height: 900, label: 'Dashboard' },
@@ -22,6 +27,7 @@ export const DEMO_IMAGES: Record<string, Omit<PlaceholderOptions, 'seed'>> = {
   'vk-design': { width: 1200, height: 800, label: 'Design' },
   'vk-build': { width: 1200, height: 800, label: 'Build' },
   'vk-ship': { width: 1200, height: 800, label: 'Ship' },
+  'video-poster': { width: 960, height: 540, raster: true },
   // Lightbox preview
   'lightbox-ridge': { width: 1600, height: 1000, label: 'Dawn on the ridge' },
   'lightbox-pines': { width: 1600, height: 1000, label: 'Fog in the pines' },

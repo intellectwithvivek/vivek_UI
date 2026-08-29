@@ -1,6 +1,8 @@
 import {
   Alert,
+  Code,
   Heading,
+  Table,
   Tabs,
   TabsList,
   TabsPanel,
@@ -169,6 +171,32 @@ if (root) createRoot(root).render(<App />)`}
 
       <section>
         <Heading level={2} size="lg">
+          Only the CSS you use
+        </Heading>
+        <Text tone="muted">
+          One stylesheet is the simple answer and the right default. If you would rather ship less,
+          every component also has its own file: a page built from Button, Card, Input, Navbar and
+          Hero needs about 4 kB of CSS gzipped instead of 34.
+        </Text>
+        <CodeBlock
+          code={`// Instead of the whole stylesheet…
+import '${PACKAGE_NAME}/css/reset.css'
+import '${PACKAGE_NAME}/css/tokens.css'
+import '${PACKAGE_NAME}/css/button.css'
+import '${PACKAGE_NAME}/css/card.css'
+import '${PACKAGE_NAME}/css/input.css'`}
+        />
+        <Text size="sm" tone="muted">
+          <code>reset.css</code> and <code>tokens.css</code> are the two everything else assumes;
+          the rest are named after the component directory. A few components borrow another&apos;s
+          look — Combobox uses the Input styles, DatePicker uses Calendar&apos;s — and say so on
+          their own page. The JavaScript needs no equivalent: it already tree-shakes, so a Button
+          import costs 780&nbsp;B.
+        </Text>
+      </section>
+
+      <section>
+        <Heading level={2} size="lg">
           Using charts
         </Heading>
         <Text tone="muted">
@@ -203,6 +231,59 @@ import { Tabs, TabsList, TabsTab } from '${PACKAGE_NAME}'
 import { Tabs } from '${PACKAGE_NAME}'
 <Tabs.List>...</Tabs.List>`}
         />
+      </section>
+
+      <section>
+        <Heading level={2} size="lg">
+          What it runs on
+        </Heading>
+        <Text tone="muted">
+          Stated, and tested rather than assumed. The browser suite runs every route and every demo
+          in Chromium at three viewports, in Firefox and in WebKit on each change; the CSS build
+          targets exactly the list below, so a prefix Safari still needs is emitted rather than
+          hoped for.
+        </Text>
+        <Table>
+          <Table.Head>
+            <Table.Row>
+              <Table.HeaderCell>Requirement</Table.HeaderCell>
+              <Table.HeaderCell>Supported</Table.HeaderCell>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>React</Table.Cell>
+              <Table.Cell>
+                18 and 19 (peer range <Code>^18 || ^19</Code>), tested on both
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Next.js</Table.Cell>
+              <Table.Cell>
+                App Router and Pages Router; 65 of the components are Server Components
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Node</Table.Cell>
+              <Table.Cell>18 and above, tested on 18 and 20 against the built package</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Browsers</Table.Cell>
+              <Table.Cell>
+                The last two versions of Chrome, Edge, Firefox and Safari, plus iOS Safari
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Package managers</Table.Cell>
+              <Table.Cell>npm, yarn and pnpm, each installed from a real tarball in CI</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+        <Text size="sm" tone="muted">
+          Older browsers are not blocked, they are simply not tested: the library uses
+          <Code>:where()</Code>, container queries, <Code>color-mix()</Code> and logical properties,
+          all of which need a 2023-or-later engine.
+        </Text>
       </section>
 
       <section>

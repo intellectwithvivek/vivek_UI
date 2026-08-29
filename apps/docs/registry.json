@@ -19015,14 +19015,14 @@
             "name": "src",
             "type": "string | VideoSource[]",
             "required": false,
-            "description": "One URL, or several sources the browser picks from in order.",
+            "description": "One URL, or several sources the browser tries **in order**. List the most widely supported format first (MP4/H.264, then WebM): Safari holds the document's `load` event while it works through a format it cannot decode, so a WebM-first list makes the whole page appear to hang there.",
             "default": ""
           },
           {
             "name": "poster",
             "type": "string",
             "required": false,
-            "description": "",
+            "description": "Frame shown before playback. **A raster image (JPEG, PNG, WebP)** — Safari ignores an SVG poster, and the document's `load` event never fires while it waits for one.",
             "default": ""
           },
           {

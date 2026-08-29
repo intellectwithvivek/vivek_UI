@@ -65,7 +65,7 @@ export type {
   DialogTitleProps as ModalTitleProps,
 }
 
-/* Named part exports — see scripts/add-compound-exports.mjs.
+/* Named part exports.
  *
  * Modal is a client component, so a Server Component receives it as a client
  * reference and `Modal.Part` reads `undefined` off that reference. These named

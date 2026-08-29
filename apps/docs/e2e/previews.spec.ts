@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test'
 import { registry } from '../lib/registry'
+import { settled } from './helpers'
 
 /**
  * The demos themselves, not the page around them.
@@ -40,6 +41,8 @@ test.describe('every demo keeps its shape', () => {
 
       await page.goto(route)
       await page.waitForLoadState('load')
+      // Measure painted geometry, not a mid-flight entry animation.
+      await settled(page)
 
       // 1. No column of single letters: an element with a few words of text but no room
       //    for one. Vertical labels opt out with `writing-mode`.

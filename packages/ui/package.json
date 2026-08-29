@@ -50,6 +50,7 @@
     "./styles.css": "./dist/styles.css",
     "./print.css": "./dist/print.css",
     "./charts.css": "./dist/charts.css",
+    "./css/*": "./dist/css/*",
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
@@ -94,7 +95,7 @@
   ],
   "scripts": {
     "build": "node ../../scripts/gen-exports.mjs --check && node ../../scripts/build-js.mjs && node ../../scripts/fix-dist-specifiers.mjs && pnpm build:css && node ../../scripts/check-directives.mjs",
-    "build:css": "lightningcss --bundle --minify --browserslist src/styles/entry.css -o dist/styles.css && lightningcss --bundle --minify --browserslist src/charts/styles.css -o dist/charts.css && lightningcss --bundle --minify --browserslist src/styles/print.css -o dist/print.css",
+    "build:css": "lightningcss --bundle --minify --browserslist src/styles/entry.css -o dist/styles.css && lightningcss --bundle --minify --browserslist src/charts/styles.css -o dist/charts.css && lightningcss --bundle --minify --browserslist src/styles/print.css -o dist/print.css && node ../../scripts/build-css-parts.mjs",
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",
